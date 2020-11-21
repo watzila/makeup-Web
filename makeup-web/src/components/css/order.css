@@ -1,0 +1,331 @@
+#order {
+	margin: 0 auto;
+}
+#order .container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 32px 0;
+}
+
+.cartSummary {
+	max-width: 1200px;
+	width: 80%;
+	padding: 36px;
+	border: 1px solid #ccc;
+}
+
+.collapse-open {
+	display: none;
+}
+
+.collapse-painel {
+	visibility: hidden;
+	max-height: 0;
+	opacity: 0;
+	transition: max-height 0.1s, visibility 0.3s, opacity 0.3s;
+}
+
+.collapse-open:checked ~ .collapse-painel {
+	max-height: 100%;
+	opacity: 100;
+	visibility: visible;
+}
+
+.collapse-list .collapse-btn {
+	position: relative;
+	cursor: pointer;
+	display: block;
+	padding: 15px 10px;
+	font-weight: 700;
+	transition: background-color 0.2s ease;
+	text-align: center;
+}
+.collapse-list .collapse-btn span {
+	color: #cb3747;
+}
+
+.collapse-open ~ .collapse-btn span:after {
+	position: absolute;
+	font-family: "FontAwesome";
+	content: "\f106";
+	transform: translateY(-20%);
+	font-size: 32px;
+	font-weight: 900;
+	margin-left: 12px;
+	color: #000;
+}
+
+.collapse-open:checked ~ .collapse-btn span:after {
+	position: absolute;
+	font-family: "FontAwesome";
+	content: "\f107";
+	transform: translateY(-20%);
+	font-size: 32px;
+	font-weight: 900;
+	margin-left: 12px;
+	color: #000;
+}
+
+.collapse-list .collapse-inner {
+	padding: 10px;
+}
+
+.cartTableBox {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+.cartTable {
+	width: 100%;
+	text-align: center;
+	border-spacing: 0;
+}
+.cartTable th,
+.cartTable td {
+	padding: 16px;
+}
+.cartTable th:first-child {
+	border-top-left-radius: 10px;
+}
+.cartTable th:last-child {
+	border-top-right-radius: 10px;
+}
+.cartTable thead {
+	background-color: #fafac8;
+}
+.cartTable .productName {
+	display: flex;
+	border: none;
+	text-align: left;
+	align-items: center;
+}
+.cartTable .productName div:first-child img {
+	margin-right: 16px;
+}
+.cartTable .productName div:last-child p {
+	color: #666;
+}
+.cartTable .productName div:last-child i {
+	color: #78c5bf;
+	margin-right: 8px;
+}
+.cartTable .productName div:last-child small {
+	color: #78c5bf;
+}
+.cartTable .productQuantity {
+	width: 150px;
+	vertical-align: baseline;
+}
+.cartTable .productQuantity input {
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	vertical-align: baseline;
+}
+.cartTable .productQuantity button {
+	width: 32px;
+	height: 32px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #fafac8;
+	border: 1px solid #ccc;
+	vertical-align: baseline;
+}
+.cartTable .btnDelete {
+	background-color: transparent;
+	border: none;
+	font-size: 16px;
+}
+.cartTable .coupon {
+	background-color: #eee;
+}
+.cartTable .coupon td:first-child {
+	text-align: right;
+	font-size: 14px;
+}
+.cartTable .coupon td:last-child input {
+	height: 36px;
+	padding-left: 8px;
+	text-align: center;
+}
+.cartTable .discountText {
+	text-align: right;
+}
+.cartTable .discountText td:first-child {
+	border-bottom: 1px solid #ccc;
+}
+.cartTable .discountText td:first-child p,
+.cartTable .discountText td:first-child span {
+	color: #cb3747;
+	font-weight: 700;
+}
+.cartTable .discountText td:last-child {
+	padding-right: 32px;
+	color: #cb3747;
+	font-weight: 700;
+	border-bottom: 1px solid #ccc;
+}
+.cartTable .subtotal,
+.cartTable .shipment {
+	text-align: right;
+}
+.cartTable .subtotal td:first-child,
+.cartTable .shipment td:first-child {
+	padding: 8px 16px 0px 16px;
+}
+.cartTable .subtotal td:last-child,
+.cartTable .shipment td:last-child {
+	padding: 8px 32px 0px 16px;
+	color: #cb3747;
+	font-weight: 700;
+}
+.cartTable .totalMoney {
+	text-align: right;
+	background-color: #fafac8;
+}
+.cartTable .totalMoney td:first-child {
+	border-bottom-left-radius: 10px;
+}
+.cartTable .totalMoney td:first-child p,
+.cartTable .totalMoney td:first-child span {
+	font-weight: 700;
+}
+.cartTable .totalMoney td:last-child {
+	border-bottom-right-radius: 10px;
+	padding-right: 32px;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+@media screen and (max-width: 850px) {
+	.cartTable {
+		display: flex;
+		flex-direction: column;
+	}
+	th:nth-child(1) {
+		flex: 100%;
+	}
+	th:nth-child(2),
+	th:nth-child(3),
+	th:nth-child(4),
+	th:nth-child(5) {
+		display: none;
+	}
+	.productItem {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.productItem td:nth-child(1) {
+		flex: 100%;
+	}
+	.productItem td:nth-child(2) {
+		flex: 2;
+	}
+	.productItem td:nth-child(3) {
+		display: none;
+	}
+	.productItem td:nth-child(4),
+	.productItem td:nth-child(5) {
+		flex: 1;
+	}
+	.coupon {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.discountText,
+	.subtotal,
+	.shipment,
+	.totalMoney {
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+	}
+	.discountText td:first-child,
+	.subtotal td:first-child,
+	.shipment td:first-child,
+	.totalMoney td:first-child {
+		flex: 2;
+	}
+	.discountText td:last-child,
+	.subtotal td:last-child,
+	.shipment td:last-child,
+	.totalMoney td:last-child {
+		flex: 1;
+	}
+}
+
+#panelOrder {
+	max-width: 1200px;
+	width: 80%;
+	padding: 24px 36px 24px 36px;
+	border: 1px solid #ccc;
+	margin-top: 24px;
+}
+
+.panelOrderBox {
+	display: flex;
+	flex-direction: column;
+}
+.panelOrderBox hr {
+	margin: 8px 0 16px 0;
+}
+.panelOrderBox .panelOrderStatus {
+	display: flex;
+	padding: 0 8px 0 8px;
+	margin-bottom: 32px;
+}
+.panelOrderBox .panelOrderStatus .colLeft {
+	flex: 1;
+}
+.panelOrderBox .panelOrderStatus .colRight {
+	flex: 1;
+}
+.panelOrderBox .panelOrderStatus .colRight div:first-child > div:last-child {
+	color: #cb3747;
+}
+.panelOrderBox .panelOrderInfo {
+	display: flex;
+	padding: 0 8px 0 8px;
+}
+.panelOrderBox .panelOrderInfo .colLeft {
+	flex: 1;
+}
+.panelOrderBox .panelOrderInfo .colRight {
+	flex: 1;
+}
+.panelOrderBox .panelOrderText {
+	background-color: #eee;
+	margin: 0 16px 16px 0;
+	padding: 4px 8px;
+}
+.panelOrderBox .panelOrderText i {
+	margin-right: 8px;
+}
+
+.divBackHome {
+	text-align: right;
+}
+.divBackHome .btnBackHome {
+	background-color: transparent;
+	border-radius: 16px;
+	padding: 10px 20px 10px 20px;
+	font-size: 16px;
+	outline: 0;
+	margin: 16px 24px;
+	background-color: #666;
+	border-color: #666;
+	color: #fff;
+}
+.divBackHome .btnBackHome:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+@media screen and (max-width: 850px) {
+	.panelOrderStatus,
+	.panelOrderInfo {
+		flex-direction: column;
+	}
+}

@@ -1,0 +1,122 @@
+.memberMain {
+	display: flex;
+	height: var(--height);
+}
+
+.memberMain i {
+	margin-right: 1rem;
+}
+
+.memberMain > article {
+	order: 1;
+	flex: 1 1.5 auto;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	background: url(../images/member/會員頁風格.png) no-repeat bottom / contain,
+		url(../images/宣紙1.png);
+}
+
+.memberMain > article > form {
+	width: 50%;
+	padding: 20px;
+	margin: 100px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	/* line-height:1.5; */
+}
+
+.memberMain > nav {
+	order: 0;
+	flex: 1 8.5 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	background-color: var(--redColor);
+}
+
+.member {
+	padding: 10px;
+	margin: 5%;
+	text-align: center;
+}
+
+.user .action {
+	display: none;
+}
+
+.memberMain ul li,
+.memberMain ul li > a {
+	line-height: 2;
+	font-size: 1.8rem;
+	cursor: pointer;
+}
+
+.memberMain ul li:hover,
+.memberMain ul li a:hover {
+	color: var(--brownColor3);
+}
+
+.memberMain ul li div > a {
+	display: block;
+	line-height: 2;
+	font-size: 1.3rem;
+}
+
+/* RWD */
+
+/*@media all and (max-width: 640px) {
+	.memberMain {
+		flex-direction: column;
+	}
+
+	.memberMain > nav > ul {
+		height: 18%;
+		display: flex;
+		font-size: 12px;
+	}
+
+	.memberMain > article {
+		width: 100%;
+		height: 50%;
+		flex-direction: row;
+		background: url(../images/member/會員頁風格.png) no-repeat bottom / contain,
+			url(../images/member/宣紙1.png);
+		order: 1;
+	}
+	.memberMain > nav {
+		height: 10%;
+		display: flex;
+		font-size: 12px;
+		flex-direction: column;
+	}
+
+	.memberMain > article > form {
+		text-align: start;
+		background: rgba(255, 255, 255, 0.8);
+	}
+
+	li > a {
+		font-size: 12px;
+	}
+
+	li {
+		font-size: 12px;
+		display: block;
+		margin: 4px;
+	}
+
+	nav > ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.member {
+		margin: 1%;
+	}
+
+
+}*/
