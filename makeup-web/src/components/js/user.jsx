@@ -4,45 +4,61 @@ class User extends Component {
 	render() {
 		return (
 			<form>
-				<label htmlFor="fname">帳號: </label>
-				<input type="text" id="fname" name="fname" />
-				<br />
-				<br />
+				<div>
+					<label htmlFor="fname">帳號：</label>
+					<input type="text" id="fname" name="fname" autoComplete="off" />
+				</div>
 
-				<label htmlFor="username">姓名: </label>
-				<input type="text" id="username" name="username" />
-				<br />
-				<br />
+				<hr />
 
-				<label htmlFor="phone">手機: </label>
-				<input type="text" id="phone" name="phone" placeholder="0912345678" />
-				<br />
-				<br />
+				<div>
+					<label htmlFor="username">姓名：</label>
+					<input type="text" id="username" name="username" autoComplete="off" />
+				</div>
 
-				<span>性別: </span>
+				<hr />
 
-				<input type="radio" id="male" name="gender" defaultValue="male" />
-				<label htmlFor="male">男生</label>
+				<div>
+					<label htmlFor="phone">手機：</label>
+					<input type="text" id="phone" name="phone" placeholder="0912345678" autoComplete="off" />
+				</div>
 
-				<input type="radio" id="female" name="gender" defaultValue="female" />
-				<label htmlFor="female">女生</label>
+				<hr />
 
-				<input type="radio" id="other" name="gender" defaultValue="other" />
-				<label htmlFor="other">其他</label>
-				<br />
-				<br />
+				<div>
+					<label>性別：</label>
+					<span>
+						<input type="radio" id="male" name="gender" defaultValue="male" />
+						<label htmlFor="male">男生</label>
 
-				<label htmlFor="date">生日: </label>
-				<input type="date" id="date" name="date" />
-				<br />
-				<br />
+						<input type="radio" id="female" name="gender" defaultValue="female" />
+						<label htmlFor="female">女生</label>
+					</span>
+				</div>
 
-				<label htmlFor="email">E-mail: </label>
-				<input type="text" id="email" name="email" placeholder="xxxxxx@gmail.com" />
-				<br />
-				<br />
+				<hr />
 
-				<input type="submit" name="submit" defaultValue="送出" />
+				<div>
+					<label htmlFor="date">生日：</label>
+					<input type="date" id="date" name="date" />
+				</div>
+
+				<hr />
+
+				<div>
+					<label htmlFor="email">E-mail：</label>
+					<input
+						type="text"
+						id="email"
+						name="email"
+						placeholder="xxxxxx@gmail.com"
+						autoComplete="off"
+					/>
+				</div>
+
+				<hr />
+
+				<button type="submit">儲存</button>
 			</form>
 		);
 	}

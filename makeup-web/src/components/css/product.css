@@ -1,5 +1,5 @@
 .productMain {
-	background: url("../images/product/productBG1.jpg") center/cover;
+	background: url("../images/background/bg2.jpg") center/cover;
 }
 
 /*廣告*/
@@ -43,7 +43,7 @@
 	height: 34px;
 	margin-right: 9.6px;
 	vertical-align: middle;
-	background: url(../images/product/icon1.png) no-repeat center/cover;
+	background: url(../images/icon1.png) no-repeat center/cover;
 }
 
 .grid {

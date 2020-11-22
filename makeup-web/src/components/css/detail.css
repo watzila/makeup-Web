@@ -217,8 +217,9 @@
 	/*border: 1px solid;*/
 }
 
-.mainPreview img {
-	transform: translate(50%, 0%) scale(1.6);
+.mainPreview canvas {
+	transform: translate(40%, 0%);
+	/*border: 1px solid;*/
 }
 
 /*其他預覽圖*/

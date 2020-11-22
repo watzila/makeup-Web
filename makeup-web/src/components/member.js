@@ -23,34 +23,36 @@ class Member extends Component {
       <div className="memberMain">
         <article>
           {/*<img src={head} alt="head" />*/}
-          <BrowserRouter>
-            <Route exact path="" component={User} />
-            <Route exact path="/member/edit/:account" component={ChangePassword} />
-          </BrowserRouter>
+          <div>
+            <BrowserRouter>
+              <Route path="/login" component={User} />
+              <Route path="/login/edit/:account" component={ChangePassword} />
+            </BrowserRouter>
+          </div>
         </article>
 
         <nav>
           <div className="member">
             <img src={head} width="20%" alt="人像" />
 
-            <div>
-              <Link to="/member/edit">編輯個人檔案</Link>
-              <hr />
-            </div>
+            {/*<div>*/}
+            {/*<Link to="/member/edit">編輯個人檔案</Link>*/}
+            {/*</div>*/}
           </div>
 
           <ul>
+            <hr />
             <li id="aa" onClick={() => this.click(this.state.classes)} className="user">
               <i className="fa fa-user-circle-o"></i>
               我的帳號
 
               <div className={this.state.classes}>
-                <Link to="/member/edit/personal" className="user">
+                <Link to="/login" className="user">
                   <i className="fa fa-user-circle-o"></i>
                   個人檔案
                 </Link>
 
-                <Link to="" className="address">
+                {/*<Link to="" className="address">
                   <i className="fa fa-address-card"></i>
                   購買地址
                 </Link>
@@ -58,9 +60,9 @@ class Member extends Component {
                 <Link to="" className="marker">
                   <i className="fa fa-map-marker"></i>
                   地址
-                </Link>
+                </Link>*/}
 
-                <Link to="" className="lock">
+                <Link to="/login/edit/apple" className="lock">
                   <i className="fa fa-lock"></i>
                   更正密碼
                 </Link>

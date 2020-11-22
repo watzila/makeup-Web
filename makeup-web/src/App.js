@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom"
 import Home from './components/home';
 import Header from './components/header';
-import Login from './components/login';
-//import Member from './components/member';
+//import Login from './components/login';
+import Member from './components/member';
 import About from './components/about';
 import Product from './components/product';
 import Detail from './components/detail';
@@ -17,8 +17,8 @@ class App extends Component {
       <BrowserRouter>
         <Route path="/" component={Header} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        {/*<Route exact path="/login" component={Member} />*/}
+        {/*<Route exact path="/login" component={Login} />*/}
+        <Route exact path="/login" component={Member} />
         <Route exact path="/about" component={About} />
         <Route exact path="/p" component={Product} />
         <Route exact path="/p/:id" component={Detail} />

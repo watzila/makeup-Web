@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Card from "./js/card";
 import CreateCard from "./js/createCard";  //創建商品卡
 import Ajax from "./js/ajax";
+import IMGPath from "./js/imgPath";  //引入圖片
 import "./css/product.css";
-import bannerIMG1 from "./images/product/banner1.jpg";
-import productBG2 from "./images/product/productBG2.png";
 import { Link } from "react-router-dom";
 
 class Product extends Component {
@@ -14,9 +13,14 @@ class Product extends Component {
       data: null
     }
 
+    this.imgPath = new IMGPath();
     this.ajax = new Ajax();
-    this.ajax.startListener("get", "/p/", this.u);
     this.createCard = new CreateCard();
+
+    this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
+    this.bg = require.context("./images/background", false, /\.(png|jpe?g|svg)$/);
+
+    this.ajax.startListener("get", "/p/", this.u);
   }
 
   u = (data) => {
@@ -28,11 +32,11 @@ class Product extends Component {
     return (
       <main className="productMain">
         <div className="productBanner">
-          <img src={bannerIMG1} alt="banner" />
+          <img src={this.imgPath.importAll(this.b)["productBanner1.jpg"]} alt="banner" />
         </div>
 
         <div className="w productPage">
-          <img src={productBG2} alt="bg" />
+          <img src={this.imgPath.importAll(this.bg)["productBG1.png"]} alt="bg" />
 
           <div className="hotItems">
             <div className="title">

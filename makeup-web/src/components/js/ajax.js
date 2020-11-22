@@ -1,5 +1,5 @@
 class Ajax {
-  //開始連線
+  //連線
   startListener(method, url, u) {
     this.oReq = new XMLHttpRequest();
     this.reqListener = this.reqListener.bind(this.oReq);

@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import productIMG from "../images/product1.jpg";
+import IMGPath from "./imgPath"; //引入圖片
 
 class Card extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: "極上粉嫩保濕粉底霜",
 			pID: this.props.pID,
 		};
 		//console.log(props.data);
+		this.imgPath = new IMGPath();
+		this.p = require.context("../images/product", false, /\.(png|jpe?g|svg)$/);
 	}
 
 	render() {
@@ -21,13 +22,13 @@ class Card extends Component {
 				<div className="cardinside">
 					{/*圖片*/}
 					<div className="previewIMG">
-						<img src={productIMG} alt="product" />
+						<img src={this.imgPath.importAll(this.p)["homeProduct1.jpg"]} alt="product" />
 					</div>
 
 					{/*簡介*/}
 					<div className="productInfo">
 						<div className="productName">
-							<h5>{this.state.title}</h5>
+							<h5>{this.props.data != null ? this.props.data.productName : ""}</h5>
 						</div>
 						<i>
 							<span>$</span>

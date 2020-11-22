@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 //import { BrowserRouter, Route, Link } from "react-router-dom"
-//import CustomDrawing from "./js/customDrawing";
+import CustomDrawing from "./js/customDrawing";
 import Ajax from "./js/ajax";
+import IMGPath from "./js/imgPath";  //引入圖片
 import "./css/detail.css";
 import img from "./images/product1/產品1.png";
 
@@ -9,12 +10,10 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customDrawing: null,
-
-      love: {
-        classes: "love",
-        text: "♡"
-      },
+      //love: {
+      //  classes: "love",
+      //  text: "♡"
+      //},
 
       countText: {
         text: 1,
@@ -27,7 +26,10 @@ class Detail extends Component {
     }
 
     this.ajax = new Ajax();
+    this.imgPath = new IMGPath();
+
     this.ajax.startListener("get", "/p/" + props.match.params.id, this.u);
+    this.p = require.context("./images/product1", false, /\.(png|jpe?g|svg)$/);
     //console.log(props)
   }
 
@@ -37,20 +39,7 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    //this.customDrawing.drawIMG();
-
-    //改數量
-    if (this.state.countText.canChange === false) {
-      setTimeout(() => {
-        let newCountText = {
-          text: this.state.countText.text,
-          style: this.state.countText.style,
-          classes: null,
-          canChange: true
-        }
-        this.setState({ countText: newCountText });
-      }, 500);
-    }
+    this.draw = new CustomDrawing(this.imgPath.importAll(this.p));
   }
 
   //改數量
@@ -80,6 +69,16 @@ class Detail extends Component {
         this.setState({ countText: newCountText });
 
       }, 250);
+
+      setTimeout(() => {
+        let newCountText = {
+          text: this.state.countText.text,
+          style: this.state.countText.style,
+          classes: null,
+          canChange: true
+        }
+        this.setState({ countText: newCountText });
+      }, 500);
     }
   }
 
@@ -150,8 +149,8 @@ class Detail extends Component {
               {/*預覽圖*/}
               <section className="previewBox">
                 <div className="mainPreview">
-                  <img src={img} alt="" id="img"></img>
-                  {/*<canvas id="previewIMG"></canvas>*/}
+                  {/*<img src={img} alt="" id="img"></img>*/}
+                  <canvas id="previewIMG"></canvas>
                 </div>
 
                 {/*其他預覽圖*/}
@@ -217,8 +216,12 @@ class Detail extends Component {
                 適合膚質:
               {this.state.d == null ? "" : this.state.d[0].skinType}
               </div>
-              規格:
+
+              <div>
+                規格:
               {this.state.d == null ? "" : this.state.d[0].specification}
+              </div>
+
               {/* 商品描述 */}
               <div>
                 {this.state.d == null ? "" : this.state.d[0].detail}

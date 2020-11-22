@@ -43,9 +43,7 @@ app.get("/p", function (request, response) {
         console.log(JSON.stringify(err));
         return;
       }
-      var data = rows;
-      console.log(request.params.ids);
-      response.send(data);
+      response.send(rows);
     }
   );
 })

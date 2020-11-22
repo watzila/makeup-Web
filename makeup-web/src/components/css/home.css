@@ -1,9 +1,9 @@
 .homeMain {
-	background: url("../images/home/bg1.jpg") no-repeat center/cover;
+	background: url("../images/background/bg1.jpg") no-repeat center/cover;
 }
 
 /* banner */
-.banner {
+.topBanner {
 	position: relative;
 	height: 93vh;
 	/*box-shadow: #999898 1px 1px 9px;*/
@@ -172,7 +172,7 @@
 	display: grid;
 	grid-template-columns: 1.45fr 1fr;
 	height: 75vh;
-	background: url("../images/home/testBG1.png") no-repeat center/cover;
+	background: url("../images/background/testBG1.png") no-repeat center/cover;
 }
 
 /*心理測驗商品*/
@@ -181,8 +181,6 @@
 	justify-content: center;
 	align-self: center;
 	text-align: center;
-	font-size: 1.8rem;
-	font-weight: 500;
 	/*border: 1px solid;*/
 }
 
@@ -193,8 +191,16 @@
 .smallCard img {
 	width: 200px;
 	height: 200px;
-	margin-bottom: 20px;
 	object-fit: cover;
+}
+
+.smallCard div {
+	padding: 15px 10px;
+	font-size: 1.8rem;
+	font-weight: 500;
+	letter-spacing: 2px;
+	color: #ffffff;
+	background-color: var(--blueColor);
 }
 
 /*心理測驗文本*/
@@ -207,6 +213,70 @@
 	font-size: 3rem;
 	color: #ffffff;
 	/*border: 1px solid;*/
+}
+
+.downSellOutside h2 {
+	padding: 5px 0;
+	margin-top: 40px;
+	font-size: 2.3rem;
+	font-weight: 500;
+	border-bottom: 3px solid var(--brownColor3);
+}
+
+.downSell {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 15px;
+	margin-top: 50px;
+}
+
+.downSellCar .otherCardIMG {
+	width: 260px;
+	height: 260px;
+}
+
+.otherCardIMG img {
+	width: 100%;
+}
+
+.downSellCar .textWrap {
+	padding: 0 15px;
+	margin-top: 10px;
+}
+
+.textWrap h3 {
+	font-size: 1.5rem;
+}
+
+.textWrap div {
+	display: flex;
+	align-items: center;
+}
+
+.textWrap i {
+	color: var(--brownColor3);
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+
+.textWrap i:last-child {
+	margin-left: auto;
+	font-size: 2rem;
+}
+
+/*下面廣告*/
+.banner {
+	margin-top: 100px;
+}
+
+.banner,
+.banner img {
+	width: 100%;
+}
+
+/*最下面廣告*/
+.bottomBanner {
+	margin-top: 20px;
 }
 
 /*.testText button {

@@ -11,22 +11,70 @@
 	order: 1;
 	flex: 1 1.5 auto;
 	width: 100%;
-	justify-content: center;
-	align-items: center;
+	height: 100%;
 	background: url(../images/member/會員頁風格.png) no-repeat bottom / contain,
 		url(../images/宣紙1.png);
 }
 
-.memberMain > article > form {
+.memberMain > article > div {
 	width: 50%;
-	padding: 20px;
 	margin: 100px auto;
-	text-align: center;
+	/*border: 1px solid;*/
+}
+
+.memberMain > article form {
+	/*width: 50%;*/
+	padding: 3% 20%;
+	/*margin: 100px auto;*/
+	/*text-align: center;*/
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
 	/* line-height:1.5; */
+	/*border: 1px solid red;*/
+	overflow: hidden;
 }
 
+.memberMain > article form > div {
+	display: flex;
+	justify-content: flex-start;
+	align-self: center;
+	padding: 10px 0 5px 0;
+	font-size: 1.6rem;
+	/*border: 1px solid;*/
+}
+
+.memberMain form input {
+	margin-left: 15px;
+	font-size: 1.5rem;
+	border: 0;
+	background-color: transparent;
+}
+
+.memberMain form input[type="radio"] {
+	margin-right: 5px;
+}
+
+.memberMain form button {
+	float: right;
+	padding: 10px 20px;
+	margin-left: auto;
+	font-size: 1.5rem;
+	background-color: var(--orangeColor);
+	border: 0;
+	border-radius: 10px;
+	box-shadow: var(--boxShadow2);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.memberMain form button:hover {
+	box-shadow: var(--boxShadow1);
+}
+
+.memberMain form hr {
+	margin-bottom: 20px;
+}
+
+/*左邊導航欄*/
 .memberMain > nav {
 	order: 0;
 	flex: 1 8.5 auto;

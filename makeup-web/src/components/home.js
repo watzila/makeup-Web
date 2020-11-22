@@ -1,26 +1,30 @@
 import React, { Component } from "react";
-import hotCard from "./js/hotCard";
+import HotCard from "./js/hotCard"; //暢銷商品卡
+import OtherCard from "./js/otherCard"; //暢銷商品卡
 import CreateCard from "./js/createCard";  //創建商品卡
+import IMGPath from "./js/imgPath";  //引入圖片
 import "./css/home.css";
-import banner1 from "./images/home/banner1.jpg";
-import banner2 from "./images/home/banner2.jpg";
-import product1 from "./images/product1.jpg";
-
 class Home extends Component {
   constructor() {
     super();
 
     this.createCard = new CreateCard();
+    this.imgPath = new IMGPath();
+
+    this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
+    this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
   }
+
+
 
   render() {
     return (
       <main className="homeMain">
         {/*banner*/}
-        <div className="banner">
+        <div className="topBanner">
           <div className="bannerBg">
-            <img src={banner1} alt="banner"></img>
-            <img src={banner2} alt="banner"></img>
+            <img src={this.imgPath.importAll(this.b)["homeBanner1.jpg"]} alt="banner" />
+            <img src={this.imgPath.importAll(this.b)["homeBanner2.jpg"]} alt="banner" />
           </div>
         </div>
         {/*banner end*/}
@@ -66,13 +70,11 @@ class Home extends Component {
         </div>*/}
         {/*膚測簡述 end*/}
 
-        {/*熱銷區塊 與其他區塊間格*/}
+        {/*熱銷區塊*/}
         <div className="topSellOutside w">
-          {/*====熱銷===*/}
           <h2>最暢銷商品</h2>
           <div className="topSell">
-            {this.createCard.create(4, hotCard)}
-            {/*====熱銷=== --end*/}
+            {this.createCard.create(4, HotCard)}
           </div>
         </div>
 
@@ -82,29 +84,55 @@ class Home extends Component {
           <div className="smallCardBox">
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={product1} alt="" />
-              <p>古早味奶茶<br />眼影</p>
+              <img src={this.imgPath.importAll(this.p)["B_01.jpg"]} alt="product" />
+              <div>
+                <p>古早味奶茶眼影</p>
+              </div>
             </div>
 
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={product1} alt="" />
-              <p>古早味奶茶<br />眼影</p>
+              <img src={this.imgPath.importAll(this.p)["B_02.jpg"]} alt="product" />
+              <div>
+                <p>古早味奶茶眼影</p>
+              </div>
             </div>
 
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={product1} alt="" />
-              <p>古早味奶茶<br />眼影</p>
+              <img src={this.imgPath.importAll(this.p)["B_03.jpg"]} alt="product" />
+              <div>
+                <p>古早味奶茶眼影</p>
+              </div>
             </div>
           </div>
 
           <div className="testText">
-            <p>心理測驗<br />推薦最適合的風格</p>
+            <p>膚值測試</p>
             {/*<button>測驗</button>*/}
           </div>
         </div>
 
+        {/*其他商品*/}
+        <div className="downSellOutside w">
+
+          <h2>底妝任2件結帳85折 滿1500再折150</h2>
+
+          <div className="downSell">
+            {this.createCard.create(8, OtherCard)}
+          </div>
+        </div>
+
+        {/*下面廣告*/}
+        <div className="banner">
+          <img src={this.imgPath.importAll(this.b)["1920_480唇膏廣告圖.jpg"]} alt="banner" />
+        </div>
+
+        {/*最下面廣告*/}
+        <div className="w bottomBanner">
+          <img src={this.imgPath.importAll(this.b)["1200_300會員折價卷.jpg"]} alt="banner" />
+
+        </div>
         {/*客製化*/}
         {/*<div className="customize bottomHalf">
           <div className="customizLeft">*/}
