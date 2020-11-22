@@ -18,7 +18,6 @@ class Card extends Component {
 			//產品卡
 			<Link to={"/p/" + this.state.pID} className="card">
 				<span className="love">♡</span>
-
 				<div className="cardinside">
 					{/*圖片*/}
 					<div className="previewIMG">

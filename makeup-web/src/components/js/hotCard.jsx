@@ -32,7 +32,7 @@ class HotCard extends Component {
 					<small>9則評論</small>
 				</div>
 				{/*星星 end*/}
-				<span>{this.state.title}</span>
+				<h3>{this.state.title}</h3>
 
 				<div className="addCardBtn">
 					<button>加入購物車 | ${this.state.price}</button>

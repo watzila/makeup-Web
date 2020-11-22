@@ -3,19 +3,29 @@ import HotCard from "./js/hotCard"; //暢銷商品卡
 import OtherCard from "./js/otherCard"; //暢銷商品卡
 import CreateCard from "./js/createCard";  //創建商品卡
 import IMGPath from "./js/imgPath";  //引入圖片
+import Ajax from "./js/ajax";
 import "./css/home.css";
 class Home extends Component {
   constructor() {
     super();
+    this.state = {
+      data: null
+    }
 
     this.createCard = new CreateCard();
+    this.ajax = new Ajax();
     this.imgPath = new IMGPath();
 
     this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
     this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
+
+    this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
   }
 
-
+  u = (data) => {
+    this.setState({ data: data });
+    console.log(this.state.data);
+  }
 
   render() {
     return (
@@ -74,7 +84,7 @@ class Home extends Component {
         <div className="topSellOutside w">
           <h2>最暢銷商品</h2>
           <div className="topSell">
-            {this.createCard.create(4, HotCard)}
+            {this.createCard.create(4, HotCard, this.state.data)}
           </div>
         </div>
 
@@ -119,7 +129,7 @@ class Home extends Component {
           <h2>底妝任2件結帳85折 滿1500再折150</h2>
 
           <div className="downSell">
-            {this.createCard.create(8, OtherCard)}
+            {this.createCard.create(8, OtherCard, this.state.data)}
           </div>
         </div>
 

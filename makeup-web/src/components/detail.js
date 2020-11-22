@@ -30,7 +30,7 @@ class Detail extends Component {
 
     this.ajax.startListener("get", "/p/" + props.match.params.id, this.u);
     this.p = require.context("./images/product1", false, /\.(png|jpe?g|svg)$/);
-    //console.log(props)
+    console.log(props)
   }
 
   u = (data) => {

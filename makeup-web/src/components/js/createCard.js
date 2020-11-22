@@ -10,7 +10,7 @@ class CreateCard {
       return newCard;
     });
 
-    //console.log(data != null ? data[0] : null);
+    //console.log(data);
 
     return cards;
   }

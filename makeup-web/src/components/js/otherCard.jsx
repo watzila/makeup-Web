@@ -6,8 +6,6 @@ class OtherCard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: "濟州島火山泥鼻頭",
-			price: 280,
 			pID: this.props.pID,
 		};
 
@@ -21,16 +19,21 @@ class OtherCard extends Component {
 			<Link to={"/p/" + this.state.pID} className="downSellCar">
 				{/*圖*/}
 				<div className="otherCardIMG">
-					<img src={this.imgPath.importAll(this.p)["A_01.jpg"]} alt="product" />
+					<img
+						src={
+							this.imgPath.importAll(this.p)[this.props.data != null ? this.props.data.img_0 : ""]
+						}
+						alt="product"
+					/>
 				</div>
 
 				<div className="textWrap">
 					{/*品名*/}
-					<h3>濟州島火山泥鼻頭</h3>
+					<h3>{this.props.data != null ? this.props.data.productName : ""}</h3>
 
 					{/*其他*/}
 					<div>
-						<i>$250</i>
+						<i>${this.props.data != null ? this.props.data.unitPrice : ""}</i>
 						<i>♡</i>
 					</div>
 				</div>

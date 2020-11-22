@@ -34,6 +34,33 @@ conn.connect(function (err) {
   }
 });
 
+//首頁
+app.get("/", function (request, response) {
+  let sql = (
+    `SELECT p.product_id,p.category_id,productName,img_0, unitPrice FROM product as p,productimg as img,category as c
+    where kindA="${request.query.card2}" && product_id=img.productImg_id && p.category_id=c.category_id
+    LIMIT 8`
+  );
+
+  let data = null;
+
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    if (!data) {
+      data = rows;
+    } else {
+      data.push(rows);
+    }
+  });
+
+  setTimeout(function () {
+    response.send(data);
+  }, 500);
+})
+
 //產品頁
 app.get("/p", function (request, response) {
 
@@ -57,7 +84,7 @@ app.get("/p/:pId", function (request, response) {
         console.log(JSON.stringify(err));
         return;
       }
-      //console.log(request.params.pId);
+      console.log(request.params.pId);
       response.send(rows);
     }
   );

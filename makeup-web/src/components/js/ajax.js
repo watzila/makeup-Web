@@ -1,11 +1,11 @@
 class Ajax {
   //連線
-  startListener(method, url, u) {
+  startListener(method, url, u, require = null) {
     this.oReq = new XMLHttpRequest();
     this.reqListener = this.reqListener.bind(this.oReq);
     this.oReq.onload = () => { this.reqListener(u) };
     this.oReq.open(method, 'http://localhost:3001' + url, true);
-    this.oReq.send();
+    this.oReq.send(require);
   }
 
   //接收結果
