@@ -1,0 +1,170 @@
+/* 字大小2.5rem */
+/* letter-spacing: 1rem; */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 12px;
+    --redColor: #A32A1C ;
+    --yellowColor: #F5A33D;
+    --blueGreenColor: #70BFBB;
+    --darkBlueColor:#004B7C;
+}
+
+/* @font-face {
+    font-family: jf;
+    src: url(font-openhuninn-1.1/jf-openhuninn-1.1.ttf);
+  } */
+/* *{
+    font-family: jf;
+} */
+
+
+
+/* 兩側留白 */
+.outside{
+    padding: 0 7.8125%;
+}
+
+/* ===================== */
+
+/* 上半部 */
+.top{
+    margin-top: 10rem;
+
+    /* 文字.圖排版 */
+    text-align: center;
+    font-size:2rem;
+}
+
+.top>img{
+    width:30%;
+    object-fit: contain;
+}
+/* 上半部end */
+
+/* 中間 */
+.middle{
+    margin-top: 10rem;
+}
+.circle{
+    /* 圓 */
+    width: 95%;
+    height: 400px;
+    background-color: var(--yellowColor);
+    clip-path: circle(25%);
+
+    /* 文字水平垂直置中 */
+    text-align: center;
+    line-height: 400px;
+
+     /* 文字.圖排版 */
+    font-size:1.5rem;
+}
+/* 中間end */
+
+
+
+
+/* 底下-膚測法 */
+ul li{list-style: none;}
+
+/* tab 外面div */
+.tabsbox{
+    
+    margin:14rem auto 0 auto;
+    width: 81%;
+    height: 750px;
+    border:1px solid var(--darkBlueColor);
+    /* 相對內容位置 */
+    position:relative ;
+}
+
+/* tab標籤 */
+.firstNav>ul li{
+    border-left: 1px solid #ccc;
+    float: left;
+    width: 33%;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+
+    /* 文字 */
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 點選到的tab標籤 */
+.firstNav>ul>li.liActive{
+    height: 51px;
+    border-bottom:2px solid #fff;
+    z-index: 9;
+}
+
+/* tab內容 */
+.tabCtxt{
+    /* 相對tab div位置 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    
+    top: 50px;  
+    left: 0px;
+    border-top: 1px solid #ccc;
+
+}
+/* 點選到的tab內容 */
+.tabCtxt.ctxtActive{
+    border-top: 10px solid #fff;
+}
+
+.tabCtxt section,
+.tabCtxt section.ctxtActive{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.tabCtxt section.ctxtActive{
+    display: block;
+}
+
+/* 膚測法內容 */
+
+/* section div{
+    display: inline-block
+} */
+
+.tabCtxt img{
+    margin-left: 50px;
+    height: 700px;
+    object-fit: cover;
+
+}
+
+/* 文字 */
+.tabCtxt div:last-child{
+    /* 位置 */
+top:20%;
+left: 60%;
+position: absolute; 
+
+/* 字大小 */
+font-size: 2rem;
+line-height: 3.5rem;
+font-weight: 500;
+
+}
+/* 底下-膚測法end */
+
+
+/* 與footer間距 */
+.skinFooter{
+    margin-top: 15rem;
+}

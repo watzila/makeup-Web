@@ -28,7 +28,7 @@ class Detail extends Component {
     this.ajax = new Ajax();
     this.imgPath = new IMGPath();
 
-    this.ajax.startListener("get", `/p/${props.match.params.kind}?${props.match.params.id}`, this.u);
+    this.ajax.startListener("get", `/p/${props.match.params.kind}?${props.match.params.pid}`, this.u);
     this.p = require.context("./images/product1", false, /\.(png|jpe?g|svg)$/);
     //console.log(props)
   }
@@ -41,6 +41,10 @@ class Detail extends Component {
 
   componentDidMount() {
     this.draw = new CustomDrawing(this.imgPath.importAll(this.p));
+  }
+  componentDidUpdate(){
+    let str = document.getElementById("prodDes").innerHTML;
+    document.getElementById("prodDes").innerHTML = str.replaceAll('#','<br/>');
   }
 
   //改數量
@@ -224,7 +228,7 @@ class Detail extends Component {
               </div>
 
               {/* 商品描述 */}
-              <div>
+              <div id="prodDes">
                 {this.state.d == null ? "" : this.state.d[0].detail}
               </div>
             </section>

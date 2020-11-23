@@ -37,7 +37,7 @@ conn.connect(function (err) {
 //首頁
 app.get("/", function (request, response) {
   let sql = (
-    `SELECT p.product_id,p.category_id,productName,img_0, unitPrice FROM product as p,productimg as img,category as c
+    `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA FROM product as p,productimg as img,category as c
     where kindA="${request.query.card2}" && product_id=img.productImg_id && p.category_id=c.category_id
     LIMIT 8`
   );
@@ -63,52 +63,39 @@ app.get("/", function (request, response) {
 
 //產品頁
 app.get("/p", function (request, response) {
+  let sql = (
+    `SELECT *,unitPrice FROM product as p,category as c WHERE c.category_id=p.category_id`
+  );
 
-  conn.query(`SELECT * FROM product`,
-    function (err, rows) {
-      if (err) {
-        console.log(JSON.stringify(err));
-        return;
-      }
-      response.send(rows);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
     }
+    response.send(rows);
+  }
   );
 })
 
 //產品詳細頁
-app.get("/p/:pId", function (request, response) {
+app.get("/p/:kind", function (request, response) {
+  let sql = (
+    `SELECT p.*,productName,img_0, c.unitPrice,c.skinType,c.specification,c.detail FROM product as p,productimg as img,category as c
+    where product_id=${request.query.pid} && product_id=img.productImg_id && p.category_id=c.category_id`
+  );
 
-  conn.query(`SELECT * FROM product as p,category as c where c.category_id=${request.params.pId} &&  p.category_id=${request.params.pId} `,
-    function (err, rows) {
-      if (err) {
-        console.log(JSON.stringify(err));
-        return;
-      }
-      console.log(request.params.pId);
-      response.send(rows);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
     }
+    console.log(request.params.kind);
+    response.send(rows);
+  }
   );
 })
 
 
-//後台
-app.get("/backEnd/manageorder", function (request, response) {
-
-  conn.query(`SELECT o.order_id, orderDate,customerName, quantity, grandTotal, orderStatus
-FROM orders AS o 
-INNER JOIN orderdetail AS od 
-ON o.order_id = od.order_id 
-INNER JOIN customer AS c 
-ON o.customer_id = c.customer_id`,
-    function (err, rows) {
-      if (err) {
-        console.log(JSON.stringify(err));
-        return;
-      }
-      response.send(rows);
-    }
-  );
-})
 
 
 app.post('/add', function (req, res) {

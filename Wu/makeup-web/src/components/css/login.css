@@ -1,0 +1,162 @@
+.loginMain {
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	height: 74vh;
+	background: url("../images/宣紙1.png") no-repeat center/cover;
+}
+
+.loginWrap {
+	position:relative;	
+	display: flex;
+	/* flex-direction: row; */
+	justify-content: center;
+	align-items: center;
+	width: 80%;
+	/*padding: 14rem 0 14rem;*/
+	/*border: 1px solid red;*/
+}
+
+.changeForm,
+.inputForm {
+	width: 50%;
+	height: 80%;
+	/* border: 1px solid; */
+}
+
+/*左邊*/
+.changeForm {
+	padding: 20px;
+	background: url("../images/login/山景圖.png") no-repeat center/cover;
+	position: absolute;
+	transition: left 1s;
+	
+}
+
+.changeForm .doorIMG {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: url("../images/login/關門.png") no-repeat center/contain;
+}
+
+.yesAccount {
+	display: none;
+	position: absolute;
+	top: 39%;
+	right: 14%;
+	text-align: center;
+	/*opacity: 0;*/
+}
+
+.noAccount {
+	display: none;
+	position: absolute;
+	top: 39%;
+	right: 14%;
+	text-align: center;
+	transition: all 0.5s ease-in-out;
+	/*opacity: 0;*/
+}
+
+.doorIMG div.active {
+	display: block;
+	/*opacity: 1;*/
+}
+
+.changeForm h1 {
+	font-size: 4rem;
+	color: var(--blueColor);
+}
+
+.changeForm button {
+	padding: 5px 45px;
+	margin-top: 15px;
+	font-size: 2rem;
+	color: #ffffff;
+	border: 1px solid var(--redColor);
+	border-radius: 10px;
+	background-color: var(--brownColor3);
+}
+
+/*右邊*/
+.inputForm {
+	position: absolute;
+	background: url("../images/login/旁邊的註冊頁面.png") no-repeat center/cover;
+	transition: left 1s;
+}
+
+.inputForm form {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	/* border: 1px solid; */
+	opacity: 0;
+}
+.inputForm h1 {
+	margin-bottom: 30px;
+	font-size: 3rem;
+}
+
+.inputForm > div {
+	width: 100%;
+}
+
+.inputForm .inputWrap {
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	margin-bottom: 15px;
+}
+
+.inputForm label {
+	font-size: 1.6rem;
+	font-weight: 600;
+}
+
+.inputForm input {
+	padding: 5px;
+	margin-left: 20px;
+	font-size: 1.5rem;
+	background-color: transparent;
+	border-width: 0 0 2px;
+}
+
+.inputForm button {
+	padding: 3px 25px;
+	margin-top: 20px;
+	font-size: 1.6rem;
+	letter-spacing: 5px;
+	color: #ffffff;
+	background-color: var(--brownColor3);
+	border: 0;
+	border-radius: 5px;
+}
+
+.inputForm .active {
+	display: flex;
+	opacity: 1;
+}
+/*h2 {
+	text-align: center;
+}
+
+p {
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 20px 0 30px;
+}
+
+span {
+	font-size: 12px;
+}
+
+a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}*/

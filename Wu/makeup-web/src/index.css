@@ -1,0 +1,64 @@
+@font-face {
+	font-family: jf;
+	src: url(./components/fonts/jf-openhuninn-1.1.ttf);
+}
+
+/*清除預設*/
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+li {
+	list-style: none;
+}
+a {
+	color: #000;
+	text-decoration: none;
+}
+i {
+	font-style: normal;
+}
+input,
+button,
+textarea {
+	outline: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+img {
+	/*width: 100%;*/
+	vertical-align: middle;
+}
+
+/*預設字體、大小*/
+html {
+	/*filter: saturate(1.5);*/
+	font: 12px "Noto Sans TC", sans-serif;
+
+	--height: 92vh;
+	--redColor: #dead9e;
+	--brownColor1: #d48e50;
+	--brownColor2: #bf744a;
+	--brownColor3: #8a4c48;
+	--orangeColor: #edb679;
+	--greenColor: #86ada9;
+	--blueColor: #383d53;
+	--grayColor: #a9a5a0;
+	--boxShadow1: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	--boxShadow2: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+/*版心*/
+.w {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	/*padding: 0 7.8125%;*/
+	/*margin-top: 25vh;*/
+}

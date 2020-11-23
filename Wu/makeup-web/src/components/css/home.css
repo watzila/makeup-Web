@@ -1,0 +1,415 @@
+/*陰影*/
+.topSellCar .cardIMG,
+.addCardBtn button,
+.otherCardIMG img {
+	box-shadow: var(--boxShadow2);
+}
+
+.smallCard img,
+.smallCard div {
+	box-shadow: var(--boxShadow1);
+}
+
+.star > span,
+.star small,
+.topSellCar h3,
+.textWrap h3,
+.textWrap i {
+	text-shadow: var(--boxShadow2);
+}
+
+.topSellCar:hover .cardIMG,
+.topSellCar:hover .addCardBtn button,
+.downSellCar:hover .otherCardIMG img {
+	box-shadow: var(--boxShadow1);
+	transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.topSellCar:hover .star span,
+.topSellCar:hover .star small,
+.topSellCar:hover h3,
+.downSellCar:hover .textWrap h3,
+.downSellCar:hover .textWrap i {
+	text-shadow: var(--boxShadow1);
+	transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smallCard:hover img,
+.smallCard:hover div {
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/*開始*/
+.homeMain {
+	background: url("../images/background/bg1.jpg") center/contain;
+}
+
+/* banner */
+.topBanner {
+	position: relative;
+	height: 93vh;
+	letter-spacing: 1rem;
+}
+
+.bannerBg {
+	display: flex;
+	height: 100%;
+	/*border: 1px solid;*/
+	overflow: hidden;
+}
+
+.bannerBg img {
+	width: 100%;
+	object-fit: cover;
+}
+
+/* banner右邊背景 */
+/*.bannerBg {
+	position: absolute;
+	z-index: -1;
+	bottom: 0;
+	height: 47.5rem;
+	width: 99.9%;
+	background-color: #004a7c18;
+}*/
+/* banner右邊文字 */
+/*.bannerTxt {
+	position: absolute;
+	bottom: 20%;
+	left: 5%;
+	z-index: 10;
+	color: #333333;
+	box-sizing: border-box;
+}
+.title {
+	font-size: 10rem;
+	margin-bottom: 2.5rem;
+}
+.describe {
+	font-size: 1rem;
+}*/
+/* banner右邊文字 end */
+
+/*banner 左邊大圖 */
+/*.banner img {
+	width: 99.9%;
+	height: 100%;
+	vertical-align: bottom;
+	object-fit: fill;
+	padding-left: 10%;
+}*/
+/* banner --end*/
+
+/* 膚測簡述 */
+/*.skinTest {
+	text-align: center;
+	letter-spacing: 1rem;
+	font-size: 2rem;
+	margin-top: 14rem;
+}
+
+.skinTest svg {
+	margin: 5rem;
+}*/
+/* 膚測簡述 end */
+
+/* ====熱銷=== */
+.topSellOutside {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*height: 100vh;*/
+	padding: 100px 0;
+	/*border: 1px solid;*/
+}
+
+.topSellOutside h2 {
+	font-size: 2.5rem;
+	font-weight: 400;
+	margin-bottom: 5rem;
+}
+
+/* 熱銷小卡 */
+.topSell {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	place-items: center;
+	grid-gap: 20px;
+	flex-wrap: wrap;
+	width: 100%;
+	/*border: 1px solid;*/
+}
+
+.topSellCar {
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	/*border: 1px solid;*/
+}
+
+.cardIMG {
+	width: 100%;
+	height: 350px;
+	/*border: 1px solid;*/
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+/* 小卡圖 */
+.topSellCar .cardIMG img {
+	height: 100%;
+	transform: translateX(-25%);
+	object-fit: cover;
+}
+
+/* 星星 */
+.topSellCar .star {
+	margin-top: 6%;
+}
+
+.star .checked {
+	color: var(--orangeColor);
+}
+.star > span {
+	font-size: 1.5rem;
+	letter-spacing: 8px;
+	color: var(--grayColor);
+}
+
+.star small {
+	margin-left: auto;
+}
+/* 星星end */
+
+/* 商品小卡敘述 */
+.topSellCar h3 {
+	margin-top: 1rem;
+	font-size: 1.8rem;
+	font-weight: 400;
+}
+
+/* 商品小卡按鈕 */
+.addCardBtn {
+	width: 100%;
+	margin-top: 5%;
+	/*border: 1px solid;*/
+}
+.addCardBtn > button {
+	width: 100%;
+	padding: 1rem 0;
+	letter-spacing: 3px;
+	font-size: 1.5rem;
+	font-weight: 600;
+	background-color: var(--brownColor3);
+	color: #ffffff;
+	border: 0;
+	border-radius: 10px;
+}
+/* 商品小卡按鈕end */
+/* 熱銷小卡end */
+
+/* ====熱銷=== end */
+
+/*心理測驗*/
+.heartTest {
+	display: grid;
+	grid-template-columns: 1.45fr 1fr;
+	height: 75vh;
+	background: url("../images/background/testBG1.png") no-repeat center/cover;
+}
+
+/*心理測驗商品*/
+.smallCardBox {
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	text-align: center;
+	/*border: 1px solid;*/
+}
+
+.smallCard {
+	margin: 0 3%;
+	cursor: pointer;
+}
+
+.smallCard img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 10px 10px 0 0;
+}
+
+.smallCard div {
+	padding: 15px 10px;
+	font-size: 1.8rem;
+	font-weight: 500;
+	letter-spacing: 2px;
+	color: #ffffff;
+	background-color: var(--blueColor);
+	border-radius: 0 0 10px 10px;
+}
+
+/*心理測驗文本*/
+.testText {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 3rem;
+	color: #ffffff;
+	/*border: 1px solid;*/
+}
+
+/*其他商品*/
+.downSellOutside h2 {
+	padding: 5px 0;
+	margin-top: 40px;
+	font-size: 2.3rem;
+	font-weight: 500;
+	border-bottom: 3px solid var(--brownColor3);
+}
+
+.downSell {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
+	margin-top: 50px;
+}
+
+.downSellCar .otherCardIMG {
+	width: 260px;
+	height: 260px;
+}
+
+.otherCardIMG img {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.downSellCar .textWrap {
+	padding: 0 15px;
+	margin-top: 10px;
+}
+
+.textWrap h3 {
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+.textWrap div {
+	display: flex;
+	align-items: center;
+}
+
+.textWrap i {
+	color: var(--brownColor3);
+	font-size: 1.3rem;
+	font-weight: 500;
+}
+
+.textWrap i:last-child {
+	margin-left: auto;
+	font-size: 2rem;
+}
+
+/*下面廣告*/
+.banner {
+	margin-top: 100px;
+}
+
+.banner,
+.banner img {
+	width: 100%;
+}
+
+/*最下面廣告*/
+.bottomBanner {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.bottomBanner img {
+	width: 100%;
+}
+
+.bottomBanner img:nth-child(2) {
+	margin-top: 30px;
+}
+
+/*.testText button {
+	font-size: 3rem;
+	color: #ffffff;
+	background-color: var(--brownColor3);
+	border: 0;
+}*/
+
+/* 客製化 */
+/*.customize {
+	display: grid;
+	grid-template-columns: 1.45fr 1fr;
+	background: url("../images/home/testBG1.png") no-repeat center/cover;
+}*/
+
+/* 客製化左邊 */
+/*.customizLeft {
+	border: 1px solid;
+}*/
+
+/* 客製右邊 */
+/* 圖 */
+/*.ld-blink {
+	margin: 10rem 0 5rem 0;
+	width: 30%;
+	object-fit: contain;
+}
+/* txt */
+/*.customizeRight {
+	text-align: center;
+}
+.customizeRight span:first-child {
+	font-size: 2.5rem;
+}
+.customizeRight span {
+	font-size: 2rem;
+}*/
+
+/* 客製化右邊圈圈 */
+/*.customizRightMiddle {
+	margin: 7rem 0 2rem 0;
+	animation: spin 5s infinite linear;
+	transform-origin: center;
+}
+@keyframes spin {
+	to {
+		transform: rotate(1turn);
+	}
+}*/
+
+/* 客製化 end */
+
+/* 圖片onsreen 滑動效果 */
+/*.slide-in {
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.align-left.slide-in {
+	transform: translateX(-99%) scale(0.95);
+}
+.align-right.slide-in {
+	transform: translateX(99%) scale(0.95);
+}
+
+.slide-in.active {
+	opacity: 1;
+	transform: translateX(0%) scale(1);
+}*/
+
+/* ======1000px========================= */
+/*@media screen and (max-width: 1200px) {
+	.topSell {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}*/

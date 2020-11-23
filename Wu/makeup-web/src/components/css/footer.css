@@ -1,0 +1,53 @@
+/* footer */
+.footer {
+	box-shadow: var(--boxShadow1);
+	background-color: #ffffff;
+}
+
+.footerTop {
+	display: flex;
+	align-items: center;
+}
+
+.footerTopInside {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 2rem;
+}
+
+/* 左邊icon */
+.footerLeft {
+	flex: 1;
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	font-size: 4rem;
+	color: var(--brownColor3);
+	/*border: 1px solid;*/
+}
+
+.footerRight {
+	flex: 1.5;
+	text-align: center;
+	display: flex;
+
+	letter-spacing: 2px;
+	font-size: 16px;
+	color: burlywood;
+}
+
+.footerRight > div {
+	flex: 1;
+}
+
+.copyright {
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	letter-spacing: 1rem;
+	background-color: var(--blueColor);
+	color: #ffffff;
+	padding: 1rem;
+}
