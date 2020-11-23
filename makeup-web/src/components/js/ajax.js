@@ -6,6 +6,7 @@ class Ajax {
     this.oReq.onload = () => { this.reqListener(u) };
     this.oReq.open(method, 'http://localhost:3001' + url, true);
     this.oReq.send(require);
+    //console.log(url)
   }
 
   //接收結果

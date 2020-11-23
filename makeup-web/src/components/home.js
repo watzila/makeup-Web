@@ -24,7 +24,7 @@ class Home extends Component {
 
   u = (data) => {
     this.setState({ data: data });
-    console.log(this.state.data);
+    //console.log(this.state.data);
   }
 
   render() {
@@ -141,6 +141,9 @@ class Home extends Component {
         {/*最下面廣告*/}
         <div className="w bottomBanner">
           <img src={this.imgPath.importAll(this.b)["1200_300會員折價卷.jpg"]} alt="banner" />
+          <img src={this.imgPath.importAll(this.b)["downBanner1.jpg"]} alt="banner" />
+          <img src={this.imgPath.importAll(this.b)["downBanner2.jpg"]} alt="banner" />
+          <img src={this.imgPath.importAll(this.b)["downBanner3.jpg"]} alt="banner" />
 
         </div>
         {/*客製化*/}

@@ -16,7 +16,15 @@ class Card extends Component {
 	render() {
 		return (
 			//產品卡
-			<Link to={"/p/" + this.state.pID} className="card">
+			<Link
+				to={
+					"/p/" +
+					(this.props.data != null ? this.props.data.kindA : "") +
+					"/pid=" +
+					(this.props.data != null ? this.props.data.product_id : "")
+				}
+				className="card"
+			>
 				<span className="love">♡</span>
 				<div className="cardinside">
 					{/*圖片*/}

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../css/cart.css";
 
 class Cart extends Component {
 	state = {

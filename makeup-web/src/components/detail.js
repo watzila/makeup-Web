@@ -28,11 +28,12 @@ class Detail extends Component {
     this.ajax = new Ajax();
     this.imgPath = new IMGPath();
 
-    this.ajax.startListener("get", "/p/" + props.match.params.id, this.u);
+    this.ajax.startListener("get", `/p/${props.match.params.kind}?${props.match.params.id}`, this.u);
     this.p = require.context("./images/product1", false, /\.(png|jpe?g|svg)$/);
-    console.log(props)
+    //console.log(props)
   }
 
+  //ajax回傳資料再更新本地資料
   u = (data) => {
     this.setState({ d: data });
     //console.log(data);

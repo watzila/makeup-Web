@@ -5,9 +5,6 @@ import IMGPath from "./imgPath"; //引入圖片
 class OtherCard extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			pID: this.props.pID,
-		};
 
 		this.imgPath = new IMGPath();
 		this.p = require.context("../images/product", false, /\.(png|jpe?g|svg)$/);
@@ -16,7 +13,15 @@ class OtherCard extends Component {
 	render() {
 		return (
 			//其他商品小卡
-			<Link to={"/p/" + this.state.pID} className="downSellCar">
+			<Link
+				to={
+					"/p/" +
+					(this.props.data != null ? this.props.data.kindA : "") +
+					"/pid=" +
+					(this.props.data != null ? this.props.data.product_id : "")
+				}
+				className="downSellCar"
+			>
 				{/*圖*/}
 				<div className="otherCardIMG">
 					<img

@@ -326,7 +326,16 @@
 
 /*最下面廣告*/
 .bottomBanner {
+	width: 100%;
 	margin-top: 20px;
+}
+
+.bottomBanner img {
+	width: 100%;
+}
+
+.bottomBanner img:nth-child(2) {
+	margin-top: 30px;
 }
 
 /*.testText button {
