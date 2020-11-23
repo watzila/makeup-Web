@@ -42,7 +42,7 @@
 
 /*開始*/
 .homeMain {
-	background: url("../images/background/bg1.jpg") no-repeat center/cover;
+	background: url("../images/background/bg1.jpg") center/contain;
 }
 
 /* banner */

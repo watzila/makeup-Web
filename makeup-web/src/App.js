@@ -9,6 +9,7 @@ import Product from './components/product';
 import Detail from './components/detail';
 import CartList from './components/cartList';
 import Order from './components/order';
+import ManageOrder from './components/manageOrder';
 import Footer from './components/footer';
 
 class App extends Component {
@@ -21,9 +22,10 @@ class App extends Component {
         <Route exact path="/login" component={Member} />
         <Route exact path="/about" component={About} />
         <Route exact path="/p" component={Product} />
-        <Route exact path="/p/:kind/:id" component={Detail} />
+        <Route exact path="/p/:id" component={Detail} />
         <Route exact path="/cart" component={CartList} />
         <Route exact path="/order" component={Order} />
+        <Route exact path="/backend/manageorder" component={ManageOrder} />
         <Route path="/" component={Footer} />
       </BrowserRouter>
     );
