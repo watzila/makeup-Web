@@ -23,7 +23,7 @@ class Card extends Component {
 					"/pid=" +
 					(this.props.data != null ? this.props.data.product_id : "")
 				}
-				className="card"
+				className="customCard"
 			>
 				<span className="love">♡</span>
 				<div className="cardinside">

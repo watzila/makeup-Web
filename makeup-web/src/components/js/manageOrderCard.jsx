@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Home from '../../components/home';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Home from "../../components/home";
 
 class ManageOrderCard extends Component {
-  render() {
-    return (
-      <tr>
-        <td scope="row">
-          {this.props.data != null ? this.props.data.order_id : ''}
-        </td>
-        <td>{this.props.data != null ? this.props.data.orderDate : ''}</td>
-        <td>{this.props.data != null ? this.props.data.customerName : ''}</td>
-        <td>{this.props.data != null ? this.props.data.quantity : ''}</td>
-        <td>{this.props.data != null ? this.props.data.grandTotal : ''}</td>
-        <td>
-          <Link to="/order" className="btn btn-primary btn-sm">
-            檢視
-          </Link>
-        </td>
-        <td>
-          {/* <div className="dropdown">
+	render() {
+		return (
+			<tr>
+				<td scope="row">{this.props.data != null ? this.props.data.order_id : ""}</td>
+				<td>{this.props.data != null ? this.props.data.orderDate : ""}</td>
+				<td>{this.props.data != null ? this.props.data.customerName : ""}</td>
+				<td>{this.props.data != null ? this.props.data.quantity : ""}</td>
+				<td>{this.props.data != null ? this.props.data.grandTotal : ""}</td>
+				<td>
+					<Link to="/order" className="btn btn-primary btn-sm">
+						檢視
+					</Link>
+				</td>
+				<td>
+					{/* <div className="dropdown">
             <button
               className="btn btn-light btn-sm dropdown-toggle"
               type="button"
@@ -42,16 +40,14 @@ class ManageOrderCard extends Component {
               </a>
             </div>
           </div> */}
-          <div>
-            {this.props.data != null ? this.props.data.orderStatus : ''}
-          </div>
-        </td>
-        <td>
-          <button className="btn btn-success btn-sm">修改</button>
-        </td>
-      </tr>
-    );
-  }
+					<div>{this.props.data != null ? this.props.data.orderStatus : ""}</div>
+				</td>
+				<td>
+					<button className="btn btn-success btn-sm">修改</button>
+				</td>
+			</tr>
+		);
+	}
 }
 
 export default ManageOrderCard;

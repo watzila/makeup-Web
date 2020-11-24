@@ -66,7 +66,7 @@
 	}
 }*/
 
-.card {
+.customCard {
 	position: relative;
 	max-width: 200px;
 	/*max-width: 20vw;*/
@@ -86,7 +86,7 @@
 }*/
 
 /*愛心*/
-.card .love {
+.customCard .love {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -107,7 +107,7 @@
 	z-index: 1;
 }
 
-.card:hover .love {
+.customCard:hover .love {
 	transform: scaleY(1);
 }
 
@@ -168,6 +168,7 @@
 
 .productName h5 {
 	font-weight: 500;
+	color: #000;
 }
 
 .productInfo i {

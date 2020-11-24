@@ -28,7 +28,7 @@ class Detail extends Component {
     this.ajax = new Ajax();
     this.imgPath = new IMGPath();
 
-    this.ajax.startListener("get", `/p/${props.match.params.kind}?${props.match.params.id}`, this.u);
+    this.ajax.startListener("get", `/p/${props.match.params.kind}?${props.match.params.pid}`, this.u);
     this.p = require.context("./images/product1", false, /\.(png|jpe?g|svg)$/);
     //console.log(props)
   }

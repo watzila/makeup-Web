@@ -36,7 +36,6 @@ img {
 
 /*預設字體、大小*/
 html {
-	/*filter: saturate(1.5);*/
 	font: 12px "Noto Sans TC", sans-serif;
 
 	--height: 92vh;
