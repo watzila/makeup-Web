@@ -113,6 +113,38 @@
 	font-size: 1.3rem;
 }
 
+
+
+
+
+/* 會員購買清單-navbar */
+.firstNav > ul{
+	display: grid;
+	grid-template-columns: repeat(5,1fr);
+	justify-content: space-between;
+}
+
+
+
+/* 會員購買清單-產品&單價 */
+.memberBuy{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* 會員購買清單-總金額&訂單詳情 */
+.totalAndBuylist
+{
+	display: flex;
+	flex-direction: column;
+	align-items:flex-end;
+}
+.totalAndBuylist button{
+	width: 11rem;
+}
+
 /* RWD */
 
 /*@media all and (max-width: 640px) {

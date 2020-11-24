@@ -4,6 +4,7 @@ import User from "./js/user";
 import ChangePassword from "./js/changePassword";
 import "./css/member.css";
 import head from "./images/member/人頭.png";
+import product from "./images/product/A_01.jpg"
 
 class Member extends Component {
   constructor() {
@@ -23,11 +24,44 @@ class Member extends Component {
       <div className="memberMain">
         <article>
           {/*<img src={head} alt="head" />*/}
-          <div>
+          <div style={{display:"none"}}>
             <BrowserRouter>
               <Route path="/login" component={User} />
               <Route path="/login/edit/:account" component={ChangePassword} />
             </BrowserRouter>
+          </div>
+          <div>
+            <nav className="firstNav">
+              <ul>
+                <li>全部</li>
+                <li>待付款</li>
+                <li>待出貨</li>
+                <li>完成</li>
+                <li>取消</li>
+              </ul>
+            </nav>
+            <div>
+              <section className="ctxtActive"
+              >
+                {/* 產品單項描述 */}
+                <div className = "memberBuy">
+                  <img src={product} width="20%" alt="產品" />
+                  <span>控油烘焙蜜粉 <br/>
+                  <small>規格:無</small>
+                  </span>
+                  <span>$450-單價</span>
+                  <hr/>
+                </div>
+                {/* 總金額&訂單詳情按鈕 */}
+                <div className="totalAndBuylist">
+                訂單金額:$510 (+60運費)
+                <button>查看訂單詳情</button>
+                </div>
+                
+              </section>
+            </div>
+            
+            
           </div>
         </article>
 
