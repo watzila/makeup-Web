@@ -85,12 +85,20 @@ class Login extends Component {
 
   u = (data) => {
     console.log(data[0])
-    if (data[0].info === "yes") {
-      window.location.href = "/";
-    } else {
-      this.setState({ data: "帳號或密碼錯誤" });
+    switch (data[0].info) {
+      case "error":
+        this.setState({ data: "帳號或密碼錯誤" });
+        break;
+
+      case "yes":
+        this.setState({ data: "註冊成功" });
+        break;
+
+      default:
+        window.location.href = "/login";
     }
-    console.log(this.state.data)
+
+
   }
 
   render() {

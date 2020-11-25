@@ -242,6 +242,11 @@ class CartList extends Component {
 		}
 	};
 
+	orderId = () => {
+		console.log(1111);
+		sessionStorage.setItem("order", 6);
+	};
+
 	render() {
 		return (
 			<section id="cart" className="w">
@@ -447,7 +452,9 @@ class CartList extends Component {
 										</p>
 									</div>
 									<div className="divCheckout">
-										<button className="btnCheckout">下一步</button>
+										<Link to="/order" className="btnCheckout" onClick={this.orderId}>
+											下一步
+										</Link>
 									</div>
 								</div>
 							</div>

@@ -77,10 +77,10 @@ app.post("/login", function (request, response) {
     if (err) return;
 
     if (rows.length == 0) {
-      console.log(rows.length)
-      response.send([{ "info": "帳號或密碼錯誤" }]);
+      //console.log(rows.length)
+      response.send([{ "info": "error" }]);
     } else {
-      response.send([{ "info": "yes" }]);
+      response.send(rows);
     }
   });
 });
@@ -181,19 +181,37 @@ app.get("/backEnd/manageorder", function (request, response) {
     response.send(rows);
   }
   );
-})
+});
 
+//購買清單
+app.post('/searchOrder', function (request, response) {
+  let sql = (
+    `SELECT *
+    FROM orders AS o
+    INNER JOIN orderdetail AS od
+    ON o.order_id = od.order_id
+    INNER JOIN customer AS c
+    ON o.customer_id = c.customer_id
+    INNER JOIN shipping AS s
+    ON o.order_id = s.order_id
+    INNER JOIN product AS p
+    ON p.product_id = o.product_id
+    INNER JOIN category AS cate
+    ON cate.category_id = p.category_id
+    INNER JOIN productimg AS pdimg
+    ON p.product_id = productImg_id
+    WHERE o.customer_id = ${request.body.id}`
+  );
 
-app.post('/add', function (req, res) {
-  var body = req.body
-  var sql = `INSERT INTO customer(nickname, cellPhone, city) VALUES(?,?,?);`
-  var data = [body.name, body.phone, body.address]
-
-  conn.query('select * from customer',
-    function (err, rows) {
-      res.render("ok");
-    })
-})
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    console.log(rows)
+    response.send(rows);
+  });
+});
 
 
 // 刪除
