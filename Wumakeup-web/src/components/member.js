@@ -5,7 +5,8 @@ import ChangePassword from "./js/changePassword";
 import "./css/member.css";
 import head from "./images/member/人頭.png";
 import MemberBuy from "./js/memberBuy";
-import MemberCoin from "./js/memberCoin"
+import MemberCoin from "./js/memberCoin";
+import MemberFavorite from "./js/memberFavorite";
 
 
 
@@ -30,11 +31,10 @@ class Member extends Component {
         
         <article>
           {/*<img src={head} alt="head" />*/}
-        
-           
               <Route path="/login" exact component={User} />
               <Route path="/login/edit/:account" component={ChangePassword} />
               <Route path="/login/memberbuy" component={MemberBuy}/>
+              <Route path="/login/memberfavorite" component={MemberFavorite}/>
               <Route path="/login/membercoin" component={MemberCoin}/>
         </article>
 
@@ -83,7 +83,7 @@ class Member extends Component {
             </li>
 
             <li>
-              <Link to="" className="facebook">
+              <Link to="/login/memberfavorite" className="facebook">
                 <i className="fa fa-heart"></i>
                 收藏
               </Link>
