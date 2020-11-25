@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Home from "../../components/home";
 
 class ManageOrderCard extends Component {
 	render() {
 		return (
 			<tr>
-				<td scope="row">{this.props.data != null ? this.props.data.order_id : ""}</td>
+				<td>{this.props.data != null ? this.props.data.order_id : ""}</td>
 				<td>{this.props.data != null ? this.props.data.orderDate : ""}</td>
 				<td>{this.props.data != null ? this.props.data.customerName : ""}</td>
 				<td>{this.props.data != null ? this.props.data.quantity : ""}</td>

@@ -5,7 +5,7 @@ import Ajax from "./js/ajax";
 import IMGPath from "./js/imgPath"; //引入圖片
 import "./css/bootstrap.css";
 import "./css/manageOrder.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 class ManageOrder extends Component {
 	constructor(props) {
@@ -171,12 +171,15 @@ class ManageOrder extends Component {
 									<div className="col-12 border border-secondary p-1">
 										<div className="ml-3 my-2">
 											顯示
-											<select className="custom-select" id="inputGroupSelect">
-												<option defaultValue="1" selected>
-													10
-												</option>
-												<option defaultValue="2">20</option>
-												<option defaultValue="3">50</option>
+											<select
+												defaultValue={1}
+												onChange={console.log(0)}
+												className="custom-select"
+												id="inputGroupSelect"
+											>
+												<option value="1">10</option>
+												<option value="2">20</option>
+												<option value="3">50</option>
 											</select>
 											<span>筆</span>
 										</div>

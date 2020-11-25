@@ -12,8 +12,8 @@
 	flex: 1 1.5 auto;
 	width: 100%;
 	height: 100%;
-	background: url(../images/member/會員頁風格.png) no-repeat bottom / contain,
-		url(../images/宣紙1.png);
+	background: url(../images/background/會員頁風格.png) no-repeat bottom / contain,
+		url(../images/background/宣紙1.png);
 }
 
 .memberMain > article > div {
@@ -113,21 +113,15 @@
 	font-size: 1.3rem;
 }
 
-
-
-
-
 /* 會員購買清單-navbar */
-.firstNav > ul{
+.firstNav > ul {
 	display: grid;
-	grid-template-columns: repeat(5,1fr);
+	grid-template-columns: repeat(5, 1fr);
 	justify-content: space-between;
 }
 
-
-
 /* 會員購買清單-產品&單價 */
-.memberBuy{
+.memberBuy {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -135,13 +129,12 @@
 }
 
 /* 會員購買清單-總金額&訂單詳情 */
-.totalAndBuylist
-{
+.totalAndBuylist {
 	display: flex;
 	flex-direction: column;
-	align-items:flex-end;
+	align-items: flex-end;
 }
-.totalAndBuylist button{
+.totalAndBuylist button {
 	width: 11rem;
 }
 

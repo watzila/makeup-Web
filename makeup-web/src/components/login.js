@@ -63,10 +63,24 @@ class Login extends Component {
 
   //登入
   welcome = (el) => {
-    let account = document.querySelector(el + " #account").value;
-    let password = document.querySelector(el + " #password").value;
-    console.log(account)
-    this.ajax.startListener("get", "/login?account=" + account, this.u/*, `account=${account}&password=${password}`*/);
+    let data = {
+      account: document.querySelector(el + " #account").value,
+      password: document.querySelector(el + " #password").value
+    }
+
+    this.ajax.startListener("post", "/login", this.u, data);
+  }
+
+  //註冊
+  register = (el) => {
+    let data = {
+      username: document.querySelector(el + " #username").value,
+      account: document.querySelector(el + " #account").value,
+      password: document.querySelector(el + " #password").value,
+      email: document.querySelector(el + " #email").value
+    }
+
+    this.ajax.startListener("post", "/register", this.u, data);
   }
 
   u = (data) => {
@@ -100,32 +114,32 @@ class Login extends Component {
           </div>
 
           <div className="inputForm" style={this.state.inputFormLeft}>
-            <div className={this.state.registerForm}>
+            <div id="registerForm" className={this.state.registerForm}>
 
               <h1>Register 註冊</h1>
               <div>
                 <div className="inputWrap">
                   <label htmlFor="username">姓名</label>
-                  <input type="text" name="username" id="username" placeholder="姓名" autoComplete="off" />
+                  <input type="text" name="username" id="username" placeholder="姓名" autoComplete="off" required />
                 </div>
 
                 <div className="inputWrap">
                   <label htmlFor="account">帳號</label>
-                  <input type="text" name="account" id="account" placeholder="帳號" autoComplete="off" />
+                  <input type="text" name="account" id="account" placeholder="E-mail" autoComplete="off" required />
                 </div>
 
                 <div className="inputWrap">
                   <label htmlFor="password">密碼</label>
-                  <input type="password" name="password" id="password" placeholder="密碼" autoComplete="off" />
+                  <input type="password" name="password" id="password" placeholder="密碼" autoComplete="off" required />
                 </div>
 
                 <div className="inputWrap">
                   <label htmlFor="email">E-mail</label>
-                  <input type="email" name="email" id="email" placeholder="E-mail" autoComplete="off" />
+                  <input type="email" name="email" id="email" placeholder="E-mail" autoComplete="off" required />
                 </div>
               </div>
 
-              <button>送出</button>
+              <button onClick={() => { this.register("#registerForm") }}>送出</button>
             </div>
 
             <div id="loginForm" className={this.state.loginForm}>
@@ -154,7 +168,7 @@ class Login extends Component {
 
                 <div className="inputWrap">
                   <label htmlFor="password">密碼</label>
-                  <input type="password" id="password" placeholder="密碼" autoComplete="off" />
+                  <input type="password" id="password" placeholder="密碼" autoComplete="off" required />
                 </div>
               </div>
 

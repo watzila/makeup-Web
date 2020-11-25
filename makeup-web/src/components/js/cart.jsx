@@ -1,79 +1,90 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import IMGPath from './imgPath'; //引入圖片
 
 class Cart extends Component {
-	state = {
-		count: this.props.count,
-		subtotal: this.props.subtotal,
-	};
+  constructor(props) {
+    super(props);
+    this.state = {
+      // count: this.props.count,
+      count: this.props.data.quantity,
+      subtotal: this.props.data.subtotal,
+    };
 
-	// 當點擊增加或減少數量的按鈕時，回父層去改變數量，並且執行handleChange，讓子層的數量也更新(this.state.count)，讓其顯示在畫面上
-	handleChange = obj => {
-		this.setState({ count: obj.count });
-		// console.log(e);
-	};
+    this.imgPath = new IMGPath();
+    this.p = require.context('../images/product', false, /\.(png|jpe?g|svg)$/);
+    console.log(this.p);
+  }
 
-	render() {
-		// console.log(this.props.count);
-		// console.log(this.props.subtotal);
+  // 當點擊增加或減少數量的按鈕時，回父層去改變數量，並且執行handleChange，讓子層的數量也更新(this.state.count)，讓其顯示在畫面上
+  // handleChange = (obj) => {
+  //   this.setState({ count: obj.quantity });
+  //   // console.log(obj.quantity);
+  // };
 
-		return (
-			<tr className="productItem">
-				<td className="productName">
-					<div>
-						<img
-							src="https://hinetcdn.waca.ec/uploads/shops/800/products/78/thumb_cache/75_784a212efaa02430b77c15abda4cabce.jpg"
-							width="80"
-							height="80"
-							alt=""
-						/>
-					</div>
-					<div>
-						<a href="https://dorene.com.tw/product/detail/303450">
-							秋季禮遇 ▌新手肌本保養3件組新手肌本保養3件組新手肌本保養3件組
-						</a>
-						<p>單一規格</p>
-						<i className="fa fa-tags" aria-hidden="true"></i>
-						<small>預計11/24開始出貨</small>
-					</div>
-				</td>
+  render() {
+    // console.log(this.props.count);
+    // console.log(this.props.data.product_id);
+    // console.log(this.props.subtotal);
 
-				<td className="productQuantity">
-					<div
-						onClick={() => {
-							this.props.onDecrement(this.props.obj);
-							this.handleChange(this.props.obj);
-						}}
-						className="btnDecrease"
-					>
-						-
-					</div>
+    return (
+      <tr className="productItem">
+        <td className="productName">
+          <div>
+            <img
+              src={this.imgPath.importAll(this.p)[`${this.props.data.img_0}`]}
+              width="80"
+              height="80"
+              alt="cart_product"
+            />
+          </div>
+          <div>
+            <a href="#">{this.props.data.productName}</a>
+            <p>{this.props.data.productColor}</p>
+            <i className="fa fa-tags" aria-hidden="true"></i>
+            <small>預計11/24開始出貨</small>
+          </div>
+        </td>
 
-					<input type="text" value={this.state.count} readOnly />
+        <td className="productQuantity">
+          <div
+            onClick={() => {
+              this.props.data.onDecrement(this.props.data);
+              // this.handleChange(this.props.data);
+            }}
+            className="btnDecrease"
+          >
+            -
+          </div>
 
-					<div
-						onClick={() => {
-							this.props.onIncrement(this.props.obj);
-							this.handleChange(this.props.obj);
-						}}
-						className="btnIncrease"
-					>
-						+
-					</div>
-				</td>
-				<td>{this.props.unitPrice}</td>
-				<td>{this.props.subtotal}</td>
-				<td>
-					<div onClick={() => this.props.onDelete(this.props.id)} className="btnDelete">
-						<i className="fa fa-trash" aria-hidden="true"></i>
-					</div>
-				</td>
-			</tr>
-		);
-	}
-	//      handleIncrement = (product) => {
-	//     this.setState({count: this.state.count + 1})
-	//     console.log(this.state.count);
-	// }
+          <input type="text" value={this.props.data.quantity} readOnly />
+
+          <div
+            onClick={() => {
+              this.props.data.onIncrement(this.props.data);
+              // this.handleChange(this.props.data);
+            }}
+            className="btnIncrease"
+          >
+            +
+          </div>
+        </td>
+        <td>{this.props.data.unitPrice}</td>
+        <td>{this.props.data.subtotal}</td>
+        <td>
+          <div
+            onClick={() => this.props.data.onDelete(this.props.data.cart_id)}
+            className="btnDelete"
+          >
+            <i className="fa fa-trash" aria-hidden="true"></i>
+          </div>
+        </td>
+      </tr>
+    );
+  }
+  //      handleIncrement = (product) => {
+  //     this.setState({count: this.state.count + 1})
+  //     console.log(this.state.count);
+  // }
 }
 
 export default Cart;

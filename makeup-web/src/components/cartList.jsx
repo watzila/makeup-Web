@@ -6,12 +6,19 @@ import Cart from "./js/cart";
 //line登入的圖片
 import line from "./images/line.png";
 
+import CreateCard from "./js/createCard"; //創建商品卡
+import Ajax from "./js/ajax";
+import IMGPath from "./js/imgPath"; //引入圖片
+
 class CartList extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			data: null,
+
 			//購物車商品  資料列表  預設subtotal為空值，需要透過init()計算初始化
+
 			cartList: [
 				{ id: 1, count: 1, unitPrice: 800, subtotal: null },
 				{ id: 2, count: 2, unitPrice: 900, subtotal: null },
@@ -38,36 +45,66 @@ class CartList extends Component {
 			},
 		};
 		// 執行各個商品剛放進購物車時，金額小記subtotal初始化
-		this.init();
+		this.imgPath = new IMGPath();
+		this.ajax = new Ajax();
+		this.createCard = new CreateCard();
+
+		this.ajax.startListener("get", "/cart", this.u);
 	}
+
+	u = data => {
+		let apple = {
+			subtotal: null,
+			onIncrement: this.handleIncrement,
+			onDecrement: this.handleDecrement,
+			onDelete: this.handleDelete,
+		};
+
+		for (var i = 0; i < data.length; i++) {
+			Object.assign(data[i], apple);
+		}
+
+		this.setState({ data: data });
+
+		setTimeout(() => {
+			this.init();
+		}, 100);
+
+		// console.log(data);
+		// console.log(this.state.data.length);
+	};
 
 	// 金額 小記subtotal “初始化”
 	init = () => {
-		this.state.cartList.map(item => {
-			return (item.subtotal = item.count * item.unitPrice);
-		});
+		if (this.state.data != null) {
+			for (var i = 0; i < this.state.data.length; i++) {
+				this.state.data[i].subtotal = this.state.data[i].quantity * this.state.data[i].unitPrice;
+			}
+			this.setState({});
+		}
 	};
 
 	// 功能：商品金額小記subtotal隨著數量改變
 	handleSubtotal = obj => {
-		this.state.cartList[this.state.cartList.indexOf(obj)].subtotal =
-			this.state.cartList[this.state.cartList.indexOf(obj)].count *
-			this.state.cartList[this.state.cartList.indexOf(obj)].unitPrice;
+		this.state.data[this.state.data.indexOf(obj)].subtotal =
+			this.state.data[this.state.data.indexOf(obj)].quantity *
+			this.state.data[this.state.data.indexOf(obj)].unitPrice;
 
 		this.setState({});
 	};
 
 	// 功能：商品數量增加
 	handleIncrement = (obj, handleChange) => {
-		// console.log(obj);
 		// console.log(this.state.cartList.indexOf(obj));
-		this.state.cartList[this.state.cartList.indexOf(obj)].count += 1;
+		// this.state.cartList[this.state.cartList.indexOf(obj)].count += 1;
+		this.state.data[this.state.data.indexOf(obj)].quantity += 1;
 
 		//更新subtotal
 		this.handleSubtotal(obj);
 
 		this.setState({});
 
+		// console.log(this.state.data);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].count);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].unitPrice);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].subtotal);
@@ -79,8 +116,8 @@ class CartList extends Component {
 		// console.log(this.state.cartList.indexOf(obj));
 
 		// 判斷當數量>0 可以執行減少數量
-		if (this.state.cartList[this.state.cartList.indexOf(obj)].count > 0) {
-			this.state.cartList[this.state.cartList.indexOf(obj)].count -= 1;
+		if (this.state.data[this.state.data.indexOf(obj)].quantity > 0) {
+			this.state.data[this.state.data.indexOf(obj)].quantity -= 1;
 
 			//更新subtotal
 			this.handleSubtotal(obj);
@@ -90,11 +127,12 @@ class CartList extends Component {
 		}
 
 		// 判斷當數量＝0 將此商品刪除
-		if (this.state.cartList[this.state.cartList.indexOf(obj)].count === 0) {
+		if (this.state.data[this.state.data.indexOf(obj)].quantity === 0) {
 			// 設一個新的陣列，過濾儲存刪除此商品後新的購物車列表
-			const newArray = this.state.cartList.filter(item => item.id !== obj.id);
-			// console.log(newArray);
-			this.state.cartList = newArray;
+			const newArray = this.state.data.filter(item => item.cart_id !== obj.cart_id);
+			this.state.data = newArray;
+			console.log(newArray);
+
 			this.setState({});
 		}
 	};
@@ -103,32 +141,37 @@ class CartList extends Component {
 	handleDelete = idCart => {
 		//  console.log("handleDelete clicked");
 		//  console.log(idCart);
-		const newArray = this.state.cartList.filter(item => item.id !== idCart);
+		const newArray = this.state.data.filter(item => item.cart_id !== idCart);
+		this.state.data = newArray;
+		// console.log(newArray);
+
 		// this.state.counters = newArray;
 		// this.setState({});
 
-		this.setState({ cartList: newArray });
+		this.setState({});
 	};
 
 	// 金額計算 （不含運費）
 	handleTotalMoney = () => {
 		var totalMoney = 0;
+		if (this.state.data != null) {
+			// console.log(this.state.data);
 
-		this.state.cartList.forEach(element => {
-			totalMoney += element.subtotal;
-		});
-
+			this.state.data.forEach(element => {
+				totalMoney += element.subtotal;
+			});
+			// console.log(totalMoney);
+		}
 		return totalMoney;
 	};
 
-	// 運費計算
+	// 運費計算;
 	handleDeliverFee = () => {
 		if (this.handleTotalMoney() >= 2000) {
 			this.state.deliverFee = 0;
 		} else {
 			this.state.deliverFee = 140;
 		}
-
 		return this.state.deliverFee;
 	};
 
@@ -173,7 +216,10 @@ class CartList extends Component {
 
 	// 點擊Modal視窗中的直接購買按鈕後，OrderBox顯示，Modal隱藏
 	OrderBoxDisplayBlock = () => {
-		this.setState({ myOrderBox: { display: "block" }, myModal: { display: "none" } });
+		this.setState({
+			myOrderBox: { display: "block" },
+			myModal: { display: "none" },
+		});
 	};
 
 	// 選擇宅配後，顯示對應的住址輸入框，預設select value ==1
@@ -217,20 +263,9 @@ class CartList extends Component {
 										</tr>
 									</thead>
 									<tbody>
-										{/* <Cart/> */}
-										{this.state.cartList.map(item => (
-											<Cart
-												key={item.id}
-												count={item.count}
-												id={item.id}
-												obj={item}
-												unitPrice={item.unitPrice}
-												subtotal={item.subtotal}
-												onIncrement={this.handleIncrement}
-												onDecrement={this.handleDecrement}
-												onDelete={this.handleDelete}
-											></Cart>
-										))}
+										{this.state.data != null
+											? this.createCard.create(this.state.data.length, Cart, this.state.data)
+											: null}
 										<tr className="coupon">
 											<td colSpan="3">優惠代碼</td>
 											<td colSpan="2">
@@ -279,10 +314,12 @@ class CartList extends Component {
 									<img src={line} alt="12" /> LINE會員登入
 								</div>
 								<div className="btnLogin  btnFb">
-									<i className="fa fa-facebook" aria-hidden="true"></i>FB會員登入
+									<i className="fa fa-facebook" aria-hidden="true"></i>
+									FB會員登入
 								</div>
 								<div className="btnLogin btnGoogle">
-									<i className="fa fa-google" aria-hidden="true"></i>GOOGLE會員登入
+									<i className="fa fa-google" aria-hidden="true"></i>
+									GOOGLE會員登入
 								</div>
 								{/* Trigger/Open The Modal  */}
 								<div
@@ -290,7 +327,8 @@ class CartList extends Component {
 									id="myBtn"
 									className="btnLogin btnDirect"
 								>
-									<i className="fa fa-shopping-cart" aria-hidden="true"></i>直接前往結帳
+									<i className="fa fa-shopping-cart" aria-hidden="true"></i>
+									直接前往結帳
 								</div>
 							</div>
 
@@ -300,7 +338,8 @@ class CartList extends Component {
 								<div className="modal-content">
 									<div className="modal-body">
 										<p>
-											<i className="fa fa-gift" aria-hidden="true"></i>登入會員，享有更多優惠！
+											<i className="fa fa-gift" aria-hidden="true"></i>
+											登入會員，享有更多優惠！
 										</p>
 										<div>
 											<Link to="/login">立即登入</Link>

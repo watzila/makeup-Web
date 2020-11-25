@@ -65,26 +65,40 @@ app.get("/", function (request, response) {
   }, 500);
 })
 
-app.get("/login", function (request, response) {
-  //let sql = (
-  //  `select * 
-  //  from customer
-  //  where email="${request.body.account}"`
-  //);
+//登入
+app.post("/login", function (request, response) {
+  let sql = (
+    `select * 
+    from customer
+    where account="${request.body.account}"`
+  );
   // && password="${request.body.password}"
-  //conn.query(sql, function (err, rows) {
-  //  //if (err) return;
+  conn.query(sql, function (err, rows) {
+    if (err) return;
 
-  //  if (rows.length == 0) {
-  //    console.log(rows.length)
-  //    //response.send([{ "info": "帳號或密碼錯誤" }]);
-  //  } else {
+    if (rows.length == 0) {
+      console.log(rows.length)
+      response.send([{ "info": "帳號或密碼錯誤" }]);
+    } else {
+      response.send([{ "info": "yes" }]);
+    }
+  });
+});
 
-  //  }
-  //});
-  console.log(request.query.account)
-  response.send([{ "a": request.query.account }]);
+//註冊
+app.post("/register", function (request, response) {
+  let sql = (
+    `insert into customer (customerName,account, email, password)
+    values("${request.body.username}","${request.body.account}","${request.body.email}","${request.body.password}")`
+  );
+  // && password="${request.body.password}"
+  conn.query(sql, function (err, rows) {
+    //if (err) return;
+    //console.log(request.body)
 
+    response.send([{ "info": "yes" }]);
+
+  });
 });
 
 //產品頁
@@ -125,6 +139,27 @@ app.get("/p/:kind", function (request, response) {
   );
 })
 
+//購物車
+app.get("/cart", function (request, response) {
+
+  conn.query(`SELECT *
+FROM category AS c 
+INNER JOIN product AS p 
+ON c.category_id = p.category_id 
+INNER JOIN cart AS cart
+ON p.product_id = cart.product_id
+INNER JOIN productimg AS pdimg
+ON p.product_id = productImg_id
+WHERE cart.customer_id = 6  `,
+    function (err, rows) {
+      if (err) {
+        console.log(JSON.stringify(err));
+        return;
+      }
+      response.send(rows);
+    }
+  );
+})
 
 //後台
 app.get("/backEnd/manageorder", function (request, response) {
@@ -142,6 +177,7 @@ app.get("/backEnd/manageorder", function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
+    //console.log(rows)
     response.send(rows);
   }
   );

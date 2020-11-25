@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import User from "./js/user";
 import ChangePassword from "./js/changePassword";
 import "./css/member.css";
-import head from "./images/member/人頭.png";
+import head from "./images/人頭.png";
 import product from "./images/product/A_01.jpg"
 
 class Member extends Component {
@@ -24,7 +24,7 @@ class Member extends Component {
       <div className="memberMain">
         <article>
           {/*<img src={head} alt="head" />*/}
-          <div style={{display:"none"}}>
+          <div style={{ display: "none" }}>
             <BrowserRouter>
               <Route path="/login" component={User} />
               <Route path="/login/edit/:account" component={ChangePassword} />
@@ -44,24 +44,24 @@ class Member extends Component {
               <section className="ctxtActive"
               >
                 {/* 產品單項描述 */}
-                <div className = "memberBuy">
+                <div className="memberBuy">
                   <img src={product} width="20%" alt="產品" />
-                  <span>控油烘焙蜜粉 <br/>
-                  <small>規格:無</small>
+                  <span>控油烘焙蜜粉 <br />
+                    <small>規格:無</small>
                   </span>
                   <span>$450-單價</span>
-                  <hr/>
+                  <hr />
                 </div>
                 {/* 總金額&訂單詳情按鈕 */}
                 <div className="totalAndBuylist">
-                訂單金額:$510 (+60運費)
+                  訂單金額:$510 (+60運費)
                 <button>查看訂單詳情</button>
                 </div>
-                
+
               </section>
             </div>
-            
-            
+
+
           </div>
         </article>
 

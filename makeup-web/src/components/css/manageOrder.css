@@ -1,17 +1,16 @@
 .colorYellow {
-  background: #d48e50;
+	background: var(--brownColor1);
 }
 
 .sideCol {
-  height: 100vh;
+	height: 100vh;
 }
 
 .table th,
 .table td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .custom-select {
-  width: 64px;
+	width: 64px;
 }
-/*# sourceMappingURL=manageOrder.css.map */
