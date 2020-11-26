@@ -12,6 +12,7 @@ class Product extends Component {
 		this.state = {
 			data: null,
 			allData: null,
+			fData: null,
 		};
 
 		this.imgPath = new IMGPath();
@@ -22,41 +23,60 @@ class Product extends Component {
 		this.bg = require.context("./images/background", false, /\.(png|jpe?g|svg)$/);
 
 		if (sessionStorage.getItem("member")) {
+			console.log(JSON.parse(sessionStorage.getItem("member")).customer_id);
 			this.ajax.startListener(
 				"get",
-				`/addLove?cId=${JSON.parse(sessionStorage.getItem("member").cId)}`,
-				this.u
+				`/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
+				this.u2
 			);
-		} else {
-			this.ajax.startListener("get", "/p", this.u);
 		}
+
+		this.ajax.startListener("get", "/p", this.u);
 	}
 
+	//我的最愛資料更新
+	u2 = data => {
+		this.setState({ fData: data });
+		//console.log(data);
+	};
+
+	//主要資料更新
 	u = data => {
 		let newData = [],
 			i = 0;
 
+		//我的最愛資料合併到主要資料
+		for (let k = 0; k < this.state.fData.length; k++) {
+			for (let l = 0; l < data.length; l++) {
+				data[l].addLove = this.addLove;
+				if (this.state.fData[k].product_id === data[l].product_id) {
+					data[l].f = this.state.fData[k];
+				}
+			}
+		}
+		//console.log(data);
+
+		//主要資料拆分8個為一組
 		do {
 			let d = [];
 			for (let j = 0; j < 8; j++) {
-				if (data.p[j + i]) {
-					data.p[j + i].addLove = this.addLove;
-					d.push(data.p[j + i]);
+				if (data[j + i]) {
+					d.push(data[j + i]);
 				} else {
 					break;
 				}
 			}
 			newData.push(d);
 			i += 8;
-		} while (i < data.p.length);
+		} while (i < data.length);
 
 		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
+		console.log(this.state.allData);
 
+		//頁數按鈕初始化
 		document.querySelector(
 			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
 		).className = "click";
-
-		//console.log(data.p);
 	};
 
 	//加入最愛
@@ -66,11 +86,11 @@ class Product extends Component {
 		if (sessionStorage.getItem("member")) {
 			this.ajax.startListener(
 				"get",
-				`/addLove?pid=${pid}&cId=${JSON.parse(sessionStorage.getItem("member").cId)}`,
-				this.u
+				`/addLove?pid=${pid}&cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
+				this.u2
 			);
 		}
-		console.log(pid);
+		console.log(this.state.fData);
 	};
 
 	//換頁

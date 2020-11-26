@@ -27,11 +27,13 @@ class Card extends Component {
 			>
 				<span
 					className="love"
-					onClick={event => {
-						this.props.data.addLove(event, this.props.data.product_id);
-					}}
+					onClick={event =>
+						this.props.data != null
+							? this.props.data.addLove(event, this.props.data.product_id)
+							: null
+					}
 				>
-					♡
+					{this.props.data.f != null ? "♥" : "♡"}
 				</span>
 				<div className="cardinside">
 					{/*圖片*/}

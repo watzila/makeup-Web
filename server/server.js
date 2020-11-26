@@ -104,29 +104,29 @@ app.post("/register", function (request, response) {
 
 //產品頁
 app.get("/p", function (request, response) {
-  let sql1 = (
+  let sql = (
     `SELECT *,unitPrice 
     FROM product as p,category as c 
     WHERE c.category_id=p.category_id`
   );
 
-  conn.query(sql1, function (err, rows) {
-    let p, f;
-    p = rows;
-    if (request.query.cId) {
-      let sql2 = (
-        `SELECT * 
+  conn.query(sql, function (err, rows) {
+
+    response.send(rows);
+  });
+});
+
+//我的最愛
+app.get("/myLove", function (request, response) {
+  let sql = (
+    `SELECT * 
       FROM favorite
-      WHERE favorite=${request.query.cId}`
-      );
+      WHERE customer_id=${request.query.cId}`
+  );
 
-      conn.query(sql2, function (err, rows) {
-        f = rows;
-      });
-    }
-
-    console.log(p, f);
-    response.send({ p: p, f: f });
+  conn.query(sql, function (err, rows) {
+    response.send(rows);
+    console.log(rows);
   });
 });
 
