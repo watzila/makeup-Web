@@ -22,7 +22,7 @@ class Detail extends Component {
         canChange: true
       },
 
-      d: null
+      data: null
     }
 
     this.ajax = new Ajax();
@@ -35,16 +35,16 @@ class Detail extends Component {
 
   //ajax回傳資料再更新本地資料
   u = (data) => {
-    this.setState({ d: data });
+    this.setState({ data: data });
     //console.log(data);
   }
 
   componentDidMount() {
     this.draw = new CustomDrawing(this.imgPath.importAll(this.p));
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     let str = document.getElementById("prodDes").innerHTML;
-    document.getElementById("prodDes").innerHTML = str.replaceAll('#','<br/>');
+    document.getElementById("prodDes").innerHTML = str.replaceAll('#', '<br/>');
   }
 
   //改數量
@@ -113,14 +113,14 @@ class Detail extends Component {
                   <li>★</li>
                 </ul>*/}
 
-                  <h2>{this.state.d == null ? "" : this.state.d[0].productName}</h2>
+                  <h2>{this.state.data == null ? "" : this.state.data[0].productName}</h2>
 
                   <h5>一吻定情系列-</h5>
 
                   <ul className="tagChoose">
-                    <li># {this.state.d == null ? "" : this.state.d[0].productColor}</li>
-                    <li># {this.state.d == null ? "" : this.state.d[0].kindA}</li>
-                    <li># {this.state.d == null ? "" : this.state.d[0].kindB}</li>
+                    <li># {this.state.data == null ? "" : this.state.data[0].productColor}</li>
+                    <li># {this.state.data == null ? "" : this.state.data[0].kindA}</li>
+                    <li># {this.state.data == null ? "" : this.state.data[0].kindB}</li>
                   </ul>
                 </div>
 
@@ -139,7 +139,7 @@ class Detail extends Component {
                     <button id="add" onClick={() => { this.changeCount(1) }}>+</button>
                   </div>
 
-                  <p className="price">$<span>{this.state.d == null ? "" : this.state.d[0].unitPrice}</span>元</p>
+                  <p className="price">$<span>{this.state.data == null ? "" : this.state.data[0].unitPrice}</span>元</p>
                 </div>
 
                 {/*加入購物車*/}
@@ -219,17 +219,17 @@ class Detail extends Component {
               {/* 適合膚質 */}
               <div>
                 適合膚質:
-              {this.state.d == null ? "" : this.state.d[0].skinType}
+              {this.state.data == null ? "" : this.state.data[0].skinType}
               </div>
 
               <div>
                 規格:
-              {this.state.d == null ? "" : this.state.d[0].specification}
+              {this.state.data == null ? "" : this.state.data[0].specification}
               </div>
 
               {/* 商品描述 */}
               <div id="prodDes">
-                {this.state.d == null ? "" : this.state.d[0].detail}
+                {this.state.data == null ? "" : this.state.data[0].detail}
               </div>
             </section>
 

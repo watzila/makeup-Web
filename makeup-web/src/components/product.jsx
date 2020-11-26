@@ -11,6 +11,7 @@ class Product extends Component {
 		super();
 		this.state = {
 			data: null,
+			allData: null,
 		};
 
 		this.imgPath = new IMGPath();
@@ -20,12 +21,89 @@ class Product extends Component {
 		this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
 		this.bg = require.context("./images/background", false, /\.(png|jpe?g|svg)$/);
 
-		this.ajax.startListener("get", "/p/", this.u);
+		if (sessionStorage.getItem("member")) {
+			this.ajax.startListener(
+				"get",
+				`/addLove?cId=${JSON.parse(sessionStorage.getItem("member").cId)}`,
+				this.u
+			);
+		} else {
+			this.ajax.startListener("get", "/p", this.u);
+		}
 	}
 
 	u = data => {
-		this.setState({ data: data });
-		console.log(data);
+		let newData = [],
+			i = 0;
+
+		do {
+			let d = [];
+			for (let j = 0; j < 8; j++) {
+				if (data.p[j + i]) {
+					data.p[j + i].addLove = this.addLove;
+					d.push(data.p[j + i]);
+				} else {
+					break;
+				}
+			}
+			newData.push(d);
+			i += 8;
+		} while (i < data.p.length);
+
+		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
+
+		document.querySelector(
+			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
+		).className = "click";
+
+		//console.log(data.p);
+	};
+
+	//加入最愛
+	addLove = (event, pid) => {
+		event.preventDefault();
+		//event.target.innerText = "♥";
+		if (sessionStorage.getItem("member")) {
+			this.ajax.startListener(
+				"get",
+				`/addLove?pid=${pid}&cId=${JSON.parse(sessionStorage.getItem("member").cId)}`,
+				this.u
+			);
+		}
+		console.log(pid);
+	};
+
+	//換頁
+	changePage = (page, which) => {
+		console.log(page, which);
+		if (page < 0 || page > this.state.allData.length - 1) return;
+		this.setState({ data: this.state.allData[page] });
+
+		for (let i = 0; i <= this.state.allData.length; i++) {
+			let allA = document.querySelectorAll(".page a");
+			allA[i].className = null;
+		}
+		document.getElementById(which).className = "click";
+	};
+
+	//頁碼生成
+	createPageNumber = () => {
+		let pageNumber = this.state.allData.map((item, index) => {
+			return (
+				<Link
+					to={"/p/" + (index + 1)}
+					key={index}
+					id={"page_" + index}
+					onClick={() => {
+						this.changePage(index, "page_" + index);
+					}}
+				>
+					{index + 1}
+				</Link>
+			);
+		});
+
+		return pageNumber;
 	};
 
 	render() {
@@ -46,7 +124,9 @@ class Product extends Component {
 						</div>
 
 						<div className="grid" style={{ "--i": 4 }}>
-							{this.createCard.create(4, Card, this.state.data)}
+							{this.state.data != null
+								? this.createCard.create(4, Card, this.state.allData[0])
+								: null}
 						</div>
 					</div>
 
@@ -60,17 +140,46 @@ class Product extends Component {
 					</nav>
 
 					<div className="grid" style={{ "--i": 4 }}>
-						{this.createCard.create(8, Card, this.state.data)}
+						{this.state.data != null
+							? this.createCard.create(this.state.data.length, Card, this.state.data)
+							: null}
 					</div>
 
 					<div className="page">
-						<Link to="">&lt;</Link>
-						<Link to="" className="click">
-							1
+						<Link
+							to={
+								"/p/" +
+								(this.props.match.params.page > 1 ? this.props.match.params.page * 1 - 1 : 1)
+							}
+							onClick={() => {
+								this.changePage(
+									this.props.match.params.page * 1 - 2,
+									"page_" + (this.props.match.params.page * 1 - 2)
+								);
+							}}
+						>
+							&lt;
 						</Link>
-						<Link to="">2</Link>
-						<Link to="">3</Link>
-						<Link to="">&gt;</Link>
+						{this.state.allData != null ? this.createPageNumber() : null}
+						<Link
+							to={
+								"/p/" +
+								(this.props.match.params.page <
+								(this.state.allData != null ? this.state.allData.length : null)
+									? this.props.match.params.page * 1 + 1
+									: this.state.allData != null
+									? this.state.allData.length
+									: null)
+							}
+							onClick={() => {
+								this.changePage(
+									this.props.match.params.page,
+									"page_" + this.props.match.params.page
+								);
+							}}
+						>
+							&gt;
+						</Link>
 					</div>
 				</div>
 			</main>

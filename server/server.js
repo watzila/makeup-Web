@@ -8,8 +8,8 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    "127.0.0.1:3000",
-    "10.0.103.250:3000"
+    "http://127.0.0.1:3000",
+    "http://10.0.103.250:3000"
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   //allowedHeaders: ["Content-Type", "Authorization"]
@@ -68,7 +68,7 @@ app.get("/", function (request, response) {
 //登入
 app.post("/login", function (request, response) {
   let sql = (
-    `select * 
+    `select customer_id, nickname 
     from customer
     where account="${request.body.account}"`
   );
@@ -80,6 +80,7 @@ app.post("/login", function (request, response) {
       //console.log(rows.length)
       response.send([{ "info": "error" }]);
     } else {
+      rows[0].info = "success";
       response.send(rows);
     }
   });
@@ -103,6 +104,34 @@ app.post("/register", function (request, response) {
 
 //產品頁
 app.get("/p", function (request, response) {
+  let sql1 = (
+    `SELECT *,unitPrice 
+    FROM product as p,category as c 
+    WHERE c.category_id=p.category_id`
+  );
+
+  conn.query(sql1, function (err, rows) {
+    let p, f;
+    p = rows;
+    if (request.query.cId) {
+      let sql2 = (
+        `SELECT * 
+      FROM favorite
+      WHERE favorite=${request.query.cId}`
+      );
+
+      conn.query(sql2, function (err, rows) {
+        f = rows;
+      });
+    }
+
+    console.log(p, f);
+    response.send({ p: p, f: f });
+  });
+});
+
+//加入最愛
+app.get("/addLove", function (request, response) {
   let sql = (
     `SELECT *,unitPrice 
     FROM product as p,category as c 
@@ -115,7 +144,7 @@ app.get("/p", function (request, response) {
       return;
     }
     //console.log(rows);
-    response.send(rows);
+    //response.send(rows);
   }
   );
 })
@@ -150,7 +179,7 @@ INNER JOIN cart AS cart
 ON p.product_id = cart.product_id
 INNER JOIN productimg AS pdimg
 ON p.product_id = productImg_id
-WHERE cart.customer_id = 6  `,
+WHERE cart.customer_id = ${request.query.cId}  `,
     function (err, rows) {
       if (err) {
         console.log(JSON.stringify(err));

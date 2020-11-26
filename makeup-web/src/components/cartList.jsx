@@ -17,14 +17,6 @@ class CartList extends Component {
 		this.state = {
 			data: null,
 
-			//購物車商品  資料列表  預設subtotal為空值，需要透過init()計算初始化
-
-			cartList: [
-				{ id: 1, count: 1, unitPrice: 800, subtotal: null },
-				{ id: 2, count: 2, unitPrice: 900, subtotal: null },
-				{ id: 3, count: 3, unitPrice: 1000, subtotal: null },
-			],
-
 			deliverFee: 140,
 
 			//以下內容載入頁面時 設定預設狀態隱藏
@@ -49,7 +41,10 @@ class CartList extends Component {
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
 
-		this.ajax.startListener("get", "/cart", this.u);
+		this.cId =
+			sessionStorage.getItem("member") != null ? JSON.parse(sessionStorage.getItem("member")) : "";
+
+		this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 	}
 
 	u = data => {
@@ -242,8 +237,8 @@ class CartList extends Component {
 		}
 	};
 
+	//訂單編號
 	orderId = () => {
-		console.log(1111);
 		sessionStorage.setItem("order", 6);
 	};
 

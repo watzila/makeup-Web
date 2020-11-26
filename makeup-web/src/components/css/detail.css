@@ -26,11 +26,11 @@
 }
 
 .wrap1 {
-	background: url("../images/detail/bg1.png") no-repeat center/cover;
+	background: url("../images/background/detailBG1.png") no-repeat center/cover;
 }
 
 .wrap2 {
-	background: url("../images/detail/bg2.png") no-repeat center/cover;
+	background: url("../images/background/detailBG2.png") no-repeat center/cover;
 }
 
 .tagChoose,

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import IMGPath from "./js/imgPath";//引入圖片
 import Ajax from "./js/ajax"//和伺服連線
 import "./css/login.css";
@@ -16,7 +15,6 @@ class Login extends Component {
       changeFormLeft: { left: "0%" },
       inputFormLeft: { left: "50%" },
 
-      data: null
     }
 
     this.imgPath = new IMGPath();
@@ -94,6 +92,10 @@ class Login extends Component {
         this.setState({ data: "註冊成功" });
         break;
 
+      case "success":
+        sessionStorage.setItem("member", JSON.stringify(data[0]));
+        window.location.href = "/";
+        break;
       default:
         window.location.href = "/login";
     }
