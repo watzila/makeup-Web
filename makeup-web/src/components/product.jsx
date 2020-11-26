@@ -46,11 +46,13 @@ class Product extends Component {
 			i = 0;
 
 		//我的最愛資料合併到主要資料
-		for (let k = 0; k < this.state.fData.length; k++) {
-			for (let l = 0; l < data.length; l++) {
-				data[l].addLove = this.addLove;
-				if (this.state.fData[k].product_id === data[l].product_id) {
-					data[l].f = this.state.fData[k];
+		if (this.state.fData != null) {
+			for (let k = 0; k < this.state.fData.length; k++) {
+				for (let l = 0; l < data.length; l++) {
+					data[l].addLove = this.addLove;
+					if (this.state.fData[k].product_id === data[l].product_id) {
+						data[l].f = this.state.fData[k];
+					}
 				}
 			}
 		}

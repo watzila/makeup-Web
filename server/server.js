@@ -74,10 +74,11 @@ app.post("/login", function (request, response) {
   );
   // && password="${request.body.password}"
   conn.query(sql, function (err, rows) {
+    console.log(rows)
     if (err) return;
 
+    console.log(rows.length)
     if (rows.length == 0) {
-      //console.log(rows.length)
       response.send([{ "info": "error" }]);
     } else {
       rows[0].info = "success";
@@ -241,6 +242,79 @@ app.post('/searchOrder', function (request, response) {
     response.send(rows);
   });
 });
+
+
+
+// `SELECT *
+// FROM category AS c 
+// INNER JOIN product AS p 
+// ON c.category_id = p.category_id 
+
+// INNER JOIN cart AS cart
+// ON p.product_id = cart.product_id
+
+// INNER JOIN productimg AS pdimg
+// ON p.product_id = productImg_id
+// WHERE cart.customer_id
+
+//會員
+app.post('/member/:nickname', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join orderdetail as o
+    on customer.customer_id = o.customer_id
+
+    inner join favorite as favo
+    on customer.customer_id = favo.customer_id
+
+    inner join coin as coin
+    on customer.customer_id = coin.customer_id
+    where nickname="${request.body.nickname}"`
+  );
+  conn.query(sql, function (err, rows) {
+    if (err) return;
+
+    if (rows.length == 0) {
+      //console.log(rows.length)
+      response.send([{ "info": "error" }]);
+    } else {
+      response.send(rows);
+    }
+  });
+})
+
+
+app.post('/member/memberbuy/:nickname', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join orderdetail as o
+    on customer.customer_id = o.customer_id
+
+    inner join cart as cart
+    on customer.customer_id = cart.customer_id
+
+    inner join product as p
+    on cart.product_id = p.product_id
+
+    inner join category as cat
+    on cat.category_id = p.category_id
+    where nickname=${request.body.nickname}"`
+  );
+  conn.query(sql, function (err, rows) {
+    if (err) return;
+
+    if (rows.length == 0) {
+      //console.log(rows.length)
+      response.send([{ "info": "error" }]);
+    } else {
+      response.send(rows);
+    }
+  });
+})
+
+
 
 
 // 刪除

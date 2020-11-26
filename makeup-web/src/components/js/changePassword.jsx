@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class ChangePassword extends Component {
 	render() {
 		return (
-			<form>
+			<form className="userForm">
 				<div>
 					<label htmlFor="password">現在的密碼：</label>
 					<input type="password" id="password" name="password" />

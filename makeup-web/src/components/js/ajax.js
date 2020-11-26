@@ -34,7 +34,7 @@ class Ajax {
           //console.log(data);
         });
     } else {
-      console.log(JSON.stringify(require))
+      // console.log(JSON.stringify(require))
       fetch('http://localhost:3001' + url,
         {
           method: "post",
@@ -47,7 +47,7 @@ class Ajax {
           return response.json();
         }).then(function (data) {
           u(data);
-          //console.log(data);
+          console.log(data);
         });
     }
 

@@ -2,9 +2,23 @@ import React, { Component } from "react";
 //import "../css/memberBuy.css";
 import product1 from "../images/product/A_01.jpg";
 import product2 from "../images/product/A_02.jpg";
-
+import Ajax from "./ajax";//和伺服連線
 class MemberBuy extends Component {
-	state = {};
+	constructor(){
+		super();
+	this.state = {
+		data:null
+	};
+	this.ajax = new Ajax();
+	this.ajax.startListener("post", `/member/memberbuy/${JSON.parse(sessionStorage.getItem("member")).nickname}`, this.u, {nickname:JSON.parse(sessionStorage.getItem("member")).nickname});
+	console.log(JSON.parse(sessionStorage.getItem("member")))
+	}
+
+	u = (data) => {
+		this.setState({ data: data });
+		// console.log(data);
+	  }
+
 	render() {
 		return (
 			<div className="memberBuyOut">
@@ -19,11 +33,11 @@ class MemberBuy extends Component {
 					<div>
 						<img src={product1} width="28%" alt="產品" />
 						<div>
-							控油烘焙蜜粉 <br />
+							{this.state.data == null ? "" : this.state.data[0].quantity} <br />
 							<small>規格:無</small>
 						</div>
 					</div>
-					<div>1</div>
+					<div>{this.state.data == null ? "" : this.state.data[0].quantity}</div>
 					<div>$450</div>
 					<div>已出貨</div>
 				</div>

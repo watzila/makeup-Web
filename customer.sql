@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-11-23 00:04:58
+-- 產生時間： 2020-11-26 11:15:30
 -- 伺服器版本： 10.4.14-MariaDB
 -- PHP 版本： 7.4.10
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cart` (
-  `cart_id` varchar(11) NOT NULL,
-  `customer_id` varchar(11) NOT NULL,
-  `product_id` varchar(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `cusMakeColor` varchar(50) NOT NULL,
   `cusMakeImg` varchar(100) NOT NULL,
   `orderStatus` varchar(100) NOT NULL,
-  `order_id` varchar(11) NOT NULL
+  `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -43,18 +43,18 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMakeColor`, `cusMakeImg`, `orderStatus`, `order_id`) VALUES
-('	3', '	1', '	3', 4, ' IN THE ALTOGETHER', '		', '待結帳', ''),
-('1', '2', '1', 2, ' 03 IN THE ALTOGETHER', '', '待結帳', ''),
-('10', '6', '1', 3, 'IN THE ALTOGETHER', 'img1', '待結帳', '8'),
-('11', '6', '2', 4, 'IN THE ALTOGETHER', 'img1', '待結帳', '5'),
-('12', '6', '3', 5, 'IN THE ALTOGETHER', 'img1', '待結帳', '6'),
-('13', '6', '4', 6, 'IN THE ALTOGETHER', 'img1', '待結帳', '7'),
-('4', '3', '2', 5, 'IN THE ALTOGETHER', 'img1', '待結帳', '2'),
-('5', '2', '5', 6, 'IN THE ALTOGETHER', 'img1', '待結帳', '3'),
-('6', '4', '3', 2, 'IN THE ALTOGETHER', 'img1', '待結帳', '4'),
-('7', '1', '3', 7, 'IN THE ALTOGETHER', 'img1', '待結帳', '5'),
-('8', '2', '5', 8, 'IN THE ALTOGETHER', 'img1', '待結帳', '6'),
-('9', '3', '4', 5, 'IN THE ALTOGETHER', 'img1', '待結帳', '7');
+(1, 2, 1, 2, ' 03 IN THE ALTOGETHER', '', '待結帳', 0),
+(3, 1, 3, 4, ' IN THE ALTOGETHER', '		', '待結帳', 0),
+(4, 3, 2, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 2),
+(5, 2, 5, 6, 'IN THE ALTOGETHER', 'img1', '待結帳', 3),
+(6, 4, 3, 2, 'IN THE ALTOGETHER', 'img1', '待結帳', 4),
+(7, 1, 3, 7, 'IN THE ALTOGETHER', 'img1', '待結帳', 5),
+(8, 2, 5, 8, 'IN THE ALTOGETHER', 'img1', '待結帳', 6),
+(9, 3, 4, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 7),
+(10, 6, 1, 3, 'IN THE ALTOGETHER', 'img1', '待結帳', 9),
+(11, 6, 2, 4, 'IN THE ALTOGETHER', 'img1', '待結帳', 9),
+(12, 6, 3, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 9),
+(13, 6, 4, 6, 'IN THE ALTOGETHER', 'img1', '待結帳', 9);
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`, `detail`) VALUES
 (1, 500, '	各種膚質	', '6.5g', '#一拍外乾內潤、保濕貼妝\r\n#給肌膚零粉感的細緻霧面妝感和持久的立體輪廓'),
-(2, 500, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油	'),
+(2, 400, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油	'),
 (3, 500, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅。\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝。\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油。\"	'),
 (4, 500, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅。\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝。\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油。\"	'),
 (5, 600, '	各種膚質	', '	15g*2	', '#金奢霧光ｘ金牌遮瑕力\r\n#薄霧輕液態清爽質地ｘ獨家控油粉末再升級\r\n#金牌持妝力ｘ24H全天零暗沉\r\n#美得過分時髦 #金磚氣墊ｘ超Q彈密實霸氣黑氣墊粉撲\"	'),
@@ -202,31 +202,33 @@ INSERT INTO `coupon` (`coupon_id`, `customer_id`, `couponName`, `couponCode`, `c
 
 CREATE TABLE `customer` (
   `customer_id` int(11) NOT NULL,
+  `customerName` varchar(32) NOT NULL,
   `email` varchar(60) NOT NULL,
+  `account` varchar(60) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `cellPhone` varchar(32) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `birth_date` date NOT NULL,
-  `postCode` varchar(10) NOT NULL,
-  `city` varchar(10) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `district` varchar(10) NOT NULL,
-  `nickname` varchar(20) NOT NULL,
-  `headshot` varchar(30) NOT NULL,
-  `subscribe` tinyint(1) NOT NULL
+  `cellPhone` varchar(32) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `postCode` varchar(10) DEFAULT NULL,
+  `city` varchar(10) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `district` varchar(10) DEFAULT NULL,
+  `nickname` varchar(20) DEFAULT NULL,
+  `headshot` varchar(30) DEFAULT NULL,
+  `subscribe` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `customer`
 --
 
-INSERT INTO `customer` (`customer_id`, `email`, `password`, `cellPhone`, `gender`, `birth_date`, `postCode`, `city`, `address`, `district`, `nickname`, `headshot`, `subscribe`) VALUES
-(1, 'aass@huanmail.com', 'P@ssw0rd', '0912123098', '女', '1995-10-04', '408', '台中市', '公益路二段51號', '南屯區', '花花', 'img1', 0),
-(2, 'bbaa@huanmail.com', 'P@ssw0rd', '0922123456', '男', '1999-11-15', '813', '高雄市', '博愛二路238號', '左營區', '威廉', 'img1', 0),
-(7, 'aabb@mail.com', 'P@ssw0rd', '0918667880', '女', '1988-01-01', '265', '宜蘭縣', '和平路75號', '羅東鎮', '水仔', 'img1', 0),
-(8, 'qqwss@gmail.com', 'poopoo', '(02)296606', '女', '1978-06-30', '220', '新北市', '民權路57號', '板橋區', '北北仔', 'img1', 0),
-(9, 'qaz@huanmail.com', 'P@ssw0rd', '0912123098', '女', '0000-00-00', '408', '新北市板橋區民權路2', '公益路二段52號', '左營區', '威廉2020', 'img1', 0),
-(13, 'po0912@gmail.com', '091234', '0958555998', '男', '1995-05-23', '1600', '華盛頓', '賓夕法尼亞大道1600號', '哥倫比亞特區西北區', '川普', 'img1', 0);
+INSERT INTO `customer` (`customer_id`, `customerName`, `email`, `account`, `password`, `cellPhone`, `gender`, `birth_date`, `postCode`, `city`, `address`, `district`, `nickname`, `headshot`, `subscribe`) VALUES
+(1, '小花花', 'aass@huanmail.com', 'a', 'P@ssw0rd', '0912123098', '女', '1995-10-04', '408', '台中市', '公益路二段51號', '南屯區', '花花', 'img1', 0),
+(2, '高威廉', 'bbaa@huanmail.com', 'bbaa@huanmail.com', 'P@ssw0rd', '0922123456', '男', '1999-11-15', '813', '高雄市', '博愛二路238號', '左營區', '威廉', 'img1', 0),
+(3, '', 'aabb@mail.com', 'aabb@mail.com', 'P@ssw0rd', '0918667880', '女', '1988-01-01', '265', '宜蘭縣', '和平路75號', '羅東鎮', '水仔', 'img1', 0),
+(4, '', 'qqwss@gmail.com', 'qqwss@gmail.com', 'poopoo', '(02)296606', '女', '1978-06-30', '220', '新北市', '民權路57號', '板橋區', '北北仔', 'img1', 0),
+(5, '', 'qaz@huanmail.com', 'qaz@huanmail.com', 'P@ssw0rd', '0912123098', '女', '0000-00-00', '408', '新北市板橋區民權路2', '公益路二段52號', '左營區', '威廉2020', 'img1', 0),
+(6, '羅東鎮', 'po0912@gmail.com', 'po0912@gmail.com', '091234', '0958555998', '男', '1995-05-23', '1600', '華盛頓', '賓夕法尼亞大道1600號', '哥倫比亞特區西北區', '川普', 'img1', 0);
 
 -- --------------------------------------------------------
 
@@ -236,25 +238,25 @@ INSERT INTO `customer` (`customer_id`, `email`, `password`, `cellPhone`, `gender
 
 CREATE TABLE `favorite` (
   `favorite_id` int(30) NOT NULL,
-  `customer_id` varchar(11) NOT NULL,
-  `category_id` varchar(11) NOT NULL
+  `customer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `favorite`
 --
 
-INSERT INTO `favorite` (`favorite_id`, `customer_id`, `category_id`) VALUES
-(1, '1', '3'),
-(2, '2', '2'),
-(3, '3', '5'),
-(4, '3', '1'),
-(5, '3', '6'),
-(6, '2', '7'),
-(7, '2', '8'),
-(8, '2', '10'),
-(9, '2', '6'),
-(10, '1', '3');
+INSERT INTO `favorite` (`favorite_id`, `customer_id`, `product_id`) VALUES
+(1, 1, 3),
+(2, 2, 2),
+(3, 3, 5),
+(4, 3, 1),
+(5, 3, 6),
+(6, 2, 7),
+(7, 2, 8),
+(8, 2, 10),
+(9, 2, 6),
+(10, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -263,9 +265,9 @@ INSERT INTO `favorite` (`favorite_id`, `customer_id`, `category_id`) VALUES
 --
 
 CREATE TABLE `orderdetail` (
-  `orderDetail_id` varchar(11) NOT NULL,
-  `order_id` varchar(11) NOT NULL,
-  `customer_id` varchar(11) NOT NULL,
+  `orderDetail_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `grandTotal` int(11) NOT NULL,
   `shippingStyle_id` varchar(11) NOT NULL,
   `payment_method` varchar(11) NOT NULL,
@@ -281,9 +283,10 @@ CREATE TABLE `orderdetail` (
 --
 
 INSERT INTO `orderdetail` (`orderDetail_id`, `order_id`, `customer_id`, `grandTotal`, `shippingStyle_id`, `payment_method`, `orderDate`, `deliverFee`, `coupon_id`, `coin_id`, `orderComment`) VALUES
-('1', '1', '1', 550, '宅配', '貨到付款', '2020-11-15 16:21:05', 60, '', '1', '下午收貨'),
-('2', '3', '2', 550, '7-11取貨', '信用卡', '2020-11-14 16:21:05', 60, '', '1', '中午收貨'),
-('3', '2', '1', 430, '全家取貨', '信用卡', '2020-11-13 16:21:05', 60, '', '1', '');
+(1, 1, 1, 550, '宅配', '貨到付款', '2020-11-15 00:00:00', 60, '', '1', '下午收貨'),
+(2, 3, 2, 550, '7-11取貨', '信用卡', '2020-11-14 00:00:00', 60, '', '1', '中午收貨'),
+(3, 2, 1, 430, '全家取貨', '信用卡', '2020-11-13 00:00:00', 60, '', '1', ''),
+(4, 9, 6, 550, '7-11取貨', '信用卡', '2020-11-14 00:00:00', 60, '', '1', '中午收貨');
 
 -- --------------------------------------------------------
 
@@ -418,8 +421,8 @@ INSERT INTO `review` (`review_id`, `category_id`, `customer_id`, `reviewDate`, `
 --
 
 CREATE TABLE `shipping` (
-  `order_id` varchar(11) NOT NULL,
-  `customer_id` varchar(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `shipping_Name` varchar(32) NOT NULL,
   `shipping_cellPhone` varchar(32) NOT NULL,
   `shipping_postCode` varchar(32) NOT NULL,
@@ -433,9 +436,11 @@ CREATE TABLE `shipping` (
 --
 
 INSERT INTO `shipping` (`order_id`, `customer_id`, `shipping_Name`, `shipping_cellPhone`, `shipping_postCode`, `shipping_city`, `shipping_district`, `shipping_address`) VALUES
-('1', '1', '花媽媽', '0912312345', '10559', '台北市', '松山區', '八德路三段76號1樓'),
-('2', '1', '花花', '0912123098', '408', '台中市', '南屯區', '公益路二段51號'),
-('3', '2', '威廉', '0922123456', '813', '高雄市', '左營區', '博愛二路238號');
+(1, 1, '花媽媽', '0912312345', '10559', '台北市', '松山區', '八德路三段76號1樓'),
+(2, 1, '花花', '0912123098', '408', '台中市', '南屯區', '公益路二段51號'),
+(3, 2, '威廉', '0922123456', '813', '高雄市', '左營區', '博愛二路238號'),
+(9, 6, '威廉', '0922123456', '813', '高雄市', '左營區', '博愛二路238號'),
+(10, 6, '', '', '', '', '', '');
 
 --
 -- 已傾印資料表的索引
@@ -533,7 +538,7 @@ ALTER TABLE `chat`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `favorite`
