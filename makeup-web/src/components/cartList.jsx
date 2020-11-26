@@ -189,7 +189,7 @@ class CartList extends Component {
 
 	// 當購物車商品數>0 顯示直接購買或登入會員Modal視窗
 	directBuyModalDisplayBlock = () => {
-		if (this.state.cartList.length > 0) {
+		if (this.state.data.length > 0) {
 			this.setState({ myModal: { display: "block" } });
 		}
 		//   this.modal.style.display = "block";
@@ -244,8 +244,8 @@ class CartList extends Component {
 
 	render() {
 		return (
-			<section id="cart" className="w">
-				<div className="container">
+			<section id="cart">
+				<div className="container w">
 					<form id="orderForm " action="#">
 						{/* cartBox_start  */}
 						<div className="cartBox">
@@ -294,7 +294,6 @@ class CartList extends Component {
 										<tr className="totalMoney">
 											<td colSpan="3">
 												<p>總金額</p>
-												<p>(TWD)</p>
 											</td>
 											<td colSpan="2">{this.handleGrandTotalMoney()}</td>
 										</tr>
@@ -376,7 +375,6 @@ class CartList extends Component {
 									</select>
 									{/* 引入地址下拉式選單外掛  */}
 									<div className="addressDetail" style={this.state.myAddressDetail}>
-										<div className="my-style-selector "></div>
 										<input className="inputAddress" type="text" placeholder="收件地址" />
 										<p>酌收運費 : $ 140 元</p>
 									</div>
@@ -409,7 +407,7 @@ class CartList extends Component {
 											name="shippingData"
 											id="shippingData"
 										/>
-										<label htmlFor="shippingData">收件人同購買人資料</label>
+										<label htmlFor="shippingData">新增收件人資料</label>
 										<br />
 										<div id="shippingDataDetail" style={this.state.myShippingDataDetail}>
 											<input className="shippingName" type="text" placeholder="請輸入收件人姓名" />
@@ -448,7 +446,7 @@ class CartList extends Component {
 									</div>
 									<div className="divCheckout">
 										<Link to="/order" className="btnCheckout" onClick={this.orderId}>
-											下一步
+											送出＆結帳
 										</Link>
 									</div>
 								</div>

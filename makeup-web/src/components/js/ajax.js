@@ -19,11 +19,11 @@ class Ajax {
 
   startListener(method, url, u, require = {}) {
     if (method === "get") {
-      fetch('http://localhost:3001' + url,
+      fetch('http://10.0.103.250:3001' + url,
         {
           method: "get",
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
           },
           //body: encodeURI(JSON.stringify(require))
         }).then(function (response) {
@@ -35,11 +35,11 @@ class Ajax {
         });
     } else {
       console.log(JSON.stringify(require))
-      fetch('http://localhost:3001' + url,
+      fetch('http://10.0.103.250:3001' + url,
         {
           method: "post",
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(require)
         }).then(function (response) {

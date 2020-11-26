@@ -15,7 +15,7 @@ const corsOptions = {
   //allowedHeaders: ["Content-Type", "Authorization"]
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -131,23 +131,21 @@ app.get("/myLove", function (request, response) {
 });
 
 //加入最愛
-app.get("/addLove", function (request, response) {
-  let sql = (
-    `SELECT *,unitPrice 
-    FROM product as p,category as c 
-    WHERE c.category_id=p.category_id`
-  );
+//app.get("/addLove", function (request, response) {
+//  let sql = (
+//    `insert into favorite`
+//  );
 
-  conn.query(sql, function (err, rows) {
-    if (err) {
-      console.log(JSON.stringify(err));
-      return;
-    }
-    //console.log(rows);
-    //response.send(rows);
-  }
-  );
-})
+//  conn.query(sql, function (err, rows) {
+//    if (err) {
+//      console.log(JSON.stringify(err));
+//      return;
+//    }
+//    //console.log(rows);
+//    //response.send(rows);
+//  }
+//  );
+//})
 
 //產品詳細頁
 app.get("/p/:kind", function (request, response) {

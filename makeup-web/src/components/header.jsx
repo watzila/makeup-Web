@@ -46,7 +46,7 @@ class Header extends Component {
 
 					<div className="navBoxR">
 						<Link
-							to={this.member != null ? "/member" : "login"}
+							to={this.member != null ? "/member" : "/login"}
 							onClick={this.aa}
 							className="fa fa-user-circle"
 						>
