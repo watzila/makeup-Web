@@ -18,7 +18,7 @@ class Member extends Component {
   }
 
   click(className) {
-    console.log(className)
+    // console.log(className)
     this.setState({ classes: (className === "action") ? "null" : "action" });
   }
 
@@ -32,9 +32,9 @@ class Member extends Component {
               {/*<img src={head} alt="head" />*/}
               <Route path="/member" exact component={User} />
               <Route path="/member/edit/:account" component={ChangePassword} />
-              <Route path="/member/memberbuy" component={MemberBuy} />
-              <Route path="/member/memberfavorite" component={MemberFavorite} />
-              <Route path="/member/membercoin" component={MemberCoin} />
+              <Route path="/memberbuy/" component={MemberBuy} />
+              <Route path="/memberfavorite/" component={MemberFavorite} />
+              <Route path="/membercoin/" component={MemberCoin} />
             </article>
 
             <nav>
@@ -74,21 +74,21 @@ class Member extends Component {
                   </div>
                 </li>
                 <li>
-                  <Link to="/member/memberbuy" >
+                  <Link to="/memberbuy/" >
                     <i className="fa fa-th-list"></i>
                 購買清單
               </Link>
                 </li>
 
                 <li>
-                  <Link to="/member/memberfavorite" className="facebook">
+                  <Link to="/memberfavorite/" className="facebook">
                     <i className="fa fa-heart"></i>
                 收藏
               </Link>
                 </li>
 
                 <li>
-                  <Link to="/member/membercoin" className="facebook">
+                  <Link to="/membercoin/" className="facebook">
                     <i className="fa fa-usd"></i>
                 虛擬幣
               </Link>

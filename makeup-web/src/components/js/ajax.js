@@ -23,7 +23,7 @@ class Ajax {
         {
           method: "get",
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
           },
           //body: encodeURI(JSON.stringify(require))
         }).then(function (response) {
@@ -39,7 +39,7 @@ class Ajax {
         {
           method: "post",
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(require)
         }).then(function (response) {
@@ -47,7 +47,7 @@ class Ajax {
           return response.json();
         }).then(function (data) {
           u(data);
-          console.log(data);
+          // console.log(data);
         });
     }
 

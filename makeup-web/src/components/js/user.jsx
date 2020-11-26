@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Ajax from "./ajax";//和伺服連線
+import moment from 'moment' //日期格式化
 
 class User extends Component {
 	constructor(){
@@ -25,29 +26,27 @@ class User extends Component {
 
 	u = (data) => {
 		this.setState({ data: data });
-		console.log(data);
+	// 	console.log(data);
 	  }
 
 	handleClick = (e)=>{
 
 		switch(e.target.id){
 			case "fname":
-				console.log(e.target.id);
 				this.setState({fnameIsShow:(this.state.fnameIsShow==false)?true:false})
 				this.setState({fnameDisabled:( this.state.fnameDisabled)?false:true});
 				break;
 			case "username":
-				console.log(e.target.id)
+				// console.log(e.target.id)
 				this.setState({usernameIsShow:(this.state.usernameIsShow==false)?true:false})
 				this.setState({usernameDisabled:( this.state.usernameDisabled)?false:true});
 				break;
 			case "phone":
-				console.log(e.target.id)
+				// console.log(e.target.id)
 				this.setState({phoneIsShow:(this.state.phoneIsShow==false)?true:false})
 				this.setState({phoneDisabled:( this.state.phoneDisabled)?false:true});
 				break;
 			case "email":
-				console.log(e.target.id)
 				this.setState({emailIsShow:(this.state.emailIsShow==false)?true:false})
 				this.setState({emailDisabled:( this.state.emailDisabled)?false:true});
 				break;
@@ -74,6 +73,16 @@ class User extends Component {
 	changeEmail= (e)=>{
 		this.setState({userEmail:e.target.value});
 	}
+	
+	// 取消input邊框及disable
+	noFocus=(e)=>{
+		var dis = document.getElementById(e.target.id);
+		dis.disabled = "false";
+		dis.style.border = 0
+		document.getElementById(e.target.id).disabled = dis.disabled;
+		document.getElementById(e.target.id).style.border = dis.style.border;
+		this.setState({});
+	}
 
 
 
@@ -97,6 +106,7 @@ class User extends Component {
 				<div>
 					<label htmlFor="username">姓名：</label>
 					<input 
+					 onBlur = {this.noFocus}
 					 style = {{border:this.state.usernameIsShow ?"0":"2px black solid"}}
 					 disabled={this.state.usernameDisabled} 
 					 placeholder={this.state.data == null ? "" : this.state.data[0].customerName}
@@ -110,6 +120,7 @@ class User extends Component {
 				<div>
 					<label htmlFor="phone">手機：</label>
 					<input 
+					onBlur = {this.noFocus}
 					style = {{border:this.state.phoneIsShow ?"0":"2px black solid"}}
 					disabled={this.state.phoneDisabled} 
 					placeholder={this.state.data == null ? "" : this.state.data[0].cellPhone}
@@ -123,26 +134,31 @@ class User extends Component {
 				<div>
 					<label>性別：</label>
 					<span>
-						<input 
+					<input 
+						placeholder = {this.state.data == null ? "": this.state.data[0].gender}
+						readOnly  name="gender" 
+						type="text" autoComplete="off" />
+						{/* <label htmlFor="male">男生</label> */}
+						{/* <input 
 						checked={this.state.data == null ? "": this.state.data[0].gender}
 						readOnly type="radio" id="male" name="gender" defaultValue="male" />
 						<label htmlFor="male">男生</label>
 
 						<input checked={this.state.data == null ? "": this.state.data[0].gender}
 						readOnly type="radio" id="female" name="gender" defaultValue="female" />
-						<label htmlFor="female">女生</label>
+						<label htmlFor="female">女生</label> */}
 					</span>
 				</div>
 
 				<hr />
 
-				<div>
+				<div> 
 					<label htmlFor="date">生日：</label>
-					<input disabled value={this.state.data == null ? "" : this.state.data[0].birth_date}
+					<input disabled value={moment(this.state.data == null ? "" : this.state.data[0].birth_date).format('YYYY-MM-DD')}
 					 name="date" />
 				</div>
 
-				<hr />
+				<hr/>
 
 				<div>
 					<label htmlFor="email">E-mail：</label>

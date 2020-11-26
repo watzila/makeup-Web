@@ -74,10 +74,10 @@ app.post("/login", function (request, response) {
   );
   // && password="${request.body.password}"
   conn.query(sql, function (err, rows) {
-    console.log(rows)
+    // console.log(rows)
     if (err) return;
 
-    console.log(rows.length)
+    // console.log(rows.length)
     if (rows.length == 0) {
       response.send([{ "info": "error" }]);
     } else {
@@ -127,28 +127,26 @@ app.get("/myLove", function (request, response) {
 
   conn.query(sql, function (err, rows) {
     response.send(rows);
-    console.log(rows);
+    // console.log(rows);
   });
 });
 
 //加入最愛
-app.get("/addLove", function (request, response) {
-  let sql = (
-    `SELECT *,unitPrice 
-    FROM product as p,category as c 
-    WHERE c.category_id=p.category_id`
-  );
+//app.get("/addLove", function (request, response) {
+//  let sql = (
+//    `insert into favorite`
+//  );
 
-  conn.query(sql, function (err, rows) {
-    if (err) {
-      console.log(JSON.stringify(err));
-      return;
-    }
-    //console.log(rows);
-    //response.send(rows);
-  }
-  );
-})
+//  conn.query(sql, function (err, rows) {
+//    if (err) {
+//      console.log(JSON.stringify(err));
+//      return;
+//    }
+//    //console.log(rows);
+//    //response.send(rows);
+//  }
+//  );
+//})
 
 //產品詳細頁
 app.get("/p/:kind", function (request, response) {
@@ -163,7 +161,7 @@ app.get("/p/:kind", function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    console.log(request.query.pid);
+    // console.log(request.query.pid);
     response.send(rows);
   }
   );
@@ -238,7 +236,7 @@ app.post('/searchOrder', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    console.log(rows)
+    // console.log(rows)
     response.send(rows);
   });
 });
@@ -279,19 +277,20 @@ app.post('/member/:nickname', function (request, response) {
       //console.log(rows.length)
       response.send([{ "info": "error" }]);
     } else {
+      // console.log(rows)
       response.send(rows);
     }
   });
 })
 
-
-app.post('/member/memberbuy/:nickname', function (request, response) {
+// 購買清單
+app.post('/memberbuy/', function (request, response) {
   let sql = (
     `select * 
     from customer as customer
     inner join orderdetail as o
     on customer.customer_id = o.customer_id
-
+ 
     inner join cart as cart
     on customer.customer_id = cart.customer_id
 
@@ -300,22 +299,84 @@ app.post('/member/memberbuy/:nickname', function (request, response) {
 
     inner join category as cat
     on cat.category_id = p.category_id
-    where nickname=${request.body.nickname}"`
+    where nickname="${request.body.nickname}"
+    GROUP BY o.orderDetail_id`
   );
   conn.query(sql, function (err, rows) {
     if (err) return;
-
+    
+    // console.log(rows.length)
     if (rows.length == 0) {
-      //console.log(rows.length)
       response.send([{ "info": "error" }]);
     } else {
+      // console.log(rows)
       response.send(rows);
     }
   });
 })
 
 
+// 收藏
+app.post('/memberfavorite/', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join favorite as f
+    on f.customer_id = customer.customer_id
 
+    inner join product as p
+    on p.product_id = f.product_id
+ 
+    inner join category as cat
+    on cat.category_id = p.category_id
+
+    inner join cart as cart
+    on customer.customer_id = cart.customer_id
+
+    where nickname="${request.body.nickname}"
+    GROUP BY f.favorite_id`
+  );
+  
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+    
+    // console.log(rows.length)
+    if (rows.length == 0) {
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
+
+
+// 星幣賺取
+app.post('/membercoin/', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join coin as c
+    on c.customer_id = customer.customer_id
+
+    where nickname="${request.body.nickname}"
+    GROUP BY c.coin_id`
+  );
+  
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+    
+    // console.log(rows.length)
+    if (rows.length == 0) {
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
 
 // 刪除
 
@@ -362,7 +423,7 @@ app.get('/detail/:id([0-9]+)', function (req, res) {
 
 app.post('/update', function (req, res) {
   var body = req.body
-  console.log(body);
+  // console.log(body);
   var sql = `UPDATE customer SET customer_id = ?, nickname = ?, cellPhone = ?, city = ? WHERE customer_id = ?`;
   var data = [parseInt(body.id), body.name, body.phone, body.address, parseInt(body.id)]
   db.exec(sql, data, function (results, fields) {

@@ -23,20 +23,20 @@ class Product extends Component {
 		this.bg = require.context("./images/background", false, /\.(png|jpe?g|svg)$/);
 
 		if (sessionStorage.getItem("member")) {
-			console.log(JSON.parse(sessionStorage.getItem("member")).customer_id);
 			this.ajax.startListener(
 				"get",
 				`/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
 				this.u2
 			);
+		} else {
+			this.ajax.startListener("get", "/p", this.u);
 		}
-
-		this.ajax.startListener("get", "/p", this.u);
 	}
 
 	//我的最愛資料更新
 	u2 = data => {
 		this.setState({ fData: data });
+		this.ajax.startListener("get", "/p", this.u);
 		//console.log(data);
 	};
 

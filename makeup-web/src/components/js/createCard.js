@@ -10,7 +10,7 @@ class CreateCard {
       return newCard;
     });
 
-    //console.log(data);
+    // console.log(count);
 
     return cards;
   }
