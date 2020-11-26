@@ -23,20 +23,20 @@ class Product extends Component {
 		this.bg = require.context("./images/background", false, /\.(png|jpe?g|svg)$/);
 
 		if (sessionStorage.getItem("member")) {
-			console.log(JSON.parse(sessionStorage.getItem("member")).customer_id);
 			this.ajax.startListener(
 				"get",
 				`/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
 				this.u2
 			);
+		} else {
+			this.ajax.startListener("get", "/p", this.u);
 		}
-
-		this.ajax.startListener("get", "/p", this.u);
 	}
 
 	//我的最愛資料更新
 	u2 = data => {
 		this.setState({ fData: data });
+		this.ajax.startListener("get", "/p", this.u);
 		//console.log(data);
 	};
 
@@ -46,11 +46,13 @@ class Product extends Component {
 			i = 0;
 
 		//我的最愛資料合併到主要資料
-		for (let k = 0; k < this.state.fData.length; k++) {
-			for (let l = 0; l < data.length; l++) {
-				data[l].addLove = this.addLove;
-				if (this.state.fData[k].product_id === data[l].product_id) {
-					data[l].f = this.state.fData[k];
+		if (this.state.fData != null) {
+			for (let k = 0; k < this.state.fData.length; k++) {
+				for (let l = 0; l < data.length; l++) {
+					data[l].addLove = this.addLove;
+					if (this.state.fData[k].product_id === data[l].product_id) {
+						data[l].f = this.state.fData[k];
+					}
 				}
 			}
 		}

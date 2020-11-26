@@ -22,7 +22,7 @@ class App extends Component {
         <Route exact path="/member" component={Member} />
         <Route exact path="/backend/manageorder" component={ManageOrder} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/p/:page" component={Product} />
+        <Route exact path="/p/:page([0-9])" component={Product} />
         <Route exact path="/p/:kind/:pid" component={Detail} />
         <Route exact path="/cart" component={CartList} />
         <Route exact path="/order" component={Order} />

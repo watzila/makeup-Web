@@ -207,10 +207,10 @@
 }
 
 /* 標題排版 */
-.title {
+.coin .title {
 	margin-left: 10rem;
 }
-.title:last-of-type {
+.coin .title:last-of-type {
 	margin-left: 15rem;
 }
 
