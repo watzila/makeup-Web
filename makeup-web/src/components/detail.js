@@ -34,7 +34,7 @@ class Detail extends Component {
       this.u
     );
     this.p = require.context('./images/product1', false, /\.(png|jpe?g|svg)$/);
-    //console.log(props)
+    // console.log(props);
   }
 
   //ajax回傳資料再更新本地資料
@@ -90,6 +90,16 @@ class Detail extends Component {
     }
   };
 
+  addCart = () => {
+    // console.log(this.state.countText.text);
+    this.ajax.startListener('post', '/addCart', this.u, {
+      c_id: JSON.parse(sessionStorage.getItem('member')).customer_id,
+      // p_id: this.props.match.params.pid,
+      p_id: this.state.data[0].product_id,
+      qty: this.state.countText.text,
+    });
+  };
+
   //按愛心
   //clickLove = () => {
   //  let newLove = {
@@ -100,6 +110,7 @@ class Detail extends Component {
   //}
 
   render() {
+    // console.log(this.props);
     return (
       <main>
         <div>
@@ -191,7 +202,9 @@ class Detail extends Component {
 
                 {/*加入購物車*/}
                 <div className="addCart">
-                  <button id="addCartBTN">加入購物車</button>
+                  <button onClick={this.addCart} id="addCartBTN">
+                    加入購物車
+                  </button>
                 </div>
               </section>
             </div>

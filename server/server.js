@@ -146,7 +146,7 @@ app.get('/p/:kind', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    console.log(request.query.pid);
+    // console.log(request.query.pid);
     response.send(rows);
   });
 });
@@ -215,31 +215,77 @@ app.post('/searchOrder', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    console.log(rows);
+    // console.log(rows);
     response.send(rows);
   });
 });
 
-// 刪除
+// 購物車產品加入new
+app.post('/addCart', function (req, res) {
+  // 先去看cart資料庫中  此消費者有沒有這項商品在購物車
+  var sql = `select * from cart
+    where customer_id = ${req.body.c_id} and product_id=${req.body.p_id}`;
+  // console.log(req.body);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
 
-app.post('/delete', function (req, res) {
-  var body = req.body;
-  var sql = `DELETE FROM customer WHERE customer_id = ?;`;
-  var data = [parseInt(body.id)];
-
-  db.exec(sql, data, function (results, fields) {
-    // 使用affectedRows，判斷是否有被刪除
-
-    if (results.affectedRows) {
-      res.end(JSON.stringify(new Success('delete success')));
+    //如果沒有此商品則加入
+    if (rows.length == 0) {
+      // console.log(rows.length);
+      var sql = `INSERT into cart
+(customer_id, product_id, quantity, orderStatus)
+VALUES ('${req.body.c_id}', '${req.body.p_id}', '${req.body.qty}', '待結帳')`;
+      conn.query(sql, function (err, rows) {
+        if (err) {
+          console.log(JSON.stringify(err));
+          return;
+        }
+      });
+      //如果已經有此商品則更新  新增的數量
     } else {
-      res.end(JSON.stringify(new Error('delete failed')));
+      var sql = `UPDATE cart SET quantity = quantity + ${req.body.qty} WHERE customer_id = ${req.body.c_id} and product_id = ${req.body.p_id}`;
+      conn.query(sql, function (err, rows) {
+        if (err) {
+          console.log(JSON.stringify(err));
+          return;
+        }
+      });
+      // rows[0].info = 'success';
+      // response.send(rows);
+    }
+  });
+});
+
+// 購物車產品刪除
+app.post('/delete', function (req, res) {
+  var sql = `DELETE FROM cart WHERE customer_id = ${req.body.c_id} and product_id = ${req.body.p_id}`;
+  // console.log(req.body);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+  });
+});
+
+// 購物車產品數量隨著按鈕更新
+app.post('/updateQty', function (req, res) {
+  var sql = `UPDATE cart 
+             SET quantity = ${req.body.qty}
+             WHERE customer_id = ${req.body.c_id} and product_id =${req.body.p_id} `;
+  // console.log(req.body);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
     }
   });
 });
 
 //編輯
-
 app.get('/detail/:id([0-9]+)', function (req, res) {
   var sql = `SELECT customer_id,nickname,cellPhone,city FROM customer WHERE customer_id = ?;`;
   var data = [req.params.id];
