@@ -32,8 +32,8 @@ class Cart extends Component {
           <div>
             <img
               src={this.imgPath.importAll(this.p)[`${this.props.data.img_0}`]}
-              width="80"
-              height="80"
+              width="100"
+              height="100"
               alt="cart_product"
             />
           </div>
@@ -70,7 +70,7 @@ class Cart extends Component {
         </td>
         <td>{this.props.data.unitPrice}</td>
         <td>{this.props.data.subtotal}</td>
-        <td>
+        <td className="tdDelete">
           <div
             onClick={() => this.props.data.onDelete(this.props.data.cart_id)}
             className="btnDelete"
