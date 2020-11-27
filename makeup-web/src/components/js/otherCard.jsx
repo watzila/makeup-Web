@@ -39,7 +39,15 @@ class OtherCard extends Component {
 					{/*其他*/}
 					<div>
 						<i>${this.props.data != null ? this.props.data.unitPrice : ""}</i>
-						<i>♡</i>
+						<i
+							onClick={event =>
+								this.props.data != null
+									? this.props.data.addLove(event, this.props.data.product_id)
+									: null
+							}
+						>
+							{this.props.data != null ? (this.props.data.f != null ? "♥" : "♡") : ""}
+						</i>
 					</div>
 				</div>
 			</Link>

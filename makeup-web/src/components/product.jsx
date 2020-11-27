@@ -10,9 +10,9 @@ class Product extends Component {
 	constructor() {
 		super();
 		this.state = {
-			data: null,
-			allData: null,
-			fData: null,
+			data: null, //當前頁數資料
+			allData: null, //所有產品資料
+			fData: null, //我的最愛資料
 		};
 
 		this.imgPath = new IMGPath();
@@ -40,25 +40,25 @@ class Product extends Component {
 		//console.log(data);
 	};
 
-	//主要資料更新
+	//所有產品資料更新
 	u = data => {
 		let newData = [],
 			i = 0;
 
-		//我的最愛資料合併到主要資料
+		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
-			for (let k = 0; k < this.state.fData.length; k++) {
-				for (let l = 0; l < data.length; l++) {
+			for (let l = 0; l < data.length; l++) {
+				for (let k = 0; k < this.state.fData.length; k++) {
 					data[l].addLove = this.addLove;
 					if (this.state.fData[k].product_id === data[l].product_id) {
 						data[l].f = this.state.fData[k];
+						continue;
 					}
 				}
 			}
 		}
-		//console.log(data);
 
-		//主要資料拆分8個為一組
+		//所有產品資料資料拆分8個為一組
 		do {
 			let d = [];
 			for (let j = 0; j < 8; j++) {
@@ -73,7 +73,6 @@ class Product extends Component {
 		} while (i < data.length);
 
 		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
-		console.log(this.state.allData);
 
 		//頁數按鈕初始化
 		document.querySelector(
@@ -81,18 +80,29 @@ class Product extends Component {
 		).className = "click";
 	};
 
-	//加入最愛
+	//加入、移除最愛
 	addLove = (event, pid) => {
 		event.preventDefault();
-		//event.target.innerText = "♥";
+		let newFData = this.state.fData;
+		let newData = this.state.data;
+
+		let num = pid % 8 ? (pid % 8) - 1 : 7;
+		let index = newFData.map(item => item.product_id).indexOf(pid);
+
 		if (sessionStorage.getItem("member")) {
-			this.ajax.startListener(
-				"get",
-				`/addLove?pid=${pid}&cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
-				this.u2
-			);
+			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
+			let newLove = { customer_id: cId, product_id: pid };
+			if (index === -1) {
+				newFData.push(newLove);
+				newData[num].f = newLove;
+			} else {
+				newFData.splice(index, 1);
+				delete newData[pid - 1].f;
+			}
+			this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
+			this.setState({ fData: newFData });
+			this.setState({ data: newData });
 		}
-		console.log(this.state.fData);
 	};
 
 	//換頁

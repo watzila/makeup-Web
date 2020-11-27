@@ -119,7 +119,7 @@ app.get("/p", function (request, response) {
 //我的最愛
 app.get("/myLove", function (request, response) {
   let sql = (
-    `SELECT * 
+    `SELECT customer_id, product_id 
       FROM favorite
       WHERE customer_id=${request.query.cId}`
   );
@@ -131,21 +131,41 @@ app.get("/myLove", function (request, response) {
 });
 
 //加入最愛
-//app.get("/addLove", function (request, response) {
-//  let sql = (
-//    `insert into favorite`
-//  );
+app.get("/addLove", function (request, response) {
+  let sql = (
+    `select * 
+    from favorite
+    where customer_id=${request.query.cId} && product_id=${request.query.pId}`
+  );
 
-//  conn.query(sql, function (err, rows) {
-//    if (err) {
-//      console.log(JSON.stringify(err));
-//      return;
-//    }
-//    //console.log(rows);
-//    //response.send(rows);
-//  }
-//  );
-//})
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+
+    if (rows.length == 0) {
+      let sql2 = (
+        `insert into favorite (customer_id, product_id)
+      values(${request.query.cId},${request.query.pId})`
+      );
+
+      conn.query(sql2, function (err, row) {
+        if (err) return;
+      });
+    } else {
+      let sql2 = (
+        `delete
+        from favorite
+        where customer_id=${request.query.cId} && product_id=${request.query.pId}`
+      );
+
+      conn.query(sql2, function (err, row) {
+        if (err) return;
+      });
+    }
+  });
+})
 
 //產品詳細頁
 app.get("/p/:kind", function (request, response) {

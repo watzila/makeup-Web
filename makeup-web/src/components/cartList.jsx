@@ -189,7 +189,7 @@ class CartList extends Component {
 
 	// 當購物車商品數>0 顯示直接購買或登入會員Modal視窗
 	directBuyModalDisplayBlock = () => {
-		if (this.state.data.length > 0) {
+		if (this.state.data != null) {
 			this.setState({ myModal: { display: "block" } });
 		}
 		//   this.modal.style.display = "block";
