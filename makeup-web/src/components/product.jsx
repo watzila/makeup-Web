@@ -78,6 +78,8 @@ class Product extends Component {
 		document.querySelector(
 			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
 		).className = "click";
+
+		console.log(this.state.allData);
 	};
 
 	//加入、移除最愛

@@ -12,7 +12,7 @@ class Cart extends Component {
 
     this.imgPath = new IMGPath();
     this.p = require.context('../images/product', false, /\.(png|jpe?g|svg)$/);
-    console.log(this.p);
+    // console.log(this.p);
   }
 
   // 當點擊增加或減少數量的按鈕時，回父層去改變數量，並且執行handleChange，讓子層的數量也更新(this.state.count)，讓其顯示在畫面上
@@ -22,9 +22,7 @@ class Cart extends Component {
   // };
 
   render() {
-    // console.log(this.props.count);
     // console.log(this.props.data.product_id);
-    // console.log(this.props.subtotal);
 
     return (
       <tr className="productItem">
@@ -72,7 +70,7 @@ class Cart extends Component {
         <td>{this.props.data.subtotal}</td>
         <td className="tdDelete">
           <div
-            onClick={() => this.props.data.onDelete(this.props.data.cart_id)}
+            onClick={() => this.props.data.onDelete(this.props.data.product_id)}
             className="btnDelete"
           >
             <i className="fa fa-trash" aria-hidden="true"></i>

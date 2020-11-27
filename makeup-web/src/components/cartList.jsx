@@ -97,8 +97,14 @@ class CartList extends Component {
 		//更新subtotal
 		this.handleSubtotal(obj);
 
-		this.setState({});
+		// console.log(obj.quantity);
+		this.ajax.startListener("post", "/updateQty", this.u, {
+			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
+			p_id: obj.product_id,
+			qty: obj.quantity,
+		});
 
+		this.setState({});
 		// console.log(this.state.data);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].count);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].unitPrice);
@@ -118,6 +124,12 @@ class CartList extends Component {
 			this.handleSubtotal(obj);
 			// console.log(obj);
 
+			this.ajax.startListener("post", "/updateQty", this.u, {
+				c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
+				p_id: obj.product_id,
+				qty: obj.quantity,
+			});
+
 			this.setState({});
 		}
 
@@ -128,22 +140,34 @@ class CartList extends Component {
 			this.state.data = newArray;
 			console.log(newArray);
 
+			this.ajax.startListener("post", "/delete", this.u, {
+				c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
+				p_id: obj.product_id,
+			});
+
 			this.setState({});
 		}
 	};
 
 	// 功能：商品刪除
-	handleDelete = idCart => {
+	handleDelete = idProduct => {
 		//  console.log("handleDelete clicked");
-		//  console.log(idCart);
-		const newArray = this.state.data.filter(item => item.cart_id !== idCart);
+		console.log(idProduct);
+
+		const newArray = this.state.data.filter(item => item.product_id !== idProduct);
 		this.state.data = newArray;
 		// console.log(newArray);
 
 		// this.state.counters = newArray;
 		// this.setState({});
+		// console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
 
 		this.setState({});
+
+		this.ajax.startListener("post", "/delete", this.u, {
+			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
+			p_id: idProduct,
+		});
 	};
 
 	// 金額計算 （不含運費）
@@ -189,7 +213,7 @@ class CartList extends Component {
 
 	// 當購物車商品數>0 顯示直接購買或登入會員Modal視窗
 	directBuyModalDisplayBlock = () => {
-		if (this.state.data != null) {
+		if (this.state.data.length > 0) {
 			this.setState({ myModal: { display: "block" } });
 		}
 		//   this.modal.style.display = "block";

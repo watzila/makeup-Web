@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter, Route } from 'react-router-dom';
 import ManageOrder from './components/manageOrder';
 import Home from './components/home';
 import Header from './components/header';

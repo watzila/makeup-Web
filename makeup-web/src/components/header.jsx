@@ -1,63 +1,63 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "./css/header.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './css/header.css';
 //import logo from "./images/logo_huan-huan_緩緩_logo_bl.png"
 
 class Header extends Component {
-	constructor() {
-		super();
-		this.prevScrollpos = window.pageYOffset;
+  constructor() {
+    super();
+    this.prevScrollpos = window.pageYOffset;
 
-		this.member = JSON.parse(sessionStorage.getItem("member"));
-	}
+    this.member = JSON.parse(sessionStorage.getItem('member'));
+  }
 
-	componentDidMount() {
-		this.headerMove();
-	}
+  componentDidMount() {
+    this.headerMove();
+  }
 
-	// header特效
-	headerMove = () => {
-		window.onscroll = () => {
-			var currentScrollPos = window.pageYOffset;
-			if (this.prevScrollpos > currentScrollPos) {
-				document.querySelector(".header").style.top = "0";
-			} else {
-				document.querySelector(".header").style.top = "-230px";
-			}
-			this.prevScrollpos = currentScrollPos;
-		};
-	};
+  // header特效
+  headerMove = () => {
+    window.onscroll = () => {
+      var currentScrollPos = window.pageYOffset;
+      if (this.prevScrollpos > currentScrollPos) {
+        document.querySelector('.header').style.top = '0';
+      } else {
+        document.querySelector('.header').style.top = '-230px';
+      }
+      this.prevScrollpos = currentScrollPos;
+    };
+  };
 
-	render() {
-		return (
-			<header className="header">
-				{/*<div className="rightIcon">
+  render() {
+    return (
+      <header className="header">
+        {/*<div className="rightIcon">
           <Link to="/">
             <img src={logo} alt="logo" />
           </Link>
         </div>*/}
-				<nav className="navbar">
-					<div className="navBoxL">
-						<Link to="/about">關於我們</Link>
-						<Link to="">限時特價</Link>
-						<Link to="/p/1">商品</Link>
-						<Link to="/skinTest">活動</Link>
-					</div>
+        <nav className="navbar">
+          <div className="navBoxL">
+            <Link to="/about">關於我們</Link>
+            <Link to="">限時特價</Link>
+            <Link to="/p/1">商品</Link>
+            <Link to="/skinTest">活動</Link>
+          </div>
 
-					<div className="navBoxR">
-						<Link
-							to={this.member != null ? "/member" : "/login"}
-							onClick={this.aa}
-							className="fa fa-user-circle"
-						>
-							{this.member != null ? this.member.nickname : ""}
-						</Link>
-						<Link to="/cart" className="fa fa-shopping-cart"></Link>
-					</div>
-				</nav>
-			</header>
-		);
-	}
+          <div className="navBoxR">
+            <Link
+              to={this.member != null ? '/member' : '/login'}
+              onClick={this.aa}
+              className="fa fa-user-circle"
+            >
+              {this.member != null ? this.member.nickname : ''}
+            </Link>
+            <Link to="/cart" className="fa fa-shopping-cart"></Link>
+          </div>
+        </nav>
+      </header>
+    );
+  }
 }
 
 export default Header;
