@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- 主機： 127.0.0.1
--- 產生時間： 2020-11-26 11:15:30
--- 伺服器版本： 10.4.14-MariaDB
--- PHP 版本： 7.4.10
+-- Host: 127.0.0.1
+-- Generation Time: Nov 27, 2020 at 03:23 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `customer`
+-- Database: `customer`
 --
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -39,16 +39,16 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `cart`
+-- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMakeColor`, `cusMakeImg`, `orderStatus`, `order_id`) VALUES
 (1, 2, 1, 2, ' 03 IN THE ALTOGETHER', '', '待結帳', 0),
-(3, 1, 3, 4, ' IN THE ALTOGETHER', '		', '待結帳', 0),
+(3, 1, 3, 5, ' IN THE ALTOGETHER', '		', '待結帳', 0),
 (4, 3, 2, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 2),
 (5, 2, 5, 6, 'IN THE ALTOGETHER', 'img1', '待結帳', 3),
 (6, 4, 3, 2, 'IN THE ALTOGETHER', 'img1', '待結帳', 4),
-(7, 1, 3, 7, 'IN THE ALTOGETHER', 'img1', '待結帳', 5),
+(7, 1, 3, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 5),
 (8, 2, 5, 8, 'IN THE ALTOGETHER', 'img1', '待結帳', 6),
 (9, 3, 4, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 7),
 (10, 6, 1, 3, 'IN THE ALTOGETHER', 'img1', '待結帳', 9),
@@ -59,7 +59,7 @@ INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMake
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -71,7 +71,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`, `detail`) VALUES
@@ -126,7 +126,7 @@ INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`,
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `chat`
+-- Table structure for table `chat`
 --
 
 CREATE TABLE `chat` (
@@ -138,7 +138,7 @@ CREATE TABLE `chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `chat`
+-- Dumping data for table `chat`
 --
 
 INSERT INTO `chat` (`chat_id`, `customer_id`, `others_id`, `chatDate`, `chatText`) VALUES
@@ -149,7 +149,7 @@ INSERT INTO `chat` (`chat_id`, `customer_id`, `others_id`, `chatDate`, `chatText
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `coin`
+-- Table structure for table `coin`
 --
 
 CREATE TABLE `coin` (
@@ -161,7 +161,7 @@ CREATE TABLE `coin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `coin`
+-- Dumping data for table `coin`
 --
 
 INSERT INTO `coin` (`coin_id`, `customer_id`, `coinDate`, `coinUpdate`, `coinTotal`) VALUES
@@ -172,7 +172,7 @@ INSERT INTO `coin` (`coin_id`, `customer_id`, `coinDate`, `coinUpdate`, `coinTot
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `coupon`
+-- Table structure for table `coupon`
 --
 
 CREATE TABLE `coupon` (
@@ -187,7 +187,7 @@ CREATE TABLE `coupon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `coupon`
+-- Dumping data for table `coupon`
 --
 
 INSERT INTO `coupon` (`coupon_id`, `customer_id`, `couponName`, `couponCode`, `couponGrandTotal`, `couponStart`, `couponEnd`, `couponStatus`) VALUES
@@ -197,7 +197,7 @@ INSERT INTO `coupon` (`coupon_id`, `customer_id`, `couponName`, `couponCode`, `c
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `customer`
+-- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
@@ -219,7 +219,7 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `customer`
+-- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`customer_id`, `customerName`, `email`, `account`, `password`, `cellPhone`, `gender`, `birth_date`, `postCode`, `city`, `address`, `district`, `nickname`, `headshot`, `subscribe`) VALUES
@@ -233,7 +233,7 @@ INSERT INTO `customer` (`customer_id`, `customerName`, `email`, `account`, `pass
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `favorite`
+-- Table structure for table `favorite`
 --
 
 CREATE TABLE `favorite` (
@@ -243,11 +243,10 @@ CREATE TABLE `favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `favorite`
+-- Dumping data for table `favorite`
 --
 
 INSERT INTO `favorite` (`favorite_id`, `customer_id`, `product_id`) VALUES
-(1, 1, 3),
 (2, 2, 2),
 (3, 3, 5),
 (4, 3, 1),
@@ -256,12 +255,15 @@ INSERT INTO `favorite` (`favorite_id`, `customer_id`, `product_id`) VALUES
 (7, 2, 8),
 (8, 2, 10),
 (9, 2, 6),
-(10, 1, 1);
+(10, 1, 1),
+(12, 1, 4),
+(17, 1, 3),
+(19, 1, 6);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `orderdetail`
+-- Table structure for table `orderdetail`
 --
 
 CREATE TABLE `orderdetail` (
@@ -279,7 +281,7 @@ CREATE TABLE `orderdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `orderdetail`
+-- Dumping data for table `orderdetail`
 --
 
 INSERT INTO `orderdetail` (`orderDetail_id`, `order_id`, `customer_id`, `grandTotal`, `shippingStyle_id`, `payment_method`, `orderDate`, `deliverFee`, `coupon_id`, `coin_id`, `orderComment`) VALUES
@@ -291,7 +293,7 @@ INSERT INTO `orderdetail` (`orderDetail_id`, `order_id`, `customer_id`, `grandTo
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
@@ -304,7 +306,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `product`
+-- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`product_id`, `category_id`, `kindA`, `kindB`, `productName`, `productColor`) VALUES
@@ -359,7 +361,7 @@ INSERT INTO `product` (`product_id`, `category_id`, `kindA`, `kindB`, `productNa
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `productimg`
+-- Table structure for table `productimg`
 --
 
 CREATE TABLE `productimg` (
@@ -375,7 +377,7 @@ CREATE TABLE `productimg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `productimg`
+-- Dumping data for table `productimg`
 --
 
 INSERT INTO `productimg` (`productImg_id`, `img_0`, `img_1`, `img_2`, `img_3`, `img_4`, `img_5`, `img_6`, `img_7`) VALUES
@@ -394,7 +396,7 @@ INSERT INTO `productimg` (`productImg_id`, `img_0`, `img_1`, `img_2`, `img_3`, `
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `review`
+-- Table structure for table `review`
 --
 
 CREATE TABLE `review` (
@@ -407,7 +409,7 @@ CREATE TABLE `review` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `review`
+-- Dumping data for table `review`
 --
 
 INSERT INTO `review` (`review_id`, `category_id`, `customer_id`, `reviewDate`, `reviewText`, `rating`) VALUES
@@ -417,7 +419,7 @@ INSERT INTO `review` (`review_id`, `category_id`, `customer_id`, `reviewDate`, `
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `shipping`
+-- Table structure for table `shipping`
 --
 
 CREATE TABLE `shipping` (
@@ -432,7 +434,7 @@ CREATE TABLE `shipping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `shipping`
+-- Dumping data for table `shipping`
 --
 
 INSERT INTO `shipping` (`order_id`, `customer_id`, `shipping_Name`, `shipping_cellPhone`, `shipping_postCode`, `shipping_city`, `shipping_district`, `shipping_address`) VALUES
@@ -443,111 +445,111 @@ INSERT INTO `shipping` (`order_id`, `customer_id`, `shipping_Name`, `shipping_ce
 (10, 6, '', '', '', '', '', '');
 
 --
--- 已傾印資料表的索引
+-- Indexes for dumped tables
 --
 
 --
--- 資料表索引 `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`);
 
 --
--- 資料表索引 `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- 資料表索引 `chat`
+-- Indexes for table `chat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`chat_id`);
 
 --
--- 資料表索引 `coin`
+-- Indexes for table `coin`
 --
 ALTER TABLE `coin`
   ADD PRIMARY KEY (`coin_id`);
 
 --
--- 資料表索引 `coupon`
+-- Indexes for table `coupon`
 --
 ALTER TABLE `coupon`
   ADD PRIMARY KEY (`coupon_id`);
 
 --
--- 資料表索引 `customer`
+-- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
--- 資料表索引 `favorite`
+-- Indexes for table `favorite`
 --
 ALTER TABLE `favorite`
   ADD PRIMARY KEY (`favorite_id`);
 
 --
--- 資料表索引 `orderdetail`
+-- Indexes for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
   ADD PRIMARY KEY (`orderDetail_id`);
 
 --
--- 資料表索引 `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- 資料表索引 `productimg`
+-- Indexes for table `productimg`
 --
 ALTER TABLE `productimg`
   ADD PRIMARY KEY (`productImg_id`);
 
 --
--- 資料表索引 `review`
+-- Indexes for table `review`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`review_id`);
 
 --
--- 資料表索引 `shipping`
+-- Indexes for table `shipping`
 --
 ALTER TABLE `shipping`
   ADD PRIMARY KEY (`order_id`);
 
 --
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `chat`
+-- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
   MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `customer`
+-- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `favorite`
+-- AUTO_INCREMENT for table `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
