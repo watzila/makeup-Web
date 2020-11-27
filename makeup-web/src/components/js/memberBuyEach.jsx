@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { Component } from "react";
 import product1 from "../images/product/A_01.jpg";
 
@@ -29,8 +30,8 @@ class MemberBuyEach extends Component {
         </div>
         {/* 總金額&訂單詳情按鈕 ===========總金額 */}
         <div className="totalAndBuylist">
-          訂單總金額:${this.props.data == null ? "" :  this.props.data.grandTotal*this.props.data.quantity}
-          <button>查看訂單詳情</button>
+          訂單總金額:${this.props.data == null ? "" :  this.props.data.unitPrice*this.props.data.quantity}
+          <button> <Link to="/orderList">查看訂單詳情</Link></button>
         </div>
         <hr />
       </div>

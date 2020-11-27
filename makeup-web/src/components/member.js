@@ -5,6 +5,7 @@ import ChangePassword from "./js/changePassword";
 import MemberBuy from "./js/memberBuy";
 import MemberCoin from "./js/memberCoin";
 import MemberFavorite from "./js/memberFavorite";
+import OrderList from "./js/orderList"
 import "./css/member.css";
 import head from "./images/人頭.png";
 
@@ -35,6 +36,7 @@ class Member extends Component {
               <Route path="/memberbuy/" component={MemberBuy} />
               <Route path="/memberfavorite/" component={MemberFavorite} />
               <Route path="/membercoin/" component={MemberCoin} />
+              <Route path="/orderList/" component={OrderList} />
             </article>
 
             <nav>
