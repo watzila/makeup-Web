@@ -1,15 +1,11 @@
 import React, { Component } from "react";
+import Ajax from "./ajax"; //和伺服連線
 
 class User extends Component {
 	constructor() {
 		super();
 		this.state = {
 			data: null,
-			userAccount: "William",
-			userName: "威廉",
-			userCellphone: "0912890345",
-			userGender: "男",
-			userEmail: "abcqqq@gmail.com",
 			fnameDisabled: true,
 			fnameIsShow: true,
 			usernameIsShow: true,
@@ -19,28 +15,40 @@ class User extends Component {
 			emailIsShow: true,
 			emailDisabled: true,
 		};
+		this.ajax = new Ajax();
+
+		this.ajax.startListener(
+			"post",
+			`/member/${JSON.parse(sessionStorage.getItem("member")).nickname}`,
+			this.u,
+			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
+		);
+		// console.log(this.u);
 	}
+
+	u = data => {
+		this.setState({ data: data });
+		// 	console.log(data);
+	};
 
 	handleClick = e => {
 		switch (e.target.id) {
 			case "fname":
-				console.log(e.target.id);
-				this.setState({ fnameIsShow: this.state.fnameIsShow == false ? true : false });
+				this.setState({ fnameIsShow: this.state.fnameIsShow === false ? true : false });
 				this.setState({ fnameDisabled: this.state.fnameDisabled ? false : true });
 				break;
 			case "username":
-				console.log(e.target.id);
-				this.setState({ usernameIsShow: this.state.usernameIsShow == false ? true : false });
+				// console.log(e.target.id)
+				this.setState({ usernameIsShow: this.state.usernameIsShow === false ? true : false });
 				this.setState({ usernameDisabled: this.state.usernameDisabled ? false : true });
 				break;
 			case "phone":
-				console.log(e.target.id);
-				this.setState({ phoneIsShow: this.state.phoneIsShow == false ? true : false });
+				// console.log(e.target.id)
+				this.setState({ phoneIsShow: this.state.phoneIsShow === false ? true : false });
 				this.setState({ phoneDisabled: this.state.phoneDisabled ? false : true });
 				break;
 			case "email":
-				console.log(e.target.id);
-				this.setState({ emailIsShow: this.state.emailIsShow == false ? true : false });
+				this.setState({ emailIsShow: this.state.emailIsShow === false ? true : false });
 				this.setState({ emailDisabled: this.state.emailDisabled ? false : true });
 				break;
 			default:
@@ -64,6 +72,16 @@ class User extends Component {
 		this.setState({ userEmail: e.target.value });
 	};
 
+	// 取消input邊框及disable
+	noFocus = e => {
+		var dis = document.getElementById(e.target.id);
+		dis.disabled = "false";
+		dis.style.border = 0;
+		document.getElementById(e.target.id).disabled = dis.disabled;
+		document.getElementById(e.target.id).style.border = dis.style.border;
+		this.setState({});
+	};
+
 	render() {
 		return (
 			<div className="userForm">
@@ -71,17 +89,15 @@ class User extends Component {
 					<label htmlFor="fname">帳號：</label>
 					<input
 						style={{ border: this.state.fnameIsShow ? "0" : "2px black solid" }}
-						disabled={this.state.fnameDisabled}
-						value={this.state.userAccount}
+						disabled={this.state.data == null ? "" : this.state.fnameDisabled}
+						placeholder={this.state.data == null ? "" : this.state.data[0].account}
 						onChange={this.changeFname}
 						type="text"
 						id="fname"
 						name="fname"
 						autoComplete="off"
-					/>
-					<button id="fname" onClick={this.handleClick}>
-						編輯
-					</button>
+					></input>
+					{/* <button id="fname" onClick={this.handleClick} >編輯</button> */}
 				</div>
 
 				<hr />
@@ -89,9 +105,10 @@ class User extends Component {
 				<div>
 					<label htmlFor="username">姓名：</label>
 					<input
+						onBlur={this.noFocus}
 						style={{ border: this.state.usernameIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.usernameDisabled}
-						value={this.state.userName}
+						placeholder={this.state.data == null ? "" : this.state.data[0].customerName}
 						onChange={this.changeUsername}
 						type="text"
 						id="username"
@@ -108,9 +125,10 @@ class User extends Component {
 				<div>
 					<label htmlFor="phone">手機：</label>
 					<input
+						onBlur={this.noFocus}
 						style={{ border: this.state.phoneIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.phoneDisabled}
-						value={this.state.userCellphone}
+						placeholder={this.state.data == null ? "" : this.state.data[0].cellPhone}
 						onChange={this.changePhone}
 						type="text"
 						id="phone"
@@ -127,11 +145,22 @@ class User extends Component {
 				<div>
 					<label>性別：</label>
 					<span>
-						<input type="radio" id="male" name="gender" defaultValue="male" />
+						<input
+							placeholder={this.state.data == null ? "" : this.state.data[0].gender}
+							readOnly
+							name="gender"
+							type="text"
+							autoComplete="off"
+						/>
+						{/* <label htmlFor="male">男生</label> */}
+						{/* <input 
+						checked={this.state.data == null ? "": this.state.data[0].gender}
+						readOnly type="radio" id="male" name="gender" defaultValue="male" />
 						<label htmlFor="male">男生</label>
 
-						<input type="radio" id="female" name="gender" defaultValue="female" />
-						<label htmlFor="female">女生</label>
+						<input checked={this.state.data == null ? "": this.state.data[0].gender}
+						readOnly type="radio" id="female" name="gender" defaultValue="female" />
+						<label htmlFor="female">女生</label> */}
 					</span>
 				</div>
 
@@ -139,7 +168,13 @@ class User extends Component {
 
 				<div>
 					<label htmlFor="date">生日：</label>
-					<input disabled type="date" name="date" />
+					<input
+						disabled
+						//value={moment(this.state.data == null ? "" : this.state.data[0].birth_date).format(
+						//	"YYYY-MM-DD"
+						//)}
+						name="date"
+					/>
 				</div>
 
 				<hr />
@@ -149,7 +184,7 @@ class User extends Component {
 					<input
 						style={{ border: this.state.emailIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.emailDisabled}
-						value={this.state.userEmail}
+						placeholder={this.state.data == null ? "" : this.state.data[0].email}
 						onChange={this.changeEmail}
 						type="text"
 						id="email"

@@ -9,7 +9,8 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
-      data: null
+      data: null,//底妝資料
+      fData: null,//我的最愛資料
     }
 
     this.createCard = new CreateCard();
@@ -19,13 +20,66 @@ class Home extends Component {
     this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
     this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
 
-    this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
+    if (sessionStorage.getItem("member")) {
+      this.ajax.startListener(
+        "get",
+        `/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
+        this.u2
+      );
+    } else {
+      this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
+    }
   }
 
-  u = (data) => {
+  //我的最愛資料更新
+  u2 = data => {
+    this.setState({ fData: data });
+    this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
+    //console.log(data);
+  };
+
+  //所有產品資料更新
+  u = data => {
+    //我的最愛資料合併到所有產品資料
+    if (this.state.fData != null) {
+      for (let l = 0; l < data.length; l++) {
+        for (let k = 0; k < this.state.fData.length; k++) {
+          data[l].addLove = this.addLove;
+
+          if (this.state.fData[k].product_id === data[l].product_id) {
+            data[l].f = this.state.fData[k];
+            continue;
+          }
+        }
+      }
+    }
+
     this.setState({ data: data });
-    //console.log(this.state.data);
-  }
+  };
+
+  //加入、移除最愛
+  addLove = (event, pid) => {
+    event.preventDefault();
+    let newFData = this.state.fData;
+    let newData = this.state.data;
+
+    let index = newFData.map(item => item.product_id).indexOf(pid);
+
+    if (sessionStorage.getItem("member")) {
+      let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
+      let newLove = { customer_id: cId, product_id: pid };
+      if (index === -1) {
+        newFData.push(newLove);
+        newData[pid - 1].f = newLove;
+      } else {
+        newFData.splice(index, 1);
+        delete newData[pid - 1].f;
+      }
+      this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
+      this.setState({ fData: newFData });
+      this.setState({ data: newData });
+    }
+  };
 
   render() {
     return (

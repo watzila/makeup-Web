@@ -5,9 +5,7 @@ import IMGPath from "./imgPath"; //引入圖片
 class Card extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			pID: this.props.pID,
-		};
+
 		//console.log(props.data);
 		this.imgPath = new IMGPath();
 		this.p = require.context("../images/product", false, /\.(png|jpe?g|svg)$/);

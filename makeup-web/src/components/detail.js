@@ -10,11 +10,6 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //love: {
-      //  classes: "love",
-      //  text: "♡"
-      //},
-
       countText: {
         text: 1,
         style: { '--upDown': 1 },
@@ -99,15 +94,6 @@ class Detail extends Component {
       qty: this.state.countText.text,
     });
   };
-
-  //按愛心
-  //clickLove = () => {
-  //  let newLove = {
-  //    classes: (this.state.love.classes === "love") ? "loveClick love" : "love",
-  //    text: (this.state.love.text === "♡") ? "♥" : "♡"
-  //  }
-  //  this.setState({ love: newLove });
-  //}
 
   render() {
     // console.log(this.props);
