@@ -25,6 +25,10 @@ class Ajax {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
           },
+<<<<<<< HEAD
+=======
+          //body: encodeURI(JSON.stringify(require))
+>>>>>>> 5d04a762f8ba764bc6098d1f580b33aa6685d755
         }).then(function (response) {
           //處理 response
           return response.json();
@@ -34,7 +38,7 @@ class Ajax {
           //console.log(data);
         });
     } else {
-      console.log(JSON.stringify(require))
+      // console.log(JSON.stringify(require))
       fetch('http://localhost:3001' + url,
         {
           method: "post",

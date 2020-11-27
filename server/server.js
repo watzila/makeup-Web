@@ -70,11 +70,12 @@ app.post('/login', function (request, response) {
     where account="${request.body.account}"`;
   // && password="${request.body.password}"
   conn.query(sql, function (err, rows) {
+    // console.log(rows)
     if (err) return;
 
+    // console.log(rows.length)
     if (rows.length == 0) {
-      //console.log(rows.length)
-      response.send([{ info: 'error' }]);
+      response.send([{ "info": "error" }]);
     } else {
       rows[0].info = 'success';
       response.send(rows);
@@ -115,7 +116,7 @@ app.get("/myLove", function (request, response) {
 
   conn.query(sql, function (err, rows) {
     response.send(rows);
-    console.log(rows);
+    // console.log(rows);
   });
 });
 
@@ -241,7 +242,7 @@ app.post('/searchOrder', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    // console.log(rows);
+    // console.log(rows)
     response.send(rows);
   });
 });
@@ -258,6 +259,143 @@ app.post('/addCart', function (req, res) {
       return;
     }
 
+
+// `SELECT *
+// FROM category AS c 
+// INNER JOIN product AS p 
+// ON c.category_id = p.category_id 
+
+// INNER JOIN cart AS cart
+// ON p.product_id = cart.product_id
+
+// INNER JOIN productimg AS pdimg
+// ON p.product_id = productImg_id
+// WHERE cart.customer_id
+
+//會員
+app.post('/member/:nickname', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join orderdetail as o
+    on customer.customer_id = o.customer_id
+
+    inner join favorite as favo
+    on customer.customer_id = favo.customer_id
+
+    inner join coin as coin
+    on customer.customer_id = coin.customer_id
+    where nickname="${request.body.nickname}"`
+  );
+  conn.query(sql, function (err, rows) {
+    if (err) return;
+
+    if (rows.length == 0) {
+      //console.log(rows.length)
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
+
+// 購買清單
+app.post('/memberbuy/', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join orderdetail as o
+    on customer.customer_id = o.customer_id
+ 
+    inner join cart as cart
+    on customer.customer_id = cart.customer_id
+
+    inner join product as p
+    on cart.product_id = p.product_id
+
+    inner join category as cat
+    on cat.category_id = p.category_id
+    where nickname="${request.body.nickname}"
+    GROUP BY o.orderDetail_id`
+  );
+  conn.query(sql, function (err, rows) {
+    if (err) return;
+    
+    // console.log(rows.length)
+    if (rows.length == 0) {
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
+
+
+// 收藏
+app.post('/memberfavorite/', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join favorite as f
+    on f.customer_id = customer.customer_id
+
+    inner join product as p
+    on p.product_id = f.product_id
+ 
+    inner join category as cat
+    on cat.category_id = p.category_id
+
+    inner join cart as cart
+    on customer.customer_id = cart.customer_id
+
+    where nickname="${request.body.nickname}"
+    GROUP BY f.favorite_id`
+  );
+  
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+    
+    // console.log(rows.length)
+    if (rows.length == 0) {
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
+
+
+// 星幣賺取
+app.post('/membercoin/', function (request, response) {
+  let sql = (
+    `select * 
+    from customer as customer
+    inner join coin as c
+    on c.customer_id = customer.customer_id
+
+    where nickname="${request.body.nickname}"
+    GROUP BY c.coin_id`
+  );
+  
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+    
+    // console.log(rows.length)
+    if (rows.length == 0) {
+      response.send([{ "info": "error" }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
+})
+
+// 刪除
     //如果沒有此商品則加入
     if (rows.length == 0) {
       // console.log(rows.length);
@@ -325,8 +463,8 @@ app.get('/detail/:id([0-9]+)', function (req, res) {
 });
 
 app.post('/update', function (req, res) {
-  var body = req.body;
-  console.log(body);
+  var body = req.body
+  // console.log(body);
   var sql = `UPDATE customer SET customer_id = ?, nickname = ?, cellPhone = ?, city = ? WHERE customer_id = ?`;
   var data = [
     parseInt(body.id),

@@ -9,7 +9,6 @@ import "./css/member.css";
 import head from "./images/人頭.png";
 
 
-
 class Member extends Component {
   constructor() {
     super();
@@ -19,7 +18,7 @@ class Member extends Component {
   }
 
   click(className) {
-    console.log(className)
+    // console.log(className)
     this.setState({ classes: (className === "action") ? "null" : "action" });
   }
 
@@ -31,11 +30,11 @@ class Member extends Component {
 
             <article>
               {/*<img src={head} alt="head" />*/}
-              <Route path="/login" exact component={User} />
-              <Route path="/login/edit/:account" component={ChangePassword} />
-              <Route path="/login/memberbuy" component={MemberBuy} />
-              <Route path="/login/memberfavorite" component={MemberFavorite} />
-              <Route path="/login/membercoin" component={MemberCoin} />
+              <Route path="/member" exact component={User} />
+              <Route path="/member/edit/:account" component={ChangePassword} />
+              <Route path="/memberbuy/" component={MemberBuy} />
+              <Route path="/memberfavorite/" component={MemberFavorite} />
+              <Route path="/membercoin/" component={MemberCoin} />
             </article>
 
             <nav>
@@ -54,7 +53,7 @@ class Member extends Component {
               我的帳號
 
               <div className={this.state.classes}>
-                    <Link to="/login" className="user">
+                    <Link to="/member" className="user">
                       <i className="fa fa-user-circle-o"></i>
                   個人檔案
                 </Link>
@@ -68,28 +67,28 @@ class Member extends Component {
                   地址
                 </Link>*/}
 
-                    <Link to="/login/edit/apple" className="lock">
+                    <Link to="/member/edit/apple" className="lock">
                       <i className="fa fa-lock"></i>
                   更正密碼
                 </Link>
                   </div>
                 </li>
                 <li>
-                  <Link to="/login/memberbuy" >
+                  <Link to="/memberbuy/" >
                     <i className="fa fa-th-list"></i>
                 購買清單
               </Link>
                 </li>
 
                 <li>
-                  <Link to="/login/memberfavorite" className="facebook">
+                  <Link to="/memberfavorite/" className="facebook">
                     <i className="fa fa-heart"></i>
                 收藏
               </Link>
                 </li>
 
                 <li>
-                  <Link to="/login/membercoin" className="facebook">
+                  <Link to="/membercoin/" className="facebook">
                     <i className="fa fa-usd"></i>
                 虛擬幣
               </Link>
