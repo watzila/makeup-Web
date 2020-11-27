@@ -35,7 +35,30 @@
 }
 
 .navBoxR {
+  position: relative;
   margin: 0 6%;
+  padding: 18px 0;
+}
+
+.navBoxR .fa-shopping-cart ~ .headerCartBox {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  /* display: none; */
+  /* height: 200px; */
+  width: 350px;
+  top: 0;
+  right: -10%;
+  margin-top: 83px;
+  padding: 16px;
+  background-color: #fff;
+  border: 2px solid var(--brownColor3);
+  border-top: 0;
+}
+
+.navBoxR:hover .fa-shopping-cart ~ .headerCartBox {
+  display: block;
+  display: flex;
 }
 
 .navBoxL a {
@@ -56,9 +79,8 @@
 .navBoxR .fa-shopping-cart {
   position: relative;
 }
-.navBoxR .fa-shopping-cart:after {
+.cartQty {
   position: absolute;
-  content: '';
   font-size: 24px;
   right: -20%;
   top: 0;

@@ -1,18 +1,109 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './css/header.css';
+import './css/headerCart.css';
 //import logo from "./images/logo_huan-huan_緩緩_logo_bl.png"
+import HeaderCart from './js/headerCart';
+import CreateCard from './js/createCard'; //創建商品卡
+import Ajax from './js/ajax';
+import IMGPath from './js/imgPath'; //引入圖片
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: null,
+    };
+
     this.prevScrollpos = window.pageYOffset;
 
     this.member = JSON.parse(sessionStorage.getItem('member'));
+
+    this.imgPath = new IMGPath();
+    this.ajax = new Ajax();
+    this.createCard = new CreateCard();
+
+    this.cId =
+      sessionStorage.getItem('member') != null
+        ? JSON.parse(sessionStorage.getItem('member'))
+        : '';
+    this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
   }
+
+  // (複製cartList)
+  u = (data) => {
+    let apple = {
+      subtotal: null,
+      onIncrement: this.handleIncrement,
+      onDecrement: this.handleDecrement,
+      onDelete: this.handleDelete,
+    };
+
+    for (var i = 0; i < data.length; i++) {
+      Object.assign(data[i], apple);
+    }
+
+    this.setState({ data: data });
+
+    setTimeout(() => {
+      this.init();
+    }, 100);
+
+    // console.log(data);
+    // console.log(this.state.data.length);
+  };
+
+  // 金額 小記subtotal “初始化”(複製cartList)
+  init = () => {
+    if (this.state.data != null) {
+      for (var i = 0; i < this.state.data.length; i++) {
+        this.state.data[i].subtotal =
+          this.state.data[i].quantity * this.state.data[i].unitPrice;
+      }
+      this.setState({});
+    }
+  };
+
+  // 功能：商品金額小記subtotal隨著數量改變(複製cartList)
+  handleSubtotal = (obj) => {
+    this.state.data[this.state.data.indexOf(obj)].subtotal =
+      this.state.data[this.state.data.indexOf(obj)].quantity *
+      this.state.data[this.state.data.indexOf(obj)].unitPrice;
+
+    this.setState({});
+  };
+
+  // 功能：商品刪除 (複製cartList)
+  handleDelete = (idProduct) => {
+    //  console.log("handleDelete clicked");
+    console.log(idProduct);
+
+    const newArray = this.state.data.filter(
+      (item) => item.product_id !== idProduct
+    );
+    this.state.data = newArray;
+    // console.log(newArray);
+
+    // this.state.counters = newArray;
+    // this.setState({});
+    // console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
+
+    this.setState({});
+
+    this.ajax.startListener('post', '/delete', this.u, {
+      c_id: JSON.parse(sessionStorage.getItem('member')).customer_id,
+      p_id: idProduct,
+    });
+  };
 
   componentDidMount() {
     this.headerMove();
+    // this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
+  }
+
+  componentDidUpdate() {
+    // console.log(1);
   }
 
   // header特效
@@ -26,6 +117,19 @@ class Header extends Component {
       }
       this.prevScrollpos = currentScrollPos;
     };
+  };
+
+  cartQty = () => {
+    if (this.state.data != null) {
+      return this.state.data.length;
+    }
+  };
+
+  cartBoxOpen = () => {
+    // console.log(document.querySelector('.headerCartBox').style.display);
+    // if (this.state.data != null) {
+    //   document.querySelector('.headerCartBox').style.display = 'block';
+    // }
   };
 
   render() {
@@ -52,7 +156,22 @@ class Header extends Component {
             >
               {this.member != null ? this.member.nickname : ''}
             </Link>
-            <Link to="/cart" className="fa fa-shopping-cart"></Link>
+            <div className="cartWrap">
+              <Link to="/cart" className="fa fa-shopping-cart">
+                <span className="cartQty">{this.cartQty()}</span>
+              </Link>
+              <table onClick={this.cartBoxOpen()} className="headerCartBox">
+                <tbody>
+                  {this.state.data != null
+                    ? this.createCard.create(
+                        this.state.data.length,
+                        HeaderCart,
+                        this.state.data
+                      )
+                    : null}
+                </tbody>
+              </table>
+            </div>
           </div>
         </nav>
       </header>
