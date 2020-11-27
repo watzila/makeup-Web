@@ -1,0 +1,34 @@
+/* 顯示筆數 */
+.custom-select {
+    width: 64px;
+}
+
+/* 表格設定開始 */
+/* 整個底圖 */
+.my-table{
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);  
+}
+/* 表格表頭 */
+.my-table table th,.my-table table td {
+    /* border-bottom: 1px solid black; */
+    /* border-right: 1px solid black; */
+    vertical-align: middle;
+}
+/* 表格本體 */
+.my-table table tr td{
+    /* background-color: brown; */
+    /* background-color: #fff; */
+    /* border-bottom: 1px solid black; */
+    border-right: 1px solid black;
+    text-align: center;
+}
+/* 表頭樣式 */
+.my-table table thead{
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px; */
+    background-color: var(--main_c_E);
+    color: #fff;
+    text-align: center;
+}
+/* 表格設定結束 */
