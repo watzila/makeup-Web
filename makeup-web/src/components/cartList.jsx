@@ -154,29 +154,6 @@ class CartList extends Component {
     }
   };
 
-  // 功能：商品刪除
-  handleDelete = (idProduct) => {
-    //  console.log("handleDelete clicked");
-    console.log(idProduct);
-
-    const newArray = this.state.data.filter(
-      (item) => item.product_id !== idProduct
-    );
-    this.state.data = newArray;
-    // console.log(newArray);
-
-    // this.state.counters = newArray;
-    // this.setState({});
-    // console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
-
-    this.setState({});
-
-    this.ajax.startListener('post', '/delete', this.u, {
-      c_id: JSON.parse(sessionStorage.getItem('member')).customer_id,
-      p_id: idProduct,
-    });
-  };
-
   // 金額計算 （不含運費）
   handleTotalMoney = () => {
     var totalMoney = 0;
