@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import ManageOrder from './components/manageOrder';
+//import ManageOrder from './components/manageOrder';
 import Home from './components/home';
 import Header from './components/header';
 import Login from './components/login';
@@ -12,6 +12,7 @@ import CartList from './components/cartList';
 import Order from './components/order';
 import Footer from './components/footer';
 
+import BackEnd from './components/backEnd';
 class App extends Component {
   render() {
     return (
@@ -19,8 +20,9 @@ class App extends Component {
         <Route path="/" component={Header} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/member" component={Member} />
-        <Route exact path="/backend/manageorder" component={ManageOrder} />
+        <Route path="/member" component={Member} />
+        {/*<Route exact path="/backend/manageorder" component={ManageOrder} />*/}
+        <Route path="/backend" component={BackEnd} />
         <Route exact path="/about" component={About} />
         <Route exact path="/p/:page([0-9])" component={Product} />
         <Route exact path="/p/:kind/:pid" component={Detail} />

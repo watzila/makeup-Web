@@ -25,12 +25,10 @@ class Member extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <div className="memberMain">
-
+      <div>
+        <div className="memberMain">
+          <BrowserRouter>
             <article>
-              {/*<img src={head} alt="head" />*/}
               <Route path="/member" exact component={User} />
               <Route path="/member/edit/:account" component={ChangePassword} />
               <Route path="/memberbuy/" component={MemberBuy} />
@@ -96,16 +94,17 @@ class Member extends Component {
               </Link>
                 </li>
                 <li>
-                  <Link to="/backEnd/manageorder" className="facebook">
-                    <i className="fa fa-heart"></i>
-                後台
-              </Link>
+
                 </li>
               </ul>
             </nav>
-          </div>
+          </BrowserRouter>
+          <Link to="/backEnd">
+            <i className="fa fa-heart"></i>
+                後台
+              </Link>
         </div>
-      </BrowserRouter>
+      </div>
     );
   }
 }
