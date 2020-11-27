@@ -29,7 +29,8 @@ class Ajax {
         }).then(function (response) {
           //處理 response
           return response.json();
-        }).then(function (data) {
+        })
+        .then(function (data) {
           u(data);
           //console.log(data);
         });
@@ -45,12 +46,12 @@ class Ajax {
         }).then(function (response) {
           //處理 response
           return response.json();
-        }).then(function (data) {
+        })
+        .then(function (data) {
           u(data);
           // console.log(data);
         });
     }
-
   }
 }
 
