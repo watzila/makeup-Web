@@ -68,7 +68,7 @@ app.get('/', function (request, response) {
 app.post('/login', function (request, response) {
   let sql = `select customer_id, nickname 
     from customer
-    where account="${request.body.account}"`;
+    where account="${request.body.account}"`
   // && password="${request.body.password}"
   conn.query(sql, function (err, rows) {
     // console.log(rows)
@@ -344,11 +344,12 @@ app.post('/member/:nickname', function (request, response) {
     inner join coin as coin
     on customer.customer_id = coin.customer_id
     where customer.customer_id=${request.body.cId}
-    group by customer.customer_id`
+    `
   );
   conn.query(sql, function (err, rows) {
+    // console.log(rows)
     if (err) return;
-    rows[0].birth_date = moment(rows[0].birth_date ).format('YYYY-MM-DD')
+    // rows[0].birth_date = moment(rows[0].birth_date ).format('YYYY-MM-DD')
     response.send(rows);
   });
 })
@@ -417,18 +418,24 @@ app.post('/emailEdit', function (request, response) {
 
 // 會員 密碼 修改
 app.post('/changePassword', function (request, response) {
-
   let sql = (
     `update customer 
     set password = "${request.body.changePassword}"
     where customer_id = ${request.body.cId}
+     &&   password = "${request.body.password}"
      `
   );
+  
   conn.query(sql, function (err, rows) {
     if (err) return;
-
-    // console.log(rows)
-    // response.send(rows);
+  //  console.log(rows)
+    // if (rows.length == 0) {
+    //   response.send([{ "info": "error" }]);
+    // } 
+      // rows[0].info = 'success';
+      // response.send(rows);
+    response.send([{ info: 'ok' }]);
+   
   });
 })
 
@@ -440,21 +447,22 @@ app.post('/changePassword', function (request, response) {
 // 購買清單
 app.post('/memberbuy/', function (request, response) {
   let sql = (
-    `select * 
-    from customer as customer
-    inner join orderdetail as o
-    on customer.customer_id = o.customer_id
- 
-    inner join cart as cart
-    on customer.customer_id = cart.customer_id
-
-    inner join product as p
-    on cart.product_id = p.product_id
-
-    inner join category as cat
-    on cat.category_id = p.category_id
-    where customer.customer_id=${request.body.cId}
-    GROUP BY o.orderDetail_id`
+    `SELECT * FROM 
+    cart as c
+    inner JOIN  orderdetail AS o 
+    ON o.order_id = c.order_id 
+    
+    inner JOIN product as p
+    ON c.product_id = p.product_id
+    
+    INNER JOIN category as cate
+    on cate.category_id = p.category_id
+    
+    INNER JOIN productimg AS pdimg
+      ON p.product_id = productImg_id
+    
+    where o.customer_id= ${request.body.cId} 
+    `
   );
   conn.query(sql, function (err, rows) {
     if (err) return;

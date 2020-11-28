@@ -4,7 +4,7 @@
 
 .memberMain {
 	display: flex;
-	height: var(--height);
+	height: 250%;
 }
 
 .memberMain i {
@@ -220,6 +220,31 @@
 .coinDate{
 	text-align: center;
 }
+
+/*星幣 end*/
+
+
+
+
+/* 密碼修改 */
+.changePassword{
+	width: 70%;
+	padding: 3% 3%;
+	margin: 80px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	line-height: 1.5;
+	/* border: 1px solid red; */
+	overflow: hidden;
+	font-size: 1.6rem;
+	color: var(--blueColor);
+}
+
+.noActive{
+	display:none;
+}
+
 
 /* RWD */
 

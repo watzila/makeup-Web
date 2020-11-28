@@ -39,8 +39,8 @@ class Member extends Component {
 
             <nav>
               <div className="member">
-                <img src={head} width="20%" alt="人像" />
-
+                <img src={head} width="35%" alt="人像" /><br/>
+                <small>更新大頭貼</small>
                 {/*<div>*/}
                 {/*<Link to="/member/edit">編輯個人檔案</Link>*/}
                 {/*</div>*/}

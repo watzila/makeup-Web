@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import IMGPath from "../imgPath"; //引入圖片
 //import Side from "./js/side";
-import "../css/Backstage.css";
-import "../css/page.css";
-import "../css/form.css";
-import "../css/table.css";
-import "../css/bootstrap.css";
+import "../../css/Backstage.css";
+import "../../css/page.css";
+import "../../css/form.css";
+import "../../css/table.css";
+import "../../css/bootstrap.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import { Link } from "react-router-dom";
 
