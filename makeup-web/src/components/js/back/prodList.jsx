@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+<<<<<<< HEAD:makeup-web/src/components/js/back/prodSearchList.jsx
 import IMGPath from "../imgPath"; //引入圖片
 //import Side from "./js/side";
 import "../../css/Backstage.css";
@@ -8,14 +9,21 @@ import "../../css/table.css";
 import "../../css/bootstrap.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import { Link } from "react-router-dom";
+=======
+>>>>>>> 4f0eff3c06ec797827bbf94a3fbb180c316e65f1:makeup-web/src/components/js/back/prodList.jsx
 
-class ProdSearchList extends Component {
+import BackProdTable from "./backProdTable";
+
+import CreateCard from "../createCard"; //
+
+class ProdList extends Component {
 	constructor(prop) {
 		super(prop);
 		this.state = {
 			data: null,
 		};
-		this.imgPath = new IMGPath();
+
+		this.createCard = new CreateCard();
 		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
 	}
 
@@ -23,18 +31,19 @@ class ProdSearchList extends Component {
 		return (
 			//{/* side側邊欄功能列 */}
 			//{/*<Side />*/}
-			//{/* prodSearchList內容 */}
+			//{/* ProdList內容 */}
 			<div className="col my-content">
-				<form>
-					<input type="hidden" name="" defaultValue="prodSearchList" />
+				<div>
+					<input type="hidden" name="" defaultValue="ProdList" />
+
 					<div className="pt-3 form-head">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
-								<i className="fa fa-table" />
-								商品管理 / 商品搜索結果
+								<i className="fa fa-th-large" />
+								商品管理
 							</h2>
 							<hr />
-							<div className="input-group mb-3 d-flex justify-content-center">
+							{/*<div className="input-group mb-3 d-flex justify-content-center">
 								<div className="mb-3 mx-3">
 									<a name="lastPege" type="submit" className="gray-Link my-button">
 										回上一頁
@@ -45,9 +54,10 @@ class ProdSearchList extends Component {
 										確認送出
 									</a>
 								</div>
-							</div>
+							</div>*/}
 						</div>
 					</div>
+
 					<div className="my-table p-3 mb-5">
 						<div className="row">
 							<div className="col-12 mt-3">
@@ -65,25 +75,38 @@ class ProdSearchList extends Component {
 											<option value={3}>50</option>
 										</select>
 										<span>筆</span>
-										<span className="text-right">123</span>
+										{/*<span className="text-right">123</span>*/}
 									</div>
+
 									<div className="mb-2 ml-auto form-row align-items-center">
+										<select defaultValue={1} onChange={console.log("ok")} id="inputGroupSelect">
+											<option value={1}>分類項</option>
+											<option value={2}>品名</option>
+											<option value={4}>顏色</option>
+											<option value={5}>單價</option>
+											<option value={6}>上架日期</option>
+											<option value={7}>修改日期</option>
+											<option value={8}>商品狀態</option>
+										</select>
+
 										<label
-											htmlFor="orderSearch"
+											htmlFor="productSearch"
 											className="col-auto d-inlin-block align-self-center"
 										>
-											快速搜尋會員名稱：
+											搜尋名稱：
 										</label>
 										<input
 											className="form-control col form-control-sm"
 											type="search"
 											name="orderSearch"
-											id="orderSearch"
+											id="productSearch"
 										/>
-										<a className="my-button col-auto ml-2">送出</a>
+
+										<button className="my-button col-auto ml-2">送出</button>
 									</div>
 								</div>
-								<div className="d-flex pt-3">
+
+								{/*<div className="d-flex pt-3">
 									<p>檢視表格欄位：</p>
 									<div className="mr-3">
 										<input type="checkbox" name="" id="" />
@@ -125,15 +148,17 @@ class ProdSearchList extends Component {
 										<input type="checkbox" name="" id="" />
 										<label htmlFor="">行動</label>
 									</div>
-								</div>
+								</div>*/}
 							</div>
 						</div>
+
+						{/*表格*/}
 						<table className="table table-hover p-3">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">商品小圖</th>
-									<th scope="col">商品編號</th>
+									{/*<th scope="col">商品編號</th>*/}
 									<th scope="col">小分類項</th>
 									<th scope="col">品名</th>
 									<th scope="col">顏色</th>
@@ -144,36 +169,12 @@ class ProdSearchList extends Component {
 									<th scope="col">行動</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>{/*<img src="img/prod/A0000001.png" alt="" />*/}</td>
-									<td>A0000001</td>
-									<td>粉底｜BB霜｜蜜粉</td>
-									<td>保濕礦物粉凝霜</td>
-									<td>CHARMEUSE #N20</td>
-									<td>960</td>
-									<td>2020/11/11</td>
-									<td>2020/11/12</td>
-									<td>上架</td>
-									<td>
-										<a name="prodSimpleUpdate" type="submit" className=" my-button mb-2">
-											修改
-										</a>
-										<a name="prodCopyUpdate" type="submit" className=" my-button mb-2">
-											複製
-										</a>
-										<a name="offShelf" type="submit" className=" my-button mb-2">
-											下架
-										</a>
-										<a name="prodDtail" type="submit" className=" my-button mb-2">
-											詳情
-										</a>
-									</td>
-								</tr>
-							</tbody>
+
+							<tbody>{this.createCard.create(4, BackProdTable, this.state.data)}</tbody>
 						</table>
 					</div>
+
+					{/*頁碼*/}
 					<div className="page d-flex justify-content-center">
 						<a href="/">&lt;</a>
 						<a className="click" href="/">
@@ -183,10 +184,10 @@ class ProdSearchList extends Component {
 						<a href="/">3</a>
 						<a href="/">&gt;</a>
 					</div>
-				</form>
+				</div>
 			</div>
 		);
 	}
 }
 
-export default ProdSearchList;
+export default ProdList;
