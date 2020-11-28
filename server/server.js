@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const cors = require("cors");
+const moment = require("moment");
 
 const app = express();
 
@@ -159,7 +160,7 @@ app.get("/p/:kind", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		console.log(request.query.pid);
+		// console.log(request.query.pid);
 		response.send(rows);
 	});
 });
@@ -308,9 +309,67 @@ app.post("/member/:nickname", function (request, response) {
     group by customer.customer_id`;
 	conn.query(sql, function (err, rows) {
 		if (err) return;
-
-		console.log(rows);
+		rows[0].birth_date = moment(rows[0].birth_date).format("YYYY-MM-DD");
 		response.send(rows);
+	});
+});
+
+// 會員姓名編輯
+app.post("/userEdit", function (request, response) {
+	// set UnitPrice = UnitPrice * 1.05
+	// where CategoryID = 1
+	let sql = `update customer 
+     set customerName = "${request.body.username}"
+     where customer_id = ${request.body.cId}
+     `;
+	conn.query(sql, function (err, rows) {
+		if (err) return;
+
+		// console.log(rows)
+		// response.send(rows);
+	});
+});
+
+// 會員手機編輯
+app.post("/phoneEdit", function (request, response) {
+	console.log(4);
+	let sql = `update customer 
+    set cellPhone = "${request.body.phone}"
+    where customer_id = ${request.body.cId}
+     `;
+	conn.query(sql, function (err, rows) {
+		if (err) return;
+
+		// console.log(rows)
+		// response.send(rows);
+	});
+});
+
+// 會員mail編輯
+app.post("/emailEdit", function (request, response) {
+	let sql = `update customer 
+    set email = "${request.body.email}"
+    where customer_id = ${request.body.cId}
+     `;
+	conn.query(sql, function (err, rows) {
+		if (err) return;
+
+		// console.log(rows)
+		// response.send(rows);
+	});
+});
+
+// 會員 密碼 修改
+app.post("/changePassword", function (request, response) {
+	let sql = `update customer 
+    set password = "${request.body.changePassword}"
+    where customer_id = ${request.body.cId}
+     `;
+	conn.query(sql, function (err, rows) {
+		if (err) return;
+
+		// console.log(rows)
+		// response.send(rows);
 	});
 });
 
@@ -329,8 +388,9 @@ app.post("/memberbuy/", function (request, response) {
 
     inner join category as cat
     on cat.category_id = p.category_id
-    where nickname="${request.body.nickname}"
+    where customer.customer_id=${request.body.cId}
     GROUP BY o.orderDetail_id`;
+
 	conn.query(sql, function (err, rows) {
 		if (err) return;
 
@@ -360,7 +420,7 @@ app.post("/memberfavorite/", function (request, response) {
     inner join cart as cart
     on customer.customer_id = cart.customer_id
 
-    where nickname="${request.body.nickname}"
+    where customer.customer_id=${request.body.cId}
     GROUP BY f.favorite_id`;
 
 	conn.query(sql, function (err, rows) {
@@ -395,7 +455,9 @@ app.post("/membercoin/", function (request, response) {
 		if (rows.length == 0) {
 			response.send([{ info: "error" }]);
 		} else {
-			// console.log(rows)
+			for (let i = 0; i < rows.length; i++) {
+				rows[i].coinDate = moment(rows[i].coinDate).format("YYYY-MM-DD HH:mm:ss");
+			}
 			response.send(rows);
 		}
 	});

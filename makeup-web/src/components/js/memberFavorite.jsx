@@ -13,9 +13,9 @@ class MemberFavorite extends Component {
     };
     this.ajax = new Ajax();
     this.creatCard = new CreatCard();
-    this.ajax.startListener("post", `/memberfavorite/`, this.u, {
-      nickname: JSON.parse(sessionStorage.getItem("member")).nickname,
-    });
+    this.ajax.startListener("post", `/memberfavorite/`, this.u,
+    { cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
+    );
     // console.log(JSON.parse(sessionStorage.getItem("member")));
   }
   u = (data) => {
