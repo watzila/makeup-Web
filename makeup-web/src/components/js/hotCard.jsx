@@ -20,7 +20,7 @@ class HotCard extends Component {
 			//熱銷小卡
 			<Link to={"/p/" + this.state.pID} className="topSellCar">
 				<div className="cardIMG">
-					<img src={this.imgPath.importAll(this.p)["homeProduct1.jpg"]} alt="product" />
+					<img src={this.imgPath.importAll(this.p)["2.jpg"]} alt="product" />
 				</div>
 				{/*星星*/}
 				<div className="star">

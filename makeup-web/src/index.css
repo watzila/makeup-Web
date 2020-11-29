@@ -25,6 +25,10 @@ textarea {
 	outline: none;
 }
 
+input[disabled] {
+	color: #000;
+}
+
 button {
 	cursor: pointer;
 }

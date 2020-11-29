@@ -21,15 +21,14 @@ class User extends Component {
 			"post",
 			`/member/${JSON.parse(sessionStorage.getItem("member")).nickname}`,
 			this.u,
-			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			 }
+			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
 		);
 		// console.log(this.u);
 	}
 
 	u = data => {
 		this.setState({ data: data });
-			console.log(data);
+		console.log(data);
 	};
 
 	handleClick = e => {
@@ -74,7 +73,7 @@ class User extends Component {
 	};
 
 	//更新 會員姓名 到資料庫
-	onBlurUsername = (e) => {
+	onBlurUsername = e => {
 		// 取消input邊框及disable
 		var dis = document.getElementById(e.target.id);
 		dis.disabled = "false";
@@ -82,14 +81,13 @@ class User extends Component {
 
 		let userData = {
 			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			username: document.querySelector( ".username").value
-		  }
+			username: document.querySelector(".username").value,
+		};
 		this.ajax.startListener("post", "/userEdit", this.u, userData);
-		
 	};
 
 	//更新 會員電話 到資料庫
-	onBlurphone = (e) => {
+	onBlurphone = e => {
 		// 取消input邊框及disable
 		var dis = document.getElementById(e.target.id);
 		dis.disabled = "false";
@@ -97,14 +95,12 @@ class User extends Component {
 
 		let phoneData = {
 			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			phone: document.querySelector( ".phone").value
-		  }
+			phone: document.querySelector(".phone").value,
+		};
 		this.ajax.startListener("post", "/phoneEdit", this.u, phoneData);
-		
-		
 	};
 	//更新 會員mail 到資料庫
-	onBlurEmail = (e) => {
+	onBlurEmail = e => {
 		// 取消input邊框及disable
 		var dis = document.getElementById(e.target.id);
 		dis.disabled = "false";
@@ -112,8 +108,8 @@ class User extends Component {
 
 		let emailData = {
 			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			email: document.querySelector( ".email").value
-		  }
+			email: document.querySelector(".email").value,
+		};
 		this.ajax.startListener("post", "/emailEdit", this.u, emailData);
 	};
 
@@ -147,7 +143,7 @@ class User extends Component {
 						onChange={this.changeUsername}
 						type="text"
 						id="username"
-						className= "username"
+						className="username"
 						name="username"
 						autoComplete="off"
 					/>
