@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
+<<<<<<< HEAD
 import ProdList from './js/back/prodList';
 import ProdDetail from './js/back/prodDetail';
 import ProdPutNew from './js/back/prodPutNew';
@@ -11,6 +12,18 @@ import MemberDetail from './js/back/memberDetail';
 import MemberOrderList from './js/back/memberOrderList';
 
 import OrderList from './js/back/orderList';
+=======
+import ProdList from "./js/back/prodList";
+import ProdDetail from "./js/back/prodDetail";
+import ProdPutNew from "./js/back/prodPutNew";
+import MemberList from "./js/back/memberList";
+import MemberSearch from "./js/back/memberSearch";
+import MemberDetail from "./js/back/memberDetail";
+import MemberOrderList from "./js/back/memberOrderList";
+
+import BackOrderList from "./js/back/backOrderList";
+import BackOrderDetail from "./js/back/backOrderDetail";
+>>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
 
 import IMGPath from './js/imgPath'; //引入圖片
 
@@ -110,6 +123,7 @@ class BackEnd extends Component {
                     </div>
                   </li>
 
+<<<<<<< HEAD
                   <li className="nav-item">
                     <div
                       href="#sideNavOrder"
@@ -137,6 +151,28 @@ class BackEnd extends Component {
                       </div>
                     </div>
                   </li>
+=======
+									<li className="nav-item">
+										<div href="#sideNavOrder" data-toggle="collapse" role="button">
+											<Link to={"/backend/order"} className="prod">
+												<h5 className="text-dark">
+													<i className="fa fa-table" aria-hidden="true"></i>
+													訂單管理
+												</h5>
+											</Link>
+										</div>
+										{/*<div className="collapse side-nav-bar" id="sideNavOrder">
+											<div className="d-flex flex-column align-items-end">
+												<Link className="sideNavItem" to={"/backend/order"}>
+													order
+												</Link>
+												<Link className="sideNavItem" to={"/backend/manageorder"}>
+													manageorder
+												</Link>
+											</div>
+										</div>*/}
+									</li>
+>>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
 
                   <li className="nav-item">
                     <div
@@ -205,12 +241,17 @@ class BackEnd extends Component {
                 component={MemberSearch}
               />
 
+<<<<<<< HEAD
               <Route exact path="/backend/order" component={OrderList} />
               <Route
                 exact
                 path="/backend/:member/orderdetail"
                 component={MemberOrderDetail}
               />
+=======
+							<Route exact path="/backend/order" component={BackOrderList} />
+							<Route exact path="/backend/:member/orderdetail" component={BackOrderDetail} />
+>>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
 
               <Route path="/backend/prod" exact component={ProdList} />
               <Route path="/backend/prod/detail" exact component={ProdDetail} />

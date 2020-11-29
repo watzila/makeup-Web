@@ -184,8 +184,14 @@ main .side .nav-item .sideNavItem {
 
 /* 撐開高度開始 */
 .my-content {
+<<<<<<< HEAD
   background: url(../images/background/山脈.png) no-repeat bottom;
   opacity: 0.99;
+=======
+	height: var(--height);
+	background: url(../images/background/山脈.png) no-repeat bottom;
+	opacity: 0.99;
+>>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
 }
 /*.my-content::after {
 	content: "";
