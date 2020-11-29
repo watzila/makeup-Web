@@ -82,7 +82,7 @@ class Login extends Component {
   }
 
   u = (data) => {
-    console.log(data[0])
+    // console.log(data[0])
     switch (data[0].info) {
       case "error":
         this.setState({ data: "帳號或密碼錯誤" });

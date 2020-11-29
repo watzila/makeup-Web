@@ -14,20 +14,50 @@ class ProdDetail extends Component {
 
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
+		this.ajax.startListener(
+			"post",
+			`/proddetail/`,
+			this.u,
+			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
+			 }
+		);
 		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
+	}
+
+	u = data => {
+		this.setState({ data: data });
+			console.log(data);
+	};
+
+
+	prodEdit = (e)=>{
+		
+		let editProdData = {
+			// cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
+			productName: document.querySelector( "#productName").value,
+			unitPrice:document.querySelector( "#unitPrice").value,
+			productColor:document.querySelector( "#productColor_0").value,
+			img1:document.querySelector( "#img1").value,
+			detail:document.querySelector( "#detail").value,
+			putDate:document.querySelector( "#putDate").value,
+			updateDate:document.querySelector( "#updateDate").value
+		}
+		this.ajax.startListener("post", "/prodedit", this.u, editProdData);
+	
 	}
 
 	render() {
 		return (
 			//{/* prodCopyUpdate內容 */}
 			<div className="col my-content">
-				<form className="p-3">
+				<div className="p-3" >
 					<input type="hidden" name="#" defaultValue="prodSearchList" />
 
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
 								<i className="fa fa-table" />
+
 								商品詳情 / 商品修改
 							</h2>
 
@@ -41,7 +71,9 @@ class ProdDetail extends Component {
 								</div>
 
 								<div className="mb-3 mx-3">
-									<button name="lastPege" type="submit" className="gray-Link my-button">
+									<button
+									onClick={this.prodEdit}
+									name="lastPege" type="submit" className="gray-Link my-button">
 										確認送出
 									</button>
 								</div>
@@ -109,7 +141,6 @@ class ProdDetail extends Component {
 							<label htmlFor="productName" className="col-2 col-form-label">
 								品名
 							</label>
-
 							<div className="col-10">
 								<input
 									id="productName"
@@ -117,6 +148,8 @@ class ProdDetail extends Component {
 									type="text"
 									className="form-control"
 									aria-describedby="productNameHelpBlock"
+									defaultValue={this.state.data == null ? "" : this.state.data[0].productName}
+									onChange = { (event) =>{console.log(event.target.value ) ;}}
 									onChange={event => {
 										return event.target.value;
 									}}
@@ -132,47 +165,14 @@ class ProdDetail extends Component {
 							<label className="col-2">顏色</label>
 
 							<div className="col-10">
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_0"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="CHARMEUSE #N20"
-									/>
-
-									<label htmlFor="productColor_0" className="custom-control-label">
-										CHARMEUSE #N20
-									</label>
-								</div>
-
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_1"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="duck"
-									/>
-
-									<label htmlFor="productColor_1" className="custom-control-label">
-										Duck
-									</label>
-								</div>
-
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_2"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="fish"
-									/>
-
-									<label htmlFor="productColor_2" className="custom-control-label">
-										Fish
-									</label>
-								</div>
+								<input
+								name="productColor"
+								id="productColor_0"
+								type="text"
+								className="form-control"
+								defaultValue={this.state.data == null ? "" : this.state.data[0].productColor}
+								onChange = { (event) =>{console.log(event.target.value ) ;}}
+								/>
 							</div>
 						</div>
 
@@ -189,6 +189,8 @@ class ProdDetail extends Component {
 										type="text"
 										className="form-control"
 										aria-describedby="unitPriceHelpBlock"
+										defaultValue={this.state.data == null ? "" : this.state.data[0].unitPrice}
+										onChange = { (event) =>{console.log(event.target.value ) ;}}
 									/>
 								</div>
 
@@ -239,6 +241,8 @@ class ProdDetail extends Component {
 									rows={10}
 									className="form-control"
 									style={{ resize: "none" }}
+									defaultValue={this.state.data == null ? "" : this.state.data[0].detail}
+									onChange = { (event) =>{console.log(event.target.value ) ;}}
 								/>
 							</div>
 						</div>
@@ -304,14 +308,18 @@ class ProdDetail extends Component {
 										</div>
 									</div>
 
-									<input id="putDate" name="putDate" type="text" className="form-control" />
+									<input 
+									id="putDate" name="putDate" type="text" className="form-control"
+									defaultValue={this.state.data == null ? "" : this.state.data[0].putDate}
+									onChange = { (event) =>{console.log(event.target.value ) ;}}
+								 />
 								</div>
 							</div>
 						</div>
 
 						<div className="form-group row">
 							<label htmlFor="updateDate" className="col-2 col-form-label">
-								修改日期
+								上次修改日期
 							</label>
 
 							<div className="col-10">
@@ -328,6 +336,8 @@ class ProdDetail extends Component {
 										type="text"
 										className="form-control"
 										disabled
+										defaultValue={this.state.data == null ? "" : this.state.data[0].updateDate}
+										onChange = { (event) =>{console.log(event.target.value ) ;}}
 									/>
 								</div>
 							</div>
@@ -380,7 +390,7 @@ class ProdDetail extends Component {
 							</div>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		);
 	}

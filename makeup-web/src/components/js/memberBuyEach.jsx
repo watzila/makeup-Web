@@ -5,7 +5,7 @@ import product1 from "../images/product/A_01.jpg";
 class MemberBuyEach extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.data);
+    // console.log(this.props.data);
   }
   render() {
     return (
