@@ -6,9 +6,10 @@ import BackOrderTable from "./backOrderTable";
 import CreateCard from "../createCard"; //
 import Ajax from "../ajax"; //
 
-class OrderList extends Component {
+class BackOrderList extends Component {
 	constructor(prop) {
 		super(prop);
+
 		this.state = {
 			data: null,
 		};
@@ -16,7 +17,7 @@ class OrderList extends Component {
 		this.createCard = new CreateCard();
 		this.ajax = new Ajax();
 
-		this.ajax.startListener("post", "/backend/orderlist", this.u);
+		this.ajax.startListener("get", "/backend/orderlist", this.u);
 	}
 
 	u = data => {
@@ -35,12 +36,11 @@ class OrderList extends Component {
 					} else {
 						//console.log(i, j);
 						if (data[i].total == null) {
-							data[i].total =
-								data[i].quantity * data[i].grandTotal + data[j].quantity * data[j].grandTotal;
-							console.log(data[i].total);
+							data[i].total = data[i].grandTotal + data[j].grandTotal;
+							//console.log(data[i].total);
 						} else {
-							data[i].total += data[j].quantity * data[j].grandTotal;
-							console.log(data[i].total);
+							data[i].total += data[j].grandTotal;
+							//console.log(data[i].total);
 						}
 
 						data[i].quantity += data[j].quantity;
@@ -96,7 +96,9 @@ class OrderList extends Component {
 										className="custom-select"
 										id="inputGroupSelect"
 										defaultValue={1}
-										onChange={console.log("ok")}
+										onChange={event => {
+											console.log(event.target.value);
+										}}
 									>
 										<option value={1}>10</option>
 										<option value={2}>20</option>
@@ -107,7 +109,13 @@ class OrderList extends Component {
 								</div>
 
 								<div className="mb-2 ml-auto form-row align-items-center">
-									<select defaultValue={1} onChange={console.log("ok")} id="inputGroupSelect">
+									<select
+										defaultValue={1}
+										onChange={event => {
+											console.log(event.target.value);
+										}}
+										id="inputGroupSelect"
+									>
 										<option value={1}>訂單編號</option>
 										<option value={2}>訂單日期</option>
 										<option value={4}>訂購人</option>
@@ -125,6 +133,9 @@ class OrderList extends Component {
 										type="search"
 										name="orderSearch"
 										id="productSearch"
+										onChange={event => {
+											console.log(event.target.value);
+										}}
 									/>
 
 									<button className="my-button col-auto ml-2">送出</button>
@@ -204,4 +215,4 @@ class OrderList extends Component {
 	}
 }
 
-export default OrderList;
+export default BackOrderList;

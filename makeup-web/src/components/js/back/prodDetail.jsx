@@ -117,6 +117,9 @@ class ProdDetail extends Component {
 									type="text"
 									className="form-control"
 									aria-describedby="productNameHelpBlock"
+									onChange={event => {
+										return event.target.value;
+									}}
 								/>
 
 								{/*<span id="productNameHelpBlock" className="form-text text-muted">

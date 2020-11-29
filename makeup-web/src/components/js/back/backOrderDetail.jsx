@@ -1,21 +1,53 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import IMGPath from "./js/imgPath"; //引入圖片
-// import { Link } from "react-router-dom";
 
-class MemberOrderDetail extends Component {
+import BackOrderDetailTable from "./backOrderDetailTable";
+
+import CreateCard from "../createCard"; //
+import Ajax from "../ajax"; //
+class BackOrderDetail extends Component {
 	constructor(prop) {
 		super(prop);
 		this.state = {
 			data: null,
 		};
-		// this.imgPath = new IMGPath();
+
+		this.createCard = new CreateCard();
+		this.ajax = new Ajax();
+
+		this.ajax.startListener("post", "/backend/orderlist", this.u, {
+			pId: this.props.location.state.pId,
+		});
+		//console.log(this.props);
 	}
+
+	u = data => {
+		this.setState({ data: data });
+
+		console.log(data);
+	};
+
+	//總價
+	totalPrice = (deliverFee = 0) => {
+		let total = 0;
+		for (let i = 0; i < this.state.data.length; i++) {
+			let price = this.state.data[i].unitPrice * this.state.data[i].quantity;
+			total += price;
+		}
+		return total + deliverFee;
+	};
+
+	//地址
+	address = () => {
+		let d = this.state.data[0];
+		let newAddress = d.shipping_postCode + " " + d.shipping_city + d.shipping_district + d.address;
+		return newAddress;
+	};
 
 	render() {
 		return (
-			// {/* index_memberOrderDetail內容 */}
-			<div className="col">
+			// {/* index_BackOrderDetail內容 */}
+			<div className="col my-content">
 				<form className="p-3">
 					<input type="hidden" name="#" defaultValue="memberDetail" />
 					<h2 className="pt-3 pb-3 text-center">
@@ -30,16 +62,14 @@ class MemberOrderDetail extends Component {
 							</Link>
 						</div>
 
-						<div className="mb-3 mx-3">
+						{/*<div className="mb-3 mx-3">
 							<a name="lastPege" type="submit" className="gray-Link my-button">
 								停止訂單
 							</a>
-						</div>
+						</div>*/}
 
 						<div className="mb-3 mx-3">
-							<a name="lastPege" type="submit" className="gray-Link my-button">
-								匯出PDF
-							</a>
+							<button className="gray-Link my-button">匯出PDF</button>
 						</div>
 					</div>
 
@@ -48,7 +78,7 @@ class MemberOrderDetail extends Component {
 							<span className="col-2">訂單id</span>
 
 							<div className="col-10">
-								<p>11</p>
+								<p>{this.state.data != null ? this.state.data[0].order_id : ""}</p>
 
 								{/*<input
 									id="order_id"
@@ -75,7 +105,7 @@ class MemberOrderDetail extends Component {
 								<span>姓名：</span>
 								{/*</label>*/}
 
-								<span>王小明</span>
+								<span>{this.state.data != null ? this.state.data[0].customerName : ""}</span>
 								{/*<input
 									id="userName"
 									name="userName"
@@ -90,7 +120,7 @@ class MemberOrderDetail extends Component {
 								<span>手機：</span>
 								{/*</label>*/}
 
-								<span>0912-345678</span>
+								<span>{this.state.data != null ? this.state.data[0].cellPhone : ""}</span>
 
 								{/*<input
 									id="cellPhone"
@@ -116,14 +146,14 @@ class MemberOrderDetail extends Component {
 								/>
 							</div>*/}
 
-							<div className="col">
-								{/*<label htmlFor="birth">*/}
-								<span>生日：</span>
-								{/*</label>*/}
+							{/*<div className="col">*/}
+							{/*<label htmlFor="birth">*/}
+							{/*<span>生日：</span>*/}
+							{/*</label>*/}
 
-								<span>2020/11/17</span>
+							{/*<span>2020/11/17</span>*/}
 
-								{/*<div className="input-group">
+							{/*<div className="input-group">
 									<div className="input-group-prepend">
 										<div className="input-group-text">
 											<i className="fa fa-birthday-cake" />
@@ -138,17 +168,18 @@ class MemberOrderDetail extends Component {
 										disabled
 									/>
 								</div>*/}
-							</div>
+							{/*</div>*/}
 						</div>
 
 						<div className="form-row pb-3 pt-3">
 							<span className="col-2">性別：</span>
 
-							<span>男</span>
+							<span>{this.state.data != null ? this.state.data[0].gender : ""}</span>
 						</div>
 
 						<div className="form-row">
 							<span className="col-2">詳細住址</span>
+							<span>{this.state.data != null ? this.address() : ""}</span>
 						</div>
 					</div>
 					{/* 訂單細節 */}
@@ -168,11 +199,11 @@ class MemberOrderDetail extends Component {
 
 							<tbody>
 								<tr>
-									<td>2020年11月16日 12:39:00 PM</td>
+									<td>{this.state.data != null ? this.state.data[0].orderDate : ""}</td>
 									{/*<td>2020年11月17日 12:39:00 PM</td>*/}
-									<td>2020年X月X日 00:00:00 PM</td>
-									<td>完成</td>
-									<td>安安你好</td>
+									<td>{this.state.data != null ? this.state.data[0].orderDate : ""}</td>
+									<td>{this.state.data != null ? this.state.data[0].orderStatus : ""}</td>
+									<td>{this.state.data != null ? this.state.data[0].orderComment : ""}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -191,8 +222,8 @@ class MemberOrderDetail extends Component {
 								<tr>
 									{/*<td>60</td>*/}
 									<td>60</td>
-									<td>安安你好</td>
-									<td>安安你好</td>
+									<td>{this.state.data != null ? this.state.data[0].shippingStyle_id : ""}</td>
+									<td>{this.state.data != null ? this.state.data[0].payment_method : ""}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -212,22 +243,13 @@ class MemberOrderDetail extends Component {
 							</thead>
 
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>A0000001</td>
-									<td>保濕礦物粉凝霜</td>
-									<td>1</td>
-									<td>CHARMEUSE #N20</td>
-									<td>960</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>A0000002</td>
-									<td>第二種保濕礦物粉凝霜</td>
-									<td>1</td>
-									<td>CHARMEUSE #N20</td>
-									<td>960</td>
-								</tr>
+								{this.state.data != null
+									? this.createCard.create(
+											this.state.data.length,
+											BackOrderDetailTable,
+											this.state.data
+									  )
+									: null}
 							</tbody>
 						</table>
 
@@ -236,7 +258,7 @@ class MemberOrderDetail extends Component {
 						<table className="table table-sm table-hover p-3 ">
 							<thead>
 								<tr>
-									<th scope="col">客製化費用</th>
+									{/*<th scope="col">客製化費用</th>*/}
 									<th scope="col">運費</th>
 									<th scope="col">商品總價</th>
 									<th scope="col">折扣</th>
@@ -245,14 +267,19 @@ class MemberOrderDetail extends Component {
 
 							<tbody>
 								<tr>
-									<td>60</td>
-									<td>60</td>
-									<td>1920</td>
-									<td>90%</td>
+									{/*<td>60</td>*/}
+									<td>{this.state.data != null ? this.state.data[0].deliverFee : ""}</td>
+									<td>{this.state.data != null ? this.totalPrice() : ""}</td>
+									<td>0%</td>
 								</tr>
 								<tr>
 									<td colSpan={4}>
-										總共<h2>1836</h2>
+										總共：：
+										<span>
+											{this.state.data != null
+												? this.totalPrice(this.state.data[0].deliverFee)
+												: ""}
+										</span>
 									</td>
 								</tr>
 							</tbody>
@@ -264,4 +291,4 @@ class MemberOrderDetail extends Component {
 	}
 }
 
-export default MemberOrderDetail;
+export default BackOrderDetail;

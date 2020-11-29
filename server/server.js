@@ -464,13 +464,39 @@ app.post("/membercoin/", function (request, response) {
 });
 
 //後台訂單清單
-app.post("/backend/orderlist", function (request, response) {
+app.get("/backend/orderlist", function (request, response) {
 	let sql = `SELECT o.order_id, orderDate,customerName, quantity, grandTotal, orderStatus
     FROM orders AS o 
     INNER JOIN orderdetail AS od 
     ON o.order_id = od.order_id 
     INNER JOIN customer AS c 
     ON o.customer_id = c.customer_id`;
+
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		//console.log(rows)
+		response.send(rows);
+	});
+});
+
+//後台訂單詳情
+app.post("/backend/orderlist", function (request, response) {
+	let sql = `SELECT *
+  FROM orders AS o
+  INNER JOIN orderdetail AS od
+  ON o.order_id = od.order_id
+  INNER JOIN customer AS c
+  ON o.customer_id = c.customer_id
+  INNER JOIN shipping AS s
+  ON o.order_id = s.order_id
+  INNER JOIN product AS p
+  ON p.product_id = o.product_id
+  INNER JOIN category AS cate
+  ON cate.category_id = p.category_id
+  WHERE o.order_id = ${request.body.pId}`;
 
 	conn.query(sql, function (err, rows) {
 		if (err) {
