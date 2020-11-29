@@ -24,6 +24,7 @@ const conn = mysql.createConnection({
 	user: "root",
 	password: "",
 	database: "customer",
+	multipleStatements: true
 });
 
 //連線
@@ -332,7 +333,6 @@ app.post("/userEdit", function (request, response) {
 
 // 會員手機編輯
 app.post("/phoneEdit", function (request, response) {
-	console.log(4);
 	let sql = `update customer 
     set cellPhone = "${request.body.phone}"
     where customer_id = ${request.body.cId}
@@ -491,9 +491,85 @@ app.post("/backend/orderlist", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		//console.log(rows)
+		console.log(rows)
 		response.send(rows);
 	});
 });
+
+
+// 後臺 商品詳情
+app.post("/proddetail/", function (request, response) {
+	let sql = `
+	SELECT * FROM category as c
+	inner join product as p 
+	on c.category_id = p.category_id`;
+
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		// console.log(rows)
+		response.send(rows);
+	});
+});
+
+
+// 商品編輯
+app.post("/prodedit/", function (request, response) {
+	let sql = `
+	UPDATE product p, category c
+	SET p.productName = "${request.body.productName}",
+    p.productColor = "${request.body.productColor}",
+    p.putDate = "${request.body.putDate}",
+    p.updateDate  = "${request.body.updateDate}",
+    c.unitPrice = ${request.body.unitPrice},
+    c.skinType = "${request.body.skinType}",
+    c.detail = "${request.body.detail}",
+    c.specification = "${request.body.specification}"
+    
+	WHERE p.product_id = 48 
+	&& p.category_id=c.category_id`;
+
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		// console.log(rows)
+		// response.send(rows);
+	});
+});
+
+
+
+// 商品新增
+app.post("/backend/prod/new", function (request, response) {
+	let sqlA = `
+	INSERT INTO 
+	product
+	(productName,productColor, putDate,kindA,kindB)
+	VALUES
+	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}");`
+	let sqlB = `
+	INSERT INTO 
+	category 
+	(unitPrice, detail)
+	VALUES 
+	(${request.body.unitPrice},"${request.body.detail}");`
+	conn.query(sqlA+sqlB, function (err, rows) {
+		response.redirect("http://localhost:3000/backend/prod/new");
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		// console.log(rows)
+		response.send(rows);
+	});
+});
+
+
+
+
 
 app.listen(3001, () => console.log("LISTENING ON PORT 成功"));

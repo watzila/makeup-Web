@@ -29,7 +29,7 @@ class User extends Component {
 
 	u = data => {
 		this.setState({ data: data });
-			console.log(data);
+			// console.log(data);
 	};
 
 	handleClick = e => {

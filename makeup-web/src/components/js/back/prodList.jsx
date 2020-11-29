@@ -1,16 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD:makeup-web/src/components/js/back/prodSearchList.jsx
-import IMGPath from "../imgPath"; //引入圖片
-//import Side from "./js/side";
-import "../../css/Backstage.css";
-import "../../css/page.css";
-import "../../css/form.css";
-import "../../css/table.css";
-import "../../css/bootstrap.css";
-//import "bootstrap/dist/css/bootstrap.min.css";
-//import { Link } from "react-router-dom";
-=======
->>>>>>> 4f0eff3c06ec797827bbf94a3fbb180c316e65f1:makeup-web/src/components/js/back/prodList.jsx
 
 import BackProdTable from "./backProdTable";
 

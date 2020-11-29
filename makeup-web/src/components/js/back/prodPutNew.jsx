@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import IMGPath from "../imgPath"; //引入圖片
 import { Link } from "react-router-dom";
+import Ajax from "../ajax"; //和伺服連線
 
 class ProdPutNew extends Component {
 	constructor(prop) {
@@ -10,13 +11,33 @@ class ProdPutNew extends Component {
 		};
 		this.imgPath = new IMGPath();
 		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
+		this.ajax = new Ajax();
 	}
+
+
+	u = data => {
+		this.setState({ data: data });
+			// console.log(data);
+	};
+
+	// formProd = e =>{
+	// 	let addProd = {
+	// 		productName :document.querySelector("#productName").value,
+	// 		productColor:document.querySelector("#productColor_0").value,
+	// 		unitPrice:document.querySelector("#unitPrice").value,
+	// 		detail:document.querySelector("#detail").value,
+	// 		putDate:document.querySelector("#putDate").value,
+	// 		updateDate:document.querySelector("#updateDate").value,
+	// 	}
+	// 	this.ajax.startListener("post", "/backend/prod/new", this.u, addProd);
+
+	// }
 
 	render() {
 		return (
 			//{/* prodPutNew內容 */}
 			<div className="col my-content">
-				<form method="post" action="http://localhost:3001/backend/prod/new" className="p-3">
+				<form onClick = {this.formProd} method="post" action="http://localhost:3001/backend/prod/new" className="p-3">
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
@@ -34,7 +55,9 @@ class ProdPutNew extends Component {
 								</div>
 
 								<div className="mb-3 mx-3">
-									<button name="addOK" type="submit" className="gray-Link my-button">
+									<button 
+									name="addOK" type="submit" className="gray-Link my-button"
+									>
 										確認送出
 									</button>
 								</div>
@@ -104,47 +127,17 @@ class ProdPutNew extends Component {
 						</div>
 
 						<div className="form-group row">
-							<span className="col-2">顏色</span>
+							<label className="col-2">顏色</label>
 
 							<div className="col-10">
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_0"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="CHARMEUSE #N20"
-									/>
-									<label htmlFor="productColor_0" className="custom-control-label">
-										CHARMEUSE #N20
-									</label>
-								</div>
-
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_1"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="duck"
-									/>
-									<label htmlFor="productColor_1" className="custom-control-label">
-										Duck
-									</label>
-								</div>
-
-								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productColor"
-										id="productColor_2"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="fish"
-									/>
-									<label htmlFor="productColor_2" className="custom-control-label">
-										Fish
-									</label>
-								</div>
+								<input
+								name="productColor"
+								id="productColor_0"
+								type="text"
+								className="form-control"
+								defaultValue={this.state.data == null ? "" : this.state.data[0].productColor}
+								onChange = { (event) =>{console.log(event.target.value ) ;}}
+								/>
 							</div>
 						</div>
 
@@ -279,7 +272,7 @@ class ProdPutNew extends Component {
 							</div>
 						</div>
 
-						{/*<div className="form-group row">
+						{/* <div className="form-group row">
 							<label htmlFor="updateDate" className="col-2 col-form-label">
 								修改日期
 							</label>
@@ -300,7 +293,7 @@ class ProdPutNew extends Component {
 									/>
 								</div>
 							</div>
-						</div>*/}
+						</div> */}
 						<div className="form-group row">
 							<span className="col-2">商品狀態</span>
 
