@@ -151,6 +151,8 @@ main .side .nav-item .sideNavItem {
   font: bold 16px arial;
   color: #111111;
   text-decoration: none;
+  border: 0;
+  cursor: pointer;
 }
 /* 被滑過的時候 */
 .my-button:hover,
