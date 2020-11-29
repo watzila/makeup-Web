@@ -508,4 +508,55 @@ app.post("/backend/orderlist", function (request, response) {
 	});
 });
 
+//後臺過濾
+app.post("/backend/search", function (request, response) {
+	let which;
+
+	switch (request.body.kind) {
+		case `order_id`:
+			which = `o`;
+			break;
+
+		case `orderDate`:
+			which = `od`;
+			break;
+
+		case `customerName`:
+			which = `c`;
+			break;
+
+		case `orderStatus`:
+			which = `o`;
+			break;
+	}
+
+	let sql = `SELECT *
+  FROM orders AS o
+  INNER JOIN orderdetail AS od
+  ON o.order_id = od.order_id
+
+  INNER JOIN customer AS c
+  ON o.customer_id = c.customer_id
+
+  INNER JOIN shipping AS s
+  ON o.order_id = s.order_id
+
+  INNER JOIN product AS p
+  ON p.product_id = o.product_id
+
+  INNER JOIN category AS cate
+  ON cate.category_id = p.category_id
+  WHERE ${which}.${request.body.kind} = "${request.body.value}"`;
+
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		//console.log(rows);
+
+		response.send(rows);
+	});
+});
+
 app.listen(3001, () => console.log("LISTENING ON PORT 成功"));

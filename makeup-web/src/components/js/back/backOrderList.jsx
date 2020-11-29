@@ -56,6 +56,14 @@ class BackOrderList extends Component {
 		//console.log(newData);
 	};
 
+	search = (k, v) => {
+		let kind = document.getElementById(k).value;
+		let value = document.getElementById(v).value;
+
+		this.ajax.startListener("post", "/backend/search", this.u, { kind: kind, value: value });
+		console.log(kind, value);
+	};
+
 	render() {
 		return (
 			// {/* manageOrder內容 */}
@@ -110,16 +118,16 @@ class BackOrderList extends Component {
 
 								<div className="mb-2 ml-auto form-row align-items-center">
 									<select
-										defaultValue={1}
+										defaultValue={"order_id"}
 										onChange={event => {
-											console.log(event.target.value);
+											return event.target.value;
 										}}
-										id="inputGroupSelect"
+										id="kindSelect"
 									>
-										<option value={1}>訂單編號</option>
-										<option value={2}>訂單日期</option>
-										<option value={4}>訂購人</option>
-										<option value={5}>訂單狀態</option>
+										<option value={`order_id`}>訂單編號</option>
+										<option value={`orderDate`}>訂單日期</option>
+										<option value={`customerName`}>訂購人</option>
+										<option value={`orderStatus`}>訂單狀態</option>
 									</select>
 
 									<label
@@ -134,11 +142,18 @@ class BackOrderList extends Component {
 										name="orderSearch"
 										id="productSearch"
 										onChange={event => {
-											console.log(event.target.value);
+											return event.target.value;
 										}}
 									/>
 
-									<button className="my-button col-auto ml-2">送出</button>
+									<button
+										className="my-button col-auto ml-2"
+										onClick={() => {
+											this.search("kindSelect", "productSearch");
+										}}
+									>
+										送出
+									</button>
 								</div>
 							</div>
 
