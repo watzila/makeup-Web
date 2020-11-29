@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
-import IMGPath from "../imgPath"; //引入圖片
-
 class BackOrderTable extends Component {
-	constructor(props) {
-		super(props);
-
-		this.imgPath = new IMGPath();
-	}
-
 	render() {
 		return (
 			<tr>
@@ -18,15 +9,13 @@ class BackOrderTable extends Component {
 				<td>{this.props.data != null ? this.props.data.orderDate : ""}</td>
 				<td>{this.props.data != null ? this.props.data.customerName : ""}</td>
 				<td>{this.props.data != null ? this.props.data.quantity : ""}</td>
-				<td>
-					{this.props.data != null ? this.props.data.quantity * this.props.data.grandTotal : ""}
-				</td>
+				<td>{this.props.data != null ? this.props.data.total : ""}</td>
 				{/*<td>
 					<a className="my-button">修改</a>
 				</td>*/}
 
 				<td>
-					<div className="dropdown">
+					{/*<div className="dropdown">
 						<button
 							className="btn btn-light btn-sm dropdown-toggle"
 							type="button"
@@ -48,14 +37,19 @@ class BackOrderTable extends Component {
 								訂單完成
 							</a>
 						</div>
-					</div>
+					</div>*/}
+
+					{this.props.data != null ? this.props.data.orderStatus : ""}
 				</td>
 
 				<td>
 					<Link
-						to={`/backend/${
-							this.props.data != null ? this.props.data.customerName : ""
-						}/orderdetail`}
+						to={{
+							pathname: `/backend/${
+								this.props.data != null ? this.props.data.customerName : ""
+							}/orderdetail`,
+							state: { pId: this.props.data != null ? this.props.data.order_id : "" },
+						}}
 						className="my-button"
 					>
 						檢視

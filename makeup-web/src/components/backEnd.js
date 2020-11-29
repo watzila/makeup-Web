@@ -6,11 +6,11 @@ import ProdDetail from "./js/back/prodDetail";
 import ProdPutNew from "./js/back/prodPutNew";
 import MemberList from "./js/back/memberList";
 import MemberSearch from "./js/back/memberSearch";
-import MemberOrderDetail from "./js/back/memberOrderDetail";
 import MemberDetail from "./js/back/memberDetail";
 import MemberOrderList from "./js/back/memberOrderList";
 
-import OrderList from "./js/back/orderList";
+import BackOrderList from "./js/back/backOrderList";
+import BackOrderDetail from "./js/back/backOrderDetail";
 
 import IMGPath from "./js/imgPath"; //引入圖片
 
@@ -97,14 +97,14 @@ class BackEnd extends Component {
 
 									<li className="nav-item">
 										<div href="#sideNavOrder" data-toggle="collapse" role="button">
-											<button className="prod">
+											<Link to={"/backend/order"} className="prod">
 												<h5 className="text-dark">
 													<i className="fa fa-table" aria-hidden="true"></i>
 													訂單管理
 												</h5>
-											</button>
+											</Link>
 										</div>
-										<div className="collapse side-nav-bar" id="sideNavOrder">
+										{/*<div className="collapse side-nav-bar" id="sideNavOrder">
 											<div className="d-flex flex-column align-items-end">
 												<Link className="sideNavItem" to={"/backend/order"}>
 													order
@@ -113,7 +113,7 @@ class BackEnd extends Component {
 													manageorder
 												</Link>
 											</div>
-										</div>
+										</div>*/}
 									</li>
 
 									<li className="nav-item">
@@ -162,8 +162,8 @@ class BackEnd extends Component {
 							<Route exact path="/backend/member/orderdetail/list" component={MemberOrderList} />
 							<Route exact path="/backend/member/search" component={MemberSearch} />
 
-							<Route exact path="/backend/order" component={OrderList} />
-							<Route exact path="/backend/:member/orderdetail" component={MemberOrderDetail} />
+							<Route exact path="/backend/order" component={BackOrderList} />
+							<Route exact path="/backend/:member/orderdetail" component={BackOrderDetail} />
 
 							<Route path="/backend/prod" exact component={ProdList} />
 							<Route path="/backend/prod/detail" exact component={ProdDetail} />

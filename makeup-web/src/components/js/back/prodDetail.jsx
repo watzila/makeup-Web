@@ -150,6 +150,9 @@ class ProdDetail extends Component {
 									aria-describedby="productNameHelpBlock"
 									defaultValue={this.state.data == null ? "" : this.state.data[0].productName}
 									onChange = { (event) =>{console.log(event.target.value ) ;}}
+									onChange={event => {
+										return event.target.value;
+									}}
 								/>
 
 								{/*<span id="productNameHelpBlock" className="form-text text-muted">
