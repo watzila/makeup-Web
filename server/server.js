@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded());
 //連線mysql
 const conn = mysql.createConnection({
   host: '127.0.0.1',
-  port: '3306',
+  port: '8889',
   user: 'root',
-  password: '',
+  password: 'root',
   database: 'customer',
 });
 
@@ -75,7 +75,7 @@ app.post('/login', function (request, response) {
 
     // console.log(rows.length)
     if (rows.length == 0) {
-      response.send([{ "info": "error" }]);
+      response.send([{ info: 'error' }]);
     } else {
       rows[0].info = 'success';
       response.send(rows);
@@ -108,25 +108,22 @@ app.get('/p', function (request, response) {
 });
 
 //我的最愛
-app.get("/myLove", function (request, response) {
-  let sql = (
-    `SELECT customer_id, product_id 
+app.get('/myLove', function (request, response) {
+  let sql = `SELECT customer_id, product_id 
       FROM favorite
-      WHERE customer_id=${request.query.cId}`);
+      WHERE customer_id=${request.query.cId}`;
 
   conn.query(sql, function (err, rows) {
     response.send(rows);
-    // console.log(rows);
+    // console.log(request.query.cId);
   });
 });
 
 //加入最愛
-app.get("/addLove", function (request, response) {
-  let sql = (
-    `select * 
+app.get('/addLove', function (request, response) {
+  let sql = `select * 
     from favorite
-    where customer_id=${request.query.cId} && product_id=${request.query.pId}`
-  );
+    where customer_id=${request.query.cId} && product_id=${request.query.pId}`;
 
   conn.query(sql, function (err, rows) {
     if (err) {
@@ -135,32 +132,28 @@ app.get("/addLove", function (request, response) {
     }
 
     if (rows.length == 0) {
-      let sql2 = (
-        `insert into favorite (customer_id, product_id)
-      values(${request.query.cId},${request.query.pId})`
-      );
+      let sql2 = `insert into favorite (customer_id, product_id)
+      values(${request.query.cId},${request.query.pId})`;
 
       conn.query(sql2, function (err, row) {
         if (err) return;
       });
     } else {
-      let sql2 = (
-        `delete
+      let sql2 = `delete
         from favorite
-        where customer_id=${request.query.cId} && product_id=${request.query.pId}`
-      );
+        where customer_id=${request.query.cId} && product_id=${request.query.pId}`;
 
       conn.query(sql2, function (err, row) {
         if (err) return;
       });
     }
   });
-})
+});
 
 //產品詳細頁
 app.get('/p/:kind', function (request, response) {
-  //let sql = `SELECT p.*,productName,img_0, c.unitPrice,c.skinType,c.specification,c.detail 
-  //  FROM product as p,productimg as img,category as c 
+  //let sql = `SELECT p.*,productName,img_0, c.unitPrice,c.skinType,c.specification,c.detail
+  //  FROM product as p,productimg as img,category as c
   //  where product_id=${request.query.pid} && product_id=img.productImg_id && p.category_id=c.category_id`;
 
   //測試用
@@ -259,11 +252,10 @@ app.post('/addCart', function (req, res) {
       return;
     }
 
-
     // `SELECT *
-    // FROM category AS c 
-    // INNER JOIN product AS p 
-    // ON c.category_id = p.category_id 
+    // FROM category AS c
+    // INNER JOIN product AS p
+    // ON c.category_id = p.category_id
 
     // INNER JOIN cart AS cart
     // ON p.product_id = cart.product_id
@@ -328,8 +320,7 @@ app.post('/updateQty', function (req, res) {
 
 //會員
 app.post('/member/:nickname', function (request, response) {
-  let sql = (
-    `select * 
+  let sql = `select * 
     from customer as customer
     inner join orderdetail as o
     on customer.customer_id = o.customer_id
@@ -340,20 +331,18 @@ app.post('/member/:nickname', function (request, response) {
     inner join coin as coin
     on customer.customer_id = coin.customer_id
     where customer.customer_id=${request.body.cId}
-    group by customer.customer_id`
-  );
+    group by customer.customer_id`;
   conn.query(sql, function (err, rows) {
     if (err) return;
 
-    console.log(rows)
+    console.log(rows);
     response.send(rows);
   });
-})
+});
 
 // 購買清單
 app.post('/memberbuy/', function (request, response) {
-  let sql = (
-    `select * 
+  let sql = `select * 
     from customer as customer
     inner join orderdetail as o
     on customer.customer_id = o.customer_id
@@ -367,26 +356,23 @@ app.post('/memberbuy/', function (request, response) {
     inner join category as cat
     on cat.category_id = p.category_id
     where nickname="${request.body.nickname}"
-    GROUP BY o.orderDetail_id`
-  );
+    GROUP BY o.orderDetail_id`;
   conn.query(sql, function (err, rows) {
     if (err) return;
 
     // console.log(rows.length)
     if (rows.length == 0) {
-      response.send([{ "info": "error" }]);
+      response.send([{ info: 'error' }]);
     } else {
       // console.log(rows)
       response.send(rows);
     }
   });
-})
-
+});
 
 // 收藏
 app.post('/memberfavorite/', function (request, response) {
-  let sql = (
-    `select * 
+  let sql = `select * 
     from customer as customer
     inner join favorite as f
     on f.customer_id = customer.customer_id
@@ -401,8 +387,7 @@ app.post('/memberfavorite/', function (request, response) {
     on customer.customer_id = cart.customer_id
 
     where nickname="${request.body.nickname}"
-    GROUP BY f.favorite_id`
-  );
+    GROUP BY f.favorite_id`;
 
   conn.query(sql, function (err, rows) {
     // console.log(rows)
@@ -410,26 +395,23 @@ app.post('/memberfavorite/', function (request, response) {
 
     // console.log(rows.length)
     if (rows.length == 0) {
-      response.send([{ "info": "error" }]);
+      response.send([{ info: 'error' }]);
     } else {
       // console.log(rows)
       response.send(rows);
     }
   });
-})
-
+});
 
 // 星幣賺取
 app.post('/membercoin/', function (request, response) {
-  let sql = (
-    `select * 
+  let sql = `select * 
     from customer as customer
     inner join coin as c
     on c.customer_id = customer.customer_id
 
     where nickname="${request.body.nickname}"
-    GROUP BY c.coin_id`
-  );
+    GROUP BY c.coin_id`;
 
   conn.query(sql, function (err, rows) {
     // console.log(rows)
@@ -437,12 +419,12 @@ app.post('/membercoin/', function (request, response) {
 
     // console.log(rows.length)
     if (rows.length == 0) {
-      response.send([{ "info": "error" }]);
+      response.send([{ info: 'error' }]);
     } else {
       // console.log(rows)
       response.send(rows);
     }
   });
-})
+});
 
 app.listen(3001, () => console.log('LISTENING ON PORT 成功'));
