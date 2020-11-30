@@ -17,12 +17,14 @@ class User extends Component {
 		};
 		this.ajax = new Ajax();
 
-		this.ajax.startListener(
-			"post",
-			`/member/${JSON.parse(sessionStorage.getItem("member")).nickname}`,
-			this.u,
-			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
-		);
+		if (sessionStorage.getItem("member")) {
+			this.ajax.startListener(
+				"post",
+				`/member/${JSON.parse(sessionStorage.getItem("member")).nickname}`,
+				this.u,
+				{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
+			);
+		}
 		// console.log(this.u);
 	}
 

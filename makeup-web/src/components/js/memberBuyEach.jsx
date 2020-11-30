@@ -26,7 +26,7 @@ class MemberBuyEach extends Component {
           <div>
             ${this.props.data == null ? "" : this.props.data.unitPrice}
           </div>
-          <div>已出貨</div>
+          <div>{this.props.data == null ? "" : this.props.data.orderStatus}</div>
         </div>
         {/* 總金額&訂單詳情按鈕 ===========總金額 */}
         <div className="totalAndBuylist">

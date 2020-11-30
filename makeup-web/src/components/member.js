@@ -15,6 +15,10 @@ class Member extends Component {
 		this.state = {
 			classes: "action",
 		};
+
+		if (!sessionStorage.getItem("member")) {
+			window.location.href = "http://localhost:3000/login";
+		}
 	}
 
 	click(className) {
@@ -94,7 +98,7 @@ class Member extends Component {
 									</Link>
 								</li>
 
-								<li>
+								{/*<li>
 									<button
 										onClick={() => {
 											window.location.href = "http://localhost:3000/backEnd";
@@ -103,7 +107,7 @@ class Member extends Component {
 										<i className="fa fa-heart"></i>
 										後台
 									</button>
-								</li>
+								</li>*/}
 							</ul>
 						</nav>
 					</BrowserRouter>
