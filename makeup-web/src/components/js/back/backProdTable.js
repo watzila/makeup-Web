@@ -4,35 +4,42 @@ import { Link } from "react-router-dom";
 import IMGPath from "../imgPath"; //引入圖片
 
 class BackProdTable extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.imgPath = new IMGPath();
+
+		//console.log(props.data);
 	}
 
 	render() {
 		return (
 			<tr>
-				<th scope="row">1</th>
+				<th scope="row">{this.props.pID}</th>
 				<td>{/*<img src="img/prod/A0000001.png" alt="" />*/}</td>
 				{/*<td>A0000001</td>*/}
-				<td>粉底｜BB霜｜蜜粉</td>
-				<td>保濕礦物粉凝霜</td>
-				<td>CHARMEUSE #N20</td>
-				<td>960</td>
+				<td>{this.props.data != null ? this.props.data.kindB : ""}</td>
+				<td>{this.props.data != null ? this.props.data.productName : ""}</td>
+				<td>{this.props.data != null ? this.props.data.productColor : ""}</td>
+				<td>{this.props.data != null ? this.props.data.unitPrice : ""}</td>
 				<td>2020/11/11</td>
 				<td>2020/11/12</td>
 				<td>上架</td>
 				<td>
-					<Link to="/backend/prod/detail" className=" my-button mb-2">
+					<Link
+						to={
+							"/backend/prod/detail/" + (this.props.data != null ? this.props.data.product_id : 0)
+						}
+						className=" my-button mb-2"
+					>
 						詳情
 					</Link>
-					<a name="prodCopyUpdate" type="submit" className=" my-button mb-2">
+					<button name="prodCopyUpdate" type="submit" className=" my-button mb-2">
 						複製
-					</a>
-					<a name="offShelf" type="submit" className=" my-button mb-2">
+					</button>
+					<button name="offShelf" type="submit" className=" my-button mb-2">
 						下架
-					</a>
+					</button>
 					{/*<a name="prodDtail" type="submit" className=" my-button mb-2">
             詳情
 										</a>*/}

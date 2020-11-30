@@ -505,7 +505,7 @@ app.post("/proddetail/", function (request, response) {
 	});
 });
 
-// 商品編輯
+// 後台商品編輯
 app.post("/prodedit/", function (request, response) {
 	let sql = `
 	UPDATE product p, category c
@@ -607,7 +607,23 @@ app.post("/backend/search", function (request, response) {
 	});
 });
 
-// 商品新增
+//後臺商品清單
+//app.get("/backend/productlist", function (request, response) {
+//	let sql = `SELECT *,unitPrice
+//  FROM product as p,category as c
+//  WHERE c.category_id=p.category_id`;
+
+//	conn.query(sql, function (err, rows) {
+//		if (err) {
+//			console.log(JSON.stringify(err));
+//			return;
+//		}
+
+//		console.log(rows);
+//	});
+//});
+
+// 後台商品新增
 app.post("/backend/prod/new", function (request, response) {
 	let sqlA = `
 	INSERT INTO 

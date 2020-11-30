@@ -14,10 +14,9 @@ class ProdPutNew extends Component {
 		this.ajax = new Ajax();
 	}
 
-
 	u = data => {
 		this.setState({ data: data });
-			// console.log(data);
+		// console.log(data);
 	};
 
 	// formProd = e =>{
@@ -37,7 +36,7 @@ class ProdPutNew extends Component {
 		return (
 			//{/* prodPutNew內容 */}
 			<div className="col my-content">
-				<form onClick = {this.formProd} method="post" action="http://localhost:3001/backend/prod/new" className="p-3">
+				<form method="post" action="http://localhost:3001/backend/prod/new" className="p-3">
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
@@ -49,15 +48,13 @@ class ProdPutNew extends Component {
 
 							<div className="input-group mb-3 d-flex justify-content-center">
 								<div className="mb-3 mx-3">
-									<Link to="/backend/prod" className="gray-Link my-button">
+									<Link to="/backend/prod/1" className="gray-Link my-button">
 										回上一頁
 									</Link>
 								</div>
 
 								<div className="mb-3 mx-3">
-									<button 
-									name="addOK" type="submit" className="gray-Link my-button"
-									>
+									<button name="addOK" type="submit" className="gray-Link my-button">
 										確認送出
 									</button>
 								</div>
@@ -75,29 +72,38 @@ class ProdPutNew extends Component {
 							<span className="col-2 col-form-label">分類選擇</span>
 
 							<div className="col-5">
-								<span>大分類項</span>
+								<span>大分類項：</span>
 
 								<select
 									id="kindA"
 									name="kindA"
 									className="custom-select"
 									aria-describedby="kindAHelpBlock"
-									onChange={console.log()}
+									onChange={e => {
+										return e.target.value;
+									}}
 								>
-									<option value={"天然底妝"}>天然底妝</option>
+									<option value={"底妝"}>底妝</option>
 									<option value={"duck"}>Duck</option>
 									<option value={"fish"}>Fish</option>
 								</select>
 
-								<span id="kindAHelpBlock" className="form-text text-muted">
+								{/*<span id="kindAHelpBlock" className="form-text text-muted">
 									請先選擇大分類小分類的內容才會出現
-								</span>
+								</span>*/}
 							</div>
 
 							<div className="col-5">
-								<span>小分類項</span>
+								<span>小分類項：</span>
 
-								<select id="kindB" name="kindB" className="custom-select" onChange={console.log()}>
+								<select
+									id="kindB"
+									name="kindB"
+									className="custom-select"
+									onChange={e => {
+										return e.target.value;
+									}}
+								>
 									<option value={"粉底｜BB霜｜蜜粉"}>粉底｜BB霜｜蜜粉</option>
 									<option value={"duck"}>Duck</option>
 									<option value={"fish"}>Fish</option>
@@ -114,15 +120,14 @@ class ProdPutNew extends Component {
 								<input
 									id="productName"
 									name="productName"
-									placeholder
 									type="text"
 									className="form-control"
 									aria-describedby="productNameHelpBlock"
 								/>
 
-								<span id="productNameHelpBlock" className="form-text text-muted">
+								{/*<span id="productNameHelpBlock" className="form-text text-muted">
 									請完整填寫
-								</span>
+								</span>*/}
 							</div>
 						</div>
 
@@ -131,12 +136,13 @@ class ProdPutNew extends Component {
 
 							<div className="col-10">
 								<input
-								name="productColor"
-								id="productColor_0"
-								type="text"
-								className="form-control"
-								defaultValue={this.state.data == null ? "" : this.state.data[0].productColor}
-								onChange = { (event) =>{console.log(event.target.value ) ;}}
+									name="productColor"
+									id="productColor_0"
+									type="text"
+									className="form-control"
+									onChange={e => {
+										return e.target.value;
+									}}
 								/>
 							</div>
 						</div>
@@ -153,6 +159,9 @@ class ProdPutNew extends Component {
 									type="text"
 									className="form-control"
 									aria-describedby="unitPriceHelpBlock"
+									onChange={e => {
+										return e.target.value;
+									}}
 								/>
 
 								<span id="unitPriceHelpBlock" className="form-text text-muted">
@@ -174,14 +183,7 @@ class ProdPutNew extends Component {
 												<i className="fa fa-arrow-circle-up" />
 											</div>
 										</div>
-										<input
-											id="img1"
-											name="img1"
-											placeholder="圖片1"
-											type="file"
-											className="form-control"
-											multiple
-										/>
+										<input id="img1" name="img1[]" type="file" className="form-control" multiple />
 									</div>
 								</div>
 							</div>
@@ -200,6 +202,9 @@ class ProdPutNew extends Component {
 									rows={10}
 									className="form-control"
 									style={{ resize: "none" }}
+									onChange={e => {
+										return e.target.value;
+									}}
 								/>
 							</div>
 						</div>
@@ -210,7 +215,7 @@ class ProdPutNew extends Component {
 							<div className="col-10">
 								<div className="custom-control custom-checkbox custom-control-inline">
 									<input
-										name="shippingStyle_id"
+										name="shippingStyle_id[]"
 										id="shippingStyle_id_0"
 										type="checkbox"
 										className="custom-control-input"
@@ -234,7 +239,7 @@ class ProdPutNew extends Component {
 									</label>
 								</div>
 
-								<div className="custom-control custom-checkbox custom-control-inline">
+								{/*<div className="custom-control custom-checkbox custom-control-inline">
 									<input
 										name="shippingStyle_id"
 										id="shippingStyle_id_2"
@@ -245,7 +250,7 @@ class ProdPutNew extends Component {
 									<label htmlFor="shippingStyle_id_2" className="custom-control-label">
 										其他
 									</label>
-								</div>
+								</div>*/}
 							</div>
 						</div>
 
@@ -261,13 +266,7 @@ class ProdPutNew extends Component {
 											<i className="fa fa-calendar" />
 										</div>
 									</div>
-									<input
-										id="putDate"
-										name="putDate"
-										placeholder
-										type="text"
-										className="form-control"
-									/>
+									<input id="putDate" name="putDate" type="text" className="form-control" />
 								</div>
 							</div>
 						</div>
@@ -301,25 +300,19 @@ class ProdPutNew extends Component {
 								<div className="custom-control custom-radio custom-control-inline">
 									<input
 										name="productStatu"
-										id="productStatu"
+										id="productStatu1"
 										type="radio"
 										className="custom-control-input"
-										defaultValue="putOn"
+										defaultChecked
 									/>
-									<label htmlFor="productStatu" className="custom-control-label">
+									<label htmlFor="productStatu1" className="custom-control-label">
 										上架
 									</label>
 								</div>
 
 								<div className="custom-control custom-radio custom-control-inline">
-									<input
-										name="productStatu"
-										id="productStatu"
-										type="radio"
-										className="custom-control-input"
-										defaultValue="putDown"
-									/>
-									<label htmlFor="productStatu" className="custom-control-label">
+									<input name="productStatu2" type="radio" className="custom-control-input" />
+									<label htmlFor="productStatu2" className="custom-control-label">
 										下架
 									</label>
 								</div>

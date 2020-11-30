@@ -103,7 +103,7 @@ class BackOrderList extends Component {
 									<select
 										className="custom-select"
 										id="inputGroupSelect"
-										defaultValue={1}
+										value={1}
 										onChange={event => {
 											console.log(event.target.value);
 										}}
@@ -118,7 +118,7 @@ class BackOrderList extends Component {
 
 								<div className="mb-2 ml-auto form-row align-items-center">
 									<select
-										defaultValue={"order_id"}
+										value={"order_id"}
 										onChange={event => {
 											return event.target.value;
 										}}

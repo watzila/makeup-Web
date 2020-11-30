@@ -133,7 +133,7 @@ class BackEnd extends Component {
 										</div>
 										<div className="collapse side-nav-bar" id="sideNavprod">
 											<div className="d-flex flex-column align-items-end">
-												<Link className="search sideNavItem" to={"/backend/prod"}>
+												<Link className="search sideNavItem" to={"/backend/prod/1"}>
 													商品清單
 												</Link>
 
@@ -165,8 +165,8 @@ class BackEnd extends Component {
 							<Route exact path="/backend/order" component={BackOrderList} />
 							<Route exact path="/backend/:member/orderdetail" component={BackOrderDetail} />
 
-							<Route path="/backend/prod" exact component={ProdList} />
-							<Route path="/backend/prod/detail" exact component={ProdDetail} />
+							<Route path="/backend/prod/:page([0-9])" exact component={ProdList} />
+							<Route path="/backend/prod/detail/:pid" exact component={ProdDetail} />
 							<Route path="/backend/prod/new" exact component={ProdPutNew} />
 						</div>
 					</div>

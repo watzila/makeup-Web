@@ -1,28 +1,92 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import BackProdTable from "./backProdTable";
 
 import CreateCard from "../createCard"; //
+import Ajax from "../ajax"; //
 
 class ProdList extends Component {
 	constructor(prop) {
 		super(prop);
 		this.state = {
-			data: null,
+			data: null, //當前頁數資料
+			allData: null, //所有產品資料
 		};
 
 		this.createCard = new CreateCard();
-		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
+		this.ajax = new Ajax();
+
+		this.ajax.startListener("get", "/p", this.u);
 	}
+
+	u = data => {
+		let newData = [],
+			i = 0;
+
+		//所有產品資料資料拆分8個為一組
+		do {
+			let d = [];
+			for (let j = 0; j < 8; j++) {
+				if (data[j + i]) {
+					d.push(data[j + i]);
+				} else {
+					break;
+				}
+			}
+			newData.push(d);
+			i += 8;
+		} while (i < data.length);
+
+		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
+
+		//頁數按鈕初始化
+		document.querySelector(
+			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
+		).className = "click";
+
+		//console.log(this.state.data);
+	};
+
+	//換頁
+	changePage = (page, which) => {
+		console.log(page, which);
+		if (page < 0 || page > this.state.allData.length - 1) return;
+		this.setState({ data: this.state.allData[page] });
+
+		for (let i = 0; i <= this.state.allData.length; i++) {
+			let allA = document.querySelectorAll(".page a");
+			allA[i].className = null;
+		}
+		document.getElementById(which).className = "click";
+	};
+
+	//頁碼生成
+	createPageNumber = () => {
+		let pageNumber = this.state.allData.map((item, index) => {
+			return (
+				<Link
+					to={"/backend/prod/" + (index + 1)}
+					key={index}
+					id={"page_" + index}
+					onClick={() => {
+						this.changePage(index, "page_" + index);
+					}}
+				>
+					{index + 1}
+				</Link>
+			);
+		});
+
+		return pageNumber;
+	};
 
 	render() {
 		return (
-			//{/* side側邊欄功能列 */}
-			//{/*<Side />*/}
 			//{/* ProdList內容 */}
 			<div className="col my-content">
 				<div>
-					<input type="hidden" name="" defaultValue="ProdList" />
+					{/*<input type="hidden" name="" defaultValue="ProdList" />*/}
 
 					<div className="pt-3 form-head">
 						<div className="pt-3">
@@ -53,8 +117,10 @@ class ProdList extends Component {
 									<div className="mr-auto">
 										顯示
 										<select
-											defaultValue={1}
-											onChange={console.log("ok")}
+											value={1}
+											onChange={e => {
+												return e.target.value;
+											}}
 											className="custom-select"
 											id="inputGroupSelect"
 										>
@@ -67,7 +133,13 @@ class ProdList extends Component {
 									</div>
 
 									<div className="mb-2 ml-auto form-row align-items-center">
-										<select defaultValue={1} onChange={console.log("ok")} id="inputGroupSelect">
+										<select
+											value={1}
+											onChange={e => {
+												return e.target.value;
+											}}
+											id="inputGroupSelect"
+										>
 											<option value={1}>分類項</option>
 											<option value={2}>品名</option>
 											<option value={4}>顏色</option>
@@ -158,19 +230,52 @@ class ProdList extends Component {
 								</tr>
 							</thead>
 
-							<tbody>{this.createCard.create(4, BackProdTable, this.state.data)}</tbody>
+							<tbody>
+								{this.state.data != null
+									? this.createCard.create(this.state.data.length, BackProdTable, this.state.data)
+									: null}
+							</tbody>
 						</table>
 					</div>
 
 					{/*頁碼*/}
 					<div className="page d-flex justify-content-center">
-						<a href="/">&lt;</a>
-						<a className="click" href="/">
-							1
-						</a>
-						<a href="/">2</a>
-						<a href="/">3</a>
-						<a href="/">&gt;</a>
+						<Link
+							to={
+								"/backend/prod/" +
+								(this.props.match.params.page > 1 ? this.props.match.params.page * 1 - 1 : 1)
+							}
+							onClick={() => {
+								this.changePage(
+									this.props.match.params.page * 1 - 2,
+									"page_" + (this.props.match.params.page * 1 - 2)
+								);
+							}}
+						>
+							&lt;
+						</Link>
+
+						{this.state.allData != null ? this.createPageNumber() : null}
+
+						<Link
+							to={
+								"/backend/prod/" +
+								(this.props.match.params.page <
+								(this.state.allData != null ? this.state.allData.length : null)
+									? this.props.match.params.page * 1 + 1
+									: this.state.allData != null
+									? this.state.allData.length
+									: null)
+							}
+							onClick={() => {
+								this.changePage(
+									this.props.match.params.page,
+									"page_" + this.props.match.params.page
+								);
+							}}
+						>
+							&gt;
+						</Link>
 					</div>
 				</div>
 			</div>

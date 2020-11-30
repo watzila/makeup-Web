@@ -14,50 +14,61 @@ class ProdDetail extends Component {
 
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
-		this.ajax.startListener(
-			"post",
-			`/proddetail/`,
-			this.u,
-			{ cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			 }
-		);
+		this.ajax.startListener("get", `/p/後台?pid=${this.props.match.params.pid}`, this.u);
 		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
 	}
 
 	u = data => {
 		this.setState({ data: data });
-			console.log(data);
+		//console.log(data);
 	};
 
-
-	prodEdit = (e)=>{
-		
+	prodEdit = e => {
 		let editProdData = {
-			// cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			productName: document.querySelector( "#productName").value,
-			unitPrice:document.querySelector( "#unitPrice").value,
-			productColor:document.querySelector( "#productColor_0").value,
-			img1:document.querySelector( "#img1").value,
-			detail:document.querySelector( "#detail").value,
-			putDate:document.querySelector( "#putDate").value,
-			updateDate:document.querySelector( "#updateDate").value
-		}
+			productName: document.querySelector("#productName").value,
+			unitPrice: document.querySelector("#unitPrice").value,
+			productColor: document.querySelector("#productColor_0").value,
+			img1: document.querySelector("#img1").value,
+			detail: document.querySelector("#detail").value,
+			putDate: document.querySelector("#putDate").value,
+			updateDate: document.querySelector("#updateDate").value,
+		};
+
 		this.ajax.startListener("post", "/prodedit", this.u, editProdData);
-	
-	}
+	};
+
+	//按下修改
+	prodCanEdit = () => {
+		let text = document.getElementsByClassName("canEdit");
+		let select = document.getElementsByTagName("select");
+		let input = document.getElementsByTagName("input");
+
+		for (let ele of text) {
+			ele.hidden = "hidden";
+		}
+
+		for (let ele of select) {
+			ele.removeAttribute("hidden");
+		}
+
+		for (let ele of input) {
+			ele.removeAttribute("hidden");
+		}
+
+		document.getElementsByTagName("textarea")[0].removeAttribute("hidden");
+	};
 
 	render() {
 		return (
 			//{/* prodCopyUpdate內容 */}
 			<div className="col my-content">
-				<div className="p-3" >
+				<div className="p-3">
 					<input type="hidden" name="#" defaultValue="prodSearchList" />
 
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
 								<i className="fa fa-table" />
-
 								商品詳情 / 商品修改
 							</h2>
 
@@ -65,21 +76,24 @@ class ProdDetail extends Component {
 
 							<div className="input-group mb-3 d-flex justify-content-center">
 								<div className="mb-3 mx-3">
-									<Link to="/backend/prod" className="gray-Link my-button">
+									<Link to="/backend/prod/1" className="gray-Link my-button">
 										回上一頁
 									</Link>
 								</div>
 
 								<div className="mb-3 mx-3">
 									<button
-									onClick={this.prodEdit}
-									name="lastPege" type="submit" className="gray-Link my-button">
+										onClick={this.prodEdit}
+										name="lastPege"
+										type="submit"
+										className="gray-Link my-button"
+									>
 										確認送出
 									</button>
 								</div>
 
 								<div className="mb-3 mx-3">
-									<span onClick={console.log()} className="gray-Link my-button">
+									<span onClick={this.prodCanEdit} className="gray-Link my-button">
 										修改
 									</span>
 								</div>
@@ -96,43 +110,47 @@ class ProdDetail extends Component {
 							<div className="col-5">
 								<span>大分類項：</span>
 
-								<p>天然底妝</p>
+								<p className="canEdit">{this.state.data == null ? "" : this.state.data[0].kindA}</p>
 
 								<select
-									defaultValue={"天然底妝"}
-									onChange={console.log("ok")}
+									value={this.state.data == null ? "" : this.state.data[0].kindA}
+									onChange={e => {
+										return e.target.value;
+									}}
 									id="kindA"
 									name="kindA"
 									className="custom-select"
 									aria-describedby="kindAHelpBlock"
-									hidden
+									//hidden
 								>
-									<option value={"天然底妝"}>天然底妝</option>
-									<option value={"duck"}>Duck</option>
+									<option value={"底妝"}>底妝</option>
+									<option value={"唇彩"}>唇彩</option>
 									<option value={"fish"}>Fish</option>
 								</select>
 
-								<span id="kindAHelpBlock" className="form-text text-muted">
+								{/*<span id="kindAHelpBlock" className="form-text text-muted">
 									請先選擇大分類小分類的內容才會出現
-								</span>
+								</span>*/}
 							</div>
 
 							<div className="col-5">
 								<span>小分類項：</span>
 
-								<p>粉底｜BB霜｜蜜粉</p>
+								<p className="canEdit">{this.state.data == null ? "" : this.state.data[0].kindB}</p>
 
 								<select
-									defaultValue={"粉底｜BB霜｜蜜粉"}
-									onChange={console.log("ok")}
+									value={this.state.data == null ? "" : this.state.data[0].kindB}
+									onChange={e => {
+										return e.target.value;
+									}}
 									id="kindB"
 									name="kindB"
 									className="custom-select"
-									hidden
+									//hidden
 								>
-									<option value={"粉底｜BB霜｜蜜粉"}>粉底｜BB霜｜蜜粉</option>
-									<option value={"duck"}>Duck</option>
-									<option value={"fish"}>Fish</option>
+									<option value={"粉餅"}>粉餅</option>
+									<option value={"蜜粉"}>蜜粉</option>
+									<option value={"唇釉"}>唇釉</option>
 								</select>
 							</div>
 						</div>
@@ -142,6 +160,10 @@ class ProdDetail extends Component {
 								品名
 							</label>
 							<div className="col-10">
+								<p className="canEdit">
+									{this.state.data == null ? "" : this.state.data[0].productName}
+								</p>
+
 								<input
 									id="productName"
 									name="productName"
@@ -149,10 +171,10 @@ class ProdDetail extends Component {
 									className="form-control"
 									aria-describedby="productNameHelpBlock"
 									defaultValue={this.state.data == null ? "" : this.state.data[0].productName}
-									onChange = { (event) =>{console.log(event.target.value ) ;}}
 									onChange={event => {
 										return event.target.value;
 									}}
+									hidden
 								/>
 
 								{/*<span id="productNameHelpBlock" className="form-text text-muted">
@@ -165,13 +187,20 @@ class ProdDetail extends Component {
 							<label className="col-2">顏色</label>
 
 							<div className="col-10">
+								<p className="canEdit">
+									{this.state.data == null ? "" : this.state.data[0].productColor}
+								</p>
+
 								<input
-								name="productColor"
-								id="productColor_0"
-								type="text"
-								className="form-control"
-								defaultValue={this.state.data == null ? "" : this.state.data[0].productColor}
-								onChange = { (event) =>{console.log(event.target.value ) ;}}
+									name="productColor"
+									id="productColor_0"
+									type="text"
+									className="form-control"
+									defaultValue={this.state.data == null ? "" : this.state.data[0].productColor}
+									onChange={event => {
+										return event.target.value;
+									}}
+									hidden
 								/>
 							</div>
 						</div>
@@ -183,6 +212,10 @@ class ProdDetail extends Component {
 
 							<div className="col-10">
 								<div>
+									<p className="canEdit">
+										{this.state.data == null ? "" : this.state.data[0].unitPrice}
+									</p>
+
 									<input
 										id="unitPrice"
 										name="unitPrice"
@@ -190,7 +223,10 @@ class ProdDetail extends Component {
 										className="form-control"
 										aria-describedby="unitPriceHelpBlock"
 										defaultValue={this.state.data == null ? "" : this.state.data[0].unitPrice}
-										onChange = { (event) =>{console.log(event.target.value ) ;}}
+										onChange={event => {
+											return event.target.value;
+										}}
+										hidden
 									/>
 								</div>
 
@@ -233,6 +269,10 @@ class ProdDetail extends Component {
 								商品詳細資訊
 							</label>
 
+							<pre className="canEdit col-10">
+								{this.state.data == null ? "" : this.state.data[0].detail}
+							</pre>
+
 							<div className="col-10">
 								<textarea
 									id="detail"
@@ -242,7 +282,10 @@ class ProdDetail extends Component {
 									className="form-control"
 									style={{ resize: "none" }}
 									defaultValue={this.state.data == null ? "" : this.state.data[0].detail}
-									onChange = { (event) =>{console.log(event.target.value ) ;}}
+									onChange={event => {
+										return event.target.value;
+									}}
+									hidden
 								/>
 							</div>
 						</div>
@@ -308,11 +351,16 @@ class ProdDetail extends Component {
 										</div>
 									</div>
 
-									<input 
-									id="putDate" name="putDate" type="text" className="form-control"
-									defaultValue={this.state.data == null ? "" : this.state.data[0].putDate}
-									onChange = { (event) =>{console.log(event.target.value ) ;}}
-								 />
+									<input
+										id="putDate"
+										name="putDate"
+										type="text"
+										className="form-control"
+										defaultValue={this.state.data == null ? "" : this.state.data[0].putDate}
+										onChange={event => {
+											console.log(event.target.value);
+										}}
+									/>
 								</div>
 							</div>
 						</div>
@@ -337,7 +385,9 @@ class ProdDetail extends Component {
 										className="form-control"
 										disabled
 										defaultValue={this.state.data == null ? "" : this.state.data[0].updateDate}
-										onChange = { (event) =>{console.log(event.target.value ) ;}}
+										onChange={event => {
+											console.log(event.target.value);
+										}}
 									/>
 								</div>
 							</div>
@@ -352,7 +402,7 @@ class ProdDetail extends Component {
 										id="productStatu_0"
 										type="radio"
 										className="custom-control-input"
-										defaultValue="putOn"
+										defaultChecked
 									/>
 
 									<label htmlFor="productStatu_0" className="custom-control-label">
@@ -366,7 +416,6 @@ class ProdDetail extends Component {
 										id="productStatu_1"
 										type="radio"
 										className="custom-control-input"
-										defaultValue="putDown"
 									/>
 
 									<label htmlFor="productStatu_1" className="custom-control-label">
