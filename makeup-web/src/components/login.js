@@ -8,10 +8,10 @@ class Login extends Component {
 		super();
 
 		this.state = {
-			class1: "yesAccount active",
-			class2: "noAccount",
-			registerForm: "active",
-			loginForm: "",
+			class1: "yesAccount",
+			class2: "noAccount active",
+			registerForm: "",
+			loginForm: "active",
 			changeFormLeft: { left: "0%" },
 			inputFormLeft: { left: "50%" },
 		};
@@ -111,7 +111,7 @@ class Login extends Component {
 				<div className="loginWrap" style={this.state.styleLoginWrap}>
 					<div className="changeForm" style={this.state.changeFormLeft}>
 						<div className="doorIMG">
-							<img src={this.imgPath.importAll(this.bg)["關門.png"]} alt="" />
+							<img src={this.imgPath.importAll(this.bg)["開門.png"]} alt="" />
 
 							<div className={this.state.class1}>
 								<h1>歡迎回來</h1>
