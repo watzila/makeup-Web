@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-11-30 10:30:58
+-- 產生時間： 2020-11-30 10:41:40
 -- 伺服器版本： 10.4.14-MariaDB
 -- PHP 版本： 7.4.10
 
@@ -293,6 +293,31 @@ INSERT INTO `orderdetail` (`orderDetail_id`, `order_id`, `customer_id`, `grandTo
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `orders`
+--
+
+CREATE TABLE `orders` (
+  `cart_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `cusMakeColor` varchar(50) NOT NULL,
+  `cusMakeImg` varchar(100) NOT NULL,
+  `orderStatus` varchar(100) NOT NULL,
+  `order_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 傾印資料表的資料 `orders`
+--
+
+INSERT INTO `orders` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMakeColor`, `cusMakeImg`, `orderStatus`, `order_id`) VALUES
+(1, 6, 1, 3, 'IN THE ALTOGETHER', 'img1', '已結帳', 9),
+(2, 6, 2, 4, 'IN THE ALTOGETHER', 'img1', '已結帳', 9);
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `product`
 --
 
@@ -499,6 +524,12 @@ ALTER TABLE `orderdetail`
   ADD PRIMARY KEY (`orderDetail_id`);
 
 --
+-- 資料表索引 `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`cart_id`);
+
+--
 -- 資料表索引 `product`
 --
 ALTER TABLE `product`
@@ -549,6 +580,12 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `favorite`
   MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
