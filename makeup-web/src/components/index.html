@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>skinPage</title>
+</head>
+
+<body>
+    <header class="header" style="top: 0px;">
+        <nav class="navbar">
+            <div class="navBoxL"><a href="http://localhost:3000/about">關於我們</a><a
+                    href="http://localhost:3000/">限時特價</a><a href="http://localhost:3000/p">商品</a><a
+                    href="http://localhost:3000/">活動</a></div>
+            <div class="navBoxR"><a class="fa fa-user-circle" href="http://localhost:3000/login"></a><a
+                    class="fa fa-shopping-cart" href="http://localhost:3000/cart"></a></div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid skin-page-title-container">
+            <div class="container py-5 skin-page-title">
+                <h1 class="m-auto ">臉蛋的心聲</h1>
+                <span class="my-hr"></span>
+                <h2 class="m-auto ">希望主人了解我</h2>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container py-5 img-box">
+                <div class="mr-5 img-box-item ">
+                    <img src="img/角色圖_乾性肌.png" alt="乾性肌">
+                    <div>
+                        <div class="img-box-item-title">
+                            <h3>乾性肌</h3>
+                        </div>
+                        <div class="img-box-item-text">
+                            <p>臉就像熱情的沙漠，乾乾的...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-5 img-box-item ">
+                    <img src="img/角色圖_混合肌.png" alt="混合肌">
+                    <div>
+                        <div class="img-box-item-title">
+                            <h3>混合肌</h3>
+                        </div>
+                        <div class="img-box-item-text">
+                            <p>額頭油亮亮！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-5 img-box-item ">
+                    <img src="img/角色圖_油性肌.png" alt="油性肌">
+                    <div>
+                        <div class="img-box-item-title">
+                            <h3>油性肌</h3>
+                        </div>
+                        <div class="img-box-item-text">
+                            <p>下廚房不帶油，就地取材！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid skin-page-title-container">
+            <div class="container p-5 skin-page-title">
+                <h1 class="m-auto ">如何了解自己的膚質</h1>
+                <span class="my-hr"></span>
+                <h2 class="m-auto ">有辦法！</h2>
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="container py-5">
+                <div class="tab">
+                    <div class="tablinks" onclick="openContent(event, 'item-1')">吸油面紙檢測法</div>
+                    <div class="tablinks" onclick="openContent(event, 'item-2')">洗臉檢測法</div>
+                    <div class="tablinks" onclick="openContent(event, 'item-3')">觀察檢查法</div>
+                </div>
+                <div id="item-1" class="tabcontent">
+                    <div class="tabcontent-content">
+                        <div class="tabcontent-content-img"><img src="img/吸油面紙檢測.png" alt=""></div>
+                        <div class="tabcontent-content-text">
+                            <h3>吸油面紙檢測法</h3>
+                            <br />
+                            <p>吸油面紙分別擠壓</p>
+                            <p>1.T字部位</p>
+                            <p>2.臉頰</p>
+                            <p>3.下巴</p>
+                            <br />
+                            <p>油多=>油性</p>
+                            <p>T字油=>中性/混和性</p>
+                            <p>油少=>乾性</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="item-2" class="tabcontent">
+                    <div class="tabcontent-content">
+                        <div class="tabcontent-content-img"><img src="img/洗臉檢測.png" alt=""></div>
+                        <div class="tabcontent-content-text">
+                            <h3>洗臉檢測法</h3>
+                            <br />
+                            <p>洗臉順序</p>
+                            <p>1.溫和洗面乳</p>
+                            <p>2.擦乾，並且不擦上任何保養品</p>
+                            <p>3.靜待30分鐘後觀察</p>
+                            <br />
+                            <p>乾燥、緊緻=>乾性</p>
+                            <p>T字部位微油=>中性/混和性</p>
+                            <p>T字部位與臉頰油多=>油性</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="item-3" class="tabcontent">
+                    <div class="tabcontent-content">
+                        <div class="tabcontent-content-img"><img src="img/觀察檢測.png" alt=""></div>
+                        <div class="tabcontent-content-text">
+                            <h3>觀察檢查法</h3>
+                            <br />
+                            <p>洗臉順序</p>
+                            <p>1.溫和洗面乳</p>
+                            <p>2.擦乾，並且不擦上任何保養品</p>
+                            <p>3.中午時，觀察鏡中的臉</p>
+                            <br />
+                            <p>油膩感=>油性</p>
+                            <p>微油=>中性/混和性</p>
+                            <p>脫皮泛紅=>乾性</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footerTop w">
+            <div class="footerTopInside">
+                <div class="footerLeft"><span class="fa fa-instagram"></span><span
+                        class="fa fa-facebook-square"></span><span class="fa fa-twitter-square"></span></div>
+                <div class="footerRight">
+                    <div>
+                        <dl>購物說明<dd>付款方式</dd>
+                            <dd>運送方式</dd>
+                            <dd>退換貨問題</dd>
+                        </dl>
+                    </div>
+                    <div>
+                        <dl>客服資訊<dd>客服留言</dd>
+                            <dd>會員權益聲明</dd>
+                            <dd><a href="https://tw.memebox.com/Shop/Introduce/7378?t=3">聯絡我們</a></dd>
+                        </dl>
+                    </div>
+                    <div>
+                        <dl>常見問題</dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="">緩緩有限公司 版權所有 適合解析度 1920*1080</p>
+        </div>
+    </footer>
+    </div>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import IMGPath from "./js/imgPath"; //引入圖片
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import BackMemberTable from './backMemberTable.js';
 
@@ -11,7 +11,8 @@ class MemberList extends Component {
     super(prop);
 
     this.state = {
-      data: null,
+      data: null, //當前頁數資料
+      allData: null, //所有產品資料
     };
     // this.imgPath = new IMGPath();
     // this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
@@ -22,50 +23,89 @@ class MemberList extends Component {
     this.ajax.startListener('get', '/backend/memberlist', this.u);
   }
 
+  // u = (data) => {
+  //   this.setState({ data: data });
+  //   // setTimeout(() => {
+  //   //   this.init();
+  //   // }, 100);
+  //   console.log(data);
+  //   // console.log(this.state.data.length);
+  // };
+
   u = (data) => {
-    this.setState({ data: data });
-    // setTimeout(() => {
-    //   this.init();
-    // }, 100);
-    console.log(data);
-    // console.log(this.state.data.length);
+    let newData = [],
+      i = 0;
+
+    //所有產品資料資料拆分8個為一組
+    do {
+      let d = [];
+      for (let j = 0; j < 8; j++) {
+        if (data[j + i]) {
+          d.push(data[j + i]);
+        } else {
+          break;
+        }
+      }
+      newData.push(d);
+      i += 8;
+    } while (i < data.length);
+
+    this.setState({
+      data: newData[this.props.match.params.page - 1],
+      allData: newData,
+    });
+
+    // 頁數按鈕初始化
+    document.querySelector(
+      `.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
+    ).className = 'click';
+
+    // console.log(this.state.allData);
   };
 
-  // u = (data) => {
-  //   let newData = [];
+  //換頁
+  changePage = (page, which) => {
+    console.log(page, which);
+    if (page < 0 || page > this.state.allData.length - 1) return;
+    this.setState({ data: this.state.allData[page] });
 
-  //   for (let i = 0; i < data.length; i++) {
-  //     for (let j = 0; j < data.length; j++) {
-  //       if (i === j) {
-  //         //console.log(i, j);
-  //         continue;
-  //       }
-  //       if (data[i].order_id === data[j].order_id) {
-  //         if (i > j) {
-  //           //console.log(i, j);
-  //           continue;
-  //         } else {
-  //           //console.log(i, j);
-  //           if (data[i].total == null) {
-  //             data[i].total = data[i].grandTotal + data[j].grandTotal;
-  //             //console.log(data[i].total);
-  //           } else {
-  //             data[i].total += data[j].grandTotal;
-  //             //console.log(data[i].total);
-  //           }
+    for (let i = 0; i <= this.state.allData.length; i++) {
+      let allA = document.querySelectorAll('.page a');
+      allA[i].className = null;
+    }
+    document.getElementById(which).className = 'click';
+  };
 
-  //           data[i].quantity += data[j].quantity;
-  //         }
-  //       }
-  //       if (j + 1 === data.length) {
-  //         newData.push(data[i]);
-  //       }
-  //     }
-  //   }
+  //頁碼生成
+  createPageNumber = () => {
+    let pageNumber = this.state.allData.map((item, index) => {
+      return (
+        <Link
+          to={'/backend/member/' + (index + 1)}
+          key={index}
+          id={'page_' + index}
+          onClick={() => {
+            this.changePage(index, 'page_' + index);
+          }}
+        >
+          {index + 1}
+        </Link>
+      );
+    });
 
-  //   this.setState({ data: newData });
-  //   //console.log(newData);
-  // };
+    return pageNumber;
+  };
+
+  search = (k, v) => {
+    let kind = document.getElementById(k).value;
+    let value = document.getElementById(v).value;
+
+    this.ajax.startListener('post', '/backend/searchmember', this.u, {
+      kind: kind,
+      value: value,
+    });
+    console.log(kind, value);
+  };
 
   render() {
     return (
@@ -99,7 +139,7 @@ class MemberList extends Component {
                   顯示
                   <select
                     defaultValue={1}
-                    onChange={console.log('ok')}
+                    onChange={console.log()}
                     className="custom-select"
                     id="inputGroupSelect"
                   >
@@ -113,21 +153,24 @@ class MemberList extends Component {
 
                 <div className="mb-2 ml-auto form-row align-items-center">
                   <select
-                    defaultValue={1}
-                    onChange={console.log('ok')}
-                    id="inputGroupSelect"
+                    defaultValue={'customer_id'}
+                    onChange={(event) => {
+                      return event.target.value;
+                    }}
+                    id="kindSelect"
                   >
-                    <option value={1}>會員帳號</option>
-                    <option value={2}>姓名</option>
-                    <option value={4}>手機</option>
-                    <option value={5}>暱稱</option>
-                    <option value={6}>性別</option>
-                    <option value={7}>生日</option>
-                    <option value={8}>會員狀態</option>
+                    <option value={'customer_id'}>會員ID</option>
+                    <option value={'account'}>會員帳號</option>
+                    <option value={'customerName'}>姓名</option>
+                    <option value={'cellPhone'}>手機</option>
+                    <option value={'nickname'}>暱稱</option>
+                    <option value={'gender'}>性別</option>
+                    <option value={'birth_date'}>生日</option>
+                    <option value={'customerStatus'}>會員狀態</option>
                   </select>
 
                   <label
-                    htmlFor="productSearch"
+                    htmlFor="memberSearch"
                     className="col-auto d-inlin-block align-self-center"
                   >
                     搜尋名稱：
@@ -136,10 +179,20 @@ class MemberList extends Component {
                     className="form-control col form-control-sm"
                     type="search"
                     name="orderSearch"
-                    id="productSearch"
+                    id="memberSearch"
+                    onChange={(event) => {
+                      return event.target.value;
+                    }}
                   />
 
-                  <button className="my-button col-auto ml-2">送出</button>
+                  <button
+                    className="my-button col-auto ml-2"
+                    onClick={() => {
+                      this.search('kindSelect', 'memberSearch');
+                    }}
+                  >
+                    送出
+                  </button>
                 </div>
               </div>
 
@@ -260,16 +313,46 @@ class MemberList extends Component {
             </tbody>
           </table>
         </div>
-
         {/*頁碼*/}
         <div className="page d-flex justify-content-center">
-          <a href="/">&lt;</a>
-          <a className="click" href="/">
-            1
-          </a>
-          <a href="/">2</a>
-          <a href="/">3</a>
-          <a href="/">&gt;</a>
+          <Link
+            to={
+              '/backend/member/' +
+              (this.props.match.params.page > 1
+                ? this.props.match.params.page * 1 - 1
+                : 1)
+            }
+            onClick={() => {
+              this.changePage(
+                this.props.match.params.page * 1 - 2,
+                'page_' + (this.props.match.params.page * 1 - 2)
+              );
+            }}
+          >
+            &lt;
+          </Link>
+
+          {this.state.allData != null ? this.createPageNumber() : null}
+
+          <Link
+            to={
+              '/backend/member/' +
+              (this.props.match.params.page <
+              (this.state.allData != null ? this.state.allData.length : null)
+                ? this.props.match.params.page * 1 + 1
+                : this.state.allData != null
+                ? this.state.allData.length
+                : null)
+            }
+            onClick={() => {
+              this.changePage(
+                this.props.match.params.page,
+                'page_' + this.props.match.params.page
+              );
+            }}
+          >
+            &gt;
+          </Link>
         </div>
       </div>
     );

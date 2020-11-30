@@ -19,7 +19,7 @@ class MemberDetail extends Component {
     this.ajax.startListener('post', '/backend/memberdetail', this.u, {
       pId: this.props.location.state.pId,
     });
-    // console.log(this.props);
+    console.log(this.props);
   }
 
   u = (data) => {
@@ -63,7 +63,8 @@ class MemberDetail extends Component {
   };
 
   render() {
-    // console.log(this.state.data);
+    // // console.log(this.state.data);
+    // console.log(this.props.location.state.pId);
     return (
       // {/* index_memberDetail內容 */}
       <div className="col my-content">
@@ -77,18 +78,19 @@ class MemberDetail extends Component {
             <hr />
             <div className="input-group mb-3 d-flex justify-content-center">
               <div className="mb-3 mx-3">
-                <Link to="/backend/member" className="gray-Link my-button">
+                <Link to="/backend/member/1" className="gray-Link my-button">
                   回上一頁
                 </Link>
               </div>
               <div className="mb-3 mx-3">
-                <a
-                  name="lastPege"
-                  type="submit"
-                  className="gray-Link my-button"
+                <Link
+                  to={`/backend/${
+                    this.props != null ? this.props.location.state.pId : ''
+                  }/memberorder`}
+                  className="my-button"
                 >
                   訂單歷史紀錄
-                </a>
+                </Link>
               </div>
               <div className="mb-3 mx-3">
                 <a

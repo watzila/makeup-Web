@@ -14,14 +14,59 @@ class ProdDetail extends Component {
 
     this.imgPath = new IMGPath();
     this.ajax = new Ajax();
+    this.ajax.startListener(
+      'get',
+      `/p/後台?pid=${this.props.match.params.pid}`,
+      this.u
+    );
     // this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
   }
+
+  u = (data) => {
+    this.setState({ data: data });
+    //console.log(data);
+  };
+
+  prodEdit = (e) => {
+    let editProdData = {
+      productName: document.querySelector('#productName').value,
+      unitPrice: document.querySelector('#unitPrice').value,
+      productColor: document.querySelector('#productColor_0').value,
+      img1: document.querySelector('#img1').value,
+      detail: document.querySelector('#detail').value,
+      putDate: document.querySelector('#putDate').value,
+      updateDate: document.querySelector('#updateDate').value,
+    };
+
+    this.ajax.startListener('post', '/prodedit', this.u, editProdData);
+  };
+
+  //按下修改
+  prodCanEdit = () => {
+    let text = document.getElementsByClassName('canEdit');
+    let select = document.getElementsByTagName('select');
+    let input = document.getElementsByTagName('input');
+
+    for (let ele of text) {
+      ele.hidden = 'hidden';
+    }
+
+    for (let ele of select) {
+      ele.removeAttribute('hidden');
+    }
+
+    for (let ele of input) {
+      ele.removeAttribute('hidden');
+    }
+
+    document.getElementsByTagName('textarea')[0].removeAttribute('hidden');
+  };
 
   render() {
     return (
       //{/* prodCopyUpdate內容 */}
       <div className="col my-content">
-        <form className="p-3">
+        <div className="p-3">
           <input type="hidden" name="#" defaultValue="prodSearchList" />
 
           <div className="pt-3 form-head ">
@@ -35,13 +80,14 @@ class ProdDetail extends Component {
 
               <div className="input-group mb-3 d-flex justify-content-center">
                 <div className="mb-3 mx-3">
-                  <Link to="/backend/prod" className="gray-Link my-button">
+                  <Link to="/backend/prod/1" className="gray-Link my-button">
                     回上一頁
                   </Link>
                 </div>
 
                 <div className="mb-3 mx-3">
                   <button
+                    onClick={this.prodEdit}
                     name="lastPege"
                     type="submit"
                     className="gray-Link my-button"
@@ -51,7 +97,10 @@ class ProdDetail extends Component {
                 </div>
 
                 <div className="mb-3 mx-3">
-                  <span onClick={console.log()} className="gray-Link my-button">
+                  <span
+                    onClick={this.prodCanEdit}
+                    className="gray-Link my-button"
+                  >
                     修改
                   </span>
                 </div>
@@ -68,43 +117,55 @@ class ProdDetail extends Component {
               <div className="col-5">
                 <span>大分類項：</span>
 
-                <p>天然底妝</p>
+                <p className="canEdit">
+                  {this.state.data == null ? '' : this.state.data[0].kindA}
+                </p>
 
                 <select
-                  defaultValue={'天然底妝'}
-                  onChange={console.log('ok')}
+                  value={
+                    this.state.data == null ? '' : this.state.data[0].kindA
+                  }
+                  onChange={(e) => {
+                    return e.target.value;
+                  }}
                   id="kindA"
                   name="kindA"
                   className="custom-select"
                   aria-describedby="kindAHelpBlock"
-                  hidden
+                  //hidden
                 >
-                  <option value={'天然底妝'}>天然底妝</option>
-                  <option value={'duck'}>Duck</option>
+                  <option value={'底妝'}>底妝</option>
+                  <option value={'唇彩'}>唇彩</option>
                   <option value={'fish'}>Fish</option>
                 </select>
 
-                <span id="kindAHelpBlock" className="form-text text-muted">
-                  請先選擇大分類小分類的內容才會出現
-                </span>
+                {/*<span id="kindAHelpBlock" className="form-text text-muted">
+									請先選擇大分類小分類的內容才會出現
+								</span>*/}
               </div>
 
               <div className="col-5">
                 <span>小分類項：</span>
 
-                <p>粉底｜BB霜｜蜜粉</p>
+                <p className="canEdit">
+                  {this.state.data == null ? '' : this.state.data[0].kindB}
+                </p>
 
                 <select
-                  defaultValue={'粉底｜BB霜｜蜜粉'}
-                  onChange={console.log('ok')}
+                  value={
+                    this.state.data == null ? '' : this.state.data[0].kindB
+                  }
+                  onChange={(e) => {
+                    return e.target.value;
+                  }}
                   id="kindB"
                   name="kindB"
                   className="custom-select"
-                  hidden
+                  //hidden
                 >
-                  <option value={'粉底｜BB霜｜蜜粉'}>粉底｜BB霜｜蜜粉</option>
-                  <option value={'duck'}>Duck</option>
-                  <option value={'fish'}>Fish</option>
+                  <option value={'粉餅'}>粉餅</option>
+                  <option value={'蜜粉'}>蜜粉</option>
+                  <option value={'唇釉'}>唇釉</option>
                 </select>
               </div>
             </div>
@@ -113,17 +174,28 @@ class ProdDetail extends Component {
               <label htmlFor="productName" className="col-2 col-form-label">
                 品名
               </label>
-
               <div className="col-10">
+                <p className="canEdit">
+                  {this.state.data == null
+                    ? ''
+                    : this.state.data[0].productName}
+                </p>
+
                 <input
                   id="productName"
                   name="productName"
                   type="text"
                   className="form-control"
                   aria-describedby="productNameHelpBlock"
+                  defaultValue={
+                    this.state.data == null
+                      ? ''
+                      : this.state.data[0].productName
+                  }
                   onChange={(event) => {
                     return event.target.value;
                   }}
+                  hidden
                 />
 
                 {/*<span id="productNameHelpBlock" className="form-text text-muted">
@@ -136,56 +208,27 @@ class ProdDetail extends Component {
               <label className="col-2">顏色</label>
 
               <div className="col-10">
-                <div className="custom-control custom-radio custom-control-inline">
-                  <input
-                    name="productColor"
-                    id="productColor_0"
-                    type="radio"
-                    className="custom-control-input"
-                    defaultValue="CHARMEUSE #N20"
-                  />
+                <p className="canEdit">
+                  {this.state.data == null
+                    ? ''
+                    : this.state.data[0].productColor}
+                </p>
 
-                  <label
-                    htmlFor="productColor_0"
-                    className="custom-control-label"
-                  >
-                    CHARMEUSE #N20
-                  </label>
-                </div>
-
-                <div className="custom-control custom-radio custom-control-inline">
-                  <input
-                    name="productColor"
-                    id="productColor_1"
-                    type="radio"
-                    className="custom-control-input"
-                    defaultValue="duck"
-                  />
-
-                  <label
-                    htmlFor="productColor_1"
-                    className="custom-control-label"
-                  >
-                    Duck
-                  </label>
-                </div>
-
-                <div className="custom-control custom-radio custom-control-inline">
-                  <input
-                    name="productColor"
-                    id="productColor_2"
-                    type="radio"
-                    className="custom-control-input"
-                    defaultValue="fish"
-                  />
-
-                  <label
-                    htmlFor="productColor_2"
-                    className="custom-control-label"
-                  >
-                    Fish
-                  </label>
-                </div>
+                <input
+                  name="productColor"
+                  id="productColor_0"
+                  type="text"
+                  className="form-control"
+                  defaultValue={
+                    this.state.data == null
+                      ? ''
+                      : this.state.data[0].productColor
+                  }
+                  onChange={(event) => {
+                    return event.target.value;
+                  }}
+                  hidden
+                />
               </div>
             </div>
 
@@ -196,12 +239,27 @@ class ProdDetail extends Component {
 
               <div className="col-10">
                 <div>
+                  <p className="canEdit">
+                    {this.state.data == null
+                      ? ''
+                      : this.state.data[0].unitPrice}
+                  </p>
+
                   <input
                     id="unitPrice"
                     name="unitPrice"
                     type="text"
                     className="form-control"
                     aria-describedby="unitPriceHelpBlock"
+                    defaultValue={
+                      this.state.data == null
+                        ? ''
+                        : this.state.data[0].unitPrice
+                    }
+                    onChange={(event) => {
+                      return event.target.value;
+                    }}
+                    hidden
                   />
                 </div>
 
@@ -244,6 +302,10 @@ class ProdDetail extends Component {
                 商品詳細資訊
               </label>
 
+              <pre className="canEdit col-10">
+                {this.state.data == null ? '' : this.state.data[0].detail}
+              </pre>
+
               <div className="col-10">
                 <textarea
                   id="detail"
@@ -252,6 +314,13 @@ class ProdDetail extends Component {
                   rows={10}
                   className="form-control"
                   style={{ resize: 'none' }}
+                  defaultValue={
+                    this.state.data == null ? '' : this.state.data[0].detail
+                  }
+                  onChange={(event) => {
+                    return event.target.value;
+                  }}
+                  hidden
                 />
               </div>
             </div>
@@ -331,6 +400,12 @@ class ProdDetail extends Component {
                     name="putDate"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data == null ? '' : this.state.data[0].putDate
+                    }
+                    onChange={(event) => {
+                      console.log(event.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -338,7 +413,7 @@ class ProdDetail extends Component {
 
             <div className="form-group row">
               <label htmlFor="updateDate" className="col-2 col-form-label">
-                修改日期
+                上次修改日期
               </label>
 
               <div className="col-10">
@@ -355,6 +430,14 @@ class ProdDetail extends Component {
                     type="text"
                     className="form-control"
                     disabled
+                    defaultValue={
+                      this.state.data == null
+                        ? ''
+                        : this.state.data[0].updateDate
+                    }
+                    onChange={(event) => {
+                      console.log(event.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -369,7 +452,7 @@ class ProdDetail extends Component {
                     id="productStatu_0"
                     type="radio"
                     className="custom-control-input"
-                    defaultValue="putOn"
+                    defaultChecked
                   />
 
                   <label
@@ -386,7 +469,6 @@ class ProdDetail extends Component {
                     id="productStatu_1"
                     type="radio"
                     className="custom-control-input"
-                    defaultValue="putDown"
                   />
 
                   <label
@@ -413,7 +495,7 @@ class ProdDetail extends Component {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     );
   }

@@ -4,7 +4,7 @@
 
 .memberMain {
 	display: flex;
-	height: var(--height);
+	height: 250%;
 }
 
 .memberMain i {
@@ -26,7 +26,7 @@
 	/*border: 1px solid;*/
 }
 
-.memberMain > article .userForm{
+.memberMain > article .userForm {
 	width: 70%;
 	padding: 3% 3%;
 	margin: 80px auto;
@@ -100,14 +100,21 @@
 }
 
 .memberMain ul li,
-.memberMain ul li > a {
+.memberMain ul li > a,
+.memberMain ul li > button {
 	line-height: 2;
 	font-size: 1.8rem;
 	cursor: pointer;
 }
 
+.memberMain ul li > button {
+	border: 0;
+	background-color: transparent;
+}
+
 .memberMain ul li:hover,
-.memberMain ul li a:hover {
+.memberMain ul li a:hover,
+.memberMain ul li > button:hover {
 	color: var(--brownColor3);
 }
 
@@ -216,10 +223,34 @@
 	margin-left: 15rem;
 }
 
-
-.coinDate{
+.coinDate {
 	text-align: center;
 }
+
+/*星幣 end*/
+
+
+
+
+/* 密碼修改 */
+.changePassword{
+	width: 70%;
+	padding: 3% 3%;
+	margin: 80px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	line-height: 1.5;
+	/* border: 1px solid red; */
+	overflow: hidden;
+	font-size: 1.6rem;
+	color: var(--blueColor);
+}
+
+.noActive{
+	display:none;
+}
+
 
 /* RWD */
 

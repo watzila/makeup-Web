@@ -6,8 +6,7 @@ import ProdDetail from './js/back/prodDetail';
 import ProdPutNew from './js/back/prodPutNew';
 import MemberList from './js/back/memberList';
 import MemberDetail from './js/back/memberDetail';
-import MemberSearch from './js/back/memberSearch';
-import MemberOrderList from './js/back/memberOrderList';
+import BackOrderListMember from './js/back/backOrderListMember';
 
 import BackOrderList from './js/back/backOrderList';
 import BackOrderDetail from './js/back/backOrderDetail';
@@ -64,7 +63,7 @@ class BackEnd extends Component {
                       aria-expanded="false"
                       aria-controls="sideNavprod"
                     >
-                      <button className="prod">
+                      <Link to={'/backend/member/1'} className="prod">
                         <h5 className="text-dark">
                           <i
                             className="fa fa-chevron-circle-right"
@@ -72,32 +71,9 @@ class BackEnd extends Component {
                           ></i>
                           會員管理
                         </h5>
-                      </button>
-                    </div>
-                    <div className="collapse side-nav-bar" id="sideNavmember">
-                      <div className="d-flex flex-column align-items-end">
-                        <Link
-                          className="search sideNavItem"
-                          to={'/backend/member'}
-                        >
-                          會員清單
-                        </Link>
-                        <Link
-                          className="search sideNavItem"
-                          to={'/backend/member/orderdetail/list'}
-                        >
-                          list
-                        </Link>
-                        <Link
-                          className="search sideNavItem"
-                          to={'/backend/member/search'}
-                        >
-                          search
-                        </Link>
-                      </div>
+                      </Link>
                     </div>
                   </li>
-
                   <li className="nav-item">
                     <div
                       href="#sideNavOrder"
@@ -142,7 +118,7 @@ class BackEnd extends Component {
                       <div className="d-flex flex-column align-items-end">
                         <Link
                           className="search sideNavItem"
-                          to={'/backend/prod'}
+                          to={'/backend/prod/1'}
                         >
                           商品清單
                         </Link>
@@ -173,21 +149,21 @@ class BackEnd extends Component {
                   </li>
                 </ul>
               </div>
-              <Route exact path="/backend/member" component={MemberList} />
+              <Route
+                exact
+                path="/backend/member/:page([0-9])"
+                component={MemberList}
+              />
               <Route
                 exact
                 path="/backend/:member/memberdetail"
                 component={MemberDetail}
               />
+
               <Route
                 exact
-                path="/backend/member/orderdetail/list"
-                component={MemberOrderList}
-              />
-              <Route
-                exact
-                path="/backend/member/search"
-                component={MemberSearch}
+                path="/backend/:memberId/memberorder"
+                component={BackOrderListMember}
               />
 
               <Route exact path="/backend/order" component={BackOrderList} />
@@ -197,8 +173,16 @@ class BackEnd extends Component {
                 component={BackOrderDetail}
               />
 
-              <Route path="/backend/prod" exact component={ProdList} />
-              <Route path="/backend/prod/detail" exact component={ProdDetail} />
+              <Route
+                path="/backend/prod/:page([0-9])"
+                exact
+                component={ProdList}
+              />
+              <Route
+                path="/backend/prod/detail/:pid"
+                exact
+                component={ProdDetail}
+              />
               <Route path="/backend/prod/new" exact component={ProdPutNew} />
             </div>
           </div>

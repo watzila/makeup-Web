@@ -19,50 +19,53 @@ class BackOrderList extends Component {
 
     this.ajax.startListener('get', '/backend/orderlist', this.u);
   }
+
   u = (data) => {
-    this.setState({ data: data });
-    // setTimeout(() => {
-    //   this.init();
-    // }, 100);
-    console.log(data);
-    // console.log(this.state.data.length);
+    let newData = [];
+
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (i === j) {
+          //console.log(i, j);
+          continue;
+        }
+        if (data[i].order_id === data[j].order_id) {
+          if (i > j) {
+            //console.log(i, j);
+            break;
+          } else {
+            //console.log(i, j);
+            // if (data[i].total == null) {
+            data[i].total = data[i].grandTotal;
+            //console.log(data[i].total);
+            // } else {
+            //   data[i].total += data[j].grandTotal;
+            //   //console.log(data[i].total);
+            // }
+
+            data[i].quantity += data[j].quantity;
+          }
+        }
+        if (j + 1 === data.length) {
+          newData.push(data[i]);
+        }
+      }
+    }
+
+    this.setState({ data: newData });
+    //console.log(newData);
   };
 
-  // u = (data) => {
-  //   let newData = [];
+  search = (k, v) => {
+    let kind = document.getElementById(k).value;
+    let value = document.getElementById(v).value;
 
-  //   for (let i = 0; i < data.length; i++) {
-  //     for (let j = 0; j < data.length; j++) {
-  //       if (i === j) {
-  //         //console.log(i, j);
-  //         continue;
-  //       }
-  //       if (data[i].order_id === data[j].order_id) {
-  //         if (i > j) {
-  //           //console.log(i, j);
-  //           continue;
-  //         } else {
-  //           //console.log(i, j);
-  //           if (data[i].total == null) {
-  //             data[i].total = data[i].grandTotal + data[j].grandTotal;
-  //             //console.log(data[i].total);
-  //           } else {
-  //             data[i].total += data[j].grandTotal;
-  //             //console.log(data[i].total);
-  //           }
-
-  //           data[i].quantity += data[j].quantity;
-  //         }
-  //       }
-  //       if (j + 1 === data.length) {
-  //         newData.push(data[i]);
-  //       }
-  //     }
-  //   }
-
-  //   this.setState({ data: newData });
-  //   //console.log(newData);
-  // };
+    this.ajax.startListener('post', '/backend/search', this.u, {
+      kind: kind,
+      value: value,
+    });
+    console.log(kind, value);
+  };
 
   render() {
     return (
@@ -103,7 +106,7 @@ class BackOrderList extends Component {
                   <select
                     className="custom-select"
                     id="inputGroupSelect"
-                    defaultValue={1}
+                    value={1}
                     onChange={(event) => {
                       console.log(event.target.value);
                     }}
@@ -118,16 +121,16 @@ class BackOrderList extends Component {
 
                 <div className="mb-2 ml-auto form-row align-items-center">
                   <select
-                    defaultValue={1}
+                    defaultValue={'order_id'}
                     onChange={(event) => {
-                      console.log(event.target.value);
+                      return event.target.value;
                     }}
-                    id="inputGroupSelect"
+                    id="kindSelect"
                   >
-                    <option value={1}>訂單編號</option>
-                    <option value={2}>訂單日期</option>
-                    <option value={4}>訂購人</option>
-                    <option value={5}>訂單狀態</option>
+                    <option value={`order_id`}>訂單編號</option>
+                    <option value={`orderDate`}>訂單日期</option>
+                    <option value={`customerName`}>訂購人</option>
+                    <option value={`orderStatus`}>訂單狀態</option>
                   </select>
 
                   <label
@@ -142,11 +145,18 @@ class BackOrderList extends Component {
                     name="orderSearch"
                     id="productSearch"
                     onChange={(event) => {
-                      console.log(event.target.value);
+                      return event.target.value;
                     }}
                   />
 
-                  <button className="my-button col-auto ml-2">送出</button>
+                  <button
+                    className="my-button col-auto ml-2"
+                    onClick={() => {
+                      this.search('kindSelect', 'productSearch');
+                    }}
+                  >
+                    送出
+                  </button>
                 </div>
               </div>
 

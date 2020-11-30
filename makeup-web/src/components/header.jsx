@@ -29,12 +29,17 @@ class Header extends Component {
       sessionStorage.getItem('member') != null
         ? JSON.parse(sessionStorage.getItem('member'))
         : '';
+
     this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
   }
 
   // (複製cartList)
+
   u = (data) => {
-    if (data === this.state.data) return;
+    // if (data == this.state.data) {
+    //   console.log(2);
+    //   return;
+    // }
 
     let apple = {
       subtotal: null,
@@ -47,33 +52,35 @@ class Header extends Component {
 
     this.setState({ data: data });
 
-    setTimeout(() => {
-      this.init();
-    }, 100);
+    console.log(data);
+    // console.log(this.state.data);
 
-    // console.log(data);
+    // setTimeout(() => {
+    // this.init();
+    // }, 100);
+
     // console.log(this.state.data.length);
   };
 
   // 金額 小記subtotal “初始化”(複製cartList)
   init = () => {
     if (this.state.data != null) {
-      for (var i = 0; i < this.state.data.length; i++) {
-        this.state.data[i].subtotal =
-          this.state.data[i].quantity * this.state.data[i].unitPrice;
-      }
-      this.setState({});
+      // for (var i = 0; i < this.state.data.length; i++) {
+      //   this.state.data[i].subtotal =
+      //     this.state.data[i].quantity * this.state.data[i].unitPrice;
+      // }
+      // this.setState({});
     }
   };
 
   // 功能：商品金額小記subtotal隨著數量改變(複製cartList)
-  handleSubtotal = (obj) => {
-    this.state.data[this.state.data.indexOf(obj)].subtotal =
-      this.state.data[this.state.data.indexOf(obj)].quantity *
-      this.state.data[this.state.data.indexOf(obj)].unitPrice;
+  // handleSubtotal = (obj) => {
+  //   this.state.data[this.state.data.indexOf(obj)].subtotal =
+  //     this.state.data[this.state.data.indexOf(obj)].quantity *
+  //     this.state.data[this.state.data.indexOf(obj)].unitPrice;
 
-    this.setState({});
-  };
+  //   this.setState({});
+  // };
 
   // 功能：商品刪除 (複製cartList)
   handleDelete = (idProduct) => {
@@ -103,14 +110,15 @@ class Header extends Component {
   }
 
   componentDidUpdate() {
-    this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
+    if (this.state.data.length > 0) {
+      var bee = document.getElementById('headerCartBoxTop');
 
+      bee.className = 'headerCartBox';
+    }
+    // this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
     console.log(1);
     // console.log(this.state.data.length);
     // 購物車空車的話 隱藏購物車欄位
-    // if (this.state.data.length == 0) {
-    //   this.state.headerCartBoxStyle = { display: 'none' };
-    // }
   }
 
   // header特效
@@ -145,7 +153,7 @@ class Header extends Component {
             <Link to="/about">關於我們</Link>
             <Link to="/b">限時特價</Link>
             <Link to="/p/1">商品</Link>
-            <Link to="/skinTest">活動</Link>
+            <Link to="/skintest">活動</Link>
           </div>
 
           <div className="navBoxR">
@@ -160,10 +168,7 @@ class Header extends Component {
               <Link to="/cart" className="fa fa-shopping-cart">
                 <span className="cartQty">{this.cartQty()}</span>
               </Link>
-              <table
-                className="headerCartBox"
-                style={this.state.headerCartBoxStyle}
-              >
+              <table id="headerCartBoxTop">
                 <tbody>
                   {this.state.data != null
                     ? this.createCard.create(
