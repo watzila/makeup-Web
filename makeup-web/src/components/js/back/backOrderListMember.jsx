@@ -7,8 +7,8 @@ import CreateCard from '../createCard'; //
 import Ajax from '../ajax'; //
 
 class BackOrderList extends Component {
-  constructor(prop) {
-    super(prop);
+  constructor(props) {
+    super(props);
 
     this.state = {
       data: null,
@@ -17,7 +17,12 @@ class BackOrderList extends Component {
     this.createCard = new CreateCard();
     this.ajax = new Ajax();
 
-    this.ajax.startListener('get', '/backend/orderlist', this.u);
+    this.ajax.startListener(
+      'get',
+      '/backend/orderlistmember?pId=' + props.match.params.memberId,
+      this.u
+    );
+    // console.log(props.match.params.memberId);
   }
 
   u = (data) => {
@@ -35,6 +40,14 @@ class BackOrderList extends Component {
             break;
           } else {
             //console.log(i, j);
+            // if (data[i].total == null) {
+            data[i].total = data[i].grandTotal;
+            //console.log(data[i].total);
+            // } else {
+            //   data[i].total += data[j].grandTotal;
+            //   //console.log(data[i].total);
+            // }
+
             data[i].quantity += data[j].quantity;
           }
         }
@@ -60,6 +73,8 @@ class BackOrderList extends Component {
   };
 
   render() {
+    console.log(this.props);
+    console.log(this.state.data);
     return (
       // {/* manageOrder內容 */}
       <div className="col my-content">

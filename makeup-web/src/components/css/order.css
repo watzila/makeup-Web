@@ -8,6 +8,8 @@
 .cartSummary {
   padding: 36px;
   border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
 }
 
 .collapse-open {
@@ -263,6 +265,8 @@
 #panelOrder {
   padding: 24px 36px 24px 36px;
   border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
   margin-top: 24px;
 }
 

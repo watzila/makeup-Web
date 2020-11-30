@@ -38,7 +38,10 @@ class ProdList extends Component {
 			i += 8;
 		} while (i < data.length);
 
-		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
+		this.setState({
+			data: newData[this.props.match.params.page - 1],
+			allData: newData,
+		});
 
 		//頁數按鈕初始化
 		document.querySelector(

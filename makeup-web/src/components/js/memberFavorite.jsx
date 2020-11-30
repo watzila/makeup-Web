@@ -19,19 +19,56 @@ class MemberFavorite extends Component {
     // console.log(JSON.parse(sessionStorage.getItem("member")));
   }
   u = (data) => {
+    let apple = {
+      onDelete: this.onDelete,
+      prodDetail:this.prodDetail
+    };
+
+    for (var i = 0; i < data.length; i++) {
+      Object.assign(data[i], apple);
+    }
+
     this.setState({ data: data });
-    // console.log(this.state.data.length);
+    // console.log(data);
   };
+
+  onDelete= (e)=>{
+    const newArray = this.state.data.filter(
+      (item) => item.product_id !== e
+    );
+    this.state.data = newArray;
+    this.setState({});
+    this.ajax.startListener('post', '/deletefavo', this.u, {
+      cId: JSON.parse(sessionStorage.getItem('member')).customer_id,
+      pId: e,
+    });
+   }
+
+    prodDetail = (e)=>{
+      console.log(e)
+      const newArray = this.state.data.filter(
+        (item) => item.product_id !== e
+      );
+      this.state.data = newArray;
+      this.setState({});
+      this.ajax.startListener('get', '/p/:kind', this.u, {
+        // pid: JSON.parse(sessionStorage.getItem('member')).pid,
+        pid: e
+      });
+    }
+
 
   render() {
     return (
       <div className="memberBuyOut">
         <div className="memberBuy" style={{ textAlign: "center" }}>
           <div>品名</div>
-          <div className="smallTot">數量</div>
+          
           <div className="smallTot">單價</div>
+          
         </div>
         {/* 產品單項描述(第一項訂單) */}
+        
         {this.state.data == null
           ? ""
           : this.creatCard.create(
@@ -39,6 +76,7 @@ class MemberFavorite extends Component {
               MemberFavoriteEach,
               this.state.data
             )}
+        
 
       </div>
     );

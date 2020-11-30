@@ -58,6 +58,7 @@
 	margin-right: 5px;
 }
 
+.deleteBtn,
 .memberMain .userForm button {
 	float: right;
 	padding: 10px 20px;
@@ -70,6 +71,7 @@
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.deleteBtn:hover,
 .memberMain .userForm button:hover {
 	box-shadow: var(--boxShadow1);
 }
@@ -194,6 +196,12 @@
 	margin-top: 15px;
 }
 
+/* 會員收藏 */
+.deleteBtn {
+	width: 100%;
+	text-align: right;
+}
+
 /*星幣*/
 .memberCoinOut {
 	font-size: 1.6rem;
@@ -229,11 +237,8 @@
 
 /*星幣 end*/
 
-
-
-
 /* 密碼修改 */
-.changePassword{
+.changePassword {
 	width: 70%;
 	padding: 3% 3%;
 	margin: 80px auto;
@@ -247,10 +252,9 @@
 	color: var(--blueColor);
 }
 
-.noActive{
-	display:none;
+.noActive {
+	display: none;
 }
-
 
 /* RWD */
 

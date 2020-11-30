@@ -14,6 +14,7 @@ class Header extends Component {
 
 		this.state = {
 			data: null,
+			headerCartBoxStyle: null,
 		};
 
 		this.prevScrollpos = window.pageYOffset;
@@ -24,18 +25,22 @@ class Header extends Component {
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
 
-		if (sessionStorage.getItem("member")) {
-			this.cId = JSON.parse(sessionStorage.getItem("member"));
-			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
-		}
+		this.cId =
+			sessionStorage.getItem("member") != null ? JSON.parse(sessionStorage.getItem("member")) : "";
+
+		this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 	}
 
 	// (複製cartList)
+
 	u = data => {
+		// if (data == this.state.data) {
+		//   console.log(2);
+		//   return;
+		// }
+
 		let apple = {
 			subtotal: null,
-			onIncrement: this.handleIncrement,
-			onDecrement: this.handleDecrement,
 			onDelete: this.handleDelete,
 		};
 
@@ -45,33 +50,35 @@ class Header extends Component {
 
 		this.setState({ data: data });
 
-		setTimeout(() => {
-			this.init();
-		}, 100);
+		console.log(data);
+		// console.log(this.state.data);
 
-		// console.log(data);
+		// setTimeout(() => {
+		// this.init();
+		// }, 100);
+
 		// console.log(this.state.data.length);
 	};
 
 	// 金額 小記subtotal “初始化”(複製cartList)
 	init = () => {
 		if (this.state.data != null) {
-			let newData = this.state.data;
-			for (var i = 0; i < this.state.data.length; i++) {
-				newData[i].subtotal = newData[i].quantity * newData[i].unitPrice;
-			}
-			this.setState({ data: newData });
+			// for (var i = 0; i < this.state.data.length; i++) {
+			//   this.state.data[i].subtotal =
+			//     this.state.data[i].quantity * this.state.data[i].unitPrice;
+			// }
+			// this.setState({});
 		}
 	};
 
 	// 功能：商品金額小記subtotal隨著數量改變(複製cartList)
-	handleSubtotal = obj => {
-		let newData = this.state.data;
-		newData[newData.indexOf(obj)].subtotal =
-			newData[newData.indexOf(obj)].quantity * newData[newData.indexOf(obj)].unitPrice;
+	// handleSubtotal = (obj) => {
+	//   this.state.data[this.state.data.indexOf(obj)].subtotal =
+	//     this.state.data[this.state.data.indexOf(obj)].quantity *
+	//     this.state.data[this.state.data.indexOf(obj)].unitPrice;
 
-		this.setState({ data: newData });
-	};
+	//   this.setState({});
+	// };
 
 	// 功能：商品刪除 (複製cartList)
 	handleDelete = idProduct => {
@@ -79,14 +86,14 @@ class Header extends Component {
 		console.log(idProduct);
 
 		const newArray = this.state.data.filter(item => item.product_id !== idProduct);
-		//this.state.data = newArray;
+		this.state.data = newArray;
 		// console.log(newArray);
 
 		// this.state.counters = newArray;
 		// this.setState({});
 		// console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
 
-		this.setState({ data: newArray });
+		this.setState({});
 
 		this.ajax.startListener("post", "/delete", this.u, {
 			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
@@ -96,11 +103,20 @@ class Header extends Component {
 
 	componentDidMount() {
 		this.headerMove();
-		// this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
 	}
 
 	componentDidUpdate() {
+		if (this.state.data != null) {
+			if (this.state.data.length > 0) {
+				var bee = document.getElementById("headerCartBoxTop");
+
+				bee.className = "headerCartBox";
+			}
+		}
+		// this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
 		console.log(1);
+		// console.log(this.state.data.length);
+		// 購物車空車的話 隱藏購物車欄位
 	}
 
 	// header特效
@@ -120,13 +136,6 @@ class Header extends Component {
 		if (this.state.data != null) {
 			return this.state.data.length;
 		}
-	};
-
-	cartBoxOpen = () => {
-		// console.log(document.querySelector('.headerCartBox').style.display);
-		// if (this.state.data != null) {
-		//   document.querySelector('.headerCartBox').style.display = 'block';
-		// }
 	};
 
 	render() {
@@ -157,7 +166,7 @@ class Header extends Component {
 							<Link to="/cart" className="fa fa-shopping-cart">
 								<span className="cartQty">{this.cartQty()}</span>
 							</Link>
-							<table onClick={this.cartBoxOpen()} className="headerCartBox">
+							<table id="headerCartBoxTop">
 								<tbody>
 									{this.state.data != null
 										? this.createCard.create(this.state.data.length, HeaderCart, this.state.data)

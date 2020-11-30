@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 // import IMGPath from './js/imgPath'; //引入圖片
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import BackMemberDetailTable from './backMemberDetailTable.js';
+
+import CreateCard from '../createCard';
+import Ajax from '../ajax'; //
 
 class MemberDetail extends Component {
   constructor(prop) {
@@ -8,39 +13,84 @@ class MemberDetail extends Component {
     this.state = {
       data: null,
     };
-    // this.imgPath = new IMGPath();
+
+    this.createCard = new CreateCard();
+    this.ajax = new Ajax();
+    this.ajax.startListener('post', '/backend/memberdetail', this.u, {
+      pId: this.props.location.state.pId,
+    });
+    console.log(this.props);
   }
 
+  u = (data) => {
+    this.setState({ data: data });
+
+    // console.log(data);
+  };
+
+  handleChangeGender = (event) => {
+    this.state.data[0].gender = event.target.value;
+    this.setState({});
+  };
+  handleChangeCustomerStatus = (event) => {
+    this.state.data[0].customerStatus = event.target.value;
+    // console.log(this.state.data[0].customerStatus);
+    // console.log(event.target.value);
+    this.setState({});
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.ajax.startListener(
+      'post',
+      '/backend/member/updateMemberDetail',
+      this.u,
+      {
+        pId: this.props.location.state.pId,
+        account: this.state.data[0].account,
+        customerName: this.state.data[0].customerName,
+        cellPhone: this.state.data[0].cellPhone,
+        nickname: this.state.data[0].nickname,
+        birth_date: this.state.data[0].birth_date,
+        gender: this.state.data[0].gender,
+        postCode: this.state.data[0].postCode,
+        city: this.state.data[0].city,
+        district: this.state.data[0].district,
+        address: this.state.data[0].address,
+        customerStatus: this.state.data[0].customerStatus,
+      }
+    );
+    // console.log(this.state.data[0]);
+  };
+
   render() {
+    // // console.log(this.state.data);
+    // console.log(this.props.location.state.pId);
     return (
       // {/* index_memberDetail內容 */}
       <div className="col my-content">
         <div className="pt-3 ">
-          <form className="p-3">
+          <form onSubmit={this.handleSubmit} className="p-3">
             <input type="hidden" name="#" defaultValue="memberDetail" />
             <h2 className="pt-3 pb-3 text-center">
               <i className="fa fa-user-circle" />
-              會員管理 / 詳細會員資料
+              詳細會員資料
             </h2>
             <hr />
             <div className="input-group mb-3 d-flex justify-content-center">
               <div className="mb-3 mx-3">
-                <a
-                  name="lastPege"
-                  type="submit"
-                  className="gray-Link my-button"
-                >
+                <Link to="/backend/member/1" className="gray-Link my-button">
                   回上一頁
-                </a>
+                </Link>
               </div>
               <div className="mb-3 mx-3">
-                <a
-                  name="lastPege"
-                  type="submit"
-                  className="gray-Link my-button"
+                <Link
+                  to={`/backend/${
+                    this.props != null ? this.props.location.state.pId : ''
+                  }/memberorder`}
+                  className="my-button"
                 >
                   訂單歷史紀錄
-                </a>
+                </Link>
               </div>
               <div className="mb-3 mx-3">
                 <a
@@ -61,15 +111,16 @@ class MemberDetail extends Component {
                 </a>
               </div>
               <div className="mb-3 mx-3">
-                <a
+                <input
                   name="lastPege"
                   type="submit"
                   className="gray-Link my-button"
-                >
-                  儲存
-                </a>
+                  value="➣儲存"
+                  style={{ lineHeight: '28px' }}
+                />
               </div>
             </div>
+
             <div className="form-body p-3 mb-5">
               <div className="form-group row">
                 <label htmlFor="customer_id" className="col-2 col-form-label">
@@ -79,10 +130,19 @@ class MemberDetail extends Component {
                   <input
                     id="customer_id"
                     name="customer_id"
-                    placeholder="#001"
                     type="text"
-                    aria-describedby="customer_idHelpBlock"
+                    defaultValue={
+                      this.state.data != null
+                        ? this.state.data[0].customer_id
+                        : ''
+                    }
                     className="form-control"
+                    onChange={(event) => {
+                      // console.log(event.target.value);
+                      // console.log(this.state.data[0]);
+                      return (this.state.data[0].customer_id =
+                        event.target.value);
+                    }}
                   />
                   <span
                     id="customer_idHelpBlock"
@@ -100,10 +160,17 @@ class MemberDetail extends Component {
                   <input
                     id="email"
                     name="email"
-                    placeholder="gogogo@gmail.com"
                     type="text"
                     className="form-control"
-                    aria-describedby="emailHelpBlock"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].account : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      // console.log(event.target);
+                      // console.log(this.state.data[0]);
+                      return (this.state.data[0].account = event.target.value);
+                    }}
                   />
                   <span id="emailHelpBlock" className="form-text text-muted">
                     會員帳號無法修改
@@ -122,9 +189,18 @@ class MemberDetail extends Component {
                   <input
                     id="userName"
                     name="userName"
-                    placeholder="王小明"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null
+                        ? this.state.data[0].customerName
+                        : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].customerName =
+                        event.target.value);
+                    }}
                   />
                 </div>
                 <div className="col">
@@ -134,9 +210,18 @@ class MemberDetail extends Component {
                   <input
                     id="cellPhone"
                     name="cellPhone"
-                    placeholder="0912-345678"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null
+                        ? this.state.data[0].cellPhone
+                        : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].cellPhone =
+                        event.target.value);
+                    }}
                   />
                 </div>
                 <div className="col">
@@ -146,59 +231,53 @@ class MemberDetail extends Component {
                   <input
                     id="nickName"
                     name="nickName"
-                    placeholder="apple"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].nickname : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].nickname = event.target.value);
+                    }}
                   />
                 </div>
                 <div className="col">
                   <label htmlFor="birth">
                     <span>生日</span>
                   </label>
-                  <div className="input-group">
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <i className="fa fa-birthday-cake" />
-                      </div>
-                    </div>
-                    <input
-                      id="birth"
-                      name="birth"
-                      placeholder="2020/11/17"
-                      type="date"
-                      className="form-control"
-                    />
-                  </div>
+                  <input
+                    id="birthDate"
+                    name="birthDate"
+                    type="text"
+                    className="form-control"
+                    defaultValue={
+                      this.state.data != null
+                        ? this.state.data[0].birth_date
+                        : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].birth_date =
+                        event.target.value);
+                    }}
+                  />
                 </div>
               </div>
               <div className="form-row pb-3 pt-3">
                 <label className="col-2">性別</label>
-                <div className="col-10">
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      name="gender"
-                      id="gender_0"
-                      type="radio"
-                      className="custom-control-input"
-                      defaultValue="B"
-                      defaultChecked="checked"
-                    />
-                    <label htmlFor="gender_0" className="custom-control-label">
-                      男
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      name="gender"
-                      id="gender_1"
-                      type="radio"
-                      className="custom-control-input"
-                      defaultValue="G"
-                    />
-                    <label htmlFor="gender_1" className="custom-control-label">
-                      女
-                    </label>
-                  </div>
+                <div className="col-2">
+                  <select
+                    className="form-control"
+                    value={
+                      this.state.data != null ? this.state.data[0].gender : ''
+                    }
+                    onChange={this.handleChangeGender}
+                  >
+                    <option value="女">女</option>
+                    <option value="男">男</option>
+                    <option value="中性X">中性X</option>
+                  </select>
                 </div>
               </div>
               <div className="form-row">
@@ -212,9 +291,15 @@ class MemberDetail extends Component {
                   <input
                     id="postCode"
                     name="postCode"
-                    placeholder={888}
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].postCode : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].postCode = event.target.value);
+                    }}
                   />
                 </div>
                 <div className="col">
@@ -224,9 +309,15 @@ class MemberDetail extends Component {
                   <input
                     id="city"
                     name="city"
-                    placeholder="火星"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].city : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].city = event.target.value);
+                    }}
                   />
                 </div>
                 <div className="col">
@@ -236,9 +327,15 @@ class MemberDetail extends Component {
                   <input
                     id="district"
                     name="district"
-                    placeholder="火星"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].district : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].district = event.target.value);
+                    }}
                   />
                 </div>
                 {/* 為了整齊的分成四格而出現的隱藏欄位 */}
@@ -252,55 +349,44 @@ class MemberDetail extends Component {
                   <input
                     id="address"
                     name="address"
-                    placeholder="火星"
                     type="text"
                     className="form-control"
+                    defaultValue={
+                      this.state.data != null ? this.state.data[0].address : ''
+                    }
+                    className="form-control"
+                    onChange={(event) => {
+                      return (this.state.data[0].address = event.target.value);
+                    }}
                   />
                 </div>
               </div>
               <div className="form-row pb-3 pt-3">
                 <label className="col-2">會員狀態</label>
-                <div className="col-10">
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      name="gender"
-                      id="gender_0"
-                      type="radio"
-                      className="custom-control-input"
-                      defaultValue="B"
-                      defaultChecked="checked"
-                    />
-                    <label htmlFor="gender_0" className="custom-control-label">
-                      正常
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      name="gender"
-                      id="gender_1"
-                      type="radio"
-                      className="custom-control-input"
-                      defaultValue="G"
-                    />
-                    <label htmlFor="gender_1" className="custom-control-label">
-                      限制權限
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      name="gender"
-                      id="gender_1"
-                      type="radio"
-                      className="custom-control-input"
-                      defaultValue="G"
-                    />
-                    <label htmlFor="gender_1" className="custom-control-label">
-                      永久停權
-                    </label>
-                  </div>
+                <div className="col-2">
+                  <select
+                    className="form-control"
+                    value={
+                      this.state.data != null
+                        ? this.state.data[0].customerStatus
+                        : ''
+                    }
+                    onChange={this.handleChangeCustomerStatus}
+                  >
+                    <option value="正常">正常</option>
+                    <option value="限制權限">限制權限</option>
+                    <option value="永久停權">永久停權</option>
+                    {/* <option value="">
+                      {this.state.data != null
+                        ? this.state.data[0].customerStatus
+                        : ''}
+                    </option> */}
+                  </select>
                 </div>
               </div>
+              {/* <input type="submit" value="Submit" /> */}
             </div>
+
             {/* 會員收藏資料 */}
             <div className="my-table p-3 mb-5">
               <h5 className="pb-3">會員收藏</h5>
@@ -308,41 +394,22 @@ class MemberDetail extends Component {
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">會員收藏id</th>
                     <th scope="col">商品編號</th>
                     <th scope="col">大分類項</th>
                     <th scope="col">小分類項</th>
                     <th scope="col">品名</th>
+                    <th scope="col">顏色</th>
                     <th scope="col">功能</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>N0000001</td>
-                    <td>C0000001</td>
-                    <td>睫毛膏</td>
-                    <td>睫毛膏</td>
-                    <td>天然睫毛膏</td>
-                    <td>
-                      <a name="prodDtail" type="submit" className="my-button">
-                        刪除
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>N0000002</td>
-                    <td>C0000002</td>
-                    <td>睫毛膏</td>
-                    <td>睫毛膏</td>
-                    <td>第2種天然睫毛膏</td>
-                    <td>
-                      <a name="prodDtail" type="submit" className="my-button">
-                        刪除
-                      </a>
-                    </td>
-                  </tr>
+                  {this.state.data != null
+                    ? this.createCard.create(
+                        this.state.data.length,
+                        BackMemberDetailTable,
+                        this.state.data
+                      )
+                    : null}
                 </tbody>
               </table>
             </div>

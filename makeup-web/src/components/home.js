@@ -1,45 +1,47 @@
-import React, { Component } from "react";
-import HotCard from "./js/hotCard"; //暢銷商品卡
-import OtherCard from "./js/otherCard"; //暢銷商品卡
-import CreateCard from "./js/createCard";  //創建商品卡
-import IMGPath from "./js/imgPath";  //引入圖片
-import Ajax from "./js/ajax";
-import "./css/home.css";
+import React, { Component } from 'react';
+import HotCard from './js/hotCard'; //暢銷商品卡
+import OtherCard from './js/otherCard'; //暢銷商品卡
+import CreateCard from './js/createCard'; //創建商品卡
+import IMGPath from './js/imgPath'; //引入圖片
+import Ajax from './js/ajax';
+import './css/home.css';
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      data: null,//底妝資料
-      fData: null,//我的最愛資料
-    }
+      data: null, //底妝資料
+      fData: null, //我的最愛資料
+    };
 
     this.createCard = new CreateCard();
     this.ajax = new Ajax();
     this.imgPath = new IMGPath();
 
-    this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
-    this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
+    this.b = require.context('./images/banner', false, /\.(png|jpe?g|svg)$/);
+    this.p = require.context('./images/product', false, /\.(png|jpe?g|svg)$/);
 
-    if (sessionStorage.getItem("member")) {
+    if (sessionStorage.getItem('member')) {
       this.ajax.startListener(
-        "get",
-        `/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
+        'get',
+        `/myLove?cId=${
+          JSON.parse(sessionStorage.getItem('member')).customer_id
+        }`,
         this.u2
       );
     } else {
-      this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
+      this.ajax.startListener('get', '?card1=唇彩&card2=底妝', this.u);
     }
   }
 
   //我的最愛資料更新
-  u2 = data => {
+  u2 = (data) => {
     this.setState({ fData: data });
-    this.ajax.startListener("get", "?card1=唇彩&card2=底妝", this.u);
+    this.ajax.startListener('get', '?card1=唇彩&card2=底妝', this.u);
     //console.log(data);
   };
 
   //所有產品資料更新
-  u = data => {
+  u = (data) => {
     //我的最愛資料合併到所有產品資料
     if (this.state.fData != null) {
       for (let l = 0; l < data.length; l++) {
@@ -63,10 +65,10 @@ class Home extends Component {
     let newFData = this.state.fData;
     let newData = this.state.data;
 
-    let index = newFData.map(item => item.product_id).indexOf(pid);
+    let index = newFData.map((item) => item.product_id).indexOf(pid);
 
-    if (sessionStorage.getItem("member")) {
-      let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
+    if (sessionStorage.getItem('member')) {
+      let cId = JSON.parse(sessionStorage.getItem('member')).customer_id;
       let newLove = { customer_id: cId, product_id: pid };
       if (index === -1) {
         newFData.push(newLove);
@@ -75,7 +77,7 @@ class Home extends Component {
         newFData.splice(index, 1);
         delete newData[pid - 1].f;
       }
-      this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
+      this.ajax.startListener('get', `/addLove?pId=${pid}&cId=${cId}`, this.u);
       this.setState({ fData: newFData });
       this.setState({ data: newData });
     }
@@ -87,8 +89,14 @@ class Home extends Component {
         {/*banner*/}
         <div className="topBanner">
           <div className="bannerBg">
-            <img src={this.imgPath.importAll(this.b)["homeBanner1.jpg"]} alt="banner" />
-            <img src={this.imgPath.importAll(this.b)["homeBanner2.jpg"]} alt="banner" />
+            <img
+              src={this.imgPath.importAll(this.b)['homeBanner1.jpg']}
+              alt="banner"
+            />
+            <img
+              src={this.imgPath.importAll(this.b)['homeBanner2.jpg']}
+              alt="banner"
+            />
           </div>
         </div>
         {/*banner end*/}
@@ -144,11 +152,13 @@ class Home extends Component {
 
         {/*心理測驗*/}
         <div className="heartTest">
-
           <div className="smallCardBox">
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={this.imgPath.importAll(this.p)["B_01.jpg"]} alt="product" />
+              <img
+                src={this.imgPath.importAll(this.p)['B_01.jpg']}
+                alt="product"
+              />
               <div>
                 <p>古早味奶茶眼影</p>
               </div>
@@ -156,7 +166,10 @@ class Home extends Component {
 
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={this.imgPath.importAll(this.p)["B_02.jpg"]} alt="product" />
+              <img
+                src={this.imgPath.importAll(this.p)['B_02.jpg']}
+                alt="product"
+              />
               <div>
                 <p>古早味奶茶眼影</p>
               </div>
@@ -164,7 +177,10 @@ class Home extends Component {
 
             {/*商品小卡*/}
             <div className="smallCard">
-              <img src={this.imgPath.importAll(this.p)["B_03.jpg"]} alt="product" />
+              <img
+                src={this.imgPath.importAll(this.p)['B_03.jpg']}
+                alt="product"
+              />
               <div>
                 <p>古早味奶茶眼影</p>
               </div>
@@ -179,7 +195,6 @@ class Home extends Component {
 
         {/*其他商品*/}
         <div className="downSellOutside w">
-
           <h2>底妝任2件結帳85折 滿1500再折150</h2>
 
           <div className="downSell">
@@ -189,16 +204,30 @@ class Home extends Component {
 
         {/*下面廣告*/}
         <div className="banner">
-          <img src={this.imgPath.importAll(this.b)["1920_480唇膏廣告圖.jpg"]} alt="banner" />
+          <img
+            src={this.imgPath.importAll(this.b)['1920_480唇膏廣告圖.jpg']}
+            alt="banner"
+          />
         </div>
 
         {/*最下面廣告*/}
         <div className="w bottomBanner">
-          <img src={this.imgPath.importAll(this.b)["1200_300會員折價卷.jpg"]} alt="banner" />
-          <img src={this.imgPath.importAll(this.b)["downBanner1.jpg"]} alt="banner" />
-          <img src={this.imgPath.importAll(this.b)["downBanner2.jpg"]} alt="banner" />
-          <img src={this.imgPath.importAll(this.b)["downBanner3.jpg"]} alt="banner" />
-
+          <img
+            src={this.imgPath.importAll(this.b)['1200_300會員折價卷.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner1.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner2.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner3.jpg']}
+            alt="banner"
+          />
         </div>
         {/*客製化*/}
         {/*<div className="customize bottomHalf">
@@ -218,7 +247,7 @@ class Home extends Component {
           </div>
         </div>*/}
         {/*客製化end*/}
-      </main >
+      </main>
     );
   }
 }

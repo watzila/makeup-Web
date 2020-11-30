@@ -1,57 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import OrderList from './js/orderList';
-import CreateCard from './js/createCard'; //創建商品卡
-import Ajax from './js/ajax';
 import './css/order.css';
 
 class Order extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      customerId: {
-        id: JSON.parse(sessionStorage.getItem('member')).customer_id,
-      },
-      data: null,
-    };
-
-    this.ajax = new Ajax();
-    this.createCard = new CreateCard();
-
-    this.ajax.startListener('post', '/searchOrder', this.u, this.state.orderId);
-
-    setTimeout(() => {
-      this.init();
-    }, 100);
-  }
-
-  u = (data) => {
-    this.setState({ data: data });
-    console.log(this.state.data);
-  };
-
-  // 金額 小記subtotal “初始化”
-  init = () => {
-    if (this.state.data != null) {
-      for (var i = 0; i < this.state.data.length; i++) {
-        this.state.data[i].subtotal =
-          this.state.data[i].quantity * this.state.data[i].unitPrice;
-      }
-      this.setState({});
-    }
-  };
-
-  //地址
-  address = () => {
-    let d = this.state.data[0];
-    let newAddress = d.shipping_city + d.shipping_district + d.address;
-    return newAddress;
-  };
-
   render() {
     return (
-      <section id="order" className="w">
+      <section id="order">
         <div className="container">
           {/*  cartSummary_start  */}
           <div className="cartSummary collapse-list">
@@ -61,11 +15,7 @@ class Order extends Component {
               id="collapseCheckbox"
             />
             <label className="collapse-btn" htmlFor="collapseCheckbox">
-              <h1>完成訂購</h1>訂單編號：
-              <span>
-                {' '}
-                {this.state.data != null ? this.state.data[0].order_id : ''}
-              </span>
+              <h1>完成訂購</h1>訂單編號：<span>952712345</span>
               <h4>購物車明細(點擊)</h4>
             </label>
 
@@ -81,36 +31,57 @@ class Order extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.data != null
-                    ? this.createCard.create(
-                        this.state.data.length,
-                        OrderList,
-                        this.state.data
-                      )
-                    : null}
+                  <tr className="productItem">
+                    <td className="productName">
+                      <div>
+                        <img
+                          src="https://hinetcdn.waca.ec/uploads/shops/800/products/78/thumb_cache/75_784a212efaa02430b77c15abda4cabce.jpg"
+                          width="80"
+                          height="80"
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <a href="https://dorene.com.tw/product/detail/303450">
+                          秋季禮遇
+                          ▌新手肌本保養3件組新手肌本保養3件組新手肌本保養3件組
+                        </a>
+                        <p>單一規格</p>
+                        <i className="fa fa-tags" aria-hidden="true"></i>
+                        <small>預計11/24開始出貨</small>
+                      </div>
+                    </td>
+
+                    <td className="productQuantity">
+                      <input type="text" value="1" />
+                    </td>
+                    <td>$1,250</td>
+                    <td>$1,250</td>
+                    <td></td>
+                  </tr>
                   <tr className="discountText">
-                    <td colSpan="3">
+                    <td colspan="3">
                       <p>全館活動</p>
                       <a href="#" alt="">
                         全館 滿 $ <span>2,500</span> 元 免運費
                       </a>
                     </td>
-                    <td colSpan="2">尚未符合</td>
+                    <td colspan="2">尚未符合</td>
                   </tr>
                   <tr className="subtotal">
-                    <td colSpan="3">小計</td>
-                    <td colSpan="2">$1,950</td>
+                    <td colspan="3">小計</td>
+                    <td colspan="2">$1,950</td>
                   </tr>
                   <tr className="shipment">
-                    <td colSpan="3">運費</td>
-                    <td colSpan="2">前往下一步驟計算</td>
+                    <td colspan="3">運費</td>
+                    <td colspan="2">前往下一步驟計算</td>
                   </tr>
                   <tr className="totalMoney">
-                    <td colSpan="3">
+                    <td colspan="3">
                       <p>總金額</p>
                       <p>(TWD)</p>
                     </td>
-                    <td colSpan="2">$1,950</td>
+                    <td colspan="2">$1,950</td>
                   </tr>
                 </tbody>
               </table>
@@ -129,18 +100,14 @@ class Order extends Component {
                     <div className="panelOrderTitle">購買日期</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].orderDate
-                        : ''}
+                      2020-11-30 06:10:10
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">訂單編號</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].order_id
-                        : ''}
+                      952712345
                     </div>
                   </div>
                 </div>
@@ -149,9 +116,7 @@ class Order extends Component {
                     <div className="panelOrderTitle">處理狀態</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].orderStatus
-                        : ''}
+                      處理中
                     </div>
                   </div>
                   <div>
@@ -171,16 +136,14 @@ class Order extends Component {
                     <div className="panelOrderTitle">運送方式</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].shippingStyle_id
-                        : ''}
+                      宅配
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">運送地址</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null ? this.address() : ''}
+                      台北市內湖區瑞光街100號
                     </div>
                   </div>
                   <div>
@@ -194,9 +157,7 @@ class Order extends Component {
                     <div className="panelOrderTitle">付款方式</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].payment_method
-                        : ''}
+                      信用卡
                     </div>
                   </div>
                 </div>
@@ -205,52 +166,46 @@ class Order extends Component {
                     <div className="panelOrderTitle">購買人姓名</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].customerName
-                        : ''}
+                      金城武
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">購買人信箱</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null ? this.state.data[0].email : ''}
+                      makeupgoodday@gmail.com
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">購買人電話</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].cellPhone
-                        : ''}
+                      0972996969
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">收件人姓名</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].shipping_Name
-                        : ''}
+                      木村拓哉
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">收件人電話</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].shipping_cellPhone
-                        : ''}
+                      0972109956
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">備註事項</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      {this.state.data != null
-                        ? this.state.data[0].orderComment
-                        : ''}
+                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Officiis eaque doloremque unde nam. Mollitia, ullam
+                      quibusdam id suscipit excepturi sequi vel, eaque
+                      temporibus veniam a similique tempora facilis, repudiandae
+                      totam.
                     </div>
                   </div>
                 </div>

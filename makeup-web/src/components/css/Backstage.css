@@ -1,25 +1,25 @@
 :root {
-	--main_c_A: #edb679;
-	--main_c_B: #d48e50;
-	--main_c_C: #bf744a;
-	--main_c_D: #dead9e;
-	--main_c_F: #86ada9;
-	--main_c_E: #383d53;
-	--main_c_H: #a9a5a0;
+  --main_c_A: #edb679;
+  --main_c_B: #d48e50;
+  --main_c_C: #bf744a;
+  --main_c_D: #dead9e;
+  --main_c_F: #86ada9;
+  --main_c_E: #383d53;
+  --main_c_H: #a9a5a0;
 
-	--main_c_R: #a32a1c;
-	--main_c_Y: #f5a33d;
-	--main_c_deepbl: #004b7c;
-	--main_c_gbl: #5fc1c7;
-	--main_c_lightbl: #80c1ea;
+  --main_c_R: #a32a1c;
+  --main_c_Y: #f5a33d;
+  --main_c_deepbl: #004b7c;
+  --main_c_gbl: #5fc1c7;
+  --main_c_lightbl: #80c1ea;
 
-	--button_AA: #d48e50;
-	--button_BB: #eba85c;
+  --button_AA: #d48e50;
+  --button_BB: #eba85c;
 }
 /* 隱藏元素 */
 .hide {
-	visibility: hidden;
-	/* position: absolute; clip:rect(1px 1px 1px 1px); */
+  visibility: hidden;
+  /* position: absolute; clip:rect(1px 1px 1px 1px); */
 }
 
 /* 測試塊狀 */
@@ -37,156 +37,156 @@
 } */
 
 header .logo-box {
-	background-color: var(--main_c_E);
+  background-color: var(--main_c_E);
 }
 header nav {
-	background-color: var(--main_c_C);
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
+  background-color: var(--main_c_C);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
 }
 
 .footer-1 {
-	background-color: white;
+  background-color: white;
 }
 footer .footer-2 {
-	background-color: var(--main_c_E);
+  background-color: var(--main_c_E);
 }
 
 body {
-	/* background: fixed repeat url(../images/index/宣紙拷貝.png); */
-	background: url(../images/background/宣紙1.png);
-	background-attachment: fixed;
-	background-repeat: repeat;
-	background-position: left top;
+  /* background: fixed repeat url(../images/index/宣紙拷貝.png); */
+  background: url(../images/background/宣紙1.png);
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-position: left top;
 }
 /* side背景圖片 */
 main .side {
-	background: url(../images/background/金魚.png), url(../images/background/粒狀紋理.png),
-		var(--main_c_B);
-	background-repeat: no-repeat, repeat-x;
-	background-position: bottom;
-	background-size: 193px 137px;
+  background: url(../images/background/金魚.png),
+    url(../images/background/粒狀紋理.png), var(--main_c_B);
+  background-repeat: no-repeat, repeat-x;
+  background-position: bottom;
+  background-size: 193px 137px;
 }
 
 /* side設定開始 */
 /* side超連結基本設定 */
 main .side {
-	box-shadow: rgba(0, 0, 0, 0.35) 2px 0px 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 2px 0px 5px;
 }
 
 main .side ul li a {
-	color: black;
+  color: black;
 }
 /* 間距 */
 main .side ul li {
-	margin-top: 10px;
-	padding-top: 6px;
-	padding-left: 5px;
-	padding-right: 5px;
+  margin-top: 10px;
+  padding-top: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 main .side ul li:hover {
-	background-color: rgba(255, 255, 255, 0.3);
-	border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
 }
 main .side ul li a:hover {
-	color: var(--main_c_C);
+  color: var(--main_c_C);
 }
 /* 被選取的當頁樣式 */
 .my-nav-item-selected {
-	color: brown;
-	background-color: rgba(255, 255, 255, 0.3);
-	border-radius: 8px;
-	margin-left: 20px;
+  color: brown;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  margin-left: 20px;
 }
 .side-collapse-btn {
-	font-size: 24px;
-	color: var(--main_c_E);
+  font-size: 24px;
+  color: var(--main_c_E);
 }
 
 /* 側欄 */
 main .side .sideLogo {
-	width: 100%;
-	margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 main .side .nav-item {
-	margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 main .side .nav-item h5 {
-	font-size: 22px;
+  font-size: 22px;
 }
 
 main .side .nav-item i {
-	margin-right: 12px;
+  margin-right: 12px;
 }
 
 main .side .nav-item .prod {
-	border: 0;
-	background-color: transparent;
+  border: 0;
+  background-color: transparent;
 }
 
 main .side .nav-item #sideNavprod,
 #sideNavMember {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 main .side .nav-item .sideNavItem {
-	margin-top: 12px;
-	font-size: 18px;
+  margin-top: 12px;
+  font-size: 18px;
 }
 /* side設定結束 */
 
 /* 按鈕樣式設定開始 */
 /* 純粹檢視 */
 .my-button {
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	padding: 3px 15px;
-	border-radius: 4px;
-	background: #f4efeb;
-	background: linear-gradient(to bottom, var(--button_AA), var(--button_BB));
-	box-shadow: var(--main_c_E) 0px 1px 1px 0px;
-	text-shadow: #fff 1px 0px 1px;
-	font: bold 16px arial;
-	color: #111111;
-	text-decoration: none;
-	border: 0;
-	cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 3px 15px;
+  border-radius: 4px;
+  background: #f4efeb;
+  background: linear-gradient(to bottom, var(--button_AA), var(--button_BB));
+  box-shadow: var(--main_c_E) 0px 1px 1px 0px;
+  text-shadow: #fff 1px 0px 1px;
+  font: bold 16px arial;
+  color: #111111;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
 }
 /* 被滑過的時候 */
 .my-button:hover,
 .my-button:focus {
-	/* border: 1px solid #f4efeb; */
-	box-shadow: var(--main_c_E) 0px 0px 0px 0px;
-	/* box-shadow: var(--main_c_A) 0px 2px 1px 0px; */
-	text-shadow: #fff 1px 0px 1px;
-	background: #ffffff;
-	background: linear-gradient(to bottom, var(--button_BB), var(--button_AA));
-	color: #111111;
-	text-decoration: none;
+  /* border: 1px solid #f4efeb; */
+  box-shadow: var(--main_c_E) 0px 0px 0px 0px;
+  /* box-shadow: var(--main_c_A) 0px 2px 1px 0px; */
+  text-shadow: #fff 1px 0px 1px;
+  background: #ffffff;
+  background: linear-gradient(to bottom, var(--button_BB), var(--button_AA));
+  color: #111111;
+  text-decoration: none;
 }
 /* 被點擊的時候 */
 .my-button:active {
-	background: #aba7a5;
-	box-shadow: var(--main_c_A) 0px 0px 0px 0px;
-	color: #fff;
-	background: linear-gradient(to bottom, var(--main_c_E), var(--main_c_E));
+  background: #aba7a5;
+  box-shadow: var(--main_c_A) 0px 0px 0px 0px;
+  color: #fff;
+  background: linear-gradient(to bottom, var(--main_c_E), var(--main_c_E));
 }
 /* 圖示與微調 */
 .my-button:before {
-	content: "➣";
-	display: inline-block;
-	line-height: 28px;
-	background-size: 100% 100%;
+  content: '➣';
+  display: inline-block;
+  line-height: 28px;
+  background-size: 100% 100%;
 }
 /* 按鈕樣式設定結束 */
 
 /* 撐開高度開始 */
 .my-content {
-	height: var(--height);
-	background: url(../images/background/山脈.png) no-repeat bottom;
-	opacity: 0.99;
+  /* height: var(--height); */
+  background: url(../images/background/山脈.png) no-repeat bottom;
+  opacity: 0.99;
 }
 /*.my-content::after {
 	content: "";
