@@ -470,17 +470,12 @@ app.post('/membercoin/', function (request, response) {
 });
 
 //後台訂單清單
-<<<<<<< HEAD
-app.post('/backend/orderlist', function (request, response) {
+app.get('/backend/orderlist', function (request, response) {
   let sql = `SELECT o.order_id, orderDate,customerName, quantity, grandTotal, orderStatus
-=======
-app.get("/backend/orderlist", function (request, response) {
-	let sql = `SELECT o.order_id, orderDate,customerName, quantity, grandTotal, orderStatus
->>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
-    FROM orders AS o 
-    INNER JOIN orderdetail AS od 
-    ON o.order_id = od.order_id 
-    INNER JOIN customer AS c 
+    FROM orders AS o
+    INNER JOIN orderdetail AS od
+    ON o.order_id = od.order_id
+    INNER JOIN customer AS c
     ON o.customer_id = c.customer_id`;
 
   conn.query(sql, function (err, rows) {
@@ -493,12 +488,9 @@ app.get("/backend/orderlist", function (request, response) {
   });
 });
 
-<<<<<<< HEAD
-app.listen(3001, () => console.log('LISTENING ON PORT 成功'));
-=======
 //後台訂單詳情
-app.post("/backend/orderlist", function (request, response) {
-	let sql = `SELECT *
+app.post('/backend/orderlist', function (request, response) {
+  let sql = `SELECT *
   FROM orders AS o
   INNER JOIN orderdetail AS od
   ON o.order_id = od.order_id
@@ -512,15 +504,71 @@ app.post("/backend/orderlist", function (request, response) {
   ON cate.category_id = p.category_id
   WHERE o.order_id = ${request.body.pId}`;
 
-	conn.query(sql, function (err, rows) {
-		if (err) {
-			console.log(JSON.stringify(err));
-			return;
-		}
-		//console.log(rows)
-		response.send(rows);
-	});
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    //console.log(rows)
+    response.send(rows);
+  });
 });
 
-app.listen(3001, () => console.log("LISTENING ON PORT 成功"));
->>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
+//後台會員清單get
+app.get('/backend/memberlist', function (request, response) {
+  let sql = `SELECT * FROM customer`;
+
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    //console.log(rows)
+    response.send(rows);
+  });
+});
+
+//後台會員清單post
+app.post('/backend/memberlist', function (request, response) {
+  let sql = `SELECT * FROM customer WHERE customer_id = ${request.body.pId}`;
+
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    //console.log(rows)
+    response.send(rows);
+  });
+});
+
+//後台會員清單詳細資料連同收藏 載入
+app.post('/backend/memberdetail', function (request, response) {
+  let sql = `SELECT * FROM customer as c INNER join favorite as f on f.customer_id = c.customer_id inner join product as p on p.product_id = f.product_id WHERE c.customer_id = ${request.body.pId}`;
+
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    //console.log(rows)
+    response.send(rows);
+  });
+});
+
+// 更新後台會員詳細資料
+app.post('/backend/member/updateMemberDetail', function (req, res) {
+  // var sql = `UPDATE customer SET account = "aaa", email = "123" WHERE customer_id = 6`;
+
+  var sql = `UPDATE customer SET account = "${req.body.account}",customerName = "${req.body.customerName}",cellPhone = "${req.body.cellPhone}",nickname = "${req.body.nickname}",birth_date = "${req.body.birth_date}",gender = "${req.body.gender}",customerStatus="${req.body.customerStatus}",postCode = "${req.body.postCode}",city = "${req.body.city}",district = "${req.body.district}",address = "${req.body.address}" WHERE customer_id = ${req.body.pId}`;
+
+  // console.log(req.body);
+  conn.query(sql, function (err, rows) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+  });
+});
+
+app.listen(3001, () => console.log('LISTENING ON PORT 成功'));

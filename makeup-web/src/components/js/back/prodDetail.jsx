@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 //import { Link } from "react-router-dom";
 
 class ProdDetail extends Component {
-<<<<<<< HEAD
   constructor(prop) {
     super(prop);
     this.state = {
@@ -122,128 +121,12 @@ class ProdDetail extends Component {
                   type="text"
                   className="form-control"
                   aria-describedby="productNameHelpBlock"
+                  onChange={(event) => {
+                    return event.target.value;
+                  }}
                 />
 
                 {/*<span id="productNameHelpBlock" className="form-text text-muted">
-=======
-	constructor(prop) {
-		super(prop);
-		this.state = {
-			data: null,
-		};
-
-		this.imgPath = new IMGPath();
-		this.ajax = new Ajax();
-		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
-	}
-
-	render() {
-		return (
-			//{/* prodCopyUpdate內容 */}
-			<div className="col my-content">
-				<form className="p-3">
-					<input type="hidden" name="#" defaultValue="prodSearchList" />
-
-					<div className="pt-3 form-head ">
-						<div className="pt-3">
-							<h2 className="pt-3 pb-3 text-center">
-								<i className="fa fa-table" />
-								商品詳情 / 商品修改
-							</h2>
-
-							<hr />
-
-							<div className="input-group mb-3 d-flex justify-content-center">
-								<div className="mb-3 mx-3">
-									<Link to="/backend/prod" className="gray-Link my-button">
-										回上一頁
-									</Link>
-								</div>
-
-								<div className="mb-3 mx-3">
-									<button name="lastPege" type="submit" className="gray-Link my-button">
-										確認送出
-									</button>
-								</div>
-
-								<div className="mb-3 mx-3">
-									<span onClick={console.log()} className="gray-Link my-button">
-										修改
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className="form-body p-3 mb-5">
-						<div className="form-group row ">
-							<label htmlFor="kindA" className="col-2 col-form-label">
-								分類選擇
-							</label>
-
-							<div className="col-5">
-								<span>大分類項：</span>
-
-								<p>天然底妝</p>
-
-								<select
-									defaultValue={"天然底妝"}
-									onChange={console.log("ok")}
-									id="kindA"
-									name="kindA"
-									className="custom-select"
-									aria-describedby="kindAHelpBlock"
-									hidden
-								>
-									<option value={"天然底妝"}>天然底妝</option>
-									<option value={"duck"}>Duck</option>
-									<option value={"fish"}>Fish</option>
-								</select>
-
-								<span id="kindAHelpBlock" className="form-text text-muted">
-									請先選擇大分類小分類的內容才會出現
-								</span>
-							</div>
-
-							<div className="col-5">
-								<span>小分類項：</span>
-
-								<p>粉底｜BB霜｜蜜粉</p>
-
-								<select
-									defaultValue={"粉底｜BB霜｜蜜粉"}
-									onChange={console.log("ok")}
-									id="kindB"
-									name="kindB"
-									className="custom-select"
-									hidden
-								>
-									<option value={"粉底｜BB霜｜蜜粉"}>粉底｜BB霜｜蜜粉</option>
-									<option value={"duck"}>Duck</option>
-									<option value={"fish"}>Fish</option>
-								</select>
-							</div>
-						</div>
-
-						<div className="form-group row">
-							<label htmlFor="productName" className="col-2 col-form-label">
-								品名
-							</label>
-
-							<div className="col-10">
-								<input
-									id="productName"
-									name="productName"
-									type="text"
-									className="form-control"
-									aria-describedby="productNameHelpBlock"
-									onChange={event => {
-										return event.target.value;
-									}}
-								/>
-
-								{/*<span id="productNameHelpBlock" className="form-text text-muted">
->>>>>>> 3cbe59edd050a90eaf008d8d35b19dbd151f2bdd
 									請完整填寫
 								</span>*/}
               </div>
