@@ -16,7 +16,7 @@ class MemberCoin extends Component {
 		  "post",
 		  `/membercoin/`,
 		  this.u,
-		  { nickname: JSON.parse(sessionStorage.getItem("member")).nickname }
+		  { cId: JSON.parse(sessionStorage.getItem("member")).customer_id }
 		);
 		// console.log(JSON.parse(sessionStorage.getItem("member")));
 	  }

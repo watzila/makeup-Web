@@ -155,7 +155,7 @@ app.get("/p/:kind", function (request, response) {
 	let sql = `SELECT p.*,productName, c.unitPrice,c.skinType,c.specification,c.detail 
     FROM product as p,category as c 
     where product_id=${request.query.pid} && p.category_id=c.category_id`;
-
+	
 	conn.query(sql, function (err, rows) {
 		if (err) {
 			console.log(JSON.stringify(err));
@@ -297,18 +297,10 @@ app.post("/updateQty", function (req, res) {
 //會員
 app.post("/member/:nickname", function (request, response) {
 	let sql = `select * 
-    from customer as customer
-    inner join orderdetail as o
-    on customer.customer_id = o.customer_id
-
-    inner join favorite as favo
-    on customer.customer_id = favo.customer_id
-
-    inner join coin as coin
-    on customer.customer_id = coin.customer_id
-    where customer.customer_id=${request.body.cId}
-    group by customer.customer_id`;
+	from customer
+   where customer_id=${request.body.cId}`;
 	conn.query(sql, function (err, rows) {
+		// console.log(rows)
 		if (err) return;
 		rows[0].birth_date = moment(rows[0].birth_date).format("YYYY-MM-DD");
 		response.send(rows);
@@ -381,23 +373,16 @@ app.post("/changePassword", function (request, response) {
 
 // 購買清單
 app.post("/memberbuy/", function (request, response) {
-	let sql = `SELECT * FROM 
-    cart as c
-    inner JOIN  orderdetail AS o 
-    ON o.order_id = c.order_id 
-    
-    inner JOIN product as p
-    ON c.product_id = p.product_id
-    
-    INNER JOIN category as cate
-    on cate.category_id = p.category_id
-    
-    INNER JOIN productimg AS pdimg
-      ON p.product_id = productImg_id
-    
-    where o.customer_id= ${request.body.cId} 
-    `;
-	conn.query(sql, function (err, rows) {
+	let sqlA = `SELECT * from orders as o
+	inner join product as p 
+	on o.product_id = p.product_id
+	
+	INNER JOIN category as cate
+	on cate.category_id = p.category_id
+	
+	WHERE o.customer_id = ${request.body.cId};`;
+	
+	conn.query(sqlA, function (err, rows) {
 		if (err) return;
 
 		// console.log(rows.length)
@@ -412,7 +397,7 @@ app.post("/memberbuy/", function (request, response) {
 
 // 收藏
 app.post("/memberfavorite/", function (request, response) {
-	let sql = `select * 
+	let sql = `select p.*,cat.* 
     from customer as customer
     inner join favorite as f
     on f.customer_id = customer.customer_id
@@ -423,9 +408,6 @@ app.post("/memberfavorite/", function (request, response) {
     inner join category as cat
     on cat.category_id = p.category_id
 
-    inner join cart as cart
-    on customer.customer_id = cart.customer_id
-
     where customer.customer_id=${request.body.cId}
     GROUP BY f.favorite_id`;
 
@@ -434,14 +416,29 @@ app.post("/memberfavorite/", function (request, response) {
 		if (err) return;
 
 		// console.log(rows.length)
-		if (rows.length == 0) {
-			response.send([{ info: "error" }]);
-		} else {
+		if (rows.length > 0) {
 			// console.log(rows)
 			response.send(rows);
 		}
 	});
 });
+app.post("/deletefavo", function (request, response) {
+	let sql = `
+	delete
+        from favorite
+        where customer_id=${request.body.cId} && product_id=${request.body.pId}`;
+	conn.query(sql, function (err, rows) {
+		// console.log(rows)
+		if (err) return;
+
+	});
+});
+
+
+
+
+
+
 
 // 星幣賺取
 app.post("/membercoin/", function (request, response) {
@@ -450,7 +447,7 @@ app.post("/membercoin/", function (request, response) {
     inner join coin as c
     on c.customer_id = customer.customer_id
 
-    where nickname="${request.body.nickname}"
+    where c.customer_id="${request.body.cId}"
     GROUP BY c.coin_id`;
 
 	conn.query(sql, function (err, rows) {
@@ -483,7 +480,7 @@ app.get("/backend/orderlist", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		console.log(rows);
+		// console.log(rows);
 		response.send(rows);
 	});
 });

@@ -5,14 +5,15 @@ class CreateCard {
   create(count, element, data) {
     let arr = new Array(count).fill(undefined);
 
-    let cards = arr.map((item, index) => {
-      let newCard = React.createElement(element, { key: index, pID: index + 1, data: (data != null) ? data[index] : null });
-      return newCard;
-    });
+    if (count) {
+      let cards = arr.map((item, index) => {
+        let newCard = React.createElement(element, { key: index, pID: index + 1, data: (data != null) ? data[index] : null });
+        return newCard;
+      });
+      // console.log(count);
 
-    // console.log(count);
-
-    return cards;
+      return cards;
+    }
   }
 }
 
