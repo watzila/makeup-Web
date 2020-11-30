@@ -35,14 +35,6 @@ class BackOrderList extends Component {
             break;
           } else {
             //console.log(i, j);
-            // if (data[i].total == null) {
-            data[i].total = data[i].grandTotal;
-            //console.log(data[i].total);
-            // } else {
-            //   data[i].total += data[j].grandTotal;
-            //   //console.log(data[i].total);
-            // }
-
             data[i].quantity += data[j].quantity;
           }
         }
