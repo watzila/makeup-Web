@@ -15,6 +15,10 @@ class Member extends Component {
 		this.state = {
 			classes: "action",
 		};
+
+		if (!sessionStorage.getItem("member")) {
+			window.location.href = "http://localhost:3000/login";
+		}
 	}
 
 	click(className) {

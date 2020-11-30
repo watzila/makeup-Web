@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 //import { Link } from "react-router-dom";
 
 class ProdDetail extends Component {
-	constructor(prop) {
-		super(prop);
+	constructor(props) {
+		super(props);
 		this.state = {
 			data: null,
 		};
@@ -15,7 +15,8 @@ class ProdDetail extends Component {
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
 		this.ajax.startListener("get", `/p/後台?pid=${this.props.match.params.pid}`, this.u);
-		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
+
+		//console.log(props);
 	}
 
 	u = data => {
@@ -69,7 +70,7 @@ class ProdDetail extends Component {
 			//{/* prodCopyUpdate內容 */}
 			<div className="col my-content">
 				<form method="post" action="http://localhost:3001/prodedit" className="p-3">
-					{/*<input type="hidden" name="#" defaultValue="prodSearchList" />*/}
+					<input type="hidden" name="pid" defaultValue={this.props.match.params.pid} />
 
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
@@ -398,11 +399,12 @@ class ProdDetail extends Component {
 							<div className="col-10">
 								<div className="custom-control custom-radio custom-control-inline">
 									<input
-										name="productStatu"
+										name="productStatus"
 										id="productStatu_0"
 										type="radio"
 										className="custom-control-input"
 										defaultChecked
+										defaultValue={1}
 										onChange={e => {
 											return e.target.checked;
 										}}
@@ -416,10 +418,11 @@ class ProdDetail extends Component {
 
 								<div className="custom-control custom-radio custom-control-inline">
 									<input
-										name="productStatu"
+										name="productStatus"
 										id="productStatu_1"
 										type="radio"
 										className="custom-control-input"
+										defaultValue={0}
 										onChange={e => {
 											return e.target.checked;
 										}}

@@ -24,7 +24,6 @@ const conn = mysql.createConnection({
 	user: "root",
 	password: "",
 	database: "customer",
-	multipleStatements: true,
 });
 
 //連線
@@ -60,7 +59,7 @@ app.get("/", function (request, response) {
 
 //登入
 app.post("/login", function (request, response) {
-	let sql = `select customer_id, nickname 
+	let sql = `select customer_id, nickname, customerStatus
     from customer
     where account="${request.body.account}"`;
 	// && password="${request.body.password}"
@@ -515,19 +514,17 @@ app.post("/prodedit/", function (request, response) {
 	  p.updateDate  = "${request.body.updateDate}",
 	  c.unitPrice = ${request.body.unitPrice},
 	  c.skinType = "${request.body.skinType}",
-	  c.detail = "${request.body.detail}",
-	  c.specification = "${request.body.specification}"
-	WHERE p.product_id = 48
+	  c.detail = "${request.body.detail}"
+	WHERE p.product_id = ${request.body.pid}
 	&& p.category_id=c.category_id`;
 	conn.query(sql, function (err, rows) {
 		if (err) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		response.send(rows);
+		let url = "http://localhost:3000/backend/prod/detail/" + request.body.pid;
+		response.redirect(url);
 	});
-
-	//console.log(request.body);
 });
 
 //後台訂單詳情
@@ -556,7 +553,7 @@ app.post("/backend/orderlist", function (request, response) {
 	});
 });
 
-//後臺過濾
+//後臺過濾(訂單)
 app.post("/backend/search", function (request, response) {
 	let which;
 
@@ -606,6 +603,44 @@ app.post("/backend/search", function (request, response) {
 	});
 });
 
+//後臺過濾(商品)
+app.post("/backend/searchprod", function (request, response) {
+	let which;
+
+	switch (request.body.kind) {
+		case `kindB`:
+		case `productName`:
+		case `productColor`:
+		case `putDate`:
+		case `productStatus`:
+		case `updateDate`:
+			which = `p`;
+			break;
+
+		case `unitPrice`:
+			which = `c`;
+			break;
+	}
+
+	let sql = `SELECT p.*, c.unitPrice
+	FROM product as p
+	INNER JOIN category AS c
+	ON c.category_id = p.category_id
+
+	WHERE ${which}.${request.body.kind} = "${request.body.value}"`;
+
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		//console.log(rows);
+		response.send(rows);
+	});
+
+	//console.log(request.body);
+});
+
 //後臺商品清單
 //app.get("/backend/productlist", function (request, response) {
 //	let sql = `SELECT *,unitPrice
@@ -625,25 +660,42 @@ app.post("/backend/search", function (request, response) {
 // 後台商品新增
 app.post("/backend/prod/new", function (request, response) {
 	let sqlA = `
-	INSERT INTO 
-	product
-	(productName,productColor, putDate,kindA,kindB)
-	VALUES
-	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}");`;
-	let sqlB = `
-	INSERT INTO 
-	category 
+	INSERT INTO
+	category
 	(unitPrice, detail)
-	VALUES 
-  (${request.body.unitPrice},"${request.body.detail}");`;
+	VALUES
+	(${request.body.unitPrice},"${request.body.detail}");`;
 
-	conn.query(sqlA + sqlB, function (err, rows) {
+	let sqlB = `
+	select category_id
+	from category
+	order by category_id desc
+	limit 1`;
+
+	conn.query(sqlA, function (err) {
 		if (err) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		response.redirect("http://localhost:3000/backend/prod/new");
+
+		conn.query(sqlB, function (err, rows) {
+			let sql = `
+	INSERT INTO
+	product
+	(productName,productColor, putDate,kindA,kindB,category_id,productStatus)
+	VALUES
+	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}",${rows[0].category_id},${request.body.productStatus});`;
+
+			conn.query(sql, function (err) {
+				if (err) {
+					console.log(JSON.stringify(err));
+					return;
+				}
+				response.redirect("http://localhost:3000/backend/prod/new");
+			});
+		});
 	});
+	//console.log(request.body);
 });
 
 app.listen(3001, () => console.log("LISTENING ON PORT 成功"));

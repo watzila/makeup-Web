@@ -54,7 +54,7 @@ class ProdPutNew extends Component {
 								</div>
 
 								<div className="mb-3 mx-3">
-									<button name="addOK" type="submit" className="gray-Link my-button">
+									<button type="submit" className="gray-Link my-button">
 										確認送出
 									</button>
 								</div>
@@ -79,6 +79,7 @@ class ProdPutNew extends Component {
 									name="kindA"
 									className="custom-select"
 									aria-describedby="kindAHelpBlock"
+									defaultValue={"底妝"}
 									onChange={e => {
 										return e.target.value;
 									}}
@@ -100,6 +101,7 @@ class ProdPutNew extends Component {
 									id="kindB"
 									name="kindB"
 									className="custom-select"
+									defaultValue={"粉底｜BB霜｜蜜粉"}
 									onChange={e => {
 										return e.target.value;
 									}}
@@ -123,6 +125,9 @@ class ProdPutNew extends Component {
 									type="text"
 									className="form-control"
 									aria-describedby="productNameHelpBlock"
+									onChange={e => {
+										return e.target.value;
+									}}
 								/>
 
 								{/*<span id="productNameHelpBlock" className="form-text text-muted">
@@ -137,7 +142,7 @@ class ProdPutNew extends Component {
 							<div className="col-10">
 								<input
 									name="productColor"
-									id="productColor_0"
+									id="productColor"
 									type="text"
 									className="form-control"
 									onChange={e => {
@@ -183,7 +188,7 @@ class ProdPutNew extends Component {
 												<i className="fa fa-arrow-circle-up" />
 											</div>
 										</div>
-										<input id="img1" name="img1[]" type="file" className="form-control" multiple />
+										<input id="img" name="img[]" type="file" className="form-control" multiple />
 									</div>
 								</div>
 							</div>
@@ -216,7 +221,7 @@ class ProdPutNew extends Component {
 								<div className="custom-control custom-checkbox custom-control-inline">
 									<input
 										name="shippingStyle_id[]"
-										id="shippingStyle_id_0"
+										id="shippingStyle_id1"
 										type="checkbox"
 										className="custom-control-input"
 										defaultValue="storePickupOn7-11"
@@ -229,7 +234,7 @@ class ProdPutNew extends Component {
 								<div className="custom-control custom-checkbox custom-control-inline">
 									<input
 										name="shippingStyle_id"
-										id="shippingStyle_id_1"
+										id="shippingStyle_id2"
 										type="checkbox"
 										className="custom-control-input"
 										defaultValue="toHome"
@@ -266,7 +271,7 @@ class ProdPutNew extends Component {
 											<i className="fa fa-calendar" />
 										</div>
 									</div>
-									<input id="putDate" name="putDate" type="text" className="form-control" />
+									<input id="putDate" name="putDate" type="date" className="form-control" />
 								</div>
 							</div>
 						</div>
@@ -299,11 +304,15 @@ class ProdPutNew extends Component {
 							<div className="col-10">
 								<div className="custom-control custom-radio custom-control-inline">
 									<input
-										name="productStatu"
+										name="productStatus"
 										id="productStatu1"
 										type="radio"
 										className="custom-control-input"
 										defaultChecked
+										defaultValue={1}
+										onChange={e => {
+											return e.target.checked;
+										}}
 									/>
 									<label htmlFor="productStatu1" className="custom-control-label">
 										上架
@@ -311,7 +320,16 @@ class ProdPutNew extends Component {
 								</div>
 
 								<div className="custom-control custom-radio custom-control-inline">
-									<input name="productStatu2" type="radio" className="custom-control-input" />
+									<input
+										name="productStatus"
+										id="productStatu2"
+										type="radio"
+										className="custom-control-input"
+										defaultValue={0}
+										onChange={e => {
+											return e.target.checked;
+										}}
+									/>
 									<label htmlFor="productStatu2" className="custom-control-label">
 										下架
 									</label>

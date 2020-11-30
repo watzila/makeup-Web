@@ -81,6 +81,14 @@ class ProdList extends Component {
 		return pageNumber;
 	};
 
+	search = (k, v) => {
+		let kind = document.getElementById(k).value;
+		let value = document.getElementById(v).value;
+
+		this.ajax.startListener("post", "/backend/searchprod", this.u, { kind: kind, value: value });
+		console.log(kind, value);
+	};
+
 	render() {
 		return (
 			//{/* ProdList內容 */}
@@ -138,15 +146,15 @@ class ProdList extends Component {
 											onChange={e => {
 												return e.target.value;
 											}}
-											id="inputGroupSelect"
+											id="kindSelect"
 										>
-											<option value={1}>分類項</option>
-											<option value={2}>品名</option>
-											<option value={4}>顏色</option>
-											<option value={5}>單價</option>
-											<option value={6}>上架日期</option>
-											<option value={7}>修改日期</option>
-											<option value={8}>商品狀態</option>
+											<option value={`kindB`}>分類項</option>
+											<option value={`productName`}>品名</option>
+											<option value={`productColor`}>顏色</option>
+											<option value={`unitPrice`}>單價</option>
+											<option value={`putDate`}>上架日期</option>
+											<option value={`updateDate`}>修改日期</option>
+											<option value={`productStatus`}>商品狀態</option>
 										</select>
 
 										<label
@@ -160,9 +168,19 @@ class ProdList extends Component {
 											type="search"
 											name="orderSearch"
 											id="productSearch"
+											onChange={event => {
+												return event.target.value;
+											}}
 										/>
 
-										<button className="my-button col-auto ml-2">送出</button>
+										<button
+											className="my-button col-auto ml-2"
+											onClick={() => {
+												this.search("kindSelect", "productSearch");
+											}}
+										>
+											送出
+										</button>
 									</div>
 								</div>
 
