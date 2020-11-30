@@ -270,7 +270,7 @@ class CartList extends Component {
 
   //訂單編號
   orderId = () => {
-    sessionStorage.setItem('order', 6);
+    // sessionStorage.setItem('order', 6);
   };
 
   render() {
@@ -508,11 +508,7 @@ class CartList extends Component {
                     </p>
                   </div>
                   <div className="divCheckout">
-                    <Link
-                      to="/order"
-                      className="btnCheckout"
-                      onClick={this.orderId}
-                    >
+                    <Link to="/order" className="btnCheckout">
                       送出＆結帳
                     </Link>
                   </div>

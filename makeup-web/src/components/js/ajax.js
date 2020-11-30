@@ -18,31 +18,31 @@ class Ajax {
   //}
 
   startListener(method, url, u, require = {}) {
-    if (method === "get") {
-      fetch('http://localhost:3001' + url,
-        {
-          method: "get",
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-          },
-        }).then(function (response) {
+    if (method === 'get') {
+      fetch('http://localhost:3001' + url, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        },
+      })
+        .then(function (response) {
           //處理 response
           return response.json();
         })
         .then(function (data) {
           u(data);
-          //console.log(data);
+          // console.log(data);
         });
     } else {
       // console.log(JSON.stringify(require))
-      fetch('http://localhost:3001' + url,
-        {
-          method: "post",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(require)
-        }).then(function (response) {
+      fetch('http://localhost:3001' + url, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(require),
+      })
+        .then(function (response) {
           //處理 response
           return response.json();
         })

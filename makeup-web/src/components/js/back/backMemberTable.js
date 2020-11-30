@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import IMGPath from "../imgPath"; //引入圖片
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import IMGPath from '../imgPath'; //引入圖片
+import { Link } from 'react-router-dom';
 
-class BackProdTable extends Component {
+class BackMemberTable extends Component {
   constructor() {
     super();
 
@@ -10,35 +10,36 @@ class BackProdTable extends Component {
   }
 
   render() {
+    // console.log(this.props.data);
     return (
       <tr>
-        <th scope="row">1</th>
-        <td>{/*<img src="img/prod/A0000001.png" alt="" />*/}</td>
-        {/*<td>A0000001</td>*/}
-        <td>粉底｜BB霜｜蜜粉</td>
-        <td>保濕礦物粉凝霜</td>
-        <td>CHARMEUSE #N20</td>
-        <td>960</td>
-        <td>2020/11/11</td>
-        <td>2020/11/12</td>
-        <td>上架</td>
+        <th scope="row">{this.props.pID}</th>
+        <td>{this.props.data != null ? this.props.data.customer_id : ''}</td>
+        <td>{this.props.data != null ? this.props.data.account : ''}</td>
+        <td>{this.props.data != null ? this.props.data.customerName : ''}</td>
+        <td>{this.props.data != null ? this.props.data.cellPhone : ''}</td>
+        <td>{this.props.data != null ? this.props.data.nickname : ''}</td>
+        <td>{this.props.data != null ? this.props.data.gender : ''}</td>
+        <td>{this.props.data != null ? this.props.data.birth_date : ''}</td>
         <td>
-          <Link to="/backend/prod/detail" className=" my-button mb-2">
-            詳情
-					</Link>
-          <a name="prodCopyUpdate" type="submit" className=" my-button mb-2">
-            複製
-					</a>
-          <a name="offShelf" type="submit" className=" my-button mb-2">
-            下架
-					</a>
-          {/*<a name="prodDtail" type="submit" className=" my-button mb-2">
-            詳情
-										</a>*/}
+          <Link
+            to={{
+              pathname: `/backend/${
+                this.props.data != null ? this.props.data.customerName : ''
+              }/memberdetail`,
+              state: {
+                pId: this.props.data != null ? this.props.data.customer_id : '',
+              },
+            }}
+            className="my-button"
+          >
+            檢視
+          </Link>
         </td>
+        <td>{this.props.data != null ? this.props.data.customerStatus : ''}</td>
       </tr>
     );
   }
 }
 
-export default BackProdTable;
+export default BackMemberTable;
