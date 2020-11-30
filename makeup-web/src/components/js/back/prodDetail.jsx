@@ -23,7 +23,7 @@ class ProdDetail extends Component {
 		//console.log(data);
 	};
 
-	prodEdit = e => {
+	prodEditOK = e => {
 		let editProdData = {
 			productName: document.querySelector("#productName").value,
 			unitPrice: document.querySelector("#unitPrice").value,
@@ -42,6 +42,7 @@ class ProdDetail extends Component {
 		let text = document.getElementsByClassName("canEdit");
 		let select = document.getElementsByTagName("select");
 		let input = document.getElementsByTagName("input");
+		let radio = document.querySelectorAll("input[type='radio']");
 
 		for (let ele of text) {
 			ele.hidden = "hidden";
@@ -55,15 +56,20 @@ class ProdDetail extends Component {
 			ele.removeAttribute("hidden");
 		}
 
+		for (let ele of radio) {
+			ele.disabled = false;
+		}
+
 		document.getElementsByTagName("textarea")[0].removeAttribute("hidden");
+		document.querySelector("button[type='submit']").disabled = false;
 	};
 
 	render() {
 		return (
 			//{/* prodCopyUpdate內容 */}
 			<div className="col my-content">
-				<div className="p-3">
-					<input type="hidden" name="#" defaultValue="prodSearchList" />
+				<form method="post" action="http://localhost:3001/prodedit" className="p-3">
+					{/*<input type="hidden" name="#" defaultValue="prodSearchList" />*/}
 
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
@@ -83,10 +89,10 @@ class ProdDetail extends Component {
 
 								<div className="mb-3 mx-3">
 									<button
-										onClick={this.prodEdit}
-										name="lastPege"
+										//onClick={this.prodEditOK}
 										type="submit"
 										className="gray-Link my-button"
+										disabled
 									>
 										確認送出
 									</button>
@@ -113,7 +119,7 @@ class ProdDetail extends Component {
 								<p className="canEdit">{this.state.data == null ? "" : this.state.data[0].kindA}</p>
 
 								<select
-									value={this.state.data == null ? "" : this.state.data[0].kindA}
+									defaultValue={this.state.data == null ? "" : this.state.data[0].kindA}
 									onChange={e => {
 										return e.target.value;
 									}}
@@ -121,7 +127,7 @@ class ProdDetail extends Component {
 									name="kindA"
 									className="custom-select"
 									aria-describedby="kindAHelpBlock"
-									//hidden
+									hidden
 								>
 									<option value={"底妝"}>底妝</option>
 									<option value={"唇彩"}>唇彩</option>
@@ -139,14 +145,14 @@ class ProdDetail extends Component {
 								<p className="canEdit">{this.state.data == null ? "" : this.state.data[0].kindB}</p>
 
 								<select
-									value={this.state.data == null ? "" : this.state.data[0].kindB}
+									defaultValue={this.state.data == null ? "" : this.state.data[0].kindB}
 									onChange={e => {
 										return e.target.value;
 									}}
 									id="kindB"
 									name="kindB"
 									className="custom-select"
-									//hidden
+									hidden
 								>
 									<option value={"粉餅"}>粉餅</option>
 									<option value={"蜜粉"}>蜜粉</option>
@@ -252,13 +258,7 @@ class ProdDetail extends Component {
 											</div>
 										</div>
 
-										<input
-											id="img1"
-											name="img1"
-											placeholder="圖片1"
-											type="file"
-											className="form-control"
-										/>
+										<input id="img1" name="img[]" type="file" className="form-control" multiple />
 									</div>
 								</div>
 							</div>
@@ -358,7 +358,7 @@ class ProdDetail extends Component {
 										className="form-control"
 										defaultValue={this.state.data == null ? "" : this.state.data[0].putDate}
 										onChange={event => {
-											console.log(event.target.value);
+											return event.target.value;
 										}}
 									/>
 								</div>
@@ -386,7 +386,7 @@ class ProdDetail extends Component {
 										disabled
 										defaultValue={this.state.data == null ? "" : this.state.data[0].updateDate}
 										onChange={event => {
-											console.log(event.target.value);
+											return event.target.value;
 										}}
 									/>
 								</div>
@@ -403,6 +403,10 @@ class ProdDetail extends Component {
 										type="radio"
 										className="custom-control-input"
 										defaultChecked
+										onChange={e => {
+											return e.target.checked;
+										}}
+										disabled
 									/>
 
 									<label htmlFor="productStatu_0" className="custom-control-label">
@@ -416,6 +420,10 @@ class ProdDetail extends Component {
 										id="productStatu_1"
 										type="radio"
 										className="custom-control-input"
+										onChange={e => {
+											return e.target.checked;
+										}}
+										disabled
 									/>
 
 									<label htmlFor="productStatu_1" className="custom-control-label">
@@ -439,7 +447,7 @@ class ProdDetail extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		);
 	}

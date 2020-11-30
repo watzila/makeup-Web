@@ -32,17 +32,9 @@ class BackOrderList extends Component {
 				if (data[i].order_id === data[j].order_id) {
 					if (i > j) {
 						//console.log(i, j);
-						continue;
+						break;
 					} else {
 						//console.log(i, j);
-						if (data[i].total == null) {
-							data[i].total = data[i].grandTotal + data[j].grandTotal;
-							//console.log(data[i].total);
-						} else {
-							data[i].total += data[j].grandTotal;
-							//console.log(data[i].total);
-						}
-
 						data[i].quantity += data[j].quantity;
 					}
 				}
@@ -118,7 +110,7 @@ class BackOrderList extends Component {
 
 								<div className="mb-2 ml-auto form-row align-items-center">
 									<select
-										value={"order_id"}
+										defaultValue={"order_id"}
 										onChange={event => {
 											return event.target.value;
 										}}

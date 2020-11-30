@@ -117,7 +117,7 @@ class ProdList extends Component {
 									<div className="mr-auto">
 										顯示
 										<select
-											value={1}
+											defaultValue={1}
 											onChange={e => {
 												return e.target.value;
 											}}
@@ -134,7 +134,7 @@ class ProdList extends Component {
 
 									<div className="mb-2 ml-auto form-row align-items-center">
 										<select
-											value={1}
+											defaultValue={1}
 											onChange={e => {
 												return e.target.value;
 											}}

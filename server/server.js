@@ -510,25 +510,24 @@ app.post("/prodedit/", function (request, response) {
 	let sql = `
 	UPDATE product p, category c
 	SET p.productName = "${request.body.productName}",
-    p.productColor = "${request.body.productColor}",
-    p.putDate = "${request.body.putDate}",
-    p.updateDate  = "${request.body.updateDate}",
-    c.unitPrice = ${request.body.unitPrice},
-    c.skinType = "${request.body.skinType}",
-    c.detail = "${request.body.detail}",
-    c.specification = "${request.body.specification}"
-    
-	WHERE p.product_id = 48 
+	  p.productColor = "${request.body.productColor}",
+	  p.putDate = "${request.body.putDate}",
+	  p.updateDate  = "${request.body.updateDate}",
+	  c.unitPrice = ${request.body.unitPrice},
+	  c.skinType = "${request.body.skinType}",
+	  c.detail = "${request.body.detail}",
+	  c.specification = "${request.body.specification}"
+	WHERE p.product_id = 48
 	&& p.category_id=c.category_id`;
-
 	conn.query(sql, function (err, rows) {
 		if (err) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		//console.log(rows)
 		response.send(rows);
 	});
+
+	//console.log(request.body);
 });
 
 //後台訂單詳情

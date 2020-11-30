@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-11-29 14:49:06
+-- 產生時間： 2020-11-30 10:30:58
 -- 伺服器版本： 10.4.14-MariaDB
--- PHP 版本： 7.4.11
+-- PHP 版本： 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,12 +43,11 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMakeColor`, `cusMakeImg`, `orderStatus`, `order_id`) VALUES
+(0, 1, 6, 2, '', '', '待結帳', 0),
 (1, 2, 1, 2, ' 03 IN THE ALTOGETHER', '', '待結帳', 0),
-(3, 1, 3, 5, ' IN THE ALTOGETHER', '		', '待結帳', 0),
 (4, 3, 2, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 2),
 (5, 2, 5, 6, 'IN THE ALTOGETHER', 'img1', '待結帳', 3),
 (6, 4, 3, 2, 'IN THE ALTOGETHER', 'img1', '待結帳', 4),
-(7, 1, 3, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 5),
 (8, 2, 5, 8, 'IN THE ALTOGETHER', 'img1', '待結帳', 6),
 (9, 3, 4, 5, 'IN THE ALTOGETHER', 'img1', '待結帳', 7),
 (10, 6, 1, 3, 'IN THE ALTOGETHER', 'img1', '待結帳', 9),
@@ -76,10 +75,10 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`, `detail`) VALUES
 (1, 500, '	各種膚質	', '6.5g', '#一拍外乾內潤、保濕貼妝\r\n#給肌膚零粉感的細緻霧面妝感和持久的立體輪廓'),
-(2, 400, '	各種膚質	', '10.5g', '#一款3用的全能不暈妝柔焦粉餅\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油'),
+(2, 400, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油	'),
 (3, 500, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅。\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝。\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油。\"	'),
 (4, 500, '	各種膚質	', '	10.5g	', '#一款3用的全能不暈妝柔焦粉餅。\r\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝。\r\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油。\"	'),
-(5, 400, 'undefined', 'undefined', '#一款3用的全能不暈妝柔焦粉餅\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油'),
+(5, 600, '	各種膚質	', '	15g*2	', '#金奢霧光ｘ金牌遮瑕力\r\n#薄霧輕液態清爽質地ｘ獨家控油粉末再升級\r\n#金牌持妝力ｘ24H全天零暗沉\r\n#美得過分時髦 #金磚氣墊ｘ超Q彈密實霸氣黑氣墊粉撲\"	'),
 (6, 600, '	各種膚質	', '	15g*2	', '#金奢霧光ｘ金牌遮瑕力\r\n#薄霧輕液態清爽質地ｘ獨家控油粉末再升級\r\n#金牌持妝力ｘ24H全天零暗沉\r\n#美得過分時髦 #金磚氣墊ｘ超Q彈密實霸氣黑氣墊粉撲\"	'),
 (7, 600, '	各種膚質	', '	15g*2	', '#金奢霧光ｘ金牌遮瑕力\r\n#薄霧輕液態清爽質地ｘ獨家控油粉末再升級\r\n#金牌持妝力ｘ24H全天零暗沉\r\n#美得過分時髦 #金磚氣墊ｘ超Q彈密實霸氣黑氣墊粉撲\"	'),
 (8, 600, '	各種膚質	', '	15g*2	', '#水透光氣墊拍出韓妞鮮嫩度 #水透光圈肌\r\n#高保養植萃精華油成分，提亮服貼！\r\n#高保濕獨家花瓣狀親膚粉體，越拍越水越亮！\r\n#韓國氣墊教主！高顏值霓光紫蓋、粉Q彈氣墊粉撲、粉蕊閃電格紋設計\"	'),
@@ -121,9 +120,7 @@ INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`,
 (44, 450, '	中性.混合.油性	', '	6g	', '	\"#超高顯色度 柔軟光滑質地\r\n#一盤擁有粉霧、珍珠光、亮片三種妝效\r\n#客製化自己的眼妝！\"	'),
 (45, 230, '	乾性	', '	0.5g	', '	\"# 1.5mm超細眉筆種出一根根自然眉毛\r\n#簡易使用 完美勾勒眉型線條\r\n#獨特長效持色配方 一整天不掉色\"	'),
 (46, 230, '	乾性	', '	0.5g	', '	\"# 1.5mm超細眉筆種出一根根自然眉毛\r\n#簡易使用 完美勾勒眉型線條\r\n#獨特長效持色配方 一整天不掉色\"	'),
-(47, 230, '	乾性	', '	0.5g	', '	\"# 1.5mm超細眉筆種出一根根自然眉毛\r\n#簡易使用 完美勾勒眉型線條\r\n#獨特長效持色配方 一整天不掉色\"	'),
-(48, 400, 'undefined', 'undefined', '#一款3用的全能不暈妝柔焦粉餅\n#乾用、溼用、定妝，無論哪個步驟使用都不暈妝\n#乾用薄透柔焦、濕用貼膚透亮、定妝持久控油'),
-(73, 400, NULL, NULL, 'qweqweqweqwe');
+(47, 230, '	乾性	', '	0.5g	', '	\"# 1.5mm超細眉筆種出一根根自然眉毛\r\n#簡易使用 完美勾勒眉型線條\r\n#獨特長效持色配方 一整天不掉色\"	');
 
 -- --------------------------------------------------------
 
@@ -155,9 +152,9 @@ INSERT INTO `chat` (`chat_id`, `customer_id`, `others_id`, `chatDate`, `chatText
 --
 
 CREATE TABLE `coin` (
-  `coin_id` int(11) NOT NULL,
+  `coin_id` varchar(11) NOT NULL,
   `customer_id` varchar(11) NOT NULL,
-  `coinTitle` varchar(100) NOT NULL,
+  `coinTitle` varchar(20) NOT NULL,
   `coinDate` datetime NOT NULL,
   `coinUpdate` varchar(20) NOT NULL,
   `coinTotal` decimal(15,2) NOT NULL
@@ -168,10 +165,9 @@ CREATE TABLE `coin` (
 --
 
 INSERT INTO `coin` (`coin_id`, `customer_id`, `coinTitle`, `coinDate`, `coinUpdate`, `coinTotal`) VALUES
-(1, '1', '買商品獎勵', '2020-11-15 16:21:05', '+5', '5.00'),
-(2, '2', '活動獎勵', '2020-11-14 16:21:05', '+5', '5.00'),
-(3, '1', '消費', '2020-11-13 16:21:05', '-5', '5.00'),
-(4, '1', '活動獎勵', '2020-11-29 16:21:05', '+5', '5.00');
+('1', '1', '購買回饋', '2020-11-15 16:21:05', '+50', '5.00'),
+('2', '2', '活動獎勵', '2020-11-14 16:21:05', '+50', '5.00'),
+('3', '1', '購買商品', '2020-11-13 16:21:05', '-50', '5.00');
 
 -- --------------------------------------------------------
 
@@ -227,7 +223,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `customerName`, `email`, `account`, `password`, `cellPhone`, `gender`, `birth_date`, `postCode`, `city`, `address`, `district`, `nickname`, `headshot`, `subscribe`) VALUES
-(1, '小花花', 'aass@huanmail.com', 'a', 'P@ssw0rd', '0912123098', '女', '1995-10-04', '408', '台中市', '公益路二段51號', '南屯區', '花花', 'img1', 0),
+(1, '小花花', 'ggg', 'a', 'undefined', '', '女', '1995-10-04', '408', '台中市', '公益路二段51號', '南屯區', '花花', 'img1', 0),
 (2, '高威廉', 'bbaa@huanmail.com', 'bbaa@huanmail.com', 'P@ssw0rd', '0922123456', '男', '1999-11-15', '813', '高雄市', '博愛二路238號', '左營區', '威廉', 'img1', 0),
 (3, '', 'aabb@mail.com', 'aabb@mail.com', 'P@ssw0rd', '0918667880', '女', '1988-01-01', '265', '宜蘭縣', '和平路75號', '羅東鎮', '水仔', 'img1', 0),
 (4, '', 'qqwss@gmail.com', 'qqwss@gmail.com', 'poopoo', '(02)296606', '女', '1978-06-30', '220', '新北市', '民權路57號', '板橋區', '北北仔', 'img1', 0),
@@ -362,9 +358,7 @@ INSERT INTO `product` (`product_id`, `category_id`, `kindA`, `kindB`, `productNa
 (44, 5, '眼彩', '眼影', '4色眼彩盤', 'fair affair', '0000-00-00', '0000-00-00 00:00:00'),
 (45, 5, '眼彩', '眉筆', '雙頭眉筆', '自然棕', '0000-00-00', '0000-00-00 00:00:00'),
 (46, 5, '眼彩', '眉筆', '雙頭眉筆', '深棕色', '0000-00-00', '0000-00-00 00:00:00'),
-(47, 5, '眼彩', '眉筆', '雙頭眉筆', '灰棕色', '0000-00-00', '0000-00-00 00:00:00'),
-(48, 5, '眼彩', '眉筆', '無瑕粉餅2', '無', '2020-11-27', '2020-11-28 15:41:05'),
-(163, NULL, '天然底妝', '粉底｜BB霜｜蜜粉', 'asss', 'assss', '0000-00-00', '2020-11-29 21:28:50');
+(47, 5, '眼彩', '眉筆', '雙頭眉筆', '灰棕色', '0000-00-00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -536,19 +530,13 @@ ALTER TABLE `shipping`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `chat`
 --
 ALTER TABLE `chat`
   MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coin`
---
-ALTER TABLE `coin`
-  MODIFY `coin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `customer`
@@ -560,13 +548,13 @@ ALTER TABLE `customer`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

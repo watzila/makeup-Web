@@ -9,7 +9,7 @@ class BackOrderTable extends Component {
 				<td>{this.props.data != null ? this.props.data.orderDate : ""}</td>
 				<td>{this.props.data != null ? this.props.data.customerName : ""}</td>
 				<td>{this.props.data != null ? this.props.data.quantity : ""}</td>
-				<td>{this.props.data != null ? this.props.data.total : ""}</td>
+				<td>{this.props.data != null ? this.props.data.grandTotal : ""}</td>
 				{/*<td>
 					<a className="my-button">修改</a>
 				</td>*/}
