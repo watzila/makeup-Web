@@ -10,8 +10,8 @@ class Order extends Component {
     super();
 
     this.state = {
-      customerId: {
-        id: JSON.parse(sessionStorage.getItem('member')).customer_id,
+      orderId: {
+        id: sessionStorage.getItem('order'),
       },
       data: null,
     };
