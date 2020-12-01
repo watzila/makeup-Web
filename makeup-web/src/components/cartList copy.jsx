@@ -17,8 +17,7 @@ class CartList extends Component {
     this.state = {
       data: null,
 
-      deliverFee: null,
-      grandTotal: null,
+      deliverFee: 140,
 
       //以下內容載入頁面時 設定預設狀態隱藏
       myModal: {
@@ -204,9 +203,7 @@ class CartList extends Component {
 
   // 總金額計算（含運費）
   handleGrandTotalMoney = () => {
-    this.state.grandTotal = this.handleTotalMoney() + this.handleDeliverFee();
-
-    return this.state.grandTotal;
+    return this.handleTotalMoney() + this.handleDeliverFee();
   };
 
   // 是否符合免運資格
@@ -259,7 +256,7 @@ class CartList extends Component {
     } else {
       this.setState({ myAddressDetail: { display: 'none' } });
     }
-    // console.log(event.target.value);
+    console.log(event.target.value);
     return event.target.value;
   };
 
@@ -404,28 +401,8 @@ class CartList extends Component {
                   {/* 運送方式與付款方式 */}
                   <div className="shipAndPaymentCol">
                     <h1>購買資訊</h1>
-                    {/* 隱藏欄位傳值 */}
-                    <input
-                      name="customer_id"
-                      type="text"
-                      style={{ display: 'none' }}
-                      defaultValue={
-                        JSON.parse(sessionStorage.getItem('member')).customer_id
-                      }
-                    />
-                    <input
-                      name="grandTotal"
-                      type="text"
-                      style={{ display: 'none' }}
-                      id="grandTotalInput"
-                      value={this.state.grandTotal}
-                      onChange={(event) => {
-                        return event.target.value;
-                      }}
-                    />
                     <hr />
                     <select
-                      name="shippingStyle_id"
                       onChange={this.homeDeliveryInput}
                       defaultValue={'0'}
                       className="shippingSelect"
@@ -441,18 +418,16 @@ class CartList extends Component {
                       style={this.state.myAddressDetail}
                     >
                       <input
-                        name="shipping_city"
-                        className="inputAddress"
+                        className="inputAddress shipping_city"
                         type="text"
                         placeholder="縣市"
                         onChange={(e) => {
-                          console.log(e.target.value);
+                          // console.log(e.target.value);
                           return e.target.value;
                         }}
                       />
                       <input
-                        name="shipping_district"
-                        className="inputAddress "
+                        className="inputAddress shipping_district"
                         type="text"
                         placeholder="鄉鎮區"
                         onChange={(e) => {
@@ -461,8 +436,7 @@ class CartList extends Component {
                         }}
                       />
                       <input
-                        name="shipping_address"
-                        className="inputAddress "
+                        className="inputAddress shipping_address"
                         type="text"
                         placeholder="收件地址"
                         onChange={(e) => {
@@ -474,7 +448,6 @@ class CartList extends Component {
                       <p>全館 滿 $ 2,000 元 免運費</p>
                     </div>
                     <select
-                      name="payment_method"
                       defaultValue={'0'}
                       className="paymentSelect"
                       onChange={(e) => {
@@ -493,7 +466,6 @@ class CartList extends Component {
                     <h1>購買人資料</h1>
                     <hr />
                     <input
-                      name="customerName"
                       className="inputName"
                       type="text"
                       placeholder="請輸入購買人姓名"
@@ -502,7 +474,6 @@ class CartList extends Component {
                       }}
                     />
                     <input
-                      name="cellPhone"
                       className="inputPhone"
                       type="text"
                       placeholder="請輸入聯絡電話"
@@ -511,7 +482,6 @@ class CartList extends Component {
                       }}
                     />
                     <input
-                      name="email"
                       className="inputEmail"
                       type="email"
                       placeholder="請輸入電子郵箱"
@@ -547,7 +517,6 @@ class CartList extends Component {
                         style={this.state.myShippingDataDetail}
                       >
                         <input
-                          name="shipping_Name"
                           className="shippingName"
                           type="text"
                           placeholder="請輸入收件人姓名"
@@ -556,7 +525,6 @@ class CartList extends Component {
                           }}
                         />
                         <input
-                          name="shipping_cellPhone"
                           className="shippingPhone"
                           type="text"
                           placeholder="請輸入收件人聯絡電話"
@@ -568,13 +536,13 @@ class CartList extends Component {
                     </div>
 
                     <textarea
-                      name="orderComment"
+                      name=""
                       id=""
                       cols="30"
                       rows="3"
                       placeholder="請輸入備註事項(選填)"
                       onChange={(e) => {
-                        // console.log(e.target.value);
+                        console.log(e.target.value);
                         return e.target.value;
                       }}
                     ></textarea>
