@@ -14,6 +14,8 @@ class User extends Component {
 			phoneDisabled: true,
 			emailIsShow: true,
 			emailDisabled: true,
+			adressIsShow: true,
+			adressDisabled: true,
 		};
 		this.ajax = new Ajax();
 
@@ -53,6 +55,11 @@ class User extends Component {
 				this.setState({ emailIsShow: this.state.emailIsShow === false ? true : false });
 				this.setState({ emailDisabled: this.state.emailDisabled ? false : true });
 				break;
+			case "adress":
+				this.setState({ adressIsShow: this.state.adressIsShow === false ? true : false });
+				this.setState({ adressDisabled: this.state.adressDisabled ? false : true });
+				break;
+			
 			default:
 				break;
 		}
@@ -72,6 +79,10 @@ class User extends Component {
 	};
 	changeEmail = e => {
 		this.setState({ userEmail: e.target.value });
+	};
+
+	changeAdress = e => {
+		this.setState({ userAdress: e.target.value });
 	};
 
 	//更新 會員姓名 到資料庫
@@ -113,6 +124,18 @@ class User extends Component {
 			email: document.querySelector(".email").value,
 		};
 		this.ajax.startListener("post", "/emailEdit", this.u, emailData);
+	};
+	onBlurAdress = e => {
+		// 取消input邊框及disable
+		var dis = document.getElementById(e.target.id);
+		dis.disabled = "false";
+		dis.style.border = 0;
+
+		let emailData = {
+			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
+			email: document.querySelector(".adress").value,
+		};
+		this.ajax.startListener("post", "/adressEdit", this.u, emailData);
 	};
 
 	render() {
@@ -227,6 +250,27 @@ class User extends Component {
 						autoComplete="off"
 					/>
 					<button id="email" onClick={this.handleClick}>
+						編輯
+					</button>
+				</div>
+
+				<hr/>
+
+				<div>
+					<label htmlFor="adress">地址：</label>
+					<input
+						onBlur={this.onBlurAdress}
+						style={{ border: this.state.adressIsShow ? "0" : "2px black solid" }}
+						disabled={this.state.adressDisabled}
+						placeholder={this.state.data == null ? "" : this.state.data[0].city+'-'+this.state.data[0].district+'-'+this.state.data[0].address}
+						onChange={this.changeAdress}
+						type="text"
+						id="adress"
+						className="adress"
+						name="adress"
+						autoComplete="off"
+					/>
+					<button id="adress" onClick={this.handleClick}>
 						編輯
 					</button>
 				</div>

@@ -19,7 +19,7 @@ class Order extends Component {
     this.ajax = new Ajax();
     this.createCard = new CreateCard();
 
-    this.ajax.startListener('post', '/searchOrder', this.u, this.state.orderId);
+    this.ajax.startListener('post', '/searchOrder', this.u, {id: JSON.parse(sessionStorage.getItem("member")).customer_id });
 
     setTimeout(() => {
       this.init();

@@ -7,7 +7,7 @@ import MemberCoin from "./js/memberCoin";
 import MemberFavorite from "./js/memberFavorite";
 import OrderList from "./js/orderList";
 import "./css/member.css";
-import head from "./images/人頭.png";
+import head from "./images/avatar.jpg";
 
 class Member extends Component {
 	constructor() {
@@ -42,9 +42,9 @@ class Member extends Component {
 
 						<nav>
 							<div className="member">
-								<img src={head} width="35%" alt="人像" />
+								<img src={head} width="50%" alt="人像" />
 								<br />
-								<small>更新大頭貼</small>
+								{/* <small>更新大頭貼</small> */}
 
 								{/*<div>*/}
 								{/*<Link to="/member/edit">編輯個人檔案</Link>*/}
@@ -91,12 +91,12 @@ class Member extends Component {
 									</Link>
 								</li>
 
-								<li>
+								{/* <li>
 									<Link to="/membercoin/" className="facebook">
 										<i className="fa fa-usd"></i>
 										虛擬幣
 									</Link>
-								</li>
+								</li> */}
 
 								{/*<li>
 									<button

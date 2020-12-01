@@ -23,9 +23,23 @@ class MemberBuy extends Component {
   }
 
   u = (data) => {
+    let apple = {
+      onCheck: this.onCheck,
+    };
+    for (var i = 0; i < data.length; i++) {
+      Object.assign(data[i], apple);
+    }
     this.setState({ data: data });
-    // console.log(this.state.data.length);
+    // console.log(data);
   };
+
+  onCheck = (oId)=>{
+    console.log(oId);
+    this.ajax.startListener('post', '/searchOrder', this.u, {
+      id: JSON.parse(sessionStorage.getItem('member')).customer_id
+    });
+    window.location.href=`http://localhost:3000/order`;
+  }
 
   render() {
     return (
