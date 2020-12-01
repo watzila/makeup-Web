@@ -154,6 +154,7 @@
 	/*border: 1px solid;*/
 	border-radius: 10px;
 	overflow: hidden;
+	background-color: rgb(245, 245, 245);
 }
 
 .topSellCar .cardIMG img {
