@@ -1,27 +1,23 @@
 export class MyImgs {
 	pId = [
 		{
-			item1: "1_空瓶.png",
 			style1: "1_blue.png",
 			style2: "1_brown.png",
 			style3: "1_white.png",
 		},
 		{
-			item1: "2_空瓶.png",
 			style1: "2_bluegreen.png",
 			style2: "2_khaki.png",
 			style3: "2_white.png",
 		},
 		{
-			item1: "3_空瓶.png",
 			style1: "3_blue.png",
-			style2: "3_brown.png",
-			style3: "3_khaki.png",
+			style2: "3_red.png",
+			style3: "3_orange.png",
 		},
 		{
-			item1: "4_空瓶.png",
 			style1: "4_bluegreen.png",
-			style2: "4_pink.png",
+			style2: "4_brown.png",
 			style3: "4_sand.png",
 		},
 	];

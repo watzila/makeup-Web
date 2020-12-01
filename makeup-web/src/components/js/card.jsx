@@ -26,7 +26,7 @@ class Card extends Component {
 				<span
 					className="love"
 					onClick={event =>
-						this.props.data != null
+						this.props.data.addLove != null
 							? this.props.data.addLove(event, this.props.data.product_id)
 							: null
 					}
