@@ -333,7 +333,7 @@ app.post('/userEdit', function (request, response) {
   // set UnitPrice = UnitPrice * 1.05
   // where CategoryID = 1
   let sql = `update customer 
-     set customerName = "${request.body.username}"
+     set nickname = "${request.body.nickname}"
      where customer_id = ${request.body.cId}
      `;
   conn.query(sql, function (err, rows) {
@@ -366,7 +366,18 @@ app.post('/emailEdit', function (request, response) {
      `;
   conn.query(sql, function (err, rows) {
     if (err) return;
+    // console.log(rows)
+    // response.send(rows);
+  });
+});
 
+// 會員地址編輯
+app.post('/adressEdit', function (request, response) {
+  let sql = `update customer 
+    set city = "${request.body.city}"
+    where customer_id = ${request.body.cId} `;
+  conn.query(sql, function (err, rows) {
+    if (err) return;
     // console.log(rows)
     // response.send(rows);
   });
@@ -537,6 +548,7 @@ app.post('/prodedit/', function (request, response) {
 	  c.detail = "${request.body.detail}"
 	WHERE p.product_id = ${request.body.pid}
 	&& p.category_id=c.category_id`;
+<<<<<<< HEAD
   conn.query(sql, function (err, rows) {
     if (err) {
       console.log(JSON.stringify(err));
@@ -545,6 +557,16 @@ app.post('/prodedit/', function (request, response) {
     let url = 'http://localhost:3000/backend/prod/detail/' + request.body.pid;
     response.redirect(url);
   });
+=======
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		let url = "http://localhost:3000/backend/prod/detail/" + request.body.pid;
+		response.redirect(url);
+	});
+>>>>>>> 8484c8be3902bc3c387f08fdaa581f5f411af794
 });
 
 //後台訂單詳情

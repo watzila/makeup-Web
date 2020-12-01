@@ -156,11 +156,12 @@
 
 /* 會員購買清單-產品&單價 */
 .memberBuy {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+	cursor: pointer;
 }
 
 .memberBuy div:nth-of-type(1) {
