@@ -24,11 +24,11 @@ app.use(bodyParser.urlencoded());
 //連線mysql
 const conn = mysql.createConnection({
   host: '127.0.0.1',
-  port: '3306',
+  port: '8889',
   user: 'root',
-  password: '',
+  password: 'root',
   database: 'customer',
-  multipleStatements: true
+  multipleStatements: true,
 });
 
 //連線
@@ -41,24 +41,23 @@ conn.connect(function (err) {
 
 //首頁
 app.get('/', function (request, response) {
-  let sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice 
+  let sql;
+  if (request.query.card != '客製') {
+    sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA 
     FROM product as p,productimg as img,category as c
-    where kindA="${request.query.card2}" && product_id=img.productImg_id && p.category_id=c.category_id
-    LIMIT 8`;
-
-  let data = null;
+    where kindA="${request.query.card}" && product_id=img.productImg_id && p.category_id=c.category_id`;
+  } else {
+    sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA 
+    FROM product as p,productimg as img,category as c
+    where kindC="${request.query.card}" && product_id=img.productImg_id && p.category_id=c.category_id`;
+  }
 
   conn.query(sql, function (err, rows) {
     if (err) {
       console.log(JSON.stringify(err));
       return;
     }
-    if (!data) {
-      data = rows;
-    } else {
-      data.push(rows);
-    }
-    response.send(data);
+    response.send(rows);
   });
 });
 
@@ -97,9 +96,17 @@ app.post('/register', function (request, response) {
 
 //產品頁
 app.get('/p', function (request, response) {
-  let sql = `SELECT *,unitPrice 
+  var sql;
+
+  if (request.query.kind) {
+    sql = `SELECT *,unitPrice
+		FROM product as p,category as c
+		WHERE c.category_id=p.category_id && p.kindA="${request.query.kind}"`;
+  } else {
+    sql = `SELECT *,unitPrice 
     FROM product as p,category as c 
     WHERE c.category_id=p.category_id`;
+  }
 
   conn.query(sql, function (err, rows) {
     response.send(rows);
@@ -151,14 +158,9 @@ app.get('/addLove', function (request, response) {
 
 //產品詳細頁
 app.get('/p/:kind', function (request, response) {
-  //let sql = `SELECT p.*,productName,img_0, c.unitPrice,c.skinType,c.specification,c.detail
-  //  FROM product as p,productimg as img,category as c
-  //  where product_id=${request.query.pid} && product_id=img.productImg_id && p.category_id=c.category_id`;
-
-  //測試用
-  let sql = `SELECT p.*,productName, c.unitPrice,c.skinType,c.specification,c.detail 
-    FROM product as p,category as c 
-    where product_id=${request.query.pid} && p.category_id=c.category_id`;
+  let sql = `SELECT p.*,productName,img.*, c.unitPrice,c.skinType,c.specification,c.detail
+	  FROM product as p,productimg as img,category as c
+	  where product_id=${request.query.pid} && product_id=img.productImg_id && p.category_id=c.category_id`;
 
   conn.query(sql, function (err, rows) {
     if (err) {
@@ -192,10 +194,23 @@ WHERE cart.customer_id = ${request.query.cId}  `,
   );
 });
 
-//購買清單
+//訂單送出後 生成購買清單
 app.post('/searchOrder', function (request, response) {
-  // console.log(request.body.id);
-  let sql = `SELECT *
+  // console.log(request.body);
+
+  //先抓到該會員 最後一筆訂單
+  let sql1 = `SELECT order_id FROM orders  WHERE customer_id = ${request.body.id} order by order_id desc limit 1;`;
+
+  conn.query(sql1, function (err, rows1) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    // response.send(rows1);
+    // console.log(rows1);
+
+    // 再利用此筆訂單編號 合併表格生成購買清單
+    let sql2 = `SELECT *
     FROM orders AS o
     INNER JOIN orderdetail AS od
     ON o.order_id = od.order_id
@@ -209,15 +224,16 @@ app.post('/searchOrder', function (request, response) {
     ON cate.category_id = p.category_id
     INNER JOIN productimg AS pdimg
     ON p.product_id = productImg_id
-    WHERE o.customer_id = ${request.body.id}`;
+    WHERE o.order_id = "${rows1[0].order_id}"`;
 
-  conn.query(sql, function (err, rows) {
-    if (err) {
-      console.log(JSON.stringify(err));
-      return;
-    }
-    // console.log(rows)
-    response.send(rows);
+    conn.query(sql2, function (err, rows2) {
+      if (err) {
+        console.log(JSON.stringify(err));
+        return;
+      }
+      // console.log(rows2);
+      response.send(rows2);
+    });
   });
 });
 
@@ -250,8 +266,8 @@ app.post('/addCart', function (req, res) {
     if (rows.length == 0) {
       // console.log(rows.length);
       var sql = `INSERT into cart
-(customer_id, product_id, quantity, orderStatus)
-VALUES ('${req.body.c_id}', '${req.body.p_id}', '${req.body.qty}', '待結帳')`;
+(customer_id, product_id, quantity, orderStatus, order_id)
+VALUES ('${req.body.c_id}', '${req.body.p_id}', '${req.body.qty}', '待結帳',CONCAT('DD',DATE_FORMAT(now(),'%Y%m%d'),customer_id))`;
       conn.query(sql, function (err, rows) {
         if (err) {
           console.log(JSON.stringify(err));
@@ -300,16 +316,16 @@ app.post('/updateQty', function (req, res) {
 });
 
 //會員
-app.post("/member/:nickname", function (request, response) {
-	let sql = `select * 
+app.post('/member/:nickname', function (request, response) {
+  let sql = `select * 
 	from customer
    where customer_id=${request.body.cId}`;
-	conn.query(sql, function (err, rows) {
-		// console.log(rows)
-		if (err) return;
-		rows[0].birth_date = moment(rows[0].birth_date).format("YYYY-MM-DD");
-		response.send(rows);
-	});
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+    rows[0].birth_date = moment(rows[0].birth_date).format('YYYY-MM-DD');
+    response.send(rows);
+  });
 });
 
 // 會員姓名編輯
@@ -388,8 +404,8 @@ app.post('/changePassword', function (request, response) {
 });
 
 // 購買清單
-app.post("/memberbuy/", function (request, response) {
-	let sqlA = `SELECT * from orders as o
+app.post('/memberbuy/', function (request, response) {
+  let sqlA = `SELECT * from orders as o
 	inner join product as p 
 	on o.product_id = p.product_id
 	
@@ -400,25 +416,23 @@ app.post("/memberbuy/", function (request, response) {
   ON p.product_id = productImg_id
 	
 	WHERE o.customer_id = ${request.body.cId};`;
-	
-	conn.query(sqlA, function (err, rows) {
-		if (err) return;
 
-		// console.log(rows.length)
-		if (rows.length < 0) {
-			response.send([{ info: "error" }]);
-		} else {
-			// console.log(rows)
-			response.send(rows);
-		}
-	});
+  conn.query(sqlA, function (err, rows) {
+    if (err) return;
+
+    // console.log(rows.length)
+    if (rows.length < 0) {
+      response.send([{ info: 'error' }]);
+    } else {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
 });
 
-
-
 // 收藏
-app.post("/memberfavorite/", function (request, response) {
-	let sql = `select p.*,cat.* ,pdimg.*
+app.post('/memberfavorite/', function (request, response) {
+  let sql = `select p.*,cat.* ,pdimg.*
     from customer as customer
     inner join favorite as f
     on f.customer_id = customer.customer_id
@@ -435,34 +449,27 @@ app.post("/memberfavorite/", function (request, response) {
     where customer.customer_id=${request.body.cId}
     GROUP BY f.favorite_id`;
 
-	conn.query(sql, function (err, rows) {
-		// console.log(rows)
-		if (err) return;
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
 
-		// console.log(rows.length)
-		if (rows.length > 0) {
-			// console.log(rows)
-			response.send(rows);
-		}
-	});
+    // console.log(rows.length)
+    if (rows.length > 0) {
+      // console.log(rows)
+      response.send(rows);
+    }
+  });
 });
-app.post("/deletefavo", function (request, response) {
-	let sql = `
+app.post('/deletefavo', function (request, response) {
+  let sql = `
 	delete
         from favorite
         where customer_id=${request.body.cId} && product_id=${request.body.pId}`;
-	conn.query(sql, function (err, rows) {
-		// console.log(rows)
-		if (err) return;
-
-	});
+  conn.query(sql, function (err, rows) {
+    // console.log(rows)
+    if (err) return;
+  });
 });
-
-
-
-
-
-
 
 // 星幣賺取
 app.post('/membercoin/', function (request, response) {
@@ -538,19 +545,17 @@ app.post('/prodedit/', function (request, response) {
 	  p.updateDate  = "${request.body.updateDate}",
 	  c.unitPrice = ${request.body.unitPrice},
 	  c.skinType = "${request.body.skinType}",
-	  c.detail = "${request.body.detail}",
-	  c.specification = "${request.body.specification}"
-	WHERE p.product_id = 48
+	  c.detail = "${request.body.detail}"
+	WHERE p.product_id = ${request.body.pid}
 	&& p.category_id=c.category_id`;
-  conn.query(sql, function (err, rows) {
-    if (err) {
-      console.log(JSON.stringify(err));
-      return;
-    }
-    response.send(rows);
-  });
-
-  //console.log(request.body);
+	conn.query(sql, function (err, rows) {
+		if (err) {
+			console.log(JSON.stringify(err));
+			return;
+		}
+		let url = "http://localhost:3000/backend/prod/detail/" + request.body.pid;
+		response.redirect(url);
+	});
 });
 
 //後台訂單詳情
@@ -759,43 +764,97 @@ app.post('/backend/searchmember', function (request, response) {
   });
 });
 
-//後臺商品清單
-//app.get("/backend/productlist", function (request, response) {
-//	let sql = `SELECT *,unitPrice
-//  FROM product as p,category as c
-//  WHERE c.category_id=p.category_id`;
+//後臺過濾(商品)
+app.post('/backend/searchprod', function (request, response) {
+  let which;
 
-//	conn.query(sql, function (err, rows) {
-//		if (err) {
-//			console.log(JSON.stringify(err));
-//			return;
-//		}
+  switch (request.body.kind) {
+    case `kindB`:
+    case `productName`:
+    case `productColor`:
+    case `putDate`:
+    case `productStatus`:
+    case `updateDate`:
+      which = `p`;
+      break;
 
-//		console.log(rows);
-//	});
-//});
+    case `unitPrice`:
+      which = `c`;
+      break;
+  }
 
-// 後台商品新增
-app.post('/backend/prod/new', function (request, response) {
-  let sqlA = `
-	INSERT INTO 
-	product
-	(productName,productColor, putDate,kindA,kindB)
-	VALUES
-	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}");`;
-  let sqlB = `
-	INSERT INTO 
-	category 
-	(unitPrice, detail)
-	VALUES 
-  (${request.body.unitPrice},"${request.body.detail}");`;
+  let sql = `SELECT p.*, c.unitPrice
+	FROM product as p
+	INNER JOIN category AS c
+	ON c.category_id = p.category_id
 
-  conn.query(sqlA + sqlB, function (err, rows) {
+	WHERE ${which}.${request.body.kind} = "${request.body.value}"`;
+
+  conn.query(sql, function (err, rows) {
     if (err) {
       console.log(JSON.stringify(err));
       return;
     }
-    response.redirect('http://localhost:3000/backend/prod/1');
+    //console.log(rows);
+    response.send(rows);
+  });
+
+  //console.log(request.body);
+});
+
+// 後台商品新增
+app.post('/backend/prod/new', function (request, response) {
+  let sqlA = `
+	INSERT INTO
+	category
+	(unitPrice, detail)
+	VALUES
+	(${request.body.unitPrice},"${request.body.detail}");`;
+
+  let sqlB = `
+	select category_id
+	from category
+	order by category_id desc
+	limit 1`;
+
+  conn.query(sqlA, function (err) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+
+    conn.query(sqlB, function (err, rows) {
+      let sql = `
+	INSERT INTO
+	product
+	(productName,productColor, putDate,kindA,kindB)
+	VALUES
+	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}",${rows[0].category_id},${request.body.productStatus});`;
+
+      conn.query(sql, function (err) {
+        if (err) {
+          console.log(JSON.stringify(err));
+          return;
+        }
+        response.redirect('http://localhost:3000/backend/prod/new');
+      });
+    });
+  });
+  console.log(request.body);
+});
+
+// 購物車送出訂單
+app.post('/cart/submit', function (request, response) {
+  let sql = `INSERT orders SELECT * FROM cart WHERE customer_id = ${request.body.customer_id}; DELETE FROM cart WHERE customer_id = ${request.body.customer_id}; OPTIMIZE TABLE cart; Insert into shipping (order_id, customer_id, shipping_Name, shipping_cellPhone, shipping_city, shipping_district, shipping_address) VALUES ((CONCAT('DD',DATE_FORMAT(now(),'%Y%m%d'),${request.body.customer_id})),"${request.body.customer_id}","${request.body.shipping_Name}","${request.body.shipping_cellPhone}","${request.body.shipping_city}","${request.body.shipping_district}","${request.body.shipping_address}"); Insert into orderdetail (order_id, customer_id,grandTotal,shippingStyle_id,payment_method,orderDate,orderComment) VALUES ((CONCAT('DD',DATE_FORMAT(now(),'%Y%m%d'),${request.body.customer_id})),"${request.body.customer_id}","${request.body.grandTotal}","${request.body.shippingStyle_id}","${request.body.payment_method}",CURRENT_DATE,"${request.body.orderComment}")`;
+
+  console.log(request.body);
+
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(JSON.stringify(err));
+      return;
+    }
+    response.redirect('http://localhost:3000/order');
   });
 });
 

@@ -1,146 +1,157 @@
 .inputEdit {
-	border: 2px black solid;
+  border: 2px black solid;
 }
 
 .memberMain {
-	display: flex;
-	height: 200%;
+  display: flex;
+  height: 200%;
 }
 
 .memberMain i {
-	margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .memberMain > article {
-	order: 1;
-	flex: 1 1.5 auto;
-	width: 100%;
-	height: 150%;
-	background: 
-	linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
-	url(../images/background/會員頁風格.png) no-repeat bottom / contain,
-		url(../images/background/宣紙1.png);
-	
+  order: 1;
+  flex: 10;
+  width: 100%;
+  height: 150%;
+  background: url(../images/background/山景圖.png) no-repeat bottom;
+  background-size: 100vw 100vw;
 }
 
 .memberMain > article > div {
-	/* width: 50%; */
-	margin: 80px auto;
-	/*border: 1px solid;*/
+  /* width: 50%; */
+  margin: 80px auto;
+  /*border: 1px solid;*/
 }
 
 .memberMain > article .userForm {
-	width: 70%;
-	padding: 3% 3%;
-	margin: 80px auto;
-	/* text-align: center; */
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	line-height: 1.5;
-	/* border: 1px solid red; */
-	overflow: hidden;
+  width: 70%;
+  padding: 3% 3%;
+  margin: 80px auto;
+  /* text-align: center; */
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  line-height: 1.5;
+  /* border: 1px solid red; */
+  overflow: hidden;
 }
 
 .memberMain > article .userForm > div {
-	display: flex;
-	justify-content: flex-start;
-	align-self: center;
-	padding: 10px 0 5px 0;
-	font-size: 1.6rem;
-	/*border: 1px solid;*/
+  display: flex;
+  align-items: center;
+  padding: 10px 0 5px 0;
+  font-size: 1.6rem;
+}
+
+.memberMain > article .userForm > div > label {
+  flex: 2;
+}
+.memberMain > article .userForm > div > input {
+  flex: 8;
+}
+
+.memberMain > article .userForm > div > button {
+  flex: 1;
 }
 
 .memberMain .userForm input {
-	margin-left: 15px;
-	font-size: 1.5rem;
-	border: 0;
-	background-color: transparent;
+  margin-left: 15px;
+  font-size: 1.5rem;
+  border: 0;
+  background-color: transparent;
 }
 
-.memberMain .userForm input[type="radio"] {
-	margin-right: 5px;
+.memberMain .userForm input[type='radio'] {
+  margin-right: 5px;
 }
 
 .deleteBtn,
 .memberMain .userForm button {
-	float: right;
-	padding: 10px 20px;
-	margin-left: auto;
-	font-size: 1.5rem;
-	background-color: var(--orangeColor);
-	border: 0;
-	border-radius: 10px;
-	box-shadow: var(--boxShadow2);
-	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  float: right;
+  padding: 10px 20px;
+  margin-left: auto;
+  font-size: 1.5rem;
+  background-color: var(--orangeColor);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: var(--boxShadow2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .deleteBtn:hover,
 .memberMain .userForm button:hover {
-	box-shadow: var(--boxShadow1);
+  box-shadow: var(--boxShadow1);
 }
 
 .memberMain .userForm hr {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /*左邊導航欄*/
 .memberMain > nav {
-	order: 0;
-	flex: 1 8.5 auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	background-color: var(--redColor);
+  order: 0;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: url(../images/background/金魚.png), var(--redColor);
+  background-repeat: no-repeat, repeat-x;
+  background-position: bottom;
+  background-size: 193px 137px;
 }
 
 .member {
-	padding: 10px;
-	margin: 5%;
-	text-align: center;
+  padding: 10px;
+  margin: 5%;
+  text-align: center;
 }
 
 .user .action {
-	display: none;
+  display: none;
 }
 
 .memberMain ul li,
 .memberMain ul li > a,
 .memberMain ul li > button {
-	line-height: 2;
-	font-size: 1.8rem;
-	cursor: pointer;
+  line-height: 2;
+  font-size: 22px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .memberMain ul li > button {
-	border: 0;
-	background-color: transparent;
+  border: 0;
+  background-color: transparent;
 }
 
 .memberMain ul li:hover,
 .memberMain ul li a:hover,
 .memberMain ul li > button:hover {
-	color: var(--brownColor3);
+  color: var(--brownColor3);
 }
 
 .memberMain ul li div > a {
-	display: block;
-	line-height: 2;
-	font-size: 1.3rem;
+  display: block;
+  line-height: 2;
+  font-size: 1.3rem;
 }
 
 /* 外面背景 */
 .memberBuyOut {
-	font-size: 1.6rem;
-	width: 85%;
-	padding: 3% 3%;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	overflow: hidden;
+  font-size: 1.6rem;
+  width: 85%;
+  padding: 3% 3%;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.adress{
-	width: 43rem;
+.adress {
+  width: 20rem;
 }
 
 /* 會員購買清單-產品&單價 */
@@ -154,125 +165,125 @@
 }
 
 .memberBuy div:nth-of-type(1) {
-	flex: 2;
-	display: inline-block;
-	vertical-align: middle;
+  flex: 2;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .memberBuy div:nth-of-type(2) {
-	flex: 1;
+  flex: 1;
 }
 .memberBuy div:nth-of-type(3) {
-	flex: 1;
+  flex: 1;
 }
 .memberBuy img {
-	margin:0 20px 0 50px;
+  margin: 0 20px 0 50px;
 }
 /* 收藏-品名 */
-.kindName{
-	margin-right: 30px;
+.kindName {
+  margin-right: 30px;
 }
 
 /* 單價位置 */
 .smallTot {
-	text-align: left;
+  text-align: left;
 }
 
-.memberBuyOrderId{
-	margin-bottom: 1rem;
-	color: #939393;
+.memberBuyOrderId {
+  margin-bottom: 1rem;
+  color: #939393;
 }
 
 /* .memberBuy span:nth-of-type(1) {
 } */
 /* 會員購買清單-總金額&訂單詳情 */
 .totalAndBuylist {
-	font-size: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	margin-top: 15px;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 15px;
 }
 .totalAndBuylist button {
-	margin-top: 15px;
-	float: right;
-	padding: 10px 20px;
-	margin-left: auto;
-	font-size: 1.5rem;
-	background-color: var(--orangeColor);
-	border: 0;
-	border-radius: 10px;
-	box-shadow: var(--boxShadow2);
-	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 15px;
+  float: right;
+  padding: 10px 20px;
+  margin-left: auto;
+  font-size: 1.5rem;
+  background-color: var(--orangeColor);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: var(--boxShadow2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .totalAndBuylist button:hover {
-	box-shadow: var(--boxShadow1);
+  box-shadow: var(--boxShadow1);
 }
 
 .totalAndBuylist hr {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 
 /* 會員收藏 */
 .deleteBtn {
-	width: 100%;
-	text-align: right;
-	z-index: 1;
+  width: 100%;
+  text-align: right;
+  z-index: 1;
 }
 
 /*星幣*/
 .memberCoinOut {
-	font-size: 1.6rem;
-	width: 80%;
-	padding: 4% 4%;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	overflow: hidden;
+  font-size: 1.6rem;
+  width: 80%;
+  padding: 4% 4%;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .coin {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .coin img {
-	margin-right: 15px;
+  margin-right: 15px;
 }
 
 /* 標題排版 */
 .coin .title {
-	margin-left: 10rem;
+  margin-left: 10rem;
 }
 .coin .title:last-of-type {
-	margin-left: 15rem;
+  margin-left: 15rem;
 }
 
 .coinDate {
-	text-align: center;
+  text-align: center;
 }
 
 /*星幣 end*/
 
 /* 密碼修改 */
 .changePassword {
-	width: 70%;
-	padding: 3% 3%;
-	margin: 80px auto;
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	line-height: 1.5;
-	/* border: 1px solid red; */
-	overflow: hidden;
-	font-size: 1.6rem;
-	color: var(--blueColor);
+  width: 70%;
+  padding: 3% 3%;
+  margin: 80px auto;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  line-height: 1.5;
+  /* border: 1px solid red; */
+  overflow: hidden;
+  font-size: 1.6rem;
+  color: var(--blueColor);
 }
 
 .noActive {
-	display: none;
+  display: none;
 }
 
 /* RWD */

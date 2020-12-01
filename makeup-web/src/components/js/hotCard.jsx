@@ -5,22 +5,30 @@ import IMGPath from "./imgPath"; //引入圖片
 class HotCard extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			title: "濟州島火山泥鼻頭",
-			price: 280,
-			pID: this.props.pID,
-		};
 
 		this.imgPath = new IMGPath();
-		this.p = require.context("../images/product", false, /\.(png|jpe?g|svg)$/);
+		this.p = require.context("../images/customProduct", false, /\.(png|jpe?g|svg)$/);
 	}
 
 	render() {
 		return (
 			//熱銷小卡
-			<Link to={"/p/" + this.state.pID} className="topSellCar">
+			<Link
+				to={
+					"/customp/" +
+					(this.props.data != null ? this.props.data.kindA : "") +
+					"/pid=" +
+					(this.props.data != null ? this.props.data.product_id : "")
+				}
+				className="topSellCar"
+			>
 				<div className="cardIMG">
-					<img src={this.imgPath.importAll(this.p)["2.jpg"]} alt="product" />
+					<img
+						src={
+							this.imgPath.importAll(this.p)[this.props.data != null ? this.props.data.img_0 : ""]
+						}
+						alt="product"
+					/>
 				</div>
 				{/*星星*/}
 				<div className="star">
@@ -29,13 +37,13 @@ class HotCard extends Component {
 					<span className="fa fa-star checked"></span>
 					<span className="fa fa-star"></span>
 					<span className="fa fa-star"></span>
-					<small>9則評論</small>
+					{/*<small>9則評論</small>*/}
 				</div>
 				{/*星星 end*/}
-				<h3>{this.state.title}</h3>
+				<h3>{this.props.data != null ? this.props.data.productName : ""}</h3>
 
 				<div className="addCardBtn">
-					<button>加入購物車 | ${this.state.price}</button>
+					<button>加入購物車 | ${this.props.data != null ? this.props.data.unitPrice : ""}</button>
 				</div>
 			</Link>
 		);
