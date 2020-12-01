@@ -528,19 +528,17 @@ app.post("/prodedit/", function (request, response) {
 	  p.updateDate  = "${request.body.updateDate}",
 	  c.unitPrice = ${request.body.unitPrice},
 	  c.skinType = "${request.body.skinType}",
-	  c.detail = "${request.body.detail}",
-	  c.specification = "${request.body.specification}"
-	WHERE p.product_id = 48
+	  c.detail = "${request.body.detail}"
+	WHERE p.product_id = ${request.body.pid}
 	&& p.category_id=c.category_id`;
 	conn.query(sql, function (err, rows) {
 		if (err) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		response.send(rows);
+		let url = "http://localhost:3000/backend/prod/detail/" + request.body.pid;
+		response.redirect(url);
 	});
-
-	//console.log(request.body);
 });
 
 //後台訂單詳情
@@ -786,22 +784,6 @@ app.post("/backend/searchprod", function (request, response) {
 
 	//console.log(request.body);
 });
-
-//後臺商品清單
-//app.get("/backend/productlist", function (request, response) {
-//	let sql = `SELECT *,unitPrice
-//  FROM product as p,category as c
-//  WHERE c.category_id=p.category_id`;
-
-//	conn.query(sql, function (err, rows) {
-//		if (err) {
-//			console.log(JSON.stringify(err));
-//			return;
-//		}
-
-//		console.log(rows);
-//	});
-//});
 
 // 後台商品新增
 app.post("/backend/prod/new", function (request, response) {
