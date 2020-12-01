@@ -1,142 +1,150 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import HotCard from "./js/hotCard"; //暢銷商品卡
-import OtherCard from "./js/otherCard"; //暢銷商品卡
-import CreateCard from "./js/createCard"; //創建商品卡
-import IMGPath from "./js/imgPath"; //引入圖片
-import Ajax from "./js/ajax";
-import "./css/home.css";
+import HotCard from './js/hotCard'; //暢銷商品卡
+import OtherCard from './js/otherCard'; //暢銷商品卡
+import CreateCard from './js/createCard'; //創建商品卡
+import IMGPath from './js/imgPath'; //引入圖片
+import Ajax from './js/ajax';
+import './css/home.css';
 class Home extends Component {
-	constructor() {
-		super();
-		this.state = {
-			allData: null, //沒使用
-			data: null, //底妝資料
-			data2: null, //唇彩資料
-			data3: null, //唇彩資料
-			fData: null, //我的最愛資料
-		};
+  constructor() {
+    super();
+    this.state = {
+      allData: null, //沒使用
+      data: null, //底妝資料
+      data2: null, //唇彩資料
+      data3: null, //唇彩資料
+      fData: null, //我的最愛資料
+    };
 
-		this.createCard = new CreateCard();
-		this.ajax = new Ajax();
-		this.imgPath = new IMGPath();
+    this.createCard = new CreateCard();
+    this.ajax = new Ajax();
+    this.imgPath = new IMGPath();
 
-		this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
-		this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
+    this.b = require.context('./images/banner', false, /\.(png|jpe?g|svg)$/);
+    this.p = require.context('./images/product', false, /\.(png|jpe?g|svg)$/);
 
-		if (sessionStorage.getItem("member")) {
-			this.ajax.startListener(
-				"get",
-				`/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
-				this.uf
-			);
-		} else {
-			this.ajax.startListener("get", "/?card=底妝", this.u);
-			this.ajax.startListener("get", "/?card=客製", this.u3);
-		}
+    if (sessionStorage.getItem('member')) {
+      this.ajax.startListener(
+        'get',
+        `/myLove?cId=${
+          JSON.parse(sessionStorage.getItem('member')).customer_id
+        }`,
+        this.uf
+      );
+    } else {
+      this.ajax.startListener('get', '/?card=底妝', this.u);
+      this.ajax.startListener('get', '/?card=客製', this.u3);
+    }
 
-		this.ajax.startListener("get", "/?card=唇彩", this.u2);
-	}
+    this.ajax.startListener('get', '/?card=唇彩', this.u2);
+  }
 
-	//我的最愛資料更新
-	uf = data => {
-		this.setState({ fData: data });
-		this.ajax.startListener("get", "/?card=底妝", this.u);
-		this.ajax.startListener("get", "/?card=客製", this.u3);
-		//console.log(data);
-	};
+  //我的最愛資料更新
+  uf = (data) => {
+    this.setState({ fData: data });
+    this.ajax.startListener('get', '/?card=底妝', this.u);
+    this.ajax.startListener('get', '/?card=客製', this.u3);
+    //console.log(data);
+  };
 
-	//所有底妝資料
-	u = data => {
-		//我的最愛資料合併到所有產品資料
-		if (this.state.fData != null) {
-			for (let l = 0; l < data.length; l++) {
-				for (let k = 0; k < this.state.fData.length; k++) {
-					data[l].addLove = this.addLove;
+  //所有底妝資料
+  u = (data) => {
+    //我的最愛資料合併到所有產品資料
+    if (this.state.fData != null) {
+      for (let l = 0; l < data.length; l++) {
+        for (let k = 0; k < this.state.fData.length; k++) {
+          data[l].addLove = this.addLove;
 
-					if (this.state.fData[k].product_id === data[l].product_id) {
-						data[l].f = this.state.fData[k];
-						continue;
-					}
-				}
-			}
-		}
+          if (this.state.fData[k].product_id === data[l].product_id) {
+            data[l].f = this.state.fData[k];
+            continue;
+          }
+        }
+      }
+    }
 
-		this.setState({ data: data });
-		//console.log(data);
-	};
+    this.setState({ data: data });
+    //console.log(data);
+  };
 
-	//所有唇彩資料
-	u2 = data => {
-		this.setState({ data2: data });
-		//console.log(this.state.data2);
-	};
+  //所有唇彩資料
+  u2 = (data) => {
+    this.setState({ data2: data });
+    //console.log(this.state.data2);
+  };
 
-	//所有客製資料
-	u3 = data => {
-		//我的最愛資料合併到所有產品資料
-		if (this.state.fData != null) {
-			for (let l = 0; l < data.length; l++) {
-				for (let k = 0; k < this.state.fData.length; k++) {
-					data[l].addLove = this.addLove;
+  //所有客製資料
+  u3 = (data) => {
+    //我的最愛資料合併到所有產品資料
+    if (this.state.fData != null) {
+      for (let l = 0; l < data.length; l++) {
+        for (let k = 0; k < this.state.fData.length; k++) {
+          data[l].addLove = this.addLove;
 
-					if (this.state.fData[k].product_id === data[l].product_id) {
-						data[l].f = this.state.fData[k];
-						continue;
-					}
-				}
-			}
-		}
+          if (this.state.fData[k].product_id === data[l].product_id) {
+            data[l].f = this.state.fData[k];
+            continue;
+          }
+        }
+      }
+    }
 
-		this.setState({ data3: data });
-		console.log(this.state.data3);
-	};
+    this.setState({ data3: data });
+    console.log(this.state.data3);
+  };
 
-	getIMG = i => {
-		return this.state.data2[i].img_0;
-	};
+  getIMG = (i) => {
+    return this.state.data2[i].img_0;
+  };
 
-	//加入、移除最愛
-	addLove = (event, pid) => {
-		event.preventDefault();
-		let newFData = this.state.fData;
-		let newData = this.state.data;
+  //加入、移除最愛
+  addLove = (event, pid) => {
+    event.preventDefault();
+    let newFData = this.state.fData;
+    let newData = this.state.data;
 
-		let index = newFData.map(item => item.product_id).indexOf(pid);
+    let index = newFData.map((item) => item.product_id).indexOf(pid);
 
-		if (sessionStorage.getItem("member")) {
-			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
-			let newLove = { customer_id: cId, product_id: pid };
-			if (index === -1) {
-				newFData.push(newLove);
-				newData[pid - 1].f = newLove;
-			} else {
-				newFData.splice(index, 1);
-				delete newData[pid - 1].f;
-			}
-			this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
-			this.setState({ fData: newFData });
-			this.setState({ data: newData });
-		}
-	};
+    if (sessionStorage.getItem('member')) {
+      let cId = JSON.parse(sessionStorage.getItem('member')).customer_id;
+      let newLove = { customer_id: cId, product_id: pid };
+      if (index === -1) {
+        newFData.push(newLove);
+        newData[pid - 1].f = newLove;
+      } else {
+        newFData.splice(index, 1);
+        delete newData[pid - 1].f;
+      }
+      this.ajax.startListener('get', `/addLove?pId=${pid}&cId=${cId}`, this.u);
+      this.setState({ fData: newFData });
+      this.setState({ data: newData });
+    }
+  };
 
-	render() {
-		return (
-			<main className="homeMain">
-				{/*banner*/}
-				<div className="topBanner">
-					<div className="bannerBg">
-						<img src={this.imgPath.importAll(this.b)["homeBanner1.jpg"]} alt="banner" />
-						<img src={this.imgPath.importAll(this.b)["homeBanner2.jpg"]} alt="banner" />
-					</div>
-				</div>
-				{/*banner end*/}
+  render() {
+    return (
+      <main className="homeMain">
+        {/*banner*/}
+        <div className="topBanner">
+          <div className="bannerBg">
+            <img
+              src={this.imgPath.importAll(this.b)['homeBanner1.jpg']}
+              alt="banner"
+            />
+            <img
+              src={this.imgPath.importAll(this.b)['homeBanner2.jpg']}
+              alt="banner"
+            />
+          </div>
+        </div>
+        {/*banner end*/}
 
-				{/*膚測簡述*/}
-				{/*<div className="skinTest">*/}
-				{/*上面折線*/}
-				{/*<svg width="1324" height="14" viewBox="0 0 1324 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/*膚測簡述*/}
+        {/*<div className="skinTest">*/}
+        {/*上面折線*/}
+        {/*<svg width="1324" height="14" viewBox="0 0 1324 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M886 12.3121L875.943 0L865.887 12.3121L855.83 0L845.689 12.3121L835.632 0L825.576 12.3121L815.519 0L805.462 12.3121L795.405 0L785.349 12.3121L775.208 0L765.151 12.3121L755.095 0L745.038 12.3121L734.981 0L724.924 12.3121L714.868 0L704.811 12.3121L694.67 0L684.613 12.3121L674.557 0L664.5 12.3121L654.443 0L644.387 12.3121L634.33 0L624.189 12.3121L614.132 0L604.076 12.3121L594.019 0L583.962 12.3121L573.905 0L563.849 12.3121L553.708 0L543.651 12.3121L533.595 0L523.538 12.3121L513.481 0L503.424 12.3121L493.368 0L483.311 12.3121L473.17 0L463.114 12.3121L453.057 0L443 12.3121V14L453.057 1.68794L463.114 14L473.17 1.68794L483.311 14L493.368 1.68794L503.424 14L513.481 1.68794L523.538 14L533.595 1.68794L543.651 14L553.708 1.68794L563.849 14L573.905 1.68794L583.962 14L594.019 1.68794L604.076 14L614.132 1.68794L624.189 14L634.33 1.68794L644.387 14L654.443 1.68794L664.5 14L674.557 1.68794L684.613 14L694.67 1.68794L704.811 14L714.868 1.68794L724.924 14L734.981 1.68794L745.038 14L755.095 1.68794L765.151 14L775.208 1.68794L785.349 14L795.405 1.68794L805.462 14L815.519 1.68794L825.576 14L835.632 1.68794L845.689 14L855.83 1.68794L865.887 14L875.943 1.68794L886 14V12.3121Z"
               fill="#fac1ba"></path>
@@ -158,8 +166,8 @@ class Home extends Component {
           <img className="ld 
     align-right slide-in" src="img/heart.svg" alt="" /><br />*/}
 
-				{/*下面折線*/}
-				{/*<svg width="1324" height="14" viewBox="0 0 1324 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/*下面折線*/}
+        {/*<svg width="1324" height="14" viewBox="0 0 1324 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M886 12.3121L875.943 0L865.887 12.3121L855.83 0L845.689 12.3121L835.632 0L825.576 12.3121L815.519 0L805.462 12.3121L795.405 0L785.349 12.3121L775.208 0L765.151 12.3121L755.095 0L745.038 12.3121L734.981 0L724.924 12.3121L714.868 0L704.811 12.3121L694.67 0L684.613 12.3121L674.557 0L664.5 12.3121L654.443 0L644.387 12.3121L634.33 0L624.189 12.3121L614.132 0L604.076 12.3121L594.019 0L583.962 12.3121L573.905 0L563.849 12.3121L553.708 0L543.651 12.3121L533.595 0L523.538 12.3121L513.481 0L503.424 12.3121L493.368 0L483.311 12.3121L473.17 0L463.114 12.3121L453.057 0L443 12.3121V14L453.057 1.68794L463.114 14L473.17 1.68794L483.311 14L493.368 1.68794L503.424 14L513.481 1.68794L523.538 14L533.595 1.68794L543.651 14L553.708 1.68794L563.849 14L573.905 1.68794L583.962 14L594.019 1.68794L604.076 14L614.132 1.68794L624.189 14L634.33 1.68794L644.387 14L654.443 1.68794L664.5 14L674.557 1.68794L684.613 14L694.67 1.68794L704.811 14L714.868 1.68794L724.924 14L734.981 1.68794L745.038 14L755.095 1.68794L765.151 14L775.208 1.68794L785.349 14L795.405 1.68794L805.462 14L815.519 1.68794L825.576 14L835.632 1.68794L845.689 14L855.83 1.68794L865.887 14L875.943 1.68794L886 14V12.3121Z"
               fill="#fac1ba"></path>
@@ -172,108 +180,151 @@ class Home extends Component {
           </svg>
 
         </div>*/}
-				{/*膚測簡述 end*/}
+        {/*膚測簡述 end*/}
 
-				{/*熱銷區塊*/}
-				<div className="topSellOutside w">
-					<h2>客製化商品</h2>
-					<div className="topSell">{this.createCard.create(4, HotCard, this.state.data3)}</div>
-				</div>
+        {/*熱銷區塊*/}
+        <div className="topSellOutside w">
+          <h2>客製化商品</h2>
+          <div className="topSell">
+            {this.createCard.create(4, HotCard, this.state.data3)}
+          </div>
+        </div>
 
-				{/*心理測驗*/}
-				<div className="heartTest">
-					<div className="smallCardBox">
-						{/*商品小卡*/}
-						<Link
-							to={
-								"/p/" +
-								(this.state.data2 != null ? this.state.data2[0].kindA : "") +
-								"/pid=" +
-								(this.state.data2 != null ? this.state.data2[0].product_id : "")
-							}
-							className="smallCard"
-						>
-							<img
-								src={this.imgPath.importAll(this.p)[this.state.data2 != null ? this.getIMG(0) : ""]}
-								alt="product"
-							/>
-							<div>
-								<p>{this.state.data2 != null ? this.state.data2[0].productName : ""}</p>
-							</div>
-						</Link>
+        {/*心理測驗*/}
+        <div className="heartTest">
+          <div className="smallCardBox">
+            {/*商品小卡*/}
+            <Link
+              to={
+                '/p/' +
+                (this.state.data2 != null ? this.state.data2[0].kindA : '') +
+                '/pid=' +
+                (this.state.data2 != null ? this.state.data2[0].product_id : '')
+              }
+              className="smallCard"
+            >
+              <img
+                src={
+                  this.imgPath.importAll(this.p)[
+                    this.state.data2 != null ? this.getIMG(0) : ''
+                  ]
+                }
+                alt="product"
+              />
+              <div>
+                <p>
+                  {this.state.data2 != null
+                    ? this.state.data2[0].productName
+                    : ''}
+                </p>
+              </div>
+            </Link>
 
-						{/*商品小卡*/}
-						<Link
-							to={
-								"/p/" +
-								(this.state.data2 != null ? this.state.data2[1].kindA : "") +
-								"/pid=" +
-								(this.state.data2 != null ? this.state.data2[1].product_id : "")
-							}
-							className="smallCard"
-						>
-							<img
-								src={this.imgPath.importAll(this.p)[this.state.data2 != null ? this.getIMG(1) : ""]}
-								alt="product"
-							/>
-							<div>
-								<p>{this.state.data2 != null ? this.state.data2[1].productName : ""}</p>
-							</div>
-						</Link>
+            {/*商品小卡*/}
+            <Link
+              to={
+                '/p/' +
+                (this.state.data2 != null ? this.state.data2[1].kindA : '') +
+                '/pid=' +
+                (this.state.data2 != null ? this.state.data2[1].product_id : '')
+              }
+              className="smallCard"
+            >
+              <img
+                src={
+                  this.imgPath.importAll(this.p)[
+                    this.state.data2 != null ? this.getIMG(1) : ''
+                  ]
+                }
+                alt="product"
+              />
+              <div>
+                <p>
+                  {this.state.data2 != null
+                    ? this.state.data2[1].productName
+                    : ''}
+                </p>
+              </div>
+            </Link>
 
-						{/*商品小卡*/}
-						<Link
-							to={
-								"/p/" +
-								(this.state.data2 != null ? this.state.data2[2].kindA : "") +
-								"/pid=" +
-								(this.state.data2 != null ? this.state.data2[2].product_id : "")
-							}
-							className="smallCard"
-						>
-							<img
-								src={this.imgPath.importAll(this.p)[this.state.data2 != null ? this.getIMG(2) : ""]}
-								alt="product"
-							/>
-							<div>
-								<p>{this.state.data2 != null ? this.state.data2[2].productName : ""}</p>
-							</div>
-						</Link>
-					</div>
+            {/*商品小卡*/}
+            <Link
+              to={
+                '/p/' +
+                (this.state.data2 != null ? this.state.data2[2].kindA : '') +
+                '/pid=' +
+                (this.state.data2 != null ? this.state.data2[2].product_id : '')
+              }
+              className="smallCard"
+            >
+              <img
+                src={
+                  this.imgPath.importAll(this.p)[
+                    this.state.data2 != null ? this.getIMG(2) : ''
+                  ]
+                }
+                alt="product"
+              />
+              <div>
+                <p>
+                  {this.state.data2 != null
+                    ? this.state.data2[2].productName
+                    : ''}
+                </p>
+              </div>
+            </Link>
+          </div>
 
-					<div className="testText">
-						<p>膚值測試</p>
-						{/*<button>測驗</button>*/}
-					</div>
-				</div>
+          <div className="testText">
+            <p>膚值測試</p>
+            {/*<button>測驗</button>*/}
+          </div>
+        </div>
 
-				{/*其他商品*/}
-				<div className="downSellOutside w">
-					<h2>底妝任2件結帳85折 滿1500再折150</h2>
+        {/*其他商品*/}
+        <div className="downSellOutside w">
+          <h2>底妝任2件結帳85折 滿1500再折150</h2>
 
-					<div className="downSell">{this.createCard.create(8, OtherCard, this.state.data)}</div>
-				</div>
+          <div className="downSell">
+            {this.createCard.create(8, OtherCard, this.state.data)}
+          </div>
+        </div>
 
-				{/*下面廣告*/}
-				<div className="banner">
-					<img src={this.imgPath.importAll(this.b)["1920_480唇膏廣告圖.jpg"]} alt="banner" />
-				</div>
+        {/*下面廣告*/}
+        <div className="banner">
+          <img
+            src={this.imgPath.importAll(this.b)['1920_480唇膏廣告圖.jpg']}
+            alt="banner"
+          />
+        </div>
 
-				{/*最下面廣告*/}
-				<div className="w bottomBanner">
-					<img src={this.imgPath.importAll(this.b)["1200_300會員折價卷.jpg"]} alt="banner" />
-					<img src={this.imgPath.importAll(this.b)["downBanner1.jpg"]} alt="banner" />
-					<img src={this.imgPath.importAll(this.b)["downBanner2.jpg"]} alt="banner" />
-					<img src={this.imgPath.importAll(this.b)["downBanner3.jpg"]} alt="banner" />
-				</div>
-				{/*客製化*/}
-				{/*<div className="customize bottomHalf">
+        {/*最下面廣告*/}
+        <div className="w bottomBanner">
+          <img
+            src={this.imgPath.importAll(this.b)['1200_300會員折價卷.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner1.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner2.jpg']}
+            alt="banner"
+          />
+          <img
+            src={this.imgPath.importAll(this.b)['downBanner3.jpg']}
+            alt="banner"
+          />
+        </div>
+        {/*客製化*/}
+        {/*<div className="customize bottomHalf">
           <div className="customizLeft">*/}
-				{/*客製化左邊*/}
-				{/*<img className="slide-in align-left" src="https://picsum.photos/900/650?random=5" alt="" />
+        {/*客製化左邊*/}
+        {/*<img className="slide-in align-left" src="https://picsum.photos/900/650?random=5" alt="" />
           </div>*/}
-				{/*客製化右邊*/}
-				{/*<div className="customizeRight">
+        {/*客製化右邊*/}
+        {/*<div className="customizeRight">
             <span> 製作你喜歡的風格吧!</span>
             <br />
             <div className="customizRightMiddle">
@@ -283,10 +334,10 @@ class Home extends Component {
             <span>擁有自己讀一無二的包裝</span>
           </div>
         </div>*/}
-				{/*客製化end*/}
-			</main>
-		);
-	}
+        {/*客製化end*/}
+      </main>
+    );
+  }
 }
 
 export default Home;

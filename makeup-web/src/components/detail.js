@@ -30,7 +30,7 @@ class Detail extends Component {
 			this.u
 		);
 
-		this.cp = require.context("./images/customProduct", false, /\.(png|jpe?g|svg)$/);
+		this.cp = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
 		//console.log(new MyImgs());
 	}
 

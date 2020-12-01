@@ -537,26 +537,14 @@ app.post('/prodedit/', function (request, response) {
 	  c.detail = "${request.body.detail}"
 	WHERE p.product_id = ${request.body.pid}
 	&& p.category_id=c.category_id`;
-<<<<<<< HEAD
   conn.query(sql, function (err, rows) {
     if (err) {
       console.log(JSON.stringify(err));
       return;
     }
-    response.send(rows);
+    let url = 'http://localhost:3000/backend/prod/detail/' + request.body.pid;
+    response.redirect(url);
   });
-
-  //console.log(request.body);
-=======
-	conn.query(sql, function (err, rows) {
-		if (err) {
-			console.log(JSON.stringify(err));
-			return;
-		}
-		let url = "http://localhost:3000/backend/prod/detail/" + request.body.pid;
-		response.redirect(url);
-	});
->>>>>>> daae140d65849463d622df70e1ea5ab65a343894
 });
 
 //後台訂單詳情
