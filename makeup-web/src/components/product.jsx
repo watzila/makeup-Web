@@ -37,7 +37,7 @@ class Product extends Component {
 	u2 = data => {
 		this.setState({ fData: data });
 		this.ajax.startListener("get", "/p", this.u);
-		//console.log(data);
+		console.log(data);
 	};
 
 	//所有產品資料更新
@@ -48,8 +48,8 @@ class Product extends Component {
 		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
 			for (let l = 0; l < data.length; l++) {
+				data[l].addLove = this.addLove;
 				for (let k = 0; k < this.state.fData.length; k++) {
-					data[l].addLove = this.addLove;
 					if (this.state.fData[k].product_id === data[l].product_id) {
 						data[l].f = this.state.fData[k];
 						continue;
@@ -79,7 +79,7 @@ class Product extends Component {
 			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
 		).className = "click";
 
-		console.log(this.state.allData);
+		//console.log(this.state.data);
 	};
 
 	//加入、移除最愛
@@ -166,7 +166,8 @@ class Product extends Component {
 
 					<nav className="kindNav">
 						<ul>
-							<li className="click">眼線</li>
+							<li className="click">全部</li>
+							<li>眼線</li>
 							<li>眼影</li>
 							<li>眼眉</li>
 							<li>睫毛</li>
