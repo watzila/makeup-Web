@@ -17,8 +17,8 @@
 	width: 100%;
 	height: 150%;
 	background: 
-	linear-gradient(rgba(192,192,192,0.5),rgba(192,192,192,0.5)),
-	/* url(../images/background/會員頁風格.png) no-repeat bottom / contain, */
+	linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
+	url(../images/background/會員頁風格.png) no-repeat bottom / contain,
 		url(../images/background/宣紙1.png);
 	
 }
@@ -150,6 +150,7 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 15px;
+	cursor: pointer;
 }
 
 .memberBuy div:nth-of-type(1) {

@@ -317,7 +317,7 @@ app.post('/userEdit', function (request, response) {
   // set UnitPrice = UnitPrice * 1.05
   // where CategoryID = 1
   let sql = `update customer 
-     set customerName = "${request.body.username}"
+     set nickname = "${request.body.nickname}"
      where customer_id = ${request.body.cId}
      `;
   conn.query(sql, function (err, rows) {
@@ -350,7 +350,18 @@ app.post('/emailEdit', function (request, response) {
      `;
   conn.query(sql, function (err, rows) {
     if (err) return;
+    // console.log(rows)
+    // response.send(rows);
+  });
+});
 
+// 會員地址編輯
+app.post('/adressEdit', function (request, response) {
+  let sql = `update customer 
+    set city = "${request.body.city}"
+    where customer_id = ${request.body.cId} `;
+  conn.query(sql, function (err, rows) {
+    if (err) return;
     // console.log(rows)
     // response.send(rows);
   });
@@ -784,7 +795,7 @@ app.post('/backend/prod/new', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    response.redirect('http://localhost:3000/backend/prod/new');
+    response.redirect('http://localhost:3000/backend/prod/1');
   });
 });
 

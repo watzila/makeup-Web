@@ -67,7 +67,7 @@ class User extends Component {
 
 	changeFname = e => {
 		this.setState({ userAccount: e.target.value });
-		console.log(e);
+		// console.log(e);
 	};
 
 	changeUsername = e => {
@@ -94,7 +94,7 @@ class User extends Component {
 
 		let userData = {
 			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			username: document.querySelector(".username").value,
+			nickname: document.querySelector(".username").value,
 		};
 		this.ajax.startListener("post", "/userEdit", this.u, userData);
 	};
@@ -125,18 +125,18 @@ class User extends Component {
 		};
 		this.ajax.startListener("post", "/emailEdit", this.u, emailData);
 	};
-	onBlurAdress = e => {
-		// 取消input邊框及disable
-		var dis = document.getElementById(e.target.id);
-		dis.disabled = "false";
-		dis.style.border = 0;
+	// onBlurAdress = e => {
+	// 	// 取消input邊框及disable
+	// 	var dis = document.getElementById(e.target.id);
+	// 	dis.disabled = "false";
+	// 	dis.style.border = 0;
 
-		let emailData = {
-			cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-			email: document.querySelector(".adress").value,
-		};
-		this.ajax.startListener("post", "/adressEdit", this.u, emailData);
-	};
+	// 	let adressData = {
+	// 		cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
+	// 		city: document.querySelector(".adress").value
+	// 	};
+	// 	this.ajax.startListener("post", "/adressEdit", this.u, adressData);
+	// };
 
 	render() {
 		return (
@@ -159,12 +159,33 @@ class User extends Component {
 				<hr />
 
 				<div>
-					<label htmlFor="username">姓名：</label>
+					<label htmlFor="user">姓名：</label>
+					<input
+						// onBlur={this.onBlurUsername}
+						// style={{ border: this.state.usernameIsShow ? "0" : "1px black solid" }}
+						// disabled={this.state.usernameDisabled}
+						placeholder={this.state.data == null ? "" : this.state.data[0].customerName}
+						// onChange={this.changeUsername}
+						type="text"
+						id="user"
+						className="user"
+						name="user"
+						autoComplete="off"
+					/>
+					{/* <button id="username" onClick={this.handleClick}>
+						編輯
+					</button> */}
+				</div>
+
+				<hr />
+
+				<div>
+					<label htmlFor="username">暱稱：</label>
 					<input
 						onBlur={this.onBlurUsername}
 						style={{ border: this.state.usernameIsShow ? "0" : "1px black solid" }}
 						disabled={this.state.usernameDisabled}
-						placeholder={this.state.data == null ? "" : this.state.data[0].customerName}
+						placeholder={this.state.data == null ? "" : this.state.data[0].nickname}
 						onChange={this.changeUsername}
 						type="text"
 						id="username"

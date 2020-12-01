@@ -42,6 +42,8 @@ class ChangePassword extends Component {
 			changeOk.classList.remove("noActive");
 
 			document.querySelector(".userForm").classList.add("noActive");
+			document.querySelector("#changeNo").classList.add("noActive");
+
 			this.setState({})
 		}else{
 			let change = document.querySelector("#changeNo");
