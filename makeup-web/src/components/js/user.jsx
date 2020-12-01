@@ -145,18 +145,18 @@ class User extends Component {
     };
     this.ajax.startListener('post', '/emailEdit', this.u, emailData);
   };
-  // onBlurAdress = e => {
-  // 	// 取消input邊框及disable
-  // 	var dis = document.getElementById(e.target.id);
-  // 	dis.disabled = "false";
-  // 	dis.style.border = 0;
+  onBlurAdress = e => {
+  	// 取消input邊框及disable
+  	var dis = document.getElementById(e.target.id);
+  	dis.disabled = "false";
+  	dis.style.border = 0;
 
-  // 	let adressData = {
-  // 		cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
-  // 		city: document.querySelector(".adress").value
-  // 	};
-  // 	this.ajax.startListener("post", "/adressEdit", this.u, adressData);
-  // };
+  	let adressData = {
+  		cId: JSON.parse(sessionStorage.getItem("member")).customer_id,
+  		city: document.querySelector(".adress").value
+  	};
+  	this.ajax.startListener("post", "/adressEdit", this.u, adressData);
+  };
 
   render() {
     return (
@@ -214,7 +214,7 @@ class User extends Component {
               border: this.state.usernameIsShow ? '0' : '1px black solid',
             }}
             disabled={this.state.usernameDisabled}
-            placeholder={
+            defaultValue={
               this.state.data == null ? '' : this.state.data[0].nickname
             }
             onChange={this.changeUsername}
@@ -237,7 +237,7 @@ class User extends Component {
             onBlur={this.onBlurphone}
             style={{ border: this.state.phoneIsShow ? '0' : '2px black solid' }}
             disabled={this.state.phoneDisabled}
-            placeholder={
+            defaultValue={
               this.state.data == null ? '' : this.state.data[0].cellPhone
             }
             onChange={this.changePhone}
@@ -300,7 +300,7 @@ class User extends Component {
             onBlur={this.onBlurEmail}
             style={{ border: this.state.emailIsShow ? '0' : '2px black solid' }}
             disabled={this.state.emailDisabled}
-            placeholder={
+            defaultValue={
               this.state.data == null ? '' : this.state.data[0].email
             }
             onChange={this.changeEmail}
@@ -325,7 +325,7 @@ class User extends Component {
               border: this.state.adressIsShow ? '0' : '2px black solid',
             }}
             disabled={this.state.adressDisabled}
-            placeholder={
+            defaultValue={
               this.state.data == null
                 ? ''
                 : this.state.data[0].city +
