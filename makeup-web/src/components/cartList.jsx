@@ -42,10 +42,11 @@ class CartList extends Component {
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
 
-		this.cId =
-			sessionStorage.getItem("member") != null ? JSON.parse(sessionStorage.getItem("member")) : "";
+		if (sessionStorage.getItem("member")) {
+			this.cId = JSON.parse(sessionStorage.getItem("member"));
 
-		this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+		}
 	}
 
 	u = data => {
@@ -216,7 +217,7 @@ class CartList extends Component {
 
 	// 當購物車商品數>0 顯示直接購買或登入會員Modal視窗
 	directBuyModalDisplayBlock = () => {
-		if (this.state.data.length > 0) {
+		if (this.state.data > 0) {
 			this.setState({ myModal: { display: "block" } });
 		}
 		//   this.modal.style.display = "block";
@@ -398,7 +399,11 @@ class CartList extends Component {
 											name="customer_id"
 											type="text"
 											style={{ display: "none" }}
-											defaultValue={JSON.parse(sessionStorage.getItem("member")).customer_id}
+											defaultValue={
+												sessionStorage.getItem("member")
+													? JSON.parse(sessionStorage.getItem("member")).customer_id
+													: ""
+											}
 										/>
 										<input
 											name="grandTotal"

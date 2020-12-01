@@ -194,7 +194,7 @@ padding: 10px 50px 10px 0px;
 }
 
 /* 產品第二列 */
-.aboutMain .aboutMain .pro_2 {
+.aboutMain .pro_2 {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
