@@ -37,9 +37,16 @@ conn.connect(function (err) {
 
 //首頁
 app.get("/", function (request, response) {
-	let sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA 
+	let sql;
+	if (request.query.card != "客製") {
+		sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA 
     FROM product as p,productimg as img,category as c
     where kindA="${request.query.card}" && product_id=img.productImg_id && p.category_id=c.category_id`;
+	} else {
+		sql = `SELECT p.product_id,p.category_id,productName,img_0, unitPrice, p.kindA 
+    FROM product as p,productimg as img,category as c
+    where kindC="${request.query.card}" && product_id=img.productImg_id && p.category_id=c.category_id`;
+	}
 
 	conn.query(sql, function (err, rows) {
 		if (err) {
@@ -150,11 +157,6 @@ app.get("/p/:kind", function (request, response) {
 	let sql = `SELECT p.*,productName,img.*, c.unitPrice,c.skinType,c.specification,c.detail
 	  FROM product as p,productimg as img,category as c
 	  where product_id=${request.query.pid} && product_id=img.productImg_id && p.category_id=c.category_id`;
-
-	//測試用
-	//let sql = `SELECT p.*,productName, c.unitPrice,c.skinType,c.specification,c.detail
-	//  FROM product as p,category as c
-	//  where product_id=${request.query.pid} && p.category_id=c.category_id`;
 
 	conn.query(sql, function (err, rows) {
 		if (err) {

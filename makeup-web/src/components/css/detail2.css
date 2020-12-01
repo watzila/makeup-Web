@@ -128,9 +128,14 @@ body {
 }
 
 .detail2Main .warp .pro_2 .pic_04 h3 {
-	font-size: 18px;
+	font-size: 1.8rem;
 	text-align: left;
-	display: block;
+}
+
+.detail2Main .warp .pro_2 .pic_04 .love {
+	float: right;
+	font-size: 4rem;
+	cursor: pointer;
 }
 
 .detail2Main .warp .pro_2 .pro_3 {

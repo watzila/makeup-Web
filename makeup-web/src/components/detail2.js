@@ -19,6 +19,7 @@ class Detail2 extends Component {
 			},
 
 			data: null,
+			fData: null, //我的最愛資料
 
 			prodIMG: {
 				img1: "",
@@ -35,11 +36,19 @@ class Detail2 extends Component {
 		this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
 		this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
 
-		this.ajax.startListener(
-			"get",
-			`/p/${props.match.params.kind}?${props.match.params.pid}`,
-			this.u
-		);
+		if (sessionStorage.getItem("member")) {
+			this.ajax.startListener(
+				"get",
+				`/myLove?cId=${JSON.parse(sessionStorage.getItem("member")).customer_id}`,
+				this.u2
+			);
+		} else {
+			this.ajax.startListener(
+				"get",
+				`/p/${props.match.params.kind}?${props.match.params.pid}`,
+				this.u
+			);
+		}
 	}
 
 	//改數量
@@ -83,6 +92,17 @@ class Detail2 extends Component {
 		this.setState({ prodIMG: newProdIMG });
 	};
 
+	//我的最愛資料更新
+	u2 = data => {
+		this.setState({ fData: data });
+		this.ajax.startListener(
+			"get",
+			`/p/${this.props.match.params.kind}?${this.props.match.params.pid}`,
+			this.u
+		);
+		//console.log(data);
+	};
+
 	u = data => {
 		data[0].total = data[0].unitPrice;
 
@@ -92,8 +112,45 @@ class Detail2 extends Component {
 		newProdIMG.img3 = data[0].img_2;
 		newProdIMG.img4 = data[0].img_3;
 		newProdIMG.img5 = data[0].img_4;
+
+		//我的最愛資料合併到所有產品資料
+		if (this.state.fData != null) {
+			for (let l = 0; l < data.length; l++) {
+				//data[l].addLove = this.addLove;
+				for (let k = 0; k < this.state.fData.length; k++) {
+					if (this.state.fData[k].product_id === data[l].product_id) {
+						data[l].f = this.state.fData[k];
+						continue;
+					}
+				}
+			}
+		}
+
 		this.setState({ data: data, prodIMG: newProdIMG });
 		console.log(data);
+	};
+
+	//加入、移除最愛
+	addLove = (event, pid) => {
+		event.preventDefault();
+		let newFData = this.state.fData;
+		let newData = this.state.data;
+
+		let index = newFData.map(item => item.product_id).indexOf(pid);
+
+		if (sessionStorage.getItem("member")) {
+			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
+			let newLove = { customer_id: cId, product_id: pid };
+			if (index === -1) {
+				newFData.push(newLove);
+				newData[0].f = newLove;
+			} else {
+				newFData.splice(index, 1);
+				delete newData[0].f;
+			}
+			this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
+			this.setState({ data: newData, fData: newFData });
+		}
 	};
 
 	render() {
@@ -152,11 +209,16 @@ class Detail2 extends Component {
 							<h1>#超滿$399免運</h1>
 
 							<strong>$280元</strong>
+							<span
+								className="love"
+								onClick={event => {
+									this.addLove(event, this.state.data[0].product_id);
+								}}
+							>
+								{this.state.data != null ? (this.state.data[0].f != null ? "♥" : "♡") : "♡"}
+							</span>
 
-							<h3>
-								色號
-								<i className="fa fa-heart-o"></i>
-							</h3>
+							<h3>色號</h3>
 
 							<div className="but_1">
 								<button>001{this.state.data != null ? this.state.data[0].productColor : ""}</button>

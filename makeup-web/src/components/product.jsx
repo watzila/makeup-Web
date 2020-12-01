@@ -37,7 +37,7 @@ class Product extends Component {
 	u2 = data => {
 		this.setState({ fData: data });
 		this.ajax.startListener("get", "/p", this.u);
-		console.log(data);
+		//console.log(data);
 	};
 
 	//所有產品資料更新

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 //import { BrowserRouter, Route, Link } from "react-router-dom"
-import CustomDrawing, { MyImgs } from "./js/customDrawing";
+//import CustomDrawing, { MyImgs } from "./js/customDrawing";
 import Ajax from "./js/ajax";
 import IMGPath from "./js/imgPath"; //引入圖片
 import "./css/detail.css";
-import head from "./images/人頭.png";
 
 class Detail extends Component {
 	constructor(props) {
@@ -22,8 +21,8 @@ class Detail extends Component {
 
 		this.ajax = new Ajax();
 		this.imgPath = new IMGPath();
-		this.cpImgs = new MyImgs().pId;
-		this.draw = null;
+		//this.cpImgs = new MyImgs().pId;
+		//this.draw = null;
 
 		this.ajax.startListener(
 			"get",
@@ -39,12 +38,12 @@ class Detail extends Component {
 	u = data => {
 		data[0].total = data[0].unitPrice;
 		this.setState({ data: data });
-		//console.log(data);
 	};
 
-	componentDidMount() {
-		this.draw = new CustomDrawing(this.imgPath.importAll(this.cp), 2);
-	}
+	changeImg = i => {
+		let mainPreview = document.querySelector(".mainPreview img");
+		mainPreview.src = this.imgPath.importAll(this.cp)[this.state.data[0]["img_" + i]];
+	};
 
 	//簡介換行
 	detailText = el => {
@@ -101,8 +100,9 @@ class Detail extends Component {
 		}
 	};
 
-	//改變客製化圖
-	changeCustom = () => {};
+	getIMG = i => {
+		return this.state.data[i].img_0;
+	};
 
 	render() {
 		// console.log(this.props);
@@ -187,8 +187,16 @@ class Detail extends Component {
 							{/*預覽圖*/}
 							<section className="previewBox">
 								<div className="mainPreview">
-									{/*<img src={img} alt="" id="img"></img>*/}
-									<canvas id="previewIMG"></canvas>
+									<img
+										src={
+											this.imgPath.importAll(this.cp)[
+												this.state.data == null ? "" : this.state.data[0].img_0
+											]
+										}
+										alt=""
+										id="img"
+									></img>
+									{/*<canvas id="previewIMG"></canvas>*/}
 								</div>
 
 								{/*其他預覽圖*/}
@@ -196,33 +204,45 @@ class Detail extends Component {
 									<ul>
 										<li
 											onClick={() => {
-												this.draw.init(this.imgPath.importAll(this.cp), 2, "style1");
+												this.changeImg(1);
 											}}
 										>
 											<img
-												src={this.imgPath.importAll(this.cp)[this.cpImgs[2].style1]}
+												src={
+													this.imgPath.importAll(this.cp)[
+														this.state.data == null ? "" : this.state.data[0].img_1
+													]
+												}
 												alt="style1"
 											/>
 										</li>
 
 										<li
 											onClick={() => {
-												this.draw.init(this.imgPath.importAll(this.cp), 2, "style2");
+												this.changeImg(2);
 											}}
 										>
 											<img
-												src={this.imgPath.importAll(this.cp)[this.cpImgs[2].style2]}
+												src={
+													this.imgPath.importAll(this.cp)[
+														this.state.data == null ? "" : this.state.data[0].img_2
+													]
+												}
 												alt="style2"
 											/>
 										</li>
 
 										<li
 											onClick={() => {
-												this.draw.init(this.imgPath.importAll(this.cp), 2, "style3");
+												this.changeImg(3);
 											}}
 										>
 											<img
-												src={this.imgPath.importAll(this.cp)[this.cpImgs[2].style3]}
+												src={
+													this.imgPath.importAll(this.cp)[
+														this.state.data == null ? "" : this.state.data[0].img_3
+													]
+												}
 												alt="style3"
 											/>
 										</li>

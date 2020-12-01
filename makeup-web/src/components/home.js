@@ -14,6 +14,7 @@ class Home extends Component {
 			allData: null, //沒使用
 			data: null, //底妝資料
 			data2: null, //唇彩資料
+			data3: null, //唇彩資料
 			fData: null, //我的最愛資料
 		};
 
@@ -32,6 +33,7 @@ class Home extends Component {
 			);
 		} else {
 			this.ajax.startListener("get", "/?card=底妝", this.u);
+			this.ajax.startListener("get", "/?card=客製", this.u3);
 		}
 
 		this.ajax.startListener("get", "/?card=唇彩", this.u2);
@@ -41,6 +43,7 @@ class Home extends Component {
 	uf = data => {
 		this.setState({ fData: data });
 		this.ajax.startListener("get", "/?card=底妝", this.u);
+		this.ajax.startListener("get", "/?card=客製", this.u3);
 		//console.log(data);
 	};
 
@@ -68,6 +71,26 @@ class Home extends Component {
 	u2 = data => {
 		this.setState({ data2: data });
 		//console.log(this.state.data2);
+	};
+
+	//所有客製資料
+	u3 = data => {
+		//我的最愛資料合併到所有產品資料
+		if (this.state.fData != null) {
+			for (let l = 0; l < data.length; l++) {
+				for (let k = 0; k < this.state.fData.length; k++) {
+					data[l].addLove = this.addLove;
+
+					if (this.state.fData[k].product_id === data[l].product_id) {
+						data[l].f = this.state.fData[k];
+						continue;
+					}
+				}
+			}
+		}
+
+		this.setState({ data3: data });
+		console.log(this.state.data3);
 	};
 
 	getIMG = i => {
@@ -153,8 +176,8 @@ class Home extends Component {
 
 				{/*熱銷區塊*/}
 				<div className="topSellOutside w">
-					<h2>最暢銷商品</h2>
-					<div className="topSell">{this.createCard.create(4, HotCard, this.state.data)}</div>
+					<h2>客製化商品</h2>
+					<div className="topSell">{this.createCard.create(4, HotCard, this.state.data3)}</div>
 				</div>
 
 				{/*心理測驗*/}
