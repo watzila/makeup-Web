@@ -208,7 +208,7 @@ class Detail2 extends Component {
 
 							<h1>#超滿$399免運</h1>
 
-							<strong>$280元</strong>
+							<strong>${this.state.data != null ? this.state.data[0].unitPrice : ""}元</strong>
 							<span
 								className="love"
 								onClick={event => {

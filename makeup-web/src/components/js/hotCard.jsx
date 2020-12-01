@@ -7,7 +7,7 @@ class HotCard extends Component {
 		super(props);
 
 		this.imgPath = new IMGPath();
-		this.p = require.context("../images/customProduct", false, /\.(png|jpe?g|svg)$/);
+		this.p = require.context("../images/product", false, /\.(png|jpe?g|svg)$/);
 	}
 
 	render() {

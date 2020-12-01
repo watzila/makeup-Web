@@ -79,7 +79,7 @@ class Product extends Component {
 			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
 		).className = "click";
 
-		//console.log(this.state.data);
+		console.log(this.state.data);
 	};
 
 	//加入、移除最愛

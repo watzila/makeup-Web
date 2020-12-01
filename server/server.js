@@ -95,13 +95,17 @@ app.get("/p", function (request, response) {
 	var sql;
 
 	if (request.query.kind) {
-		sql = `SELECT *,unitPrice
-		FROM product as p,category as c
-		WHERE c.category_id=p.category_id && p.kindA="${request.query.kind}"`;
+		sql = `SELECT *,unitPrice,img_0
+		FROM product as p,category as c,productimg as img
+		WHERE c.category_id=p.category_id && p.kindA="${request.query.kind}" && product_id=img.productImg_id && p.kindC IS null`;
 	} else {
-		sql = `SELECT *,unitPrice 
-    FROM product as p,category as c 
-    WHERE c.category_id=p.category_id`;
+		sql = `SELECT *,unitPrice ,img_0
+    FROM product as p 
+    JOIN  category as c
+    ON c.category_id=p.category_id
+    JOIN  productimg as img
+    ON p.product_id=img.productImg_id
+    WHERE p.kindC IS null`;
 	}
 
 	conn.query(sql, function (err, rows) {

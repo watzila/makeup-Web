@@ -95,7 +95,7 @@
 /*簡介*/
 .introduction {
 	padding-right: 50px;
-	margin-top: 15%;
+	margin-top: 10%;
 	font-size: 1.5rem;
 	line-height: 1.5;
 	color: #646464;
@@ -218,8 +218,8 @@
 }
 
 .previewBox .mainPreview img {
-	width: 70%;
-	height: 70%;
+	width: 100%;
+	height: 100%;
 	object-fit: contain;
 }
 

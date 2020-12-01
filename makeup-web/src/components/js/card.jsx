@@ -36,7 +36,12 @@ class Card extends Component {
 				<div className="cardinside">
 					{/*圖片*/}
 					<div className="previewIMG">
-						<img src={this.imgPath.importAll(this.p)["2.jpg"]} alt="product" />
+						<img
+							src={
+								this.imgPath.importAll(this.p)[this.props.data != null ? this.props.data.img_0 : ""]
+							}
+							alt="product"
+						/>
 					</div>
 
 					{/*簡介*/}

@@ -30,7 +30,7 @@ class Detail extends Component {
 			this.u
 		);
 
-		this.cp = require.context("./images/customProduct", false, /\.(png|jpe?g|svg)$/);
+		this.cp = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
 		//console.log(new MyImgs());
 	}
 
@@ -49,7 +49,7 @@ class Detail extends Component {
 	detailText = el => {
 		let aa = document.getElementById(el);
 		let text = this.state.data[0].detail;
-		text = text.replaceAll("\n", "<br /><br />");
+		text = text.replaceAll("\n", "<br />");
 		aa.innerHTML = text;
 	};
 
