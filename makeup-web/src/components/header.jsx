@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./css/header.css";
 import "./css/headerCart.css";
-//import logo from "./images/logo_huan-huan_緩緩_logo_bl.png"
+
 import HeaderCart from "./js/headerCart";
 import CreateCard from "./js/createCard"; //創建商品卡
 import Ajax from "./js/ajax";
-import IMGPath from "./js/imgPath"; //引入圖片
+
+import logo from "./images/logo icon.png";
+//import IMGPath from "./js/imgPath"; //引入圖片
 
 class Header extends Component {
 	constructor(props) {
@@ -21,14 +23,15 @@ class Header extends Component {
 
 		this.member = JSON.parse(sessionStorage.getItem("member"));
 
-		this.imgPath = new IMGPath();
+		//this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
 
-		this.cId =
-			sessionStorage.getItem("member") != null ? JSON.parse(sessionStorage.getItem("member")) : "";
+		if (sessionStorage.getItem("member")) {
+			this.cId = JSON.parse(sessionStorage.getItem("member"));
 
-		this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+		}
 	}
 
 	// (複製cartList)
@@ -141,17 +144,36 @@ class Header extends Component {
 	render() {
 		return (
 			<header className="header">
-				{/*<div className="rightIcon">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
-        </div>*/}
 				<nav className="navbar">
+					<div className="rightIcon">
+						<Link to="/">
+							<img src={logo} alt="logo" />
+						</Link>
+					</div>
+
 					<div className="navBoxL">
-						<Link to="/about">關於我們</Link>
-						<Link to="/b">限時特價</Link>
-						<Link to="/p/1">商品</Link>
-						<Link to="/skintest">活動</Link>
+						<Link to="/about" className="dropdown">
+							關於我們
+						</Link>
+						<Link to="/b" className="dropdown">
+							限時特價
+						</Link>
+						<Link to="/p/1" className="dropdown">
+							商品
+							<div className="dropdown-content">
+								<button>底妝類</button>
+								<br />
+								<button>唇妝類</button>
+								<br />
+								<button>眼妝類</button>
+								<br />
+								<button>其他保養類</button>
+								<br />
+							</div>
+						</Link>
+						<Link to="/skintest" className="dropdown">
+							膚質
+						</Link>
 					</div>
 
 					<div className="navBoxR">

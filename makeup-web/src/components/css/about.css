@@ -28,11 +28,11 @@ padding: 10px 50px 10px 0px;
 	padding: 1px;
 	background: url(../images/img/03.jpg);
 }
-.warp {
+.aboutMain .warp {
 	position: relative;
 }
 /* 背景上方右邊兔子 */
-.warp .pc1 {
+.aboutMain .warp .pc1 {
 	position: absolute;
 	top: -6%;
 	left: 65%;
@@ -41,7 +41,7 @@ padding: 10px 50px 10px 0px;
 	background: url(../images/img/rabbit_2.png) no-repeat center/contain;
 }
 /* 背景上方左邊兔子 */
-.warp .pc2 {
+.aboutMain .warp .pc2 {
 	position: absolute;
 	top: 1%;
 	right: 65%;
@@ -50,7 +50,7 @@ padding: 10px 50px 10px 0px;
 	background: url(../images/img/rabbit_4.png) no-repeat center/contain;
 }
 /* 背景中間兔子 */
-.warp .pc3 {
+.aboutMain .warp .pc3 {
 	position: absolute;
 	top: 55%;
 	right: 38%;
@@ -59,7 +59,7 @@ padding: 10px 50px 10px 0px;
 	background: url(../images/img/rabbit_3.png) no-repeat center/contain;
 }
 /* 背景草 */
-.warp .pc4 {
+.aboutMain .warp .pc4 {
 	position: absolute;
 	bottom: -25%;
 	right: 5%;
@@ -68,7 +68,7 @@ padding: 10px 50px 10px 0px;
 	background: url(../images/img/草.png) no-repeat center/contain;
 }
 /* 背景最下方兔子 */
-.warp .pc5 {
+.aboutMain .warp .pc5 {
 	position: absolute;
 	bottom: -16%;
 	right: 46%;
@@ -77,7 +77,7 @@ padding: 10px 50px 10px 0px;
 	background: url(../images/img/rabbit_1.png) no-repeat center/contain;
 }
 /* 背景最上方右邊雲 */
-.warp .pc6 {
+.aboutMain .warp .pc6 {
 	position: absolute;
 	top: 15%;
 	right: 40%;
@@ -87,7 +87,7 @@ padding: 10px 50px 10px 0px;
 	animation-duration: 13s;
 	animation-timing-function: ease-out;
 	animation-iteration-count: infinite;
-	background: url(../images/img/雲.png) no-repeat center/contain;
+	background: url(../images/雲.png) no-repeat center/contain;
 }
 @keyframes cloud {
 	0% {
@@ -111,7 +111,7 @@ padding: 10px 50px 10px 0px;
 		opacity: 0;
 	}
 }
-.warp .pc8 {
+.aboutMain .warp .pc8 {
 	position: absolute;
 	top: -20%;
 	right: 5%;
@@ -122,7 +122,7 @@ padding: 10px 50px 10px 0px;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
-	background: url(../images/img/雲.png) no-repeat center/contain;
+	background: url(../images/雲.png) no-repeat center/contain;
 }
 @keyframes cloud3 {
 	0% {
@@ -134,7 +134,7 @@ padding: 10px 50px 10px 0px;
 }
 
 /* 中間大標題背景 */
-.warp .banner {
+.aboutMain .warp .banner {
 	margin: 350px auto;
 	width: 900px;
 	height: 250px;
@@ -143,14 +143,14 @@ padding: 10px 50px 10px 0px;
 	border-radius: 20px;
 }
 /* 中間大標題文字 */
-.banner p {
+.aboutMain .banner p {
 	padding: 70px;
 	line-height: 1.5;
 	font-size: 30px;
 	text-align: center;
 }
 /* 產品第一列 */
-.pro_1 {
+.aboutMain .pro_1 {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -159,7 +159,7 @@ padding: 10px 50px 10px 0px;
 	margin: 200px 0px 200px 0px;
 }
 
-.pro_1 .accordion {
+.aboutMain .pro_1 .accordion {
 	width: 600px;
 	height: 100px;
 	font-size: 36px;
@@ -173,17 +173,17 @@ padding: 10px 50px 10px 0px;
 	cursor: pointer;
 }
 
-.pro_1 .accordion:hover,
-.pro_2 .accordion:hover {
+.aboutMain .pro_1 .accordion:hover,
+.aboutMain .pro_2 .accordion:hover {
 	background-color: var(--brownColor3);
 }
 
-.panel,
-.panel_2 {
+.aboutMain .panel,
+.aboutMain .panel_2 {
 	visibility: hidden;
 }
 
-.panel p {
+.aboutMain .panel p {
 	padding: 30px;
 	width: 600px;
 	height: 350px;
@@ -194,7 +194,7 @@ padding: 10px 50px 10px 0px;
 }
 
 /* 產品第二列 */
-.pro_2 {
+.aboutMain .aboutMain .pro_2 {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -203,7 +203,7 @@ padding: 10px 50px 10px 0px;
 	margin: 100px 0px 300px 0px;
 }
 
-.pro_2 .accordion {
+.aboutMain .pro_2 .accordion {
 	width: 600px;
 	height: 100px;
 	font-size: 36px;
@@ -216,7 +216,7 @@ padding: 10px 50px 10px 0px;
 	outline: none;
 	cursor: pointer;
 }
-.pro_2 .panel_2 p {
+.aboutMain .pro_2 .panel_2 p {
 	padding: 30px;
 	width: 600px;
 	height: 300px;

@@ -131,50 +131,22 @@ class Login extends Component {
 							<div>
 								<div className="inputWrap">
 									<label htmlFor="username">姓名</label>
-									<input
-										type="text"
-										name="username"
-										id="username"
-										placeholder="姓名"
-										autoComplete="off"
-										required
-									/>
+									<input type="text" id="username" placeholder="姓名" autoComplete="off" required />
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="account">帳號</label>
-									<input
-										type="text"
-										name="account"
-										id="account"
-										placeholder="E-mail"
-										autoComplete="off"
-										required
-									/>
+									<input type="text" placeholder="E-mail" autoComplete="off" required />
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="password">密碼</label>
-									<input
-										type="password"
-										name="password"
-										id="password"
-										placeholder="密碼"
-										autoComplete="off"
-										required
-									/>
+									<input type="password" placeholder="密碼" autoComplete="off" required />
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="email">E-mail</label>
-									<input
-										type="email"
-										name="email"
-										id="email"
-										placeholder="E-mail"
-										autoComplete="off"
-										required
-									/>
+									<input type="email" id="email" placeholder="E-mail" autoComplete="off" required />
 								</div>
 							</div>
 
@@ -207,18 +179,12 @@ class Login extends Component {
 							<div>
 								<div className="inputWrap">
 									<label htmlFor="account">帳號</label>
-									<input type="text" id="account" placeholder="帳號" autoComplete="off" required />
+									<input type="text" placeholder="帳號" autoComplete="off" required />
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="password">密碼</label>
-									<input
-										type="password"
-										id="password"
-										placeholder="密碼"
-										autoComplete="off"
-										required
-									/>
+									<input type="password" placeholder="密碼" autoComplete="off" required />
 								</div>
 							</div>
 

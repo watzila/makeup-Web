@@ -140,6 +140,23 @@ class Product extends Component {
 		return pageNumber;
 	};
 
+	//商品篩選
+	search = (event, kind = "") => {
+		let kindNav = document.querySelectorAll(".kindNav li");
+
+		if (kind !== "") {
+			this.ajax.startListener("get", "/p?kind=" + kind, this.u);
+		} else {
+			this.ajax.startListener("get", "/p", this.u);
+		}
+
+		for (let el of kindNav) {
+			el.className = "";
+		}
+
+		event.target.className = "click";
+	};
+
 	render() {
 		return (
 			<main className="productMain">
@@ -166,11 +183,36 @@ class Product extends Component {
 
 					<nav className="kindNav">
 						<ul>
-							<li className="click">全部</li>
-							<li>眼線</li>
-							<li>眼影</li>
-							<li>眼眉</li>
-							<li>睫毛</li>
+							<li
+								className="click"
+								onClick={event => {
+									this.search(event);
+								}}
+							>
+								全部
+							</li>
+							<li
+								onClick={event => {
+									this.search(event, "底妝");
+								}}
+							>
+								底妝
+							</li>
+							<li
+								onClick={event => {
+									this.search(event, "唇彩");
+								}}
+							>
+								唇彩
+							</li>
+							<li
+								onClick={event => {
+									this.search(event, "眼彩");
+								}}
+							>
+								眼彩
+							</li>
+							{/*<li>睫毛</li>*/}
 						</ul>
 					</nav>
 

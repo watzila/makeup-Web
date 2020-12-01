@@ -18,7 +18,15 @@ class HotCard extends Component {
 	render() {
 		return (
 			//熱銷小卡
-			<Link to={"/p/" + this.state.pID} className="topSellCar">
+			<Link
+				to={
+					"/customp/" +
+					(this.props.data != null ? this.props.data.kindA : "") +
+					"/pid=" +
+					(this.props.data != null ? this.props.data.product_id : "")
+				}
+				className="topSellCar"
+			>
 				<div className="cardIMG">
 					<img src={this.imgPath.importAll(this.p)["2.jpg"]} alt="product" />
 				</div>
