@@ -64,7 +64,7 @@ app.get('/', function (request, response) {
 
 //登入
 app.post('/login', function (request, response) {
-  let sql = `select customer_id, nickname, customerStatus
+  let sql = `select customer_id, nickname ,customerStatus
     from customer
     where account="${request.body.account}"`;
   // && password="${request.body.password}"
@@ -397,7 +397,10 @@ app.post('/memberbuy/', function (request, response) {
 	on o.product_id = p.product_id
 	
 	INNER JOIN category as cate
-	on cate.category_id = p.category_id
+  on cate.category_id = p.category_id
+  
+  INNER JOIN productimg AS pdimg
+  ON p.product_id = productImg_id
 	
 	WHERE o.customer_id = ${request.body.cId};`;
 
@@ -405,7 +408,7 @@ app.post('/memberbuy/', function (request, response) {
     if (err) return;
 
     // console.log(rows.length)
-    if (rows.length == 0) {
+    if (rows.length < 0) {
       response.send([{ info: 'error' }]);
     } else {
       // console.log(rows)
@@ -416,7 +419,7 @@ app.post('/memberbuy/', function (request, response) {
 
 // 收藏
 app.post('/memberfavorite/', function (request, response) {
-  let sql = `select p.*,cat.* 
+  let sql = `select p.*,cat.* ,pdimg.*
     from customer as customer
     inner join favorite as f
     on f.customer_id = customer.customer_id
@@ -426,6 +429,9 @@ app.post('/memberfavorite/', function (request, response) {
  
     inner join category as cat
     on cat.category_id = p.category_id
+
+    INNER JOIN productimg AS pdimg
+    ON p.product_id = productImg_id
 
     where customer.customer_id=${request.body.cId}
     GROUP BY f.favorite_id`;
@@ -494,7 +500,7 @@ app.get('/backend/orderlist', function (request, response) {
       console.log(JSON.stringify(err));
       return;
     }
-    console.log(rows);
+    // console.log(rows);
     response.send(rows);
   });
 });
@@ -526,17 +532,19 @@ app.post('/prodedit/', function (request, response) {
 	  p.updateDate  = "${request.body.updateDate}",
 	  c.unitPrice = ${request.body.unitPrice},
 	  c.skinType = "${request.body.skinType}",
-	  c.detail = "${request.body.detail}"
-	WHERE p.product_id = ${request.body.pid}
+	  c.detail = "${request.body.detail}",
+	  c.specification = "${request.body.specification}"
+	WHERE p.product_id = 48
 	&& p.category_id=c.category_id`;
   conn.query(sql, function (err, rows) {
     if (err) {
       console.log(JSON.stringify(err));
       return;
     }
-    let url = 'http://localhost:3000/backend/prod/detail/' + request.body.pid;
-    response.redirect(url);
+    response.send(rows);
   });
+
+  //console.log(request.body);
 });
 
 //後台訂單詳情
@@ -824,7 +832,7 @@ app.post('/backend/prod/new', function (request, response) {
       let sql = `
 	INSERT INTO
 	product
-	(productName,productColor, putDate,kindA,kindB,category_id,productStatus)
+	(productName,productColor, putDate,kindA,kindB)
 	VALUES
 	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}",${rows[0].category_id},${request.body.productStatus});`;
 

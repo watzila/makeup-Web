@@ -1,26 +1,28 @@
 import React, { Component } from "react";
 //import "../css/memberBuy.css";
-import product1 from "../images/product/A_01.jpg";
-// import product2 from "../images/product/A_02.jpg";
+import IMGPath from './imgPath'; 
 
 class MemberFavoriteEach extends Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props.data);
+		// console.log(this.props.data);
+		this.imgPath = new IMGPath();
+    	this.p = require.context('../images/product', false, /\.(png|jpe?g|svg)$/);
 	  }
 
 	render() {
 		return (
 			<div>
-			
 				{/* 產品單項描述(第一項訂單) */}
 				<div 
-				onClick={() => this.props.data.prodDetail(this.props.data.product_id)}
+				onClick={(pid,kind) => this.props.data.prodDetail(this.props.data.product_id,this.props.data.kindB)}
 				className="memberBuy">
 					<div>
-						<img src={product1} width="28%" alt="產品" />
+						<img 
+						src={ this.imgPath.importAll(this.p)[`${this.props.data.img_0}`]}
+						width="28%" alt="產品" />
 						<div>
-						{this.props.data == null ? "" : this.props.data.productName} <br />
+							{this.props.data == null ? "" : this.props.data.productName}<br/>
 							<small>規格:
 							{this.props.data == null ? "" : this.props.data.productColor}
 							</small>
@@ -30,13 +32,14 @@ class MemberFavoriteEach extends Component {
 					<div>${this.props.data == null ? "" : this.props.data.unitPrice}</div>
 					<div >
 						<button className="deleteBtn" 
-					  	onClick={() => this.props.data.onDelete(this.props.data.product_id)}
+					  	onClick={(event,pId) => this.props.data.onDelete(event,this.props.data.product_id)}
 					  	> 刪除</button>
+
+						 
 					  </div>
-					
+				
 				</div>
-				<div className="totalAndBuylist">
-        		</div>
+
 				<hr />
 			</div>
 		);
