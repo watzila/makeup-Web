@@ -228,7 +228,7 @@ class Detail2 extends Component {
 					<h1>商品介紹</h1>
 
 					<div className="pic_7">
-						<img src={this.imgPath.importAll(this.b)["B001_detail.jpg"]} alt="" />
+						<img src={this.imgPath.importAll(this.b)[this.state.prodIMG.img5]} alt="" />
 					</div>
 				</div>
 			</main>

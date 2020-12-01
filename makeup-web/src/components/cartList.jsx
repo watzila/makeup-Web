@@ -17,7 +17,8 @@ class CartList extends Component {
 		this.state = {
 			data: null,
 
-			deliverFee: 140,
+			deliverFee: null,
+			grandTotal: null,
 
 			//以下內容載入頁面時 設定預設狀態隱藏
 			myModal: {
@@ -44,9 +45,7 @@ class CartList extends Component {
 		this.cId =
 			sessionStorage.getItem("member") != null ? JSON.parse(sessionStorage.getItem("member")) : "";
 
-		if (sessionStorage.getItem("member")) {
-			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
-		}
+		this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 	}
 
 	u = data => {
@@ -198,7 +197,9 @@ class CartList extends Component {
 
 	// 總金額計算（含運費）
 	handleGrandTotalMoney = () => {
-		return this.handleTotalMoney() + this.handleDeliverFee();
+		this.state.grandTotal = this.handleTotalMoney() + this.handleDeliverFee();
+
+		return this.state.grandTotal;
 	};
 
 	// 是否符合免運資格
@@ -246,11 +247,13 @@ class CartList extends Component {
 	// 選擇宅配後，顯示對應的住址輸入框，預設select value ==1
 	homeDeliveryInput = event => {
 		// console.log(event.target.value);
-		if (event.target.value === "1") {
+		if (event.target.value === "一般宅配") {
 			this.setState({ myAddressDetail: { display: "block" } });
 		} else {
 			this.setState({ myAddressDetail: { display: "none" } });
 		}
+		// console.log(event.target.value);
+		return event.target.value;
 	};
 
 	// 收件人與購買人不同時，展開收件人資料輸入框
@@ -264,15 +267,16 @@ class CartList extends Component {
 	};
 
 	//訂單編號
-	orderId = () => {
-		// sessionStorage.setItem('order', 6);
-	};
+	// orderId = () => {
+	//   sessionStorage.setItem('order', 6);
+	// };
 
 	render() {
+		// console.log(this.state.data);
 		return (
 			<section id="cart">
 				<div className="container w">
-					<form id="orderForm " action="#">
+					<div id="orderForm " action="#">
 						{/* cartBox_start  */}
 						<div className="cartBox">
 							<h1>我的購物車</h1>
@@ -383,103 +387,207 @@ class CartList extends Component {
 						{/* loginBox_end  */}
 
 						{/* orderInput_start  */}
-						<div id="orderBox" style={this.state.myOrderBox}>
-							<div className="orderTableBox">
-								{/* 運送方式與付款方式 */}
-								<div className="shipAndPaymentCol">
-									<h1>購買資訊</h1>
-									<hr />
-									<select
-										onChange={this.homeDeliveryInput}
-										defaultValue={0}
-										className="shippingSelect"
-									>
-										<option value="0">‐ 請選擇 運送方式 ‐</option>
-										<option value="1">一般宅配</option>
-										<option value="2">超商取貨</option>
-										<option value="3">國際快遞</option>
-									</select>
-									{/* 引入地址下拉式選單外掛  */}
-									<div className="addressDetail" style={this.state.myAddressDetail}>
-										<input className="inputAddress" type="text" placeholder="收件地址" />
-										<p>酌收運費 : $ 140 元</p>
-									</div>
-									<select defaultValue={0} className="paymentSelect">
-										<option value="none">‐ 請選擇 付款方式 ‐</option>
-										<option value="1">轉帳匯款</option>
-										<option value="2">信用卡</option>
-										<option value="3">新竹物流取貨付款(手續費 $ 50 元)</option>
-									</select>
-								</div>
-
-								{/* 購買人與收件人資料 */}
-								<div className="billInfo">
-									<h1>購買人資料</h1>
-									<hr />
-									<input className="inputName" type="text" placeholder="請輸入購買人姓名" />
-									<input className="inputPhone" type="text" placeholder="請輸入聯絡電話" />
-									<input className="inputEmail" type="email" placeholder="請輸入電子郵箱" />
-
-									<div className="checkSubscribe">
-										<input type="checkbox" name="subscribe" id="subscribe" />
-										<label htmlFor="subscribe">我想收到最新資訊及優惠方案</label>
-										<br />
-									</div>
-
-									<div className="checkShipping">
+						<form method="post" action="http://localhost:3001/cart/submit">
+							<div id="orderBox" style={this.state.myOrderBox}>
+								<div className="orderTableBox">
+									{/* 運送方式與付款方式 */}
+									<div className="shipAndPaymentCol">
+										<h1>購買資訊</h1>
+										{/* 隱藏欄位傳值 */}
 										<input
-											onChange={this.shippingDataInput}
-											type="checkbox"
-											name="shippingData"
-											id="shippingData"
+											name="customer_id"
+											type="text"
+											style={{ display: "none" }}
+											defaultValue={JSON.parse(sessionStorage.getItem("member")).customer_id}
 										/>
-										<label htmlFor="shippingData">新增收件人資料</label>
-										<br />
-										<div id="shippingDataDetail" style={this.state.myShippingDataDetail}>
-											<input className="shippingName" type="text" placeholder="請輸入收件人姓名" />
+										<input
+											name="grandTotal"
+											type="text"
+											style={{ display: "none" }}
+											id="grandTotalInput"
+											value={this.state.grandTotal}
+											onChange={event => {
+												return event.target.value;
+											}}
+										/>
+										<hr />
+										<select
+											name="shippingStyle_id"
+											onChange={this.homeDeliveryInput}
+											defaultValue={"0"}
+											className="shippingSelect"
+										>
+											<option value="0">‐ 請選擇 運送方式 ‐</option>
+											<option value="一般宅配">一般宅配</option>
+											<option value="超商取貨">超商取貨</option>
+											<option value="國際快遞">國際快遞</option>
+										</select>
+										{/* 引入地址下拉式選單外掛  */}
+										<div className="addressDetail" style={this.state.myAddressDetail}>
 											<input
-												className="shippingPhone"
+												name="shipping_city"
+												className="inputAddress"
 												type="text"
-												placeholder="請輸入收件人聯絡電話"
+												placeholder="縣市"
+												onChange={e => {
+													console.log(e.target.value);
+													return e.target.value;
+												}}
 											/>
+											<input
+												name="shipping_district"
+												className="inputAddress "
+												type="text"
+												placeholder="鄉鎮區"
+												onChange={e => {
+													// console.log(e.target.value);
+													return e.target.value;
+												}}
+											/>
+											<input
+												name="shipping_address"
+												className="inputAddress "
+												type="text"
+												placeholder="收件地址"
+												onChange={e => {
+													// console.log(e.target.value);
+													return e.target.value;
+												}}
+											/>
+											<p>酌收運費 : $ 140 元</p>
+											<p>全館 滿 $ 2,000 元 免運費</p>
 										</div>
+										<select
+											name="payment_method"
+											defaultValue={"0"}
+											className="paymentSelect"
+											onChange={e => {
+												return e.target.value;
+											}}
+										>
+											<option value="0">‐ 請選擇 付款方式 ‐</option>
+											<option value="貨到付款">貨到付款</option>
+											<option value="信用卡">信用卡</option>
+											<option value="轉帳匯款">轉帳匯款</option>
+										</select>
 									</div>
 
-									<textarea
-										name=""
-										id=""
-										cols="30"
-										rows="3"
-										placeholder="請輸入備註事項(選填)"
-									></textarea>
+									{/* 購買人與收件人資料 */}
+									<div className="billInfo">
+										<h1>購買人資料</h1>
+										<hr />
+										<input
+											name="customerName"
+											className="inputName"
+											type="text"
+											placeholder="請輸入購買人姓名"
+											onChange={e => {
+												return e.target.value;
+											}}
+										/>
+										<input
+											name="cellPhone"
+											className="inputPhone"
+											type="text"
+											placeholder="請輸入聯絡電話"
+											onChange={e => {
+												return e.target.value;
+											}}
+										/>
+										<input
+											name="email"
+											className="inputEmail"
+											type="email"
+											placeholder="請輸入電子郵箱"
+											onChange={e => {
+												return e.target.value;
+											}}
+										/>
 
-									<div className="checkClause">
-										<input type="checkbox" name="clause" id="clause" />
-										<label htmlFor="clause">
-											我已閱讀 <a href="#">「售後服務」</a> 並同意。
-										</label>
-										<br />
-									</div>
+										{/* <div className="checkSubscribe">
+                      <input
+                        type="checkbox"
+                        name="subscribe"
+                        id="subscribe"
 
-									<div className="afterTotalPay">
-										<p>
-											實付金額(TWD)
-											<span>{this.handleGrandTotalMoney()}</span>
-											<a href="#">
-												<i className="fa fa-file-text-o" aria-hidden="true"></i>
-											</a>
-										</p>
-									</div>
-									<div className="divCheckout">
-										<Link to="/order" className="btnCheckout">
-											送出＆結帳
-										</Link>
+                      />
+                      <label htmlFor="subscribe">
+                        我想收到最新資訊及優惠方案
+                      </label>
+                      <br />
+                    </div> */}
+
+										<div className="checkShipping">
+											<input
+												onChange={this.shippingDataInput}
+												type="checkbox"
+												name="shippingData"
+												id="shippingData"
+											/>
+											<label htmlFor="shippingData">新增收件人資料</label>
+											<br />
+											<div id="shippingDataDetail" style={this.state.myShippingDataDetail}>
+												<input
+													name="shipping_Name"
+													className="shippingName"
+													type="text"
+													placeholder="請輸入收件人姓名"
+													onChange={e => {
+														return e.target.value;
+													}}
+												/>
+												<input
+													name="shipping_cellPhone"
+													className="shippingPhone"
+													type="text"
+													placeholder="請輸入收件人聯絡電話"
+													onChange={e => {
+														return e.target.value;
+													}}
+												/>
+											</div>
+										</div>
+
+										<textarea
+											name="orderComment"
+											id=""
+											cols="30"
+											rows="3"
+											placeholder="請輸入備註事項(選填)"
+											onChange={e => {
+												// console.log(e.target.value);
+												return e.target.value;
+											}}
+										></textarea>
+
+										<div className="checkClause">
+											<input type="checkbox" name="clause" id="clause" required />
+											<label htmlFor="clause">
+												我已閱讀 <a href="#">「售後服務」</a> 並同意。
+											</label>
+											<br />
+										</div>
+
+										<div className="afterTotalPay">
+											<p>
+												實付金額(TWD)
+												<span>{this.handleGrandTotalMoney()}</span>
+												<a href="#">
+													<i className="fa fa-file-text-o" aria-hidden="true"></i>
+												</a>
+											</p>
+										</div>
+										<div className="divCheckout">
+											<button type="submit" className="btnCheckout">
+												送出＆結帳
+											</button>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</form>
 						{/* orderInput_end */}
-					</form>
+					</div>
 				</div>
 			</section>
 		);

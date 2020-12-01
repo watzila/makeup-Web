@@ -19,8 +19,9 @@ class Order extends Component {
     this.ajax = new Ajax();
     this.createCard = new CreateCard();
 
-    this.ajax.startListener('post', '/searchOrder', this.u, this.state.orderId);
-
+    this.ajax.startListener('post', '/searchOrder', this.u, {
+      id: this.state.customerId.id,
+    });
     setTimeout(() => {
       this.init();
     }, 100);
@@ -45,11 +46,44 @@ class Order extends Component {
   //地址
   address = () => {
     let d = this.state.data[0];
-    let newAddress = d.shipping_city + d.shipping_district + d.address;
+    let newAddress = d.shipping_city + d.shipping_district + d.shipping_address;
     return newAddress;
   };
 
+  // 金額計算 （不含運費）
+  handleTotalMoney = () => {
+    var totalMoney = 0;
+    this.state.data.forEach((element) => {
+      totalMoney += element.subtotal;
+    });
+    // console.log(totalMoney);
+    return totalMoney.toString();
+  };
+
+  // 運費計算;
+  handleDeliverFee = () => {
+    if (this.handleTotalMoney() >= 2000) {
+      this.state.deliverFee = 0;
+    } else {
+      this.state.deliverFee = 140;
+    }
+    return this.state.deliverFee.toString();
+  };
+
+  // 是否符合免運資格
+  handleDiscountQualify = () => {
+    var discountQualify = null;
+
+    if (this.handleTotalMoney() >= 2000) {
+      discountQualify = '符合';
+    } else {
+      discountQualify = '尚未符合';
+    }
+    return discountQualify.toString();
+  };
+
   render() {
+    // console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
     return (
       <section id="order" className="w">
         <div className="container">
@@ -95,22 +129,35 @@ class Order extends Component {
                         全館 滿 $ <span>2,500</span> 元 免運費
                       </a>
                     </td>
-                    <td colSpan="2">尚未符合</td>
+                    <td colSpan="2">
+                      {this.state.data != null
+                        ? this.handleDiscountQualify()
+                        : ''}
+                    </td>
                   </tr>
                   <tr className="subtotal">
                     <td colSpan="3">小計</td>
-                    <td colSpan="2">$1,950</td>
+                    <td colSpan="2">
+                      {this.state.data != null ? this.handleTotalMoney() : ''}
+                    </td>
                   </tr>
                   <tr className="shipment">
                     <td colSpan="3">運費</td>
-                    <td colSpan="2">前往下一步驟計算</td>
+                    <td colSpan="2">
+                      {this.state.data != null ? this.handleDeliverFee() : ''}
+                    </td>
                   </tr>
                   <tr className="totalMoney">
                     <td colSpan="3">
                       <p>總金額</p>
                       <p>(TWD)</p>
                     </td>
-                    <td colSpan="2">$1,950</td>
+                    <td colSpan="2">
+                      $
+                      {this.state.data != null
+                        ? this.state.data[0].grandTotal
+                        : ''}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -187,7 +234,9 @@ class Order extends Component {
                     <div className="panelOrderTitle">出貨日期</div>
                     <div className="panelOrderText">
                       <i className="fa fa-caret-right" aria-hidden="true"></i>
-                      2020-12-03
+                      {this.state.data != null
+                        ? this.state.data[0].shippingDate
+                        : ''}
                     </div>
                   </div>
                   <div>

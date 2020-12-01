@@ -29,44 +29,42 @@ class MemberFavorite extends Component {
     }
 
     this.setState({ data: data });
-    // console.log(data);
+    console.log(data);
   };
 
-  onDelete= (e)=>{
+  onDelete= (event,pId)=>{
+    event.stopPropagation();
     const newArray = this.state.data.filter(
-      (item) => item.product_id !== e
+      (item) => item.product_id !== pId
     );
     this.state.data = newArray;
     this.setState({});
     this.ajax.startListener('post', '/deletefavo', this.u, {
       cId: JSON.parse(sessionStorage.getItem('member')).customer_id,
-      pId: e,
+      pId: pId,
     });
    }
 
-    prodDetail = (e)=>{
-      console.log(e)
-      const newArray = this.state.data.filter(
-        (item) => item.product_id !== e
-      );
-      this.state.data = newArray;
-      this.setState({});
-      this.ajax.startListener('get', '/p/:kind', this.u, {
-        // pid: JSON.parse(sessionStorage.getItem('member')).pid,
-        pid: e
-      });
+    prodDetail = (pid,kind)=>{
+      console.log(pid,kind)
+      // const newArray = this.state.data.filter(
+      //   (item) => item.product_id !== e
+      // );
+      // this.state.data = newArray;
+      // this.setState({});
+      window.location.href=`http://localhost:3000/p/${kind}/pid=${pid}`;
     }
 
 
   render() {
     return (
-      <div className="memberBuyOut">
+      <div className="userForm">
         <div className="memberBuy" style={{ textAlign: "center" }}>
-          <div>品名</div>
-          
+          <div className="kindName">品名</div>
           <div className="smallTot">單價</div>
           
         </div>
+        <hr/>
         {/* 產品單項描述(第一項訂單) */}
         
         {this.state.data == null

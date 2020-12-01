@@ -136,12 +136,24 @@ class Login extends Component {
 
 								<div className="inputWrap">
 									<label htmlFor="account">帳號</label>
-									<input type="text" placeholder="E-mail" autoComplete="off" required />
+									<input
+										type="text"
+										id="account"
+										placeholder="E-mail"
+										autoComplete="off"
+										required
+									/>
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="password">密碼</label>
-									<input type="password" placeholder="密碼" autoComplete="off" required />
+									<input
+										type="password"
+										id="password"
+										placeholder="密碼"
+										autoComplete="off"
+										required
+									/>
 								</div>
 
 								<div className="inputWrap">
@@ -179,12 +191,18 @@ class Login extends Component {
 							<div>
 								<div className="inputWrap">
 									<label htmlFor="account">帳號</label>
-									<input type="text" placeholder="帳號" autoComplete="off" required />
+									<input type="text" id="account" placeholder="帳號" autoComplete="off" required />
 								</div>
 
 								<div className="inputWrap">
 									<label htmlFor="password">密碼</label>
-									<input type="password" placeholder="密碼" autoComplete="off" required />
+									<input
+										type="password"
+										id="password"
+										placeholder="密碼"
+										autoComplete="off"
+										required
+									/>
 								</div>
 							</div>
 
