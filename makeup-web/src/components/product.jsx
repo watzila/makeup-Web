@@ -130,7 +130,7 @@ class Product extends Component {
 		let pageNumber = this.state.allData.map((item, index) => {
 			return (
 				<Link
-					to={"/p/" + (index + 1)}
+					to={"/p/" + this.props.match.params.kind + "/" + (index + 1)}
 					key={index}
 					id={"page_" + index}
 					onClick={() => {
@@ -231,6 +231,8 @@ class Product extends Component {
 						<Link
 							to={
 								"/p/" +
+								this.props.match.params.kind +
+								"/" +
 								(this.props.match.params.page > 1 ? this.props.match.params.page * 1 - 1 : 1)
 							}
 							onClick={() => {
@@ -246,6 +248,8 @@ class Product extends Component {
 						<Link
 							to={
 								"/p/" +
+								this.props.match.params.kind +
+								"/" +
 								(this.props.match.params.page <
 								(this.state.allData != null ? this.state.allData.length : null)
 									? this.props.match.params.page * 1 + 1
