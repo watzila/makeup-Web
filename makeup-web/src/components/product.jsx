@@ -53,6 +53,7 @@ class Product extends Component {
 		let newData = [],
 			i = 0;
 
+		console.log(data);
 		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
 			for (let l = 0; l < data.length; l++) {
@@ -84,7 +85,6 @@ class Product extends Component {
 
 		//頁數按鈕初始化
 		document.querySelector(`.page a:nth-of-type(${2})`).className = "click";
-		//console.log(this.state.allData);
 	};
 
 	//加入、移除最愛
@@ -93,18 +93,19 @@ class Product extends Component {
 		let newFData = this.state.fData;
 		let newData = this.state.data;
 
-		let num = pid % 8 ? (pid % 8) - 1 : 7;
+		//let num = pid % 8 ? (pid % 8) - 1 : 7;
 		let index = newFData.map(item => item.product_id).indexOf(pid);
+		let index2 = newData.map(item => item.product_id).indexOf(pid);
 
 		if (sessionStorage.getItem("member")) {
 			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
 			let newLove = { customer_id: cId, product_id: pid };
 			if (index === -1) {
 				newFData.push(newLove);
-				newData[num].f = newLove;
+				newData[index2].f = newLove;
 			} else {
 				newFData.splice(index, 1);
-				delete newData[pid - 1].f;
+				delete newData[index2].f;
 			}
 			this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
 			this.setState({ fData: newFData });

@@ -10,6 +10,8 @@ class SkinTest extends Component {
 		this.imgPath = new IMGPath();
 
 		this.sk = require.context("./images/skinTest", false, /\.(png|jpe?g|svg)$/);
+
+		window.scrollTo(0, 0);
 	}
 
 	openContent(evt, itemName) {

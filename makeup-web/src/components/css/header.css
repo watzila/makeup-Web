@@ -97,6 +97,7 @@
 	background-color: #fff;
 	border: 2px solid var(--brownColor3);
 	border-top: 0;
+	z-index: -1;
 }
 
 .navBoxR:hover .fa-shopping-cart ~ .headerCartBox {

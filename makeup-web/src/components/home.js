@@ -243,7 +243,10 @@ class Home extends Component {
 					</div>
 
 					<div className="testText">
-						<p>膚值測試</p>
+						<Link to="/skintest">
+							<p>膚值測試</p>
+						</Link>
+
 						{/*<button>測驗</button>*/}
 					</div>
 				</div>

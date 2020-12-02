@@ -189,6 +189,8 @@ INNER JOIN cart AS cart
 ON p.product_id = cart.product_id
 INNER JOIN productimg AS pdimg
 ON p.product_id = productImg_id
+INNER JOIN customer AS cus
+ON cus.customer_id = cart.customer_id
 WHERE cart.customer_id = ${request.query.cId}  `,
 		function (err, rows) {
 			if (err) {
@@ -273,7 +275,7 @@ app.post("/addCart", function (req, res) {
 			// console.log(rows.length);
 			var sql = `INSERT into cart
 (customer_id, product_id, quantity, orderStatus, order_id)
-VALUES ('${req.body.c_id}', '${req.body.p_id}', '${req.body.qty}', '待結帳',CONCAT('DD',DATE_FORMAT(now(),'%Y%m%d'),customer_id))`;
+VALUES ('${req.body.c_id}', '${req.body.p_id}', '${req.body.qty}', '已結帳',CONCAT('DD',DATE_FORMAT(now(),'%Y%m%d'),customer_id))`;
 			conn.query(sql, function (err, rows) {
 				if (err) {
 					console.log(JSON.stringify(err));

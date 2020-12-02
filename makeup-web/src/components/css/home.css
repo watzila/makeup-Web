@@ -259,8 +259,11 @@
 	align-items: center;
 	text-align: center;
 	font-size: 3rem;
-	color: #ffffff;
 	/*border: 1px solid;*/
+}
+
+.testText p {
+	color: #ffffff;
 }
 
 /*其他商品*/

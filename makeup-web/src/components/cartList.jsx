@@ -67,7 +67,7 @@ class CartList extends Component {
 			this.init();
 		}, 100);
 
-		console.log(data);
+		// console.log(data);
 		// console.log(this.state.data.length);
 	};
 
@@ -273,7 +273,7 @@ class CartList extends Component {
 	// };
 
 	render() {
-		// console.log(this.state.data);
+		console.log(this.state.data);
 		return (
 			<section id="cart">
 				<div className="container w">
@@ -388,6 +388,7 @@ class CartList extends Component {
 						{/* loginBox_end  */}
 
 						{/* orderInput_start  */}
+						{/* 透過form action 去傳資料到server 沒有input欄位的 寫隱藏欄位 */}
 						<form method="post" action="http://localhost:3001/cart/submit">
 							<div id="orderBox" style={this.state.myOrderBox}>
 								<div className="orderTableBox">
@@ -417,12 +418,12 @@ class CartList extends Component {
 										/>
 										<hr />
 										<select
+											required
 											name="shippingStyle_id"
 											onChange={this.homeDeliveryInput}
-											defaultValue={"0"}
 											className="shippingSelect"
 										>
-											<option value="0">‐ 請選擇 運送方式 ‐</option>
+											<option value="">‐ 請選擇 運送方式 ‐</option>
 											<option value="一般宅配">一般宅配</option>
 											<option value="超商取貨">超商取貨</option>
 											<option value="國際快遞">國際快遞</option>
@@ -430,30 +431,36 @@ class CartList extends Component {
 										{/* 引入地址下拉式選單外掛  */}
 										<div className="addressDetail" style={this.state.myAddressDetail}>
 											<input
+												required
 												name="shipping_city"
 												className="inputAddress"
 												type="text"
 												placeholder="縣市"
-												onChange={e => {
-													console.log(e.target.value);
-													return e.target.value;
-												}}
-											/>
-											<input
-												name="shipping_district"
-												className="inputAddress "
-												type="text"
-												placeholder="鄉鎮區"
+												defaultValue={this.state.data != null ? this.state.data[0].city : ""}
 												onChange={e => {
 													// console.log(e.target.value);
 													return e.target.value;
 												}}
 											/>
 											<input
+												required
+												name="shipping_district"
+												className="inputAddress "
+												type="text"
+												placeholder="鄉鎮區"
+												defaultValue={this.state.data != null ? this.state.data[0].district : ""}
+												onChange={e => {
+													// console.log(e.target.value);
+													return e.target.value;
+												}}
+											/>
+											<input
+												required
 												name="shipping_address"
 												className="inputAddress "
 												type="text"
 												placeholder="收件地址"
+												defaultValue={this.state.data != null ? this.state.data[0].address : ""}
 												onChange={e => {
 													// console.log(e.target.value);
 													return e.target.value;
@@ -463,14 +470,14 @@ class CartList extends Component {
 											<p>全館 滿 $ 2,000 元 免運費</p>
 										</div>
 										<select
+											required
 											name="payment_method"
-											defaultValue={"0"}
 											className="paymentSelect"
 											onChange={e => {
 												return e.target.value;
 											}}
 										>
-											<option value="0">‐ 請選擇 付款方式 ‐</option>
+											<option value="">‐ 請選擇 付款方式 ‐</option>
 											<option value="貨到付款">貨到付款</option>
 											<option value="信用卡">信用卡</option>
 											<option value="轉帳匯款">轉帳匯款</option>
@@ -482,29 +489,37 @@ class CartList extends Component {
 										<h1>購買人資料</h1>
 										<hr />
 										<input
+											style={{ backgroundColor: "#ccc" }}
+											readOnly
 											name="customerName"
 											className="inputName"
 											type="text"
 											placeholder="請輸入購買人姓名"
-											//value={}
+											defaultValue={this.state.data != null ? this.state.data[0].customerName : ""}
 											onChange={e => {
 												return e.target.value;
 											}}
 										/>
 										<input
+											style={{ backgroundColor: "#ccc" }}
+											readOnly
 											name="cellPhone"
 											className="inputPhone"
 											type="text"
 											placeholder="請輸入聯絡電話"
+											defaultValue={this.state.data != null ? this.state.data[0].cellPhone : ""}
 											onChange={e => {
 												return e.target.value;
 											}}
 										/>
 										<input
+											style={{ backgroundColor: "#ccc" }}
+											readOnly
 											name="email"
 											className="inputEmail"
 											type="email"
 											placeholder="請輸入電子郵箱"
+											defaultValue={this.state.data != null ? this.state.data[0].email : ""}
 											onChange={e => {
 												return e.target.value;
 											}}

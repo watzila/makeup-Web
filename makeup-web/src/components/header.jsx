@@ -164,7 +164,7 @@ class Header extends Component {
 						<Link to="/about" className="dropdown">
 							關於我們
 						</Link>
-						<Link to="/b" className="dropdown">
+						<a className="dropdown" style={{ cursor: "pointer" }}>
 							客製化
 							<div className="dropdown-content">
 								<button
@@ -200,7 +200,7 @@ class Header extends Component {
 								</button>
 								<br />
 							</div>
-						</Link>
+						</a>
 
 						<Link to="/p/全部/1" className="dropdown">
 							商品
