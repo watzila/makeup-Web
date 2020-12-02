@@ -7,7 +7,7 @@ class HeaderCart extends Component {
     this.state = {
       // count: this.props.count,
       count: this.props.data.quantity,
-      subtotal: this.props.data.subtotal,
+      // subtotal: this.props.data.subtotal,
     };
 
     this.imgPath = new IMGPath();
@@ -22,7 +22,7 @@ class HeaderCart extends Component {
   // };
 
   render() {
-    // console.log(this.props.data.product_id);
+    // console.log(this.props.data.unitPrice);
 
     return (
       <tr className="headerProductItem">
@@ -65,7 +65,9 @@ class HeaderCart extends Component {
           </div> */}
         </td>
         {/* <td>{this.props.data.unitPrice}</td> */}
-        <td className="headerBoxSubtotal">{this.props.data.subtotal}</td>
+        <td className="headerBoxSubtotal">
+          {this.props.data.unitPrice * this.props.data.quantity}
+        </td>
         <td className="tdDelete">
           <div
             onClick={() => this.props.data.onDelete(this.props.data.product_id)}

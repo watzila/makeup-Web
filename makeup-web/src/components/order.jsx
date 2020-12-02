@@ -175,7 +175,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">購買日期</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].orderDate
                         : ''}
@@ -184,7 +184,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">訂單編號</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].order_id
                         : ''}
@@ -195,7 +195,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">處理狀態</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].orderStatus
                         : ''}
@@ -204,7 +204,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">配送狀態</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       【宅配】尚未寄件
                     </div>
                   </div>
@@ -217,7 +217,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">運送方式</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].shippingStyle_id
                         : ''}
@@ -226,14 +226,14 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">運送地址</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null ? this.address() : ''}
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">出貨日期</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].shippingDate
                         : ''}
@@ -242,7 +242,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">付款方式</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].payment_method
                         : ''}
@@ -253,7 +253,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">購買人姓名</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].customerName
                         : ''}
@@ -262,14 +262,14 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">購買人信箱</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null ? this.state.data[0].email : ''}
                     </div>
                   </div>
                   <div>
                     <div className="panelOrderTitle">購買人電話</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].cellPhone
                         : ''}
@@ -278,7 +278,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">收件人姓名</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].shipping_Name
                         : ''}
@@ -287,7 +287,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">收件人電話</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].shipping_cellPhone
                         : ''}
@@ -296,7 +296,7 @@ class Order extends Component {
                   <div>
                     <div className="panelOrderTitle">備註事項</div>
                     <div className="panelOrderText">
-                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                      <i className="fa fa-bookmark" aria-hidden="true"></i>
                       {this.state.data != null
                         ? this.state.data[0].orderComment
                         : ''}

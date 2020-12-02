@@ -55,6 +55,7 @@ class ProdDetail extends Component {
 
 		for (let ele of input) {
 			ele.removeAttribute("hidden");
+			ele.disabled = false;
 		}
 
 		for (let ele of radio) {
@@ -63,6 +64,16 @@ class ProdDetail extends Component {
 
 		document.getElementsByTagName("textarea")[0].removeAttribute("hidden");
 		document.querySelector("button[type='submit']").disabled = false;
+	};
+
+	getProdStatus = num => {
+		if (this.state.data[0].productStatus === num) {
+			//console.log(11);
+			return "checked";
+		} else {
+			//console.log(121);
+			return false;
+		}
 	};
 
 	render() {
@@ -291,11 +302,11 @@ class ProdDetail extends Component {
 							</div>
 						</div>
 
-						<div className="form-group row">
+						{/*<div className="form-group row">
 							<label className="col-2">送貨及付款方式</label>
 
-							<div className="col-10">
-								<div className="custom-control custom-checkbox custom-control-inline">
+							<div className="col-10">*/}
+						{/*<div className="custom-control custom-checkbox custom-control-inline">
 									<input
 										name="shippingStyle_id"
 										id="shippingStyle_id_0"
@@ -335,9 +346,9 @@ class ProdDetail extends Component {
 									<label htmlFor="shippingStyle_id_2" className="custom-control-label">
 										其他
 									</label>
-								</div>
-							</div>
-						</div>
+								</div>*/}
+						{/*</div>
+						</div>*/}
 
 						<div className="form-group row">
 							<label htmlFor="putDate" className="col-2 col-form-label">
@@ -355,7 +366,8 @@ class ProdDetail extends Component {
 									<input
 										id="putDate"
 										name="putDate"
-										type="text"
+										type="date"
+										disabled
 										className="form-control"
 										defaultValue={this.state.data == null ? "" : this.state.data[0].putDate}
 										onChange={event => {
@@ -382,7 +394,7 @@ class ProdDetail extends Component {
 									<input
 										id="updateDate"
 										name="updateDate"
-										type="text"
+										type="date"
 										className="form-control"
 										disabled
 										defaultValue={this.state.data == null ? "" : this.state.data[0].updateDate}
@@ -403,7 +415,7 @@ class ProdDetail extends Component {
 										id="productStatu_0"
 										type="radio"
 										className="custom-control-input"
-										defaultChecked
+										checked={this.state.data != null ? this.getProdStatus(1) : false}
 										defaultValue={1}
 										onChange={e => {
 											return e.target.checked;
@@ -422,6 +434,7 @@ class ProdDetail extends Component {
 										id="productStatu_1"
 										type="radio"
 										className="custom-control-input"
+										checked={this.state.data != null ? this.getProdStatus(0) : false}
 										defaultValue={0}
 										onChange={e => {
 											return e.target.checked;

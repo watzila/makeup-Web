@@ -32,6 +32,12 @@ class Header extends Component {
 
 			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 		}
+
+		window.addEventListener("keydown", function (event) {
+			if (event.key == "Esc" || event.key == "Escape") {
+				sessionStorage.clear();
+			}
+		});
 	}
 
 	// (複製cartList)
@@ -117,7 +123,7 @@ class Header extends Component {
 			}
 		}
 		// this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
-		console.log(1);
+		// console.log(1);
 		// console.log(this.state.data.length);
 		// 購物車空車的話 隱藏購物車欄位
 	}
@@ -152,23 +158,81 @@ class Header extends Component {
 					</div>
 
 					<div className="navBoxL">
+						<Link to="/" className="dropdown">
+							首頁
+						</Link>
 						<Link to="/about" className="dropdown">
 							關於我們
 						</Link>
 						<Link to="/b" className="dropdown">
-							限時特價
+							客製化
+							<div className="dropdown-content">
+								<button
+									onClick={() => {
+										window.location.href = "/customp/乳液/pid=45";
+									}}
+								>
+									乳液
+								</button>
+								<br />
+								<button
+									onClick={() => {
+										window.location.href = "/customp/眼霜/pid=47";
+									}}
+								>
+									眼霜
+								</button>
+								<br />
+								<button
+									onClick={() => {
+										window.location.href = "/customp/化妝水/pid=44";
+									}}
+								>
+									化妝水
+								</button>
+								<br />
+								<button
+									onClick={() => {
+										window.location.href = "/customp/卸妝水/pid=46";
+									}}
+								>
+									卸妝水
+								</button>
+								<br />
+							</div>
 						</Link>
-						<Link to="/p/1" className="dropdown">
+
+						<Link to="/p/全部/1" className="dropdown">
 							商品
 							<div className="dropdown-content">
-								<button>底妝類</button>
+								<button
+									onClick={() => {
+										window.location.href = "/p/底妝/1";
+									}}
+								>
+									底妝類
+								</button>
 								<br />
-								<button>唇妝類</button>
+								<button
+									onClick={() => {
+										window.location.href = "/p/唇彩/1";
+									}}
+								>
+									唇妝類
+								</button>
 								<br />
-								<button>眼妝類</button>
+								<button
+									onClick={() => {
+										window.location.href = "/p/眼彩/1";
+									}}
+								>
+									眼妝類
+								</button>
 								<br />
-								<button>其他保養類</button>
-								<br />
+								{/*<button onClick={() => {
+										window.location.href = "/p/底妝/1";
+									}}>其他保養類</button>
+								<br />*/}
 							</div>
 						</Link>
 						<Link to="/skintest" className="dropdown">

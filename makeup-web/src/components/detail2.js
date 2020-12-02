@@ -84,6 +84,20 @@ class Detail2 extends Component {
 		}
 	};
 
+	//加入購物車
+	addCart = () => {
+		// console.log(this.state.countText.text);
+
+		if (sessionStorage.getItem("member")) {
+			this.ajax.startListener("post", "/addCart", this.u, {
+				c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
+				// p_id: this.props.match.params.pid,
+				p_id: this.state.data[0].product_id,
+				qty: this.state.countText.text,
+			});
+		}
+	};
+
 	changeIMG = img => {
 		let newProdIMG = this.state.prodIMG;
 
@@ -127,7 +141,9 @@ class Detail2 extends Component {
 		}
 
 		this.setState({ data: data, prodIMG: newProdIMG });
-		console.log(data);
+		//console.log(data);
+
+		window.scrollTo(0, 0);
 	};
 
 	//加入、移除最愛
@@ -136,9 +152,8 @@ class Detail2 extends Component {
 		let newFData = this.state.fData;
 		let newData = this.state.data;
 
-		let index = newFData.map(item => item.product_id).indexOf(pid);
-
 		if (sessionStorage.getItem("member")) {
+			let index = newFData.map(item => item.product_id).indexOf(pid);
 			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
 			let newLove = { customer_id: cId, product_id: pid };
 			if (index === -1) {
@@ -162,7 +177,7 @@ class Detail2 extends Component {
 						<div className="pic_01">
 							<img
 								src={this.imgPath.importAll(this.p)[this.state.prodIMG.img1]}
-								width="550px"
+								width="500px"
 								alt=""
 							/>
 						</div>
@@ -221,7 +236,10 @@ class Detail2 extends Component {
 							<h3>色號</h3>
 
 							<div className="but_1">
-								<button>001{this.state.data != null ? this.state.data[0].productColor : ""}</button>
+								<button>
+									001
+									{this.state.data != null ? this.state.data[0].productColor : ""}
+								</button>
 								<button>002極光果紅</button>
 								<button>003極光焦紅</button>
 
@@ -269,9 +287,10 @@ class Detail2 extends Component {
 							</div>
 
 							{/*<!-- 加入購物車 -->*/}
-							<div className="but_2">
-								{/*<button onclick="g()">立即結帳</button>*/}
-								<button>加入購物車</button>
+							<div className="but_2	">
+								<button onClick={this.addCart} id="addCartBTN">
+									加入購物車
+								</button>
 							</div>
 
 							<div className="pro_3">

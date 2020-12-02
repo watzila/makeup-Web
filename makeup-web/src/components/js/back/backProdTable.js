@@ -9,6 +9,7 @@ class BackProdTable extends Component {
 
 		this.imgPath = new IMGPath();
 
+		this.p = require.context("../../images/product", false, /\.(png|jpe?g|svg)$/);
 		//console.log(props.data);
 	}
 
@@ -16,7 +17,14 @@ class BackProdTable extends Component {
 		return (
 			<tr>
 				<th scope="row">{this.props.pID}</th>
-				<td>{/*<img src="img/prod/A0000001.png" alt="" />*/}</td>
+				<td className="prodSmallIMG">
+					<img
+						src={
+							this.imgPath.importAll(this.p)[this.props.data != null ? this.props.data.img_0 : ""]
+						}
+						alt=""
+					/>
+				</td>
 				{/*<td>A0000001</td>*/}
 				<td>{this.props.data != null ? this.props.data.kindB : ""}</td>
 				<td>{this.props.data != null ? this.props.data.productName : ""}</td>
@@ -24,7 +32,7 @@ class BackProdTable extends Component {
 				<td>{this.props.data != null ? this.props.data.unitPrice : ""}</td>
 				<td>2020/11/11</td>
 				<td>2020/11/12</td>
-				<td>上架</td>
+				<td>{this.props.data.productStatus != 0 ? "上架" : "下架"}</td>
 				<td>
 					<Link
 						to={
@@ -34,12 +42,12 @@ class BackProdTable extends Component {
 					>
 						詳情
 					</Link>
-					<button name="prodCopyUpdate" type="submit" className=" my-button mb-2">
+					{/*<button name="prodCopyUpdate" type="submit" className=" my-button mb-2">
 						複製
 					</button>
 					<button name="offShelf" type="submit" className=" my-button mb-2">
 						下架
-					</button>
+					</button>*/}
 					{/*<a name="prodDtail" type="submit" className=" my-button mb-2">
             詳情
 										</a>*/}

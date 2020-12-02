@@ -89,6 +89,8 @@ class Login extends Component {
 
 			case "yes":
 				this.setState({ data: "註冊成功" });
+				alert("註冊成功");
+				window.location.href = "/login";
 				break;
 
 			case "success":

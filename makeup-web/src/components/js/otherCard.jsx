@@ -15,7 +15,7 @@ class OtherCard extends Component {
 			//其他商品小卡
 			<Link
 				to={
-					"/p/" +
+					"/pd/" +
 					(this.props.data != null ? this.props.data.kindA : "") +
 					"/pid=" +
 					(this.props.data != null ? this.props.data.product_id : "")

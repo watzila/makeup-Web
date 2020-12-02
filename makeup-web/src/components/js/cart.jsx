@@ -39,7 +39,7 @@ class Cart extends Component {
             <a href="#">{this.props.data.productName}</a>
             <p>{this.props.data.productColor}</p>
             <i className="fa fa-tags" aria-hidden="true"></i>
-            <small>預計11/24開始出貨</small>
+            <small>預計12/14開始出貨</small>
           </div>
         </td>
 

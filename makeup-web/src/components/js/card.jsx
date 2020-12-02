@@ -16,7 +16,7 @@ class Card extends Component {
 			//產品卡
 			<Link
 				to={
-					"/p/" +
+					"/pd/" +
 					(this.props.data != null ? this.props.data.kindA : "") +
 					"/pid=" +
 					(this.props.data != null ? this.props.data.product_id : "")

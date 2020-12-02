@@ -24,9 +24,9 @@ class App extends Component {
 				<Route path="/member" component={Member} />
 				<Route path="/backend" component={BackEnd} />
 				<Route exact path="/about" component={About} />
-				<Route exact path="/p/:page([0-9])" component={Product} />
+				<Route exact path="/p/:kind/:page([0-9])" component={Product} />
 				<Route exact path="/customp/:kind/:pid" component={Detail} />
-				<Route exact path="/p/:kind/:pid" component={Detail2} />
+				<Route exact path="/pd/:kind/:pid" component={Detail2} />
 				<Route exact path="/cart" component={CartList} />
 				<Route exact path="/order" component={Order} />
 				<Route exact path="/skintest" component={SkinTest} />

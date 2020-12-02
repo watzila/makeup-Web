@@ -12,7 +12,7 @@ class MemberFavoriteEach extends Component {
 
 	render() {
 		return (
-			<div>
+			<div style={{borderBottom:"0.5px solid #d3d3d3",marginBottom:"15px"}}>
 				{/* 產品單項描述(第一項訂單) */}
 				<div 
 				onClick={(pid,kind) => this.props.data.prodDetail(this.props.data.product_id,this.props.data.kindB)}
@@ -34,13 +34,10 @@ class MemberFavoriteEach extends Component {
 						<button className="deleteBtn" 
 					  	onClick={(event,pId) => this.props.data.onDelete(event,this.props.data.product_id)}
 					  	> 刪除</button>
-
-						 
-					  </div>
-				
+					</div>
+					
 				</div>
-
-				<hr />
+				
 			</div>
 		);
 	}

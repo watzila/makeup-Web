@@ -36,7 +36,7 @@
     border: 1px solid black;
 } */
 
-header .logo-box {
+/*header .logo-box {
 	background-color: var(--main_c_E);
 }
 header nav {
@@ -49,7 +49,7 @@ header nav {
 }
 footer .footer-2 {
 	background-color: var(--main_c_E);
-}
+}*/
 
 /*body {
   background: url(../images/background/宣紙1.png);
@@ -193,3 +193,12 @@ main .side .nav-item .sideNavItem {
 	padding-bottom: 20%;
 }*/
 /* 撐開高度結束 */
+.prodSmallIMG {
+	width: 10%;
+}
+
+.prodSmallIMG img {
+	width: 100%;
+	height: 10%;
+	object-fit: contain;
+}

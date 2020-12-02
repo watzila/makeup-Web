@@ -11,7 +11,6 @@ class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
-			allData: null, //沒使用
 			data: null, //底妝資料
 			data2: null, //唇彩資料
 			data3: null, //唇彩資料
@@ -37,6 +36,8 @@ class Home extends Component {
 		}
 
 		this.ajax.startListener("get", "/?card=唇彩", this.u2);
+
+		window.scrollTo(0, 0);
 	}
 
 	//我的最愛資料更新
@@ -52,9 +53,8 @@ class Home extends Component {
 		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
 			for (let l = 0; l < data.length; l++) {
+				data[l].addLove = this.addLove;
 				for (let k = 0; k < this.state.fData.length; k++) {
-					data[l].addLove = this.addLove;
-
 					if (this.state.fData[k].product_id === data[l].product_id) {
 						data[l].f = this.state.fData[k];
 						continue;
@@ -64,7 +64,7 @@ class Home extends Component {
 		}
 
 		this.setState({ data: data });
-		//console.log(data);
+		console.log(data);
 	};
 
 	//所有唇彩資料
@@ -78,9 +78,8 @@ class Home extends Component {
 		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
 			for (let l = 0; l < data.length; l++) {
+				data[l].addLove = this.addLove;
 				for (let k = 0; k < this.state.fData.length; k++) {
-					data[l].addLove = this.addLove;
-
 					if (this.state.fData[k].product_id === data[l].product_id) {
 						data[l].f = this.state.fData[k];
 						continue;
@@ -104,20 +103,22 @@ class Home extends Component {
 		let newData = this.state.data;
 
 		let index = newFData.map(item => item.product_id).indexOf(pid);
+		let index2 = newData.map(item => item.product_id).indexOf(pid);
 
 		if (sessionStorage.getItem("member")) {
 			let cId = JSON.parse(sessionStorage.getItem("member")).customer_id;
 			let newLove = { customer_id: cId, product_id: pid };
 			if (index === -1) {
 				newFData.push(newLove);
-				newData[pid - 1].f = newLove;
+				newData[index2].f = newLove;
 			} else {
 				newFData.splice(index, 1);
-				delete newData[pid - 1].f;
+				delete newData[index2].f;
 			}
 			this.ajax.startListener("get", `/addLove?pId=${pid}&cId=${cId}`, this.u);
 			this.setState({ fData: newFData });
 			this.setState({ data: newData });
+			//console.log(this.state.data);
 		}
 	};
 
@@ -186,7 +187,7 @@ class Home extends Component {
 						{/*商品小卡*/}
 						<Link
 							to={
-								"/p/" +
+								"/pd/" +
 								(this.state.data2 != null ? this.state.data2[0].kindA : "") +
 								"/pid=" +
 								(this.state.data2 != null ? this.state.data2[0].product_id : "")
@@ -205,7 +206,7 @@ class Home extends Component {
 						{/*商品小卡*/}
 						<Link
 							to={
-								"/p/" +
+								"/pd/" +
 								(this.state.data2 != null ? this.state.data2[1].kindA : "") +
 								"/pid=" +
 								(this.state.data2 != null ? this.state.data2[1].product_id : "")
@@ -224,7 +225,7 @@ class Home extends Component {
 						{/*商品小卡*/}
 						<Link
 							to={
-								"/p/" +
+								"/pd/" +
 								(this.state.data2 != null ? this.state.data2[2].kindA : "") +
 								"/pid=" +
 								(this.state.data2 != null ? this.state.data2[2].product_id : "")

@@ -50,7 +50,7 @@
 	top: 100%;
 	left: 0;
 	/*margin: auto;*/
-	background-color: var(--redColor);
+	background-color: var(--blueColor);
 	min-width: 150px;
 	border-radius: 8px;
 }
@@ -61,12 +61,13 @@
 	text-align: center;
 	padding: 10px;
 	font-size: 18px;
+	color: #fff;
 	border: 0;
 	background-color: transparent;
 }
 
 .dropdown-content button:hover {
-	color: var(--brownColor3);
+	color: #f5bc54;
 	font-size: 20px;
 	text-decoration: underline;
 	text-align: center;

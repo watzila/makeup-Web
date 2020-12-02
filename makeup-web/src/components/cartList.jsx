@@ -67,7 +67,7 @@ class CartList extends Component {
 			this.init();
 		}, 100);
 
-		// console.log(data);
+		console.log(data);
 		// console.log(this.state.data.length);
 	};
 
@@ -486,6 +486,7 @@ class CartList extends Component {
 											className="inputName"
 											type="text"
 											placeholder="請輸入購買人姓名"
+											//value={}
 											onChange={e => {
 												return e.target.value;
 											}}

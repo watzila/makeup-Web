@@ -95,9 +95,13 @@ app.get("/p", function (request, response) {
 	var sql;
 
 	if (request.query.kind) {
-		sql = `SELECT *,unitPrice,img_0
-		FROM product as p,category as c,productimg as img
-		WHERE c.category_id=p.category_id && p.kindA="${request.query.kind}" && product_id=img.productImg_id && p.kindC IS null`;
+		sql = `SELECT *,unitPrice ,img_0
+    FROM product as p 
+    JOIN  category as c
+    ON c.category_id=p.category_id
+    JOIN  productimg as img
+    ON p.product_id=img.productImg_id
+		WHERE p.kindA="${request.query.kind}" && p.kindC IS null && p.productStatus!=0`;
 	} else {
 		sql = `SELECT *,unitPrice ,img_0
     FROM product as p 
@@ -105,7 +109,7 @@ app.get("/p", function (request, response) {
     ON c.category_id=p.category_id
     JOIN  productimg as img
     ON p.product_id=img.productImg_id
-    WHERE p.kindC IS null`;
+    WHERE p.kindC IS null && p.productStatus!=0`;
 	}
 
 	conn.query(sql, function (err, rows) {
@@ -141,7 +145,7 @@ app.get("/addLove", function (request, response) {
 			let sql2 = `insert into favorite (customer_id, product_id)
       values(${request.query.cId},${request.query.pId})`;
 
-			conn.query(sql2, function (err, row) {
+			conn.query(sql2, function (err) {
 				if (err) return;
 			});
 		} else {
@@ -149,7 +153,7 @@ app.get("/addLove", function (request, response) {
         from favorite
         where customer_id=${request.query.cId} && product_id=${request.query.pId}`;
 
-			conn.query(sql2, function (err, row) {
+			conn.query(sql2, function (err) {
 				if (err) return;
 			});
 		}
@@ -167,6 +171,8 @@ app.get("/p/:kind", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
+		rows[0].putDate = moment(rows[0].birth_date).format("YYYY-MM-DD");
+		rows[0].updateDate = moment(rows[0].birth_date).format("YYYY-MM-DD");
 		// console.log(request.query.pid);
 		response.send(rows);
 	});
@@ -333,7 +339,7 @@ app.post("/userEdit", function (request, response) {
 	// set UnitPrice = UnitPrice * 1.05
 	// where CategoryID = 1
 	let sql = `update customer 
-     set customerName = "${request.body.username}"
+     set nickname = "${request.body.nickname}"
      where customer_id = ${request.body.cId}
      `;
 	conn.query(sql, function (err, rows) {
@@ -366,7 +372,18 @@ app.post("/emailEdit", function (request, response) {
      `;
 	conn.query(sql, function (err, rows) {
 		if (err) return;
+		// console.log(rows)
+		// response.send(rows);
+	});
+});
 
+// 會員地址編輯
+app.post("/adressEdit", function (request, response) {
+	let sql = `update customer 
+    set city = "${request.body.city}"
+    where customer_id = ${request.body.cId} `;
+	conn.query(sql, function (err, rows) {
+		if (err) return;
 		// console.log(rows)
 		// response.send(rows);
 	});
@@ -526,15 +543,19 @@ app.post("/proddetail/", function (request, response) {
 app.post("/prodedit/", function (request, response) {
 	let sql = `
 	UPDATE product p, category c
-	SET p.productName = "${request.body.productName}",
+  SET p.productName = "${request.body.productName}",
+  p.kindA="${request.body.kindA}",
+  p.kindB="${request.body.kindB}",
 	  p.productColor = "${request.body.productColor}",
 	  p.putDate = "${request.body.putDate}",
 	  p.updateDate  = "${request.body.updateDate}",
 	  c.unitPrice = ${request.body.unitPrice},
 	  c.skinType = "${request.body.skinType}",
-	  c.detail = "${request.body.detail}"
+	  c.detail = "${request.body.detail}",
+	  p.productStatus = ${request.body.productStatus}
 	WHERE p.product_id = ${request.body.pid}
-	&& p.category_id=c.category_id`;
+  && p.category_id=c.category_id`;
+
 	conn.query(sql, function (err, rows) {
 		if (err) {
 			console.log(JSON.stringify(err));
@@ -559,7 +580,7 @@ app.post("/backend/orderlist", function (request, response) {
   ON p.product_id = o.product_id
   INNER JOIN category AS cate
   ON cate.category_id = p.category_id
-  WHERE o.order_id = ${request.body.pId}`;
+  WHERE o.order_id = "${request.body.pId}"`;
 
 	conn.query(sql, function (err, rows) {
 		if (err) {
@@ -814,7 +835,7 @@ app.post("/backend/prod/new", function (request, response) {
 			let sql = `
 	INSERT INTO
 	product
-	(productName,productColor, putDate,kindA,kindB)
+	(productName,productColor, putDate,kindA,kindB,category_id,productStatus)
 	VALUES
 	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}",${rows[0].category_id},${request.body.productStatus});`;
 
@@ -827,7 +848,7 @@ app.post("/backend/prod/new", function (request, response) {
 			});
 		});
 	});
-	console.log(request.body);
+	//console.log(request.body);
 });
 
 // 購物車送出訂單

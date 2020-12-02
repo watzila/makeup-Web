@@ -7,8 +7,8 @@ import "./css/product.css";
 import { Link } from "react-router-dom";
 
 class Product extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			data: null, //當前頁數資料
 			allData: null, //所有產品資料
@@ -29,14 +29,22 @@ class Product extends Component {
 				this.u2
 			);
 		} else {
-			this.ajax.startListener("get", "/p", this.u);
+			if (this.props.match.params.kind === "全部") {
+				this.ajax.startListener("get", "/p", this.u);
+			} else {
+				this.ajax.startListener("get", "/p?kind=" + this.props.match.params.kind, this.u);
+			}
 		}
 	}
 
 	//我的最愛資料更新
 	u2 = data => {
 		this.setState({ fData: data });
-		this.ajax.startListener("get", "/p", this.u);
+		if (this.props.match.params.kind === "全部") {
+			this.ajax.startListener("get", "/p", this.u);
+		} else {
+			this.ajax.startListener("get", "/p?kind=" + this.props.match.params.kind, this.u);
+		}
 		//console.log(data);
 	};
 
@@ -72,14 +80,11 @@ class Product extends Component {
 			i += 8;
 		} while (i < data.length);
 
-		this.setState({ data: newData[this.props.match.params.page - 1], allData: newData });
+		this.setState({ data: newData[0], allData: newData });
 
 		//頁數按鈕初始化
-		document.querySelector(
-			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
-		).className = "click";
-
-		console.log(this.state.data);
+		document.querySelector(`.page a:nth-of-type(${2})`).className = "click";
+		//console.log(this.state.allData);
 	};
 
 	//加入、移除最愛
@@ -142,19 +147,16 @@ class Product extends Component {
 
 	//商品篩選
 	search = (event, kind = "") => {
-		let kindNav = document.querySelectorAll(".kindNav li");
-
-		if (kind !== "") {
-			this.ajax.startListener("get", "/p?kind=" + kind, this.u);
-		} else {
-			this.ajax.startListener("get", "/p", this.u);
-		}
-
-		for (let el of kindNav) {
-			el.className = "";
-		}
-
-		event.target.className = "click";
+		//let kindNav = document.querySelectorAll(".kindNav li");
+		//if (kind !== "") {
+		//	this.ajax.startListener("get", "/p?kind=" + kind, this.u);
+		//} else {
+		//	this.ajax.startListener("get", "/p", this.u);
+		//}
+		//for (let el of kindNav) {
+		//	el.className = "";
+		//}
+		//event.target.className = "click";
 	};
 
 	render() {
@@ -184,30 +186,33 @@ class Product extends Component {
 					<nav className="kindNav">
 						<ul>
 							<li
-								className="click"
-								onClick={event => {
-									this.search(event);
+								className={this.props.match.params.kind === "全部" ? "click" : ""}
+								onClick={() => {
+									window.location.href = "/p/全部/1";
 								}}
 							>
 								全部
 							</li>
 							<li
-								onClick={event => {
-									this.search(event, "底妝");
+								className={this.props.match.params.kind === "底妝" ? "click" : ""}
+								onClick={() => {
+									window.location.href = "/p/底妝/1";
 								}}
 							>
 								底妝
 							</li>
 							<li
-								onClick={event => {
-									this.search(event, "唇彩");
+								className={this.props.match.params.kind === "唇彩" ? "click" : ""}
+								onClick={() => {
+									window.location.href = "/p/唇彩/1";
 								}}
 							>
 								唇彩
 							</li>
 							<li
-								onClick={event => {
-									this.search(event, "眼彩");
+								className={this.props.match.params.kind === "眼彩" ? "click" : ""}
+								onClick={() => {
+									window.location.href = "/p/眼彩/1";
 								}}
 							>
 								眼彩
