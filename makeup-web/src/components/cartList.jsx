@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PaymentForm from "./js/plasticCard";
+
 import "./css/cart.css";
 //載入購物車單筆子元件
 import Cart from "./js/cart";
@@ -33,6 +35,10 @@ class CartList extends Component {
 				display: "none",
 			},
 
+			myCreditCardDetail: {
+				display: "none",
+			},
+
 			myShippingDataDetail: {
 				display: "none",
 			},
@@ -41,7 +47,8 @@ class CartList extends Component {
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
-		this.ws = new WebSocket("ws://localhost:3002");
+		this.paymentForm = new PaymentForm();
+		this.updateCartInfo();
 
 		if (sessionStorage.getItem("member")) {
 			this.cId = JSON.parse(sessionStorage.getItem("member"));
@@ -49,6 +56,23 @@ class CartList extends Component {
 			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 		}
 	}
+
+	//更新購物車數量顯示
+	updateCartInfo = () => {
+		this.ws = new WebSocket("ws://localhost:3002");
+
+		this.ws.onopen = event => {
+			console.log("connect success");
+			this.ws.send(JSON.stringify({ who: "myCartList" }));
+		};
+
+		this.ws.onmessage = event => {
+			var parseData = JSON.parse(event.data);
+			console.log(parseData);
+
+			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+		};
+	};
 
 	componentWillUnmount() {
 		this.ws.close();
@@ -253,13 +277,27 @@ class CartList extends Component {
 		});
 	};
 
-	// 選擇宅配後，顯示對應的住址輸入框，預設select value ==1
+	// 選擇宅配後，顯示對應的住址輸入框
 	homeDeliveryInput = event => {
 		// console.log(event.target.value);
 		if (event.target.value === "一般宅配") {
 			this.setState({ myAddressDetail: { display: "block" } });
 		} else {
 			this.setState({ myAddressDetail: { display: "none" } });
+		}
+		// console.log(event.target.value);
+		return event.target.value;
+	};
+
+	// 選擇信用卡後，顯示對應的信用卡輸入框
+	paymentSelectInput = event => {
+		// console.log(event.target.value);
+		if (event.target.value === "信用卡") {
+			this.setState({
+				myCreditCardDetail: { display: "block", margin: "24px 0" },
+			});
+		} else {
+			this.setState({ myCreditCardDetail: { display: "none" } });
 		}
 		// console.log(event.target.value);
 		return event.target.value;
@@ -305,12 +343,12 @@ class CartList extends Component {
 										{this.state.data != null
 											? this.createCard.create(this.state.data.length, Cart, this.state.data)
 											: null}
-										<tr className="coupon">
-											<td colSpan="3">優惠代碼</td>
-											<td colSpan="2">
-												<input type="text" placeholder="請輸入優惠代碼" />
-											</td>
-										</tr>
+										{/* <tr className="coupon">
+                      <td colSpan="3">優惠代碼</td>
+                      <td colSpan="2">
+                        <input type="text" placeholder="請輸入優惠代碼" />
+                      </td>
+                    </tr> */}
 										<tr className="discountText">
 											<td colSpan="3">
 												<p>全館活動</p>
@@ -345,7 +383,8 @@ class CartList extends Component {
 						{/* loginBox_start  */}
 						<div className="loginBox">
 							<h2>
-								加入會員立即獲得<span> 50 </span>點，<span>馬上折抵</span>！
+								加入會員立即獲得<span> 100 </span>元購物金，
+								<span>馬上折抵</span>！
 							</h2>
 							<div className="loginBoxDiv">
 								<div className="btnLogin btnLine">
@@ -499,15 +538,14 @@ class CartList extends Component {
 											required
 											name="payment_method"
 											className="paymentSelect"
-											onChange={e => {
-												return e.target.value;
-											}}
+											onChange={this.paymentSelectInput}
 										>
 											<option value="">‐ 請選擇 付款方式 ‐</option>
 											<option value="貨到付款">貨到付款</option>
 											<option value="信用卡">信用卡</option>
 											<option value="轉帳匯款">轉帳匯款</option>
 										</select>
+										<div style={this.state.myCreditCardDetail}>{<PaymentForm></PaymentForm>}</div>
 									</div>
 
 									{/* 購買人與收件人資料 */}

@@ -78,9 +78,13 @@ class Header extends Component {
 		console.log(data);
 		// console.log(this.state.data);
 
+		// 購物車加入購物車顯示
+		// var bee = document.getElementById('headerCartBoxTop');
+		// bee.className = 'headerCartBoxAdd';
+
 		// setTimeout(() => {
-		// this.init();
-		// }, 100);
+		//   bee.className = 'headerCartBox';
+		// }, 500);
 
 		// console.log(this.state.data.length);
 	};
@@ -124,6 +128,7 @@ class Header extends Component {
 			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
 			p_id: idProduct,
 		});
+		this.ws.send(JSON.stringify({ who: "cartCheck2" }));
 	};
 
 	componentDidMount() {

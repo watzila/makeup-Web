@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-12-02 10:16:17
+-- 產生時間： 2020-12-03 13:22:27
 -- 伺服器版本： 10.4.14-MariaDB
 -- PHP 版本： 7.4.10
 
@@ -44,8 +44,7 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `cusMakeColor`, `cusMakeImg`, `orderStatus`, `order_id`) VALUES
 (53, 0, 1, 2, '3', 'img4', '5', '6'),
-(54, 1, 45, 1, '無', '無', '待結帳', 'DD202012011'),
-(65, 2, 11, 1, '無', '無', '待結帳', 'DD202012022');
+(54, 1, 45, 1, '無', '無', '待結帳', 'DD202012011');
 
 -- --------------------------------------------------------
 
@@ -75,7 +74,8 @@ INSERT INTO `category` (`category_id`, `unitPrice`, `skinType`, `specification`,
 (7, 600, '	各種膚質	', '	120ml', '#蘊含DermapepTM，能夠改善色斑和統一膚色。\r\n#含肽P3，自然去角質劑，淡化皺紋深度。\r\n#富含氨基酸的微藻提取物，改善暗沉肌膚。\r\n#注入甜菜鹼，有效鎮靜和抗炎\r\n#呈現柔滑細緻，容光煥發的年輕膚色'),
 (8, 600, '	各種膚質	', '200ml', '#有效拭除頑固防水彩妝與髒汙\r\n#維持肌膚水潤平衡，呈現健康的彈潤光澤。\r\n#深層潔淨並卸除底妝、濃妝與眼妝\r\n#經眼部測試，溫和卸除眼妝'),
 (9, 600, '	各種膚質	', '	60g	', '#眼周肌膚含水量UP，有效撫平細紋\r\n#解決肌膚鬆弛的困擾\r\n#結合酵母萃取精華、水解彈性蛋白、苦參根萃取精華\r\n#加強肌膚緊緻Q彈、重拾百分百的澎潤張力。'),
-(10, 290, NULL, NULL, '#控油效果升級，油光毛孔通通完整吸附\r\n#多種抗氧植物萃取成分，結合綠色礦物粉體\r\n#市場最細緻粉質，不阻塞毛孔，服貼不厚重\"\r\n');
+(10, 290, NULL, NULL, '#控油效果升級，油光毛孔通通完整吸附\r\n#多種抗氧植物萃取成分，結合綠色礦物粉體\r\n#市場最細緻粉質，不阻塞毛孔，服貼不厚重\"\r\n'),
+(30, 10, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -179,15 +179,16 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `account`, `email`, `password`, `customerName`, `cellPhone`, `gender`, `birth_date`, `postCode`, `city`, `address`, `district`, `nickname`, `headshot`, `subscribe`, `customerStatus`) VALUES
-(1, 'sunshine', 'sunshine@gmail.com', 'P@ssw0rd', '柯佳嬿', '0972996997', '女', '1985-09-15', '408', '台中市', '公益路二段51號', '南屯區', '佳佳', 'img1', 0, '正常'),
-(2, 'smile', 'smile@gmail.com', 'P@ssw0rd', '謝盈萱', '09721341', '女', '1977-11-15', '813', '高雄市-左營區-博愛', '博愛二路238號', '左營區', '盈盈', 'img1', 0, '正常'),
+(1, 'sunshine', 'sunshine@gmail.com', 'P@ssw0rd', '柯佳嬿', '0972996997', '女', '1985-09-15', '408', '台中市', '公益路二段51號', '南屯區', '佳佳', 'img1', 0, '限制權限'),
+(2, 'smile', 'smile@gmail.com', 'P@ssw0rd', '謝盈萱', '0923234234', '女', '1977-11-15', '813', '高雄市-左營區-博愛', '博愛二路238號', '左營區', '盈盈', 'img1', 0, '正常'),
 (3, 'solu555', 'smile123@gmail.com', 'P@ssw0rd', '謝盈萱', '0972134199', '女', '1977-11-15', '813', '高雄市', '博愛二路238號', '左營區', '盈盈', 'img1', 0, '管理員'),
 (6, 'lovetree', 'lovetree@gmail.com', 'P@ssw0rd', '陳淑芳', '0918667999', '女', '1955-10-10', '265', '宜蘭縣', '和平路71號', '羅東鎮', '芳芳', 'img1', 0, '永久停權'),
 (7, 'hometown', 'hometown@mail.com', 'P@ssw0rd', '吳艾嘉', '0981235455656', '女', '1968-01-01', '265', '宜蘭縣', '和平路75號', '羅東鎮', '艾嘉', 'img1', 0, '正常'),
 (8, 'watersweet', 'watersweet@gmail.com', '12345', '孫儷', '0952918988', '女', '1978-06-30', '220', '新北市', '民權路57號', '板橋區', '北北仔', 'img1', 0, '正常'),
 (9, 'bod', 'bod@erto.mail', '1234', 'wu', '0923', '', '', '', '', '', '', '', '', 0, '正常'),
 (20, 'wewewe@123mail', 'wewewe', '123', 'we', '', '', '', '', '', '', '', '', '', 0, '正常'),
-(21, 'a', 'a', 'a', 'a', '', '', '', '', '', '', '', '', '', 0, '正常');
+(21, 'a', 'a', 'a', 'a', '', '', '', '', '', '', '', '', '', 0, '正常'),
+(22, 'qwe@rww', '@we@ert', 'qwr', 'wew', '', '', '', '', '', '', '', '', '', 0, '正常');
 
 -- --------------------------------------------------------
 
@@ -206,23 +207,17 @@ CREATE TABLE `favorite` (
 --
 
 INSERT INTO `favorite` (`favorite_id`, `customer_id`, `product_id`) VALUES
-(2, 2, 2),
 (3, 3, 5),
 (4, 3, 1),
 (5, 3, 6),
 (7, 2, 8),
-(8, 2, 10),
-(9, 2, 6),
 (17, 1, 3),
 (19, 1, 6),
 (24, 6, 3),
 (31, 1, 5),
 (32, 1, 1),
 (33, 9, 3),
-(34, 9, 4),
-(38, 2, 14),
-(39, 2, 13),
-(40, 2, 4);
+(34, 9, 4);
 
 -- --------------------------------------------------------
 
@@ -280,10 +275,7 @@ INSERT INTO `orders` (`id`, `customer_id`, `product_id`, `quantity`, `cusMakeCol
 (55, '1', '4', 3, '無', '無', '待結帳', 'DD202012011'),
 (56, '7', '44', 3, '無', '無', '待結帳', 'DD202012017'),
 (57, '7', '47', 1, '無', '無', '待結帳', 'DD202012017'),
-(58, '2', '3', 1, '無', '無', '已結帳', 'DD202012012'),
-(59, '2', '6', 1, '無', '無', '已結帳', 'DD202012012'),
-(60, '2', '2', 1, '無', '無', '已結帳', 'DD202012012'),
-(61, '2', '4', 3, '無', '無', '已結帳', 'DD202012012');
+(74, '2', '47', 4, '無', '無', '已結帳', 'DD202012022');
 
 -- --------------------------------------------------------
 
@@ -309,12 +301,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `category_id`, `kindA`, `kindB`, `kindC`, `productName`, `productColor`, `putDate`, `updateDate`, `productStatus`) VALUES
-(1, 2, '底妝', '粉餅', NULL, '10倍速效隱形遮瑕蜜', '無', '2020-12-02', '2020-12-02', 0),
+(1, 2, '底妝', '粉餅', NULL, '10倍速效隱形遮瑕蜜', '無', '2020-12-02', '2020-12-02', 1),
 (2, 5, '眼彩', '眉筆', NULL, '雙頭眉筆', '灰棕色', '2020-11-28', '2020-11-29', 1),
 (3, 5, '眼彩', '眼影', NULL, '4色眼彩盤', 'fair affair', '2020-11-28', '0000-00-00', 1),
 (4, 5, '眼彩', '眼線', NULL, '抗暈防水眼線液', '黑色', '2020-11-28', '0000-00-00', 1),
 (5, 1, '唇彩', '唇釉', NULL, ' 暖霧水煙唇釉', '水煙玫瑰', '2020-11-28', '0000-00-00', 1),
-(6, 10, '底妝', '粉餅', NULL, '絕對遮瑕隱形粉底\r\n\r\n', '自然色', '2020-11-28', '0000-00-00', 1),
+(6, 10, '底妝', '粉餅', NULL, '絕對遮瑕隱形粉底', '自然色', '2020-11-28', '0000-00-00', 1),
 (7, 1, '唇彩', '唇釉', NULL, '超聚光水唇釉', '辣椒紅', '2020-11-28', '0000-00-00', 1),
 (8, 4, '唇彩', '唇膏', NULL, '渲霧奶油唇膏', '斑比奶油', '2020-11-28', '0000-00-00', 1),
 (9, 4, '底妝', '粉底', NULL, '絕對無瑕全能柔焦粉餅', '明亮白', '2020-11-28', '0000-00-00', 1),
@@ -355,7 +347,7 @@ INSERT INTO `product` (`product_id`, `category_id`, `kindA`, `kindB`, `kindC`, `
 (45, 7, '乳液', '乳液', '客製', '潤白光透肌活露', '藍色', '2020-12-02', '2020-12-01', 1),
 (46, 8, '卸妝水', '卸妝水', '客製', '卸妝爽膚水', '藍色', '2020-12-02', '2020-12-01', 1),
 (47, 9, '眼霜', '眼霜', '客製', '緊緻眼霜', '藍色', '2020-12-02', '2020-12-01', 1),
-(48, 10, '底妝', 'duck', NULL, '持久氣墊粉餅', '健康色', '2020-12-24', NULL, 0);
+(75, 30, '底妝', '粉底', NULL, '無瑕粉餅', '色彩斑斕', '2020-12-03', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +386,7 @@ INSERT INTO `productimg` (`productImg_id`, `img_0`, `img_1`, `img_2`, `img_3`, `
 (12, 'A005_01.jpg', 'A005_01.jpg', 'A005_01.jpg', 'A005_01.jpg', 'B002_detail.jpg', '', '', ''),
 (13, 'A006_01.jpg', 'A006_01.jpg', 'A006_01.jpg', 'A006_01.jpg', 'B002_detail.jpg', '', '', ''),
 (14, 'A007_01.jpg', 'A007_01.jpg', 'A007_01.jpg', 'A007_01.jpg', 'B002_detail.jpg', '', '', ''),
-(15, 'A008_1.jpg', 'A008_2.jpg', 'A008_3.jpg', 'A008_4.jpg', 'A008_detail.jpg', '', '', ''),
+(15, 'A007_01.jpg', 'A007_01.jpg', 'A007_01.jpg', 'A007_01.jpg', 'A008_detail.jpg', '', '', ''),
 (16, 'A008_1.jpg', 'A008_2.jpg', 'A008_3.jpg', 'A008_4.jpg', 'A008_detail.jpg', '', '', ''),
 (17, 'A008_1.jpg', 'A008_2.jpg', 'A008_3.jpg', 'A008_4.jpg', 'A008_detail.jpg', '', '', ''),
 (18, 'B004_01.jpg', 'B004_01.jpg', 'B004_01.jpg', 'B004_01.jpg', 'B002_detail.jpg', '', '', ''),
@@ -426,7 +418,8 @@ INSERT INTO `productimg` (`productImg_id`, `img_0`, `img_1`, `img_2`, `img_3`, `
 (44, '2_bluegreen.png', '2_bluegreen.png', '2_khaki.png', '2_white.png', '', '', '', ''),
 (45, '3_blue.png', '3_blue.png', '3_orange.png', '3_red.png', '', '', '', ''),
 (46, '4_bluegreen.png', '4_bluegreen.png', '4_brown.png', '4_sand.png', '', '', '', ''),
-(47, '1_blue.png', '1_blue.png', '1_brown.png', '1_white.png', '', '', '', '');
+(47, '1_blue.png', '1_blue.png', '1_brown.png', '1_white.png', '', '', '', ''),
+(75, 'A001_01.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -567,13 +560,13 @@ ALTER TABLE `shipping`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `chat`
@@ -585,31 +578,31 @@ ALTER TABLE `chat`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `favorite_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `orderDetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `orderDetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

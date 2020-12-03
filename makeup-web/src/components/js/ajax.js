@@ -22,7 +22,7 @@ class Ajax {
 			fetch("http://localhost:3001" + url, {
 				method: "get",
 				headers: {
-					"Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+					"Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
 				},
 			})
 				.then(function (response) {

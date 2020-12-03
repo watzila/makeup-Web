@@ -58,7 +58,7 @@
 .headerCartBox .headerProductItem {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 18px;
   padding: 10px;
   border-bottom: 1px dotted;
 }
@@ -74,7 +74,7 @@
 }
 
 .headerProductItem .productName div:last-child a {
-  font-size: 14px;
+  font-size: 18px;
   color: #666;
   padding: 0;
 }
@@ -89,12 +89,12 @@
 
 .headerProductItem .productQuantity input {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 37px;
+  height: 37px;
   text-align: center;
   vertical-align: middle;
   border: none;
-  font-size: 14px;
+  font-size: 20px;
   margin: 0 16px;
   color: var(--brownColor3);
 }

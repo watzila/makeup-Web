@@ -52,6 +52,33 @@
 	letter-spacing: 1rem;
 }
 
+.topBanner .prev,
+.topBanner .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	padding: 30px;
+	color: var(--brownColor1);
+	font-weight: bold;
+	font-size: 4rem;
+	background-color: transparent;
+	border: 0;
+	transform: translateY(-50%);
+	transition: 0.5s ease;
+}
+
+/* Position the "next button" to the right */
+.topBanner .next {
+	right: 0;
+	border-radius: 10px 0 0 10px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.topBanner .prev:hover,
+.topBanner .next:hover {
+	background-color: #000;
+}
+
 .bannerBg {
 	display: flex;
 	height: 100%;

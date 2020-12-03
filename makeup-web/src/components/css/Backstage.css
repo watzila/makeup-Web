@@ -72,6 +72,10 @@ main .side {
 	box-shadow: rgba(0, 0, 0, 0.35) 2px 0px 5px;
 }
 
+main h2 {
+	font-size: 36px;
+}
+
 main .side ul li a {
 	color: black;
 }
@@ -112,7 +116,7 @@ main .side .nav-item {
 }
 
 main .side .nav-item h5 {
-	font-size: 22px;
+	font-size: 32px;
 }
 
 main .side .nav-item i {
@@ -131,7 +135,7 @@ main .side .nav-item #sideNavprod,
 
 main .side .nav-item .sideNavItem {
 	margin-top: 12px;
-	font-size: 18px;
+	font-size: 28px;
 }
 /* side設定結束 */
 
@@ -147,7 +151,7 @@ main .side .nav-item .sideNavItem {
 	background: linear-gradient(to bottom, var(--button_AA), var(--button_BB));
 	box-shadow: var(--main_c_E) 0px 1px 1px 0px;
 	text-shadow: #fff 1px 0px 1px;
-	font: bold 16px arial;
+	font: bold 24px arial;
 	color: #111111;
 	text-decoration: none;
 	border: 0;

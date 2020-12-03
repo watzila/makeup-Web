@@ -123,7 +123,7 @@ class ProdList extends Component {
 						<div className="row">
 							<div className="col-12 mt-3">
 								<div className="d-flex">
-									<div className="mr-auto">
+									{/*<div className="mr-auto">
 										顯示
 										<select
 											defaultValue={1}
@@ -138,8 +138,8 @@ class ProdList extends Component {
 											<option value={3}>50</option>
 										</select>
 										<span>筆</span>
-										{/*<span className="text-right">123</span>*/}
-									</div>
+										<span className="text-right">123</span>
+									</div>*/}
 
 									<div className="mb-2 ml-auto form-row align-items-center">
 										<select

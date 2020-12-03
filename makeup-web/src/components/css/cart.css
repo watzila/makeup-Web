@@ -1,557 +1,576 @@
 #cart {
-	display: flex;
-	justify-content: center;
-	background: url("../images/background/bg1.jpg");
+  display: flex;
+  justify-content: center;
+  background: url('../images/background/bg1.jpg');
 }
 
 #cart .container {
-	width: 100%;
-	margin: 32px 0;
+  width: 100%;
+  margin: 32px 0;
 }
 
 .cartBox {
-	width: 100%;
-	padding: 36px;
-	/* border: 1px solid #ccc; */
-	border-radius: 12px;
-	background-color: #fff;
+  width: 100%;
+  padding: 36px;
+  /* border: 1px solid #ccc; */
+  border-radius: 12px;
+  background-color: #fff;
 }
 
 .cartBox h1 {
-	margin-left: 16px;
-	margin-bottom: 8px;
-	font-size: 32px;
+  margin-left: 16px;
+  margin-bottom: 8px;
+  font-size: 32px;
 }
 
 .cartBox hr {
-	margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .cartTableBox {
-	border: 1px solid #ccc;
-	border-radius: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
 .cartTable {
-	width: 100%;
-	text-align: center;
-	border-spacing: 0;
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
 }
 
 .cartTable th,
 .cartTable td {
-	padding: 16px;
+  padding: 16px;
 }
 
 .cartTable th:first-child {
-	border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .cartTable th:last-child {
-	border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .cartTable thead {
-	font-size: 20px;
-	background-color: var(--orangeColor);
+  font-size: 20px;
+  background-color: var(--orangeColor);
 }
 .cartTable .productItem {
-	font-size: 20px;
+  font-size: 20px;
 }
 .cartTable .productName {
-	display: flex;
-	border: none;
-	text-align: left;
-	align-items: center;
+  display: flex;
+  border: none;
+  text-align: left;
+  align-items: center;
 }
 
 .cartTable .productName div:first-child img {
-	margin-right: 16px;
+  margin-right: 16px;
 }
 
 .cartTable .productName div:last-child p {
-	color: #666;
+  color: #666;
 }
 
 .cartTable .productName div:last-child i {
-	color: var(--greenColor);
-	margin-right: 8px;
+  color: var(--greenColor);
+  margin-right: 8px;
 }
 
 .cartTable .productName div:last-child small {
-	color: var(--greenColor);
+  color: var(--greenColor);
 }
 
 .cartTable .productQuantity {
-	width: 150px;
+  width: 150px;
 }
 
 .cartTable .productQuantity input {
-	display: inline-block;
-	width: 32px;
-	height: 32px;
-	text-align: center;
-	vertical-align: middle;
-	border: none;
-	font-size: 20px;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  font-size: 20px;
 }
 
 .cartTable .productQuantity div {
-	display: inline-block;
-	width: 32px;
-	height: 32px;
-	border-radius: 8px;
-	font-size: 16px;
-	line-height: 32px;
-	font-weight: bold;
-	background-color: var(--redColor);
-	/* border: 1px solid #ccc; */
-	vertical-align: middle;
-	cursor: pointer;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: bold;
+  background-color: var(--redColor);
+  /* border: 1px solid #ccc; */
+  vertical-align: middle;
+  cursor: pointer;
 }
 .cartTable .productQuantity div:hover {
-	background-color: var(--brownColor3);
+  background-color: var(--brownColor3);
 }
 
 .cartTable .btnDelete {
-	background-color: transparent;
-	border: none;
-	font-size: 18px;
-	cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .cartTable .btnDelete:hover i {
-	color: var(--brownColor3);
+  color: var(--brownColor3);
 }
 
 .cartTable .coupon {
-	text-align: right;
-	background-color: #eee;
+  text-align: right;
+  background-color: #eee;
 }
 
 .cartTable .coupon td:first-child {
-	text-align: right;
-	font-size: 16px;
+  text-align: right;
+  font-size: 16px;
 }
 
 .cartTable .coupon td:last-child {
-	padding-right: 26px;
+  padding-right: 26px;
 }
 
 .cartTable .coupon td:last-child input {
-	height: 36px;
-	text-align: center;
+  height: 36px;
+  text-align: center;
 }
 
 .cartTable .discountText {
-	text-align: right;
-	font-size: 16px;
+  text-align: right;
+  font-size: 16px;
 }
 
 .cartTable .discountText td:first-child {
-	border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 .cartTable .discountText td:first-child p,
 .cartTable .discountText td:first-child span {
-	color: #cb3747;
-	font-weight: 700;
+  color: #cb3747;
+  font-weight: 700;
 }
 
 .cartTable .discountText td:last-child {
-	padding-right: 32px;
-	color: #cb3747;
-	font-weight: 700;
-	border-bottom: 1px solid #ccc;
+  padding-right: 32px;
+  color: #cb3747;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
 }
 
 .cartTable .subtotal,
 .cartTable .shipment {
-	text-align: right;
-	font-size: 16px;
-	font-weight: 500;
+  text-align: right;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .cartTable .subtotal td:first-child,
 .cartTable .shipment td:first-child {
-	padding: 8px 16px 0px 16px;
+  padding: 8px 16px 0px 16px;
 }
 
 .cartTable .subtotal td:last-child,
 .cartTable .shipment td:last-child {
-	padding: 8px 32px 0px 16px;
-	color: #cb3747;
+  padding: 8px 32px 0px 16px;
+  color: #cb3747;
 }
 
 .cartTable .totalMoney {
-	text-align: right;
-	background-color: var(--orangeColor);
+  text-align: right;
+  background-color: var(--orangeColor);
 }
 
 .cartTable .totalMoney td:first-child {
-	border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .cartTable .totalMoney td:first-child p,
 .cartTable .totalMoney td:first-child span {
-	font-weight: 700;
-	font-size: 30px;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 .cartTable .totalMoney td:last-child {
-	border-bottom-right-radius: 10px;
-	padding-right: 32px;
-	font-weight: 700;
-	font-size: 30px;
+  border-bottom-right-radius: 10px;
+  padding-right: 32px;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 @media screen and (max-width: 850px) {
-	.cartTable thead tr {
-		display: flex;
-		flex-direction: column;
-	}
-	th:nth-child(1) {
-		/* flex: 1; */
-	}
-	th:nth-child(2),
-	th:nth-child(3),
-	th:nth-child(4),
-	th:nth-child(5) {
-		display: none;
-	}
-	.productItem {
-		display: flex;
-		flex-wrap: wrap;
-	}
-	.productItem td:nth-child(1) {
-		flex: 100%;
-	}
-	.productItem td:nth-child(2) {
-		flex: 2;
-	}
-	.productItem td:nth-child(3) {
-		display: none;
-	}
-	.productItem td:nth-child(4),
-	.productItem td:nth-child(5) {
-		flex: 1;
-	}
-	.coupon {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-	}
-	.discountText,
-	.subtotal,
-	.shipment,
-	.totalMoney {
-		display: flex;
-		justify-content: flex-end;
-		align-items: flex-end;
-	}
-	.discountText td:first-child,
-	.subtotal td:first-child,
-	.shipment td:first-child,
-	.totalMoney td:first-child {
-		flex: 2;
-	}
-	.discountText td:last-child,
-	.subtotal td:last-child,
-	.shipment td:last-child,
-	.totalMoney td:last-child {
-		flex: 1;
-	}
+  .cartTable thead tr {
+    display: flex;
+    flex-direction: column;
+  }
+  th:nth-child(1) {
+    /* flex: 1; */
+  }
+  th:nth-child(2),
+  th:nth-child(3),
+  th:nth-child(4),
+  th:nth-child(5) {
+    display: none;
+  }
+  .productItem {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .productItem td:nth-child(1) {
+    flex: 100%;
+  }
+  .productItem td:nth-child(2) {
+    flex: 2;
+  }
+  .productItem td:nth-child(3) {
+    display: none;
+  }
+  .productItem td:nth-child(4),
+  .productItem td:nth-child(5) {
+    flex: 1;
+  }
+  .coupon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .discountText,
+  .subtotal,
+  .shipment,
+  .totalMoney {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .discountText td:first-child,
+  .subtotal td:first-child,
+  .shipment td:first-child,
+  .totalMoney td:first-child {
+    flex: 2;
+  }
+  .discountText td:last-child,
+  .subtotal td:last-child,
+  .shipment td:last-child,
+  .totalMoney td:last-child {
+    flex: 1;
+  }
 }
 
 .loginBox {
-	padding: 24px 36px 24px 36px;
-	/* border: 1px solid #ccc; */
-	border-radius: 12px;
-	margin-top: 24px;
-	text-align: center;
-	background-color: #fff;
+  padding: 24px 36px 24px 36px;
+  /* border: 1px solid #ccc; */
+  border-radius: 12px;
+  margin-top: 24px;
+  text-align: center;
+  background-color: #fff;
 }
 
 .loginBox h2 span {
-	color: #cb3747;
-	font-weight: 700;
+  color: #cb3747;
+  font-weight: 700;
 }
 
 .loginBox .loginBoxDiv {
-	display: flex;
-	justify-content: space-around;
-	/* width: 77vw; */
-	margin-top: 16px;
+  display: flex;
+  justify-content: space-around;
+  /* width: 77vw; */
+  margin-top: 16px;
 }
 
 .loginBox .btnLogin {
-	background-color: transparent;
-	border: 1px solid;
-	border-radius: 16px;
-	padding: 16px 36px 16px 36px;
-	margin: 0 8px 0 8px;
-	font-size: 16px;
-	outline: 0;
-	cursor: pointer;
+  background-color: transparent;
+  border: 1px solid;
+  border-radius: 16px;
+  padding: 16px 36px 16px 36px;
+  margin: 0 8px 0 8px;
+  font-size: 16px;
+  outline: 0;
+  cursor: pointer;
 }
 
 .loginBox .btnLogin i {
-	font-size: 24px;
-	margin-right: 8px;
+  font-size: 24px;
+  margin-right: 8px;
 }
 
 .loginBox .btnLine {
-	border-color: #00b900;
-	color: #00b900;
+  border-color: #00b900;
+  color: #00b900;
 }
 
 .loginBox .btnLine img {
-	width: 24px;
-	margin-right: 8px;
-	vertical-align: bottom;
+  width: 24px;
+  margin-right: 8px;
+  vertical-align: bottom;
 }
 
 .loginBox .btnLine:hover {
-	background-color: #00b900;
-	color: #fff;
+  background-color: #00b900;
+  color: #fff;
 }
 
 .loginBox .btnFb {
-	border-color: #1877f2;
-	color: #1877f2;
+  border-color: #1877f2;
+  color: #1877f2;
 }
 
 .loginBox .btnFb:hover {
-	background-color: #1877f2;
-	color: #fff;
+  background-color: #1877f2;
+  color: #fff;
 }
 
 .loginBox .btnGoogle {
-	border-color: #db4437;
-	color: #db4437;
+  border-color: #db4437;
+  color: #db4437;
 }
 
 .loginBox .btnGoogle:hover {
-	background-color: #db4437;
-	color: #fff;
+  background-color: #db4437;
+  color: #fff;
 }
 
 .loginBox .btnDirect {
-	border-color: #666;
-	color: #666;
+  border-color: #666;
+  color: #666;
 }
 
 .loginBox .btnDirect:hover {
-	background-color: #666;
-	color: #fff;
+  background-color: #666;
+  color: #fff;
 }
 
 /* The Modal (background) */
 .modal {
-	display: none;
-	/* Hidden by default */
-	position: fixed;
-	/* Stay in place */
-	z-index: 1;
-	/* Sit on top */
-	padding-top: 30vh;
-	/* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%;
-	/* Full width */
-	height: 100%;
-	/* Full height */
-	overflow: auto;
-	/* Enable scroll if needed */
-	background-color: black;
-	/* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4);
-	/* Black w/ opacity */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 30vh;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-	position: relative;
-	background-color: #fefefe;
-	margin: auto;
-	border: 1px solid #888;
-	border-radius: 20px;
-	width: 30%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	animation-name: animatetop;
-	animation-duration: 0.4s;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  border-radius: 20px;
+  width: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
 }
 
 /* Add Animation */
 @keyframes animatetop {
-	from {
-		top: -300px;
-		opacity: 0;
-	}
-	to {
-		top: 0;
-		opacity: 1;
-	}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .modal-body {
-	padding: 36px 10px;
+  padding: 36px 10px;
 }
 
 .modal-body p {
-	color: #db4437;
-	font-weight: 500;
-	font-size: 20px;
+  color: #db4437;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .modal-body p i {
-	font-size: 40px;
-	margin-right: 16px;
+  font-size: 40px;
+  margin-right: 16px;
 }
 
 .modal-body div {
-	margin-top: 32px;
+  margin-top: 32px;
 }
 
 .modal-body div a {
-	padding: 8px 16px;
-	border: 1px solid;
-	border-radius: 12px;
-	border-color: #666;
-	color: #666;
-	margin: 0 8px;
-	font-size: 16px;
+  padding: 8px 16px;
+  border: 1px solid;
+  border-radius: 12px;
+  border-color: #666;
+  color: #666;
+  margin: 0 8px;
+  font-size: 16px;
 }
 
 .modal-body div a:first-child {
-	border-color: #db4437;
-	color: #db4437;
+  border-color: #db4437;
+  color: #db4437;
 }
 
 .modal-body div a:first-child:hover {
-	background-color: #db4437;
-	color: #fff;
+  background-color: #db4437;
+  color: #fff;
 }
 
 .modal-body div a:last-child:hover {
-	background-color: #666;
-	color: #fff;
+  background-color: #666;
+  color: #fff;
 }
 
 @media screen and (max-width: 850px) {
-	.loginBoxDiv {
-		flex-direction: column;
-		justify-content: center;
-	}
-	.loginBoxDiv .btnLogin {
-		margin: 10px;
-	}
-	.modal-content {
-		width: 70%;
-	}
+  .loginBoxDiv {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .loginBoxDiv .btnLogin {
+    margin: 10px;
+  }
+  .modal-content {
+    width: 70%;
+  }
 }
 
 #orderBox {
-	padding: 24px 36px 24px 36px;
-	/* border: 1px solid #ccc; */
-	border-radius: 12px;
-	margin-top: 24px;
-	display: none;
-	background-color: #fff;
+  padding: 24px 36px 24px 36px;
+  /* border: 1px solid #ccc; */
+  border-radius: 12px;
+  margin-top: 24px;
+  display: none;
+  background-color: #fff;
 }
 
 .orderTableBox {
-	display: flex;
+  display: flex;
 }
 
 .orderTableBox .shipAndPaymentCol {
-	flex: 1;
-	padding: 0 8px 0 8px;
+  flex: 1;
+  padding: 0 8px 0 8px;
 }
 
 .orderTableBox .shipAndPaymentCol h1 {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .orderTableBox .shipAndPaymentCol hr {
-	margin: 8px 0 16px 0;
+  margin: 8px 0 16px 0;
 }
 
 .orderTableBox .shipAndPaymentCol .shippingSelect,
 .orderTableBox .shipAndPaymentCol .paymentSelect {
-	width: 100%;
-	height: 40px;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	border: 1px solid #ccc;
-	outline: none;
-	appearance: none;
-	margin: 8px 0 8px 0;
-	background-image: linear-gradient(45deg, transparent 50%, blue 50%),
-		linear-gradient(135deg, blue 50%, transparent 50%), linear-gradient(to right, skyblue, skyblue);
-	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
-	background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
-	background-repeat: no-repeat;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  appearance: none;
+  margin: 8px 0 8px 0;
+  background-image: linear-gradient(45deg, transparent 50%, blue 50%),
+    linear-gradient(135deg, blue 50%, transparent 50%),
+    linear-gradient(to right, skyblue, skyblue);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+  background-repeat: no-repeat;
 }
 
 .orderTableBox .shipAndPaymentCol .addressDetail {
-	display: none;
+  display: none;
 }
 
 .orderTableBox .shipAndPaymentCol .addressDetail .my-style-selector {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .orderTableBox .shipAndPaymentCol .addressDetail .my-style-selector select {
-	width: 48%;
-	height: 40px;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	border: 1px solid #ccc;
-	outline: none;
-	appearance: none;
-	margin: 8px 0 8px 0;
-	background-image: linear-gradient(45deg, transparent 50%, blue 50%),
-		linear-gradient(135deg, blue 50%, transparent 50%), linear-gradient(to right, skyblue, skyblue);
-	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
-	background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
-	background-repeat: no-repeat;
+  width: 48%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  appearance: none;
+  margin: 8px 0 8px 0;
+  background-image: linear-gradient(45deg, transparent 50%, blue 50%),
+    linear-gradient(135deg, blue 50%, transparent 50%),
+    linear-gradient(to right, skyblue, skyblue);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+  background-repeat: no-repeat;
 }
 
-.orderTableBox .shipAndPaymentCol .addressDetail .inputAddress {
-	width: 100%;
-	height: 40px;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	border: 1px solid #ccc;
-	outline: none;
-	appearance: none;
-	margin: 8px 0 8px 0;
+.orderTableBox .shipAndPaymentCol .addressDetail .inputAddress,
+.creditNumber,
+.creditName {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  appearance: none;
+  margin: 8px 0 8px 0;
+}
+
+.expiryDate,
+.cvcNumber {
+  width: 50%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  appearance: none;
+  margin: 8px 0 8px 0;
 }
 
 .orderTableBox .shipAndPaymentCol p {
-	height: 40px;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	background-color: #eee;
-	margin: 8px 0 8px 0;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  background-color: #eee;
+  margin: 8px 0 8px 0;
 }
 
 .orderTableBox .billInfo {
-	flex: 2;
-	padding: 0 8px 0 8px;
+  flex: 1;
+  padding: 0 8px 0 8px;
 }
 .orderTableBox .billInfo h1 {
-	font-size: 20px;
+  font-size: 20px;
 }
 .orderTableBox .billInfo hr {
-	margin: 8px 0 16px 0;
+  margin: 8px 0 16px 0;
 }
 
 .orderTableBox .billInfo .inputName,
@@ -559,104 +578,104 @@
 .orderTableBox .billInfo .inputEmail,
 .orderTableBox .billInfo .shippingName,
 .orderTableBox .billInfo .shippingPhone {
-	width: 100%;
-	height: 40px;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	border: 1px solid #ccc;
-	outline: none;
-	appearance: none;
-	margin: 8px 0 8px 0;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  appearance: none;
+  margin: 8px 0 8px 0;
 }
 
 .orderTableBox .billInfo .checkSubscribe,
 .orderTableBox .billInfo .checkShipping,
 .orderTableBox .billInfo .checkClause {
-	margin: 8px 0 8px 0;
-	text-indent: 8px;
+  margin: 8px 0 8px 0;
+  text-indent: 8px;
 }
 
 .orderTableBox .billInfo .checkSubscribe input,
 .orderTableBox .billInfo .checkShipping input,
 .orderTableBox .billInfo .checkClause input {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .orderTableBox .billInfo .checkSubscribe label,
 .orderTableBox .billInfo .checkShipping label,
 .orderTableBox .billInfo .checkClause label {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .orderTableBox .billInfo #shippingDataDetail {
-	display: none;
+  display: none;
 }
 
 .orderTableBox .billInfo #shippingDataDetail .shippingName {
-	display: block;
+  display: block;
 }
 
 .orderTableBox .billInfo .checkClause {
-	text-align: right;
+  text-align: right;
 }
 
 .orderTableBox .billInfo .checkClause a {
-	color: #db4437;
+  color: #db4437;
 }
 
 .orderTableBox .billInfo textarea {
-	width: 100%;
-	font-size: 16px;
-	line-height: 1.5;
-	padding: 0.5em 3.5em 0.5em 1em;
-	border: 1px solid #ccc;
-	outline: none;
-	margin: 0 0 8px 0;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border: 1px solid #ccc;
+  outline: none;
+  margin: 0 0 8px 0;
 }
 
 .orderTableBox .billInfo .afterTotalPay {
-	text-align: right;
+  text-align: right;
 }
 .orderTableBox .billInfo .afterTotalPay p {
-	font-size: 20px;
+  font-size: 20px;
 }
 .orderTableBox .billInfo .afterTotalPay span {
-	color: #db4437;
-	font-size: 32px;
-	margin: 0 8px 0 8px;
+  color: #db4437;
+  font-size: 32px;
+  margin: 0 8px 0 8px;
 }
 
 .orderTableBox .billInfo .afterTotalPay i {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 .orderTableBox .billInfo .divCheckout {
-	margin-top: 16px;
-	text-align: right;
+  margin-top: 16px;
+  text-align: right;
 }
 
 .orderTableBox .billInfo .divCheckout .btnCheckout {
-	background-color: transparent;
-	border-radius: 16px;
-	padding: 10px 20px 10px 20px;
-	font-size: 16px;
-	outline: 0;
-	background-color: #666;
-	border-color: #666;
-	color: #fff;
+  background-color: transparent;
+  border-radius: 16px;
+  padding: 10px 20px 10px 20px;
+  font-size: 16px;
+  outline: 0;
+  background-color: #666;
+  border-color: #666;
+  color: #fff;
 }
 
 .orderTableBox .billInfo .divCheckout .btnCheckout:hover {
-	background-color: #000;
-	color: #fff;
+  background-color: #000;
+  color: #fff;
 }
 
 @media screen and (max-width: 850px) {
-	.orderTableBox {
-		flex-direction: column;
-	}
-	.orderTableBox .billInfo {
-		margin-top: 16px;
-	}
+  .orderTableBox {
+    flex-direction: column;
+  }
+  .orderTableBox .billInfo {
+    margin-top: 16px;
+  }
 }

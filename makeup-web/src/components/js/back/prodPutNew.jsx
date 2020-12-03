@@ -85,8 +85,8 @@ class ProdPutNew extends Component {
 									}}
 								>
 									<option value={"底妝"}>底妝</option>
-									<option value={"duck"}>Duck</option>
-									<option value={"fish"}>Fish</option>
+									<option value={"唇彩"}>唇彩</option>
+									<option value={"眼彩"}>眼彩</option>
 								</select>
 
 								{/*<span id="kindAHelpBlock" className="form-text text-muted">
@@ -101,14 +101,14 @@ class ProdPutNew extends Component {
 									id="kindB"
 									name="kindB"
 									className="custom-select"
-									defaultValue={"粉底｜BB霜｜蜜粉"}
+									defaultValue={"粉底"}
 									onChange={e => {
 										return e.target.value;
 									}}
 								>
-									<option value={"粉底｜BB霜｜蜜粉"}>粉底｜BB霜｜蜜粉</option>
-									<option value={"duck"}>Duck</option>
-									<option value={"fish"}>Fish</option>
+									<option value={"粉底"}>粉底</option>
+									<option value={"眼影"}>眼影</option>
+									<option value={"唇蜜"}>唇蜜</option>
 								</select>
 							</div>
 						</div>

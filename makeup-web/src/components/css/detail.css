@@ -84,8 +84,9 @@
 .tagChoose li {
 	padding: 1.5% 4%;
 	margin-right: 3%;
-	font-size: 1.2rem;
-	background-color: var(--greenColor);
+	font-size: 1.5rem;
+	font-weight: 500;
+	background-color: var(--orangeColor);
 	border-radius: 5px;
 	box-shadow: 2px 2px 5px #a8a8a8;
 	cursor: pointer;
@@ -96,8 +97,9 @@
 .introduction {
 	padding-right: 50px;
 	margin-top: 10%;
-	font-size: 1.5rem;
-	line-height: 1.5;
+	font-size: 1.8rem;
+	font-weight: 500;
+	line-height: 1.8;
 	color: #646464;
 }
 

@@ -1,133 +1,150 @@
 /* 最上欄log + icon + navbar */
 .header {
-	position: sticky;
-	top: 0;
-	transition: top 0.6s ease-in-out;
-	box-shadow: var(--boxShadow1);
-	z-index: 2;
+  position: sticky;
+  top: 0;
+  transition: top 0.6s ease-in-out;
+  box-shadow: var(--boxShadow1);
+  z-index: 2;
 }
 
 /* nav bar */
 .header .navbar {
-	display: flex;
-	justify-content: flex-end;
-	background-color: var(--blueColor);
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--blueColor);
 }
 
 /* header logo */
 .rightIcon {
-	padding-left: 50px;
-	margin-right: auto;
+  padding-left: 50px;
+  margin-right: auto;
 }
 
 .rightIcon img {
-	height: 50px;
-	margin-right: auto;
-	object-fit: cover;
+  height: 50px;
+  margin-right: auto;
+  object-fit: cover;
 }
 
 .navBoxL,
 .navBoxR {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	/*border: 1px solid;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*border: 1px solid;*/
 }
 
 .navBoxR {
-	position: relative;
-	margin: 0 6%;
-	padding: 18px 0;
+  position: relative;
+  margin: 0 6%;
+  padding: 18px 0;
 }
 
 .dropdown {
-	position: relative;
+  position: relative;
 }
 
 .dropdown .dropdown-content {
-	display: none;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	/*margin: auto;*/
-	background-color: var(--blueColor);
-	min-width: 150px;
-	border-radius: 8px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  /*margin: auto;*/
+  background-color: var(--blueColor);
+  min-width: 150px;
+  border-radius: 8px;
 }
 
 .dropdown-content button {
-	color: var(--blueColor);
-	text-decoration: none;
-	text-align: center;
-	padding: 10px;
-	font-size: 18px;
-	color: #fff;
-	border: 0;
-	background-color: transparent;
+  color: var(--blueColor);
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  border: 0;
+  background-color: transparent;
 }
 
 .dropdown-content button:hover {
-	color: #f5bc54;
-	font-size: 20px;
-	text-decoration: underline;
-	text-align: center;
+  color: #f5bc54;
+  font-size: 20px;
+  text-decoration: underline;
+  text-align: center;
 }
 
 .dropdown:hover .dropdown-content {
-	display: block;
-	color: var(--orangeColor);
+  display: block;
+  color: var(--orangeColor);
 }
 
 .dropdown:hover {
-	background-color: #f5bc54;
+  background-color: #f5bc54;
 }
 
 /* header購物車 */
 .navBoxR .fa-shopping-cart ~ .headerCartBox {
-	position: absolute;
-	display: none;
-	justify-content: center;
-	/* display: none; */
-	/* height: 200px; */
-	width: 350px;
-	top: 0px;
-	right: -10%;
-	margin-top: 83px;
-	padding: 16px;
-	background-color: #fff;
-	border: 2px solid var(--brownColor3);
-	border-top: 0;
+  position: absolute;
+  display: none;
+  justify-content: center;
+  /* display: none; */
+  /* height: 200px; */
+  width: 400px;
+  top: 0px;
+  right: -10%;
+  margin-top: 83px;
+  padding: 16px;
+  background-color: #fff;
+  border: 2px solid var(--brownColor3);
+  border-top: 0;
 }
 
 .navBoxR:hover .fa-shopping-cart ~ .headerCartBox {
-	display: block;
-	display: flex;
+  display: block;
+  display: flex;
+}
+
+.headerCartBoxAdd {
+  position: absolute;
+  justify-content: center;
+  /* display: none; */
+  /* height: 200px; */
+  width: 400px;
+  top: 0px;
+  right: -10%;
+  margin-top: 83px;
+  padding: 16px;
+  background-color: #fff;
+  border: 2px solid var(--brownColor3);
+  border-top: 0;
+  display: block;
+  display: flex;
 }
 
 .navBoxL a {
-	padding: 25px 30px;
-	font-size: 1.9rem;
-	font-weight: 500;
-	color: #ffffff;
+  padding: 25px 30px;
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: #ffffff;
 }
 
 .navBoxR a {
-	padding: 10px 15px;
-	font-size: 2.3rem;
-	font-weight: 600;
-	/*text-shadow: #989999 1px 1px 3px;*/
-	color: #ffffff;
+  padding: 10px 15px;
+  font-size: 2.3rem;
+  font-weight: 600;
+  /*text-shadow: #989999 1px 1px 3px;*/
+  color: #ffffff;
 }
 
 .navBoxR .fa-shopping-cart {
-	position: relative;
+  position: relative;
 }
 .cartQty {
-	position: absolute;
-	font-size: 24px;
-	right: -20%;
-	top: 0;
-	color: var(--orangeColor);
+  position: absolute;
+  font-size: 24px;
+  right: -20%;
+  top: 0;
+  color: var(--orangeColor);
 }
 
 /*header a:link {

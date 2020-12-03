@@ -20,6 +20,7 @@ class Home extends Component {
 		this.createCard = new CreateCard();
 		this.ajax = new Ajax();
 		this.imgPath = new IMGPath();
+		this.slideIndex = 1;
 
 		this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
 		this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
@@ -122,15 +123,63 @@ class Home extends Component {
 		}
 	};
 
+	plusSlides(n) {
+		this.showSlides((this.slideIndex += n));
+	}
+
+	showSlides(n) {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		if (n > slides.length) {
+			this.slideIndex = 1;
+		}
+		if (n < 1) {
+			this.slideIndex = slides.length;
+		}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slides[this.slideIndex - 1].style.display = "block";
+	}
+
 	render() {
 		return (
 			<main className="homeMain">
 				{/*banner*/}
 				<div className="topBanner">
 					<div className="bannerBg">
-						<img src={this.imgPath.importAll(this.b)["homeBanner1.jpg"]} alt="banner" />
-						<img src={this.imgPath.importAll(this.b)["homeBanner2.jpg"]} alt="banner" />
+						<img
+							className="mySlides"
+							src={this.imgPath.importAll(this.b)["homeBanner1.jpg"]}
+							alt="banner"
+						/>
+						<img
+							className="mySlides"
+							src={this.imgPath.importAll(this.b)["homeBanner2.jpg"]}
+							alt="banner"
+						/>
+						<img
+							className="mySlides"
+							src={this.imgPath.importAll(this.b)["homeBanner3.jpg"]}
+							alt="banner"
+						/>
 					</div>
+					<button
+						className="prev"
+						onClick={() => {
+							this.plusSlides(-1);
+						}}
+					>
+						&#10094;
+					</button>
+					<button
+						className="next"
+						onClick={() => {
+							this.plusSlides(1);
+						}}
+					>
+						&#10095;
+					</button>
 				</div>
 				{/*banner end*/}
 
@@ -268,7 +317,7 @@ class Home extends Component {
 					<img src={this.imgPath.importAll(this.b)["1200_300會員折價卷.jpg"]} alt="banner" />
 					<img src={this.imgPath.importAll(this.b)["downBanner1.jpg"]} alt="banner" />
 					<img src={this.imgPath.importAll(this.b)["downBanner2.jpg"]} alt="banner" />
-					<img src={this.imgPath.importAll(this.b)["downBanner3.jpg"]} alt="banner" />
+					{/*<img src={this.imgPath.importAll(this.b)["downBanner3.jpg"]} alt="banner" />*/}
 				</div>
 				{/*客製化*/}
 				{/*<div className="customize bottomHalf">

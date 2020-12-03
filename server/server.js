@@ -216,7 +216,7 @@ app.post("/searchOrder", function (request, response) {
 			return;
 		}
 		// response.send(rows1);
-		// console.log(rows1);
+		//console.log(rows1);
 
 		// 再利用此筆訂單編號 合併表格生成購買清單
 		let sql2 = `SELECT *
@@ -240,7 +240,7 @@ app.post("/searchOrder", function (request, response) {
 				console.log(JSON.stringify(err));
 				return;
 			}
-			// console.log(rows2);
+			//console.log(rows2);
 			response.send(rows2);
 		});
 	});
@@ -824,6 +824,9 @@ app.get("/backend/p", function (request, response) {
     where p.kindC is null`;
 
 	conn.query(sql, function (err, rows) {
+		for (let i = 0; i < rows.length; i++) {
+			rows[i].putDate = moment(rows[i].putDate).format("YYYY-MM-DD");
+		}
 		response.send(rows);
 	});
 });
@@ -844,11 +847,6 @@ app.post("/backend/prod/new", function (request, response) {
 	limit 1`;
 
 	conn.query(sqlA, function (err) {
-		if (err) {
-			console.log(JSON.stringify(err));
-			return;
-		}
-
 		conn.query(sqlB, function (err, rows) {
 			let sql = `
 	INSERT INTO
@@ -857,12 +855,25 @@ app.post("/backend/prod/new", function (request, response) {
 	VALUES
 	("${request.body.productName}", "${request.body.productColor}", "${request.body.putDate}","${request.body.kindA}","${request.body.kindB}",${rows[0].category_id},${request.body.productStatus});`;
 
+			let sql2 = `
+	select product_id
+	from product
+	order by product_id desc
+  limit 1`;
+
 			conn.query(sql, function (err) {
-				if (err) {
-					console.log(JSON.stringify(err));
-					return;
-				}
-				response.redirect("http://localhost:3000/backend/prod/new");
+				conn.query(sql2, function (err, rows) {
+					let sql3 = `
+          INSERT INTO
+          productimg
+          (productimg_id,img_0)
+          VALUES
+          (${rows[0].product_id},"A001_01.jpg");`;
+
+					conn.query(sql3, function (err) {
+						response.redirect("http://localhost:3000/backend/prod/new");
+					});
+				});
 			});
 		});
 	});
@@ -891,7 +902,7 @@ const server = express().listen(3002, () => {
 	console.log("listening on 3002");
 });
 const wss = new myServer({ server });
-let header;
+let header, carList;
 
 wss.on("connection", (ws, request) => {
 	console.log("client connected");
@@ -901,12 +912,17 @@ wss.on("connection", (ws, request) => {
 
 		if (parseData.who == "myHeader") {
 			header = ws;
+		} else if (parseData.who == "myCartList") {
+			carList = ws;
+		} else if (parseData.who == "cartCheck2") {
+			carList.send(JSON.stringify({ info: "cartCheck" }));
 		} else {
 			header.send(JSON.stringify({ info: "cartCheck" }));
 		}
 	});
 
 	ws.on("close", event => {
+		carList = null;
 		console.log("close connected");
 	});
 });

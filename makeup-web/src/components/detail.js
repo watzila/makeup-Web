@@ -16,6 +16,10 @@ class Detail extends Component {
 			},
 
 			data: null,
+
+			myModal: {
+				display: "none",
+			},
 		};
 
 		this.ajax = new Ajax();
@@ -96,6 +100,15 @@ class Detail extends Component {
 				qty: this.state.countText.text,
 			});
 		}
+		this.setState({
+			myModal: { display: "block" },
+		});
+
+		setTimeout(() => {
+			this.setState({
+				myModal: { display: "none" },
+			});
+		}, 800);
 		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
@@ -252,6 +265,28 @@ class Detail extends Component {
 									</ul>
 								</div>
 							</section>
+						</div>
+						{/* The Modal  */}
+						<div id="myModal" style={this.state.myModal} className="modal">
+							{/* Modal content  */}
+							<div className="modal-content">
+								<div
+									className="modal-body"
+									style={{
+										weight: "100vw",
+									}}
+								>
+									<p
+										style={{
+											fontSize: "40px",
+											textAlign: "center",
+										}}
+									>
+										<i className="fa fa-gift" aria-hidden="true"></i>
+										已加入
+									</p>
+								</div>
+							</div>
 						</div>
 					</article>
 

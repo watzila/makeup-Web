@@ -30,8 +30,8 @@ class HeaderCart extends Component {
           <div>
             <img
               src={this.imgPath.importAll(this.p)[`${this.props.data.img_0}`]}
-              width="40"
-              height="40"
+              width="60"
+              height="60"
               alt="cart_product"
             />
           </div>
