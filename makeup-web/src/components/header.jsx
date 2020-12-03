@@ -9,7 +9,6 @@ import Ajax from "./js/ajax";
 
 import logo from "./images/logo icon.png";
 //import IMGPath from "./js/imgPath"; //引入圖片
-
 class Header extends Component {
 	constructor(props) {
 		super(props);
@@ -33,14 +32,31 @@ class Header extends Component {
 			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 		}
 
+		this.updateCartInfo();
+
 		window.addEventListener("keydown", function (event) {
-			if (event.key == "Esc" || event.key == "Escape") {
+			if (event.key === "Esc" || event.key === "Escape") {
 				sessionStorage.clear();
 			}
 		});
 	}
 
-	// (複製cartList)
+	//更新購物車數量顯示
+	updateCartInfo = () => {
+		this.ws = new WebSocket("ws://localhost:3002");
+
+		this.ws.onopen = event => {
+			console.log("connect success");
+			this.ws.send(JSON.stringify({ who: "myHeader" }));
+		};
+
+		this.ws.onmessage = event => {
+			var parseData = JSON.parse(event.data);
+			console.log(parseData);
+
+			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+		};
+	};
 
 	u = data => {
 		// if (data == this.state.data) {
@@ -123,7 +139,7 @@ class Header extends Component {
 			}
 		}
 		// this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
-		// console.log(1);
+		//console.log(1);
 		// console.log(this.state.data.length);
 		// 購物車空車的話 隱藏購物車欄位
 	}
@@ -139,12 +155,6 @@ class Header extends Component {
 			}
 			this.prevScrollpos = currentScrollPos;
 		};
-	};
-
-	cartQty = () => {
-		if (this.state.data != null) {
-			return this.state.data.length;
-		}
 	};
 
 	render() {
@@ -250,7 +260,9 @@ class Header extends Component {
 						</Link>
 						<div className="cartWrap">
 							<Link to="/cart" className="fa fa-shopping-cart">
-								<span className="cartQty">{this.cartQty()}</span>
+								<span className="cartQty">
+									{this.state.data != null ? this.state.data.length : 0}
+								</span>
 							</Link>
 							<table id="headerCartBoxTop">
 								<tbody>

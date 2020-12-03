@@ -20,6 +20,7 @@ class Detail2 extends Component {
 
 			data: null,
 			fData: null, //我的最愛資料
+			cartCheck: null,
 
 			prodIMG: {
 				img1: "",
@@ -32,6 +33,7 @@ class Detail2 extends Component {
 
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
+		this.ws = new WebSocket("ws://localhost:3002");
 
 		this.p = require.context("./images/product", false, /\.(png|jpe?g|svg)$/);
 		this.b = require.context("./images/banner", false, /\.(png|jpe?g|svg)$/);
@@ -49,6 +51,10 @@ class Detail2 extends Component {
 				this.u
 			);
 		}
+
+		//this.ws.onopen = event => {
+		//	console.log("connect success");
+		//};
 	}
 
 	//改數量
@@ -96,7 +102,14 @@ class Detail2 extends Component {
 				qty: this.state.countText.text,
 			});
 		}
+		this.setState({ cartCheck: new Date().toLocaleString() });
+
+		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
+
+	componentWillUnmount() {
+		this.ws.close();
+	}
 
 	changeIMG = img => {
 		let newProdIMG = this.state.prodIMG;
@@ -288,7 +301,12 @@ class Detail2 extends Component {
 
 							{/*<!-- 加入購物車 -->*/}
 							<div className="but_2	">
-								<button onClick={this.addCart} id="addCartBTN">
+								<button
+									onClick={() => {
+										this.addCart();
+									}}
+									id="addCartBTN"
+								>
 									加入購物車
 								</button>
 							</div>

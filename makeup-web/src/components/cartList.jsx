@@ -217,7 +217,7 @@ class CartList extends Component {
 
 	// 當購物車商品數>0 顯示直接購買或登入會員Modal視窗
 	directBuyModalDisplayBlock = () => {
-		if (this.state.data != null) {
+		if (this.state.data != null ? (this.state.data.length > 0 ? true : "") : "") {
 			this.setState({ myModal: { display: "block" } });
 		}
 		//   this.modal.style.display = "block";
@@ -436,7 +436,13 @@ class CartList extends Component {
 												className="inputAddress"
 												type="text"
 												placeholder="縣市"
-												defaultValue={this.state.data != null ? this.state.data[0].city : ""}
+												defaultValue={
+													this.state.data != null
+														? this.state.data.length > 0
+															? this.state.data[0].city
+															: ""
+														: ""
+												}
 												onChange={e => {
 													// console.log(e.target.value);
 													return e.target.value;
@@ -448,7 +454,13 @@ class CartList extends Component {
 												className="inputAddress "
 												type="text"
 												placeholder="鄉鎮區"
-												defaultValue={this.state.data != null ? this.state.data[0].district : ""}
+												defaultValue={
+													this.state.data != null
+														? this.state.data.length > 0
+															? this.state.data[0].district
+															: ""
+														: ""
+												}
 												onChange={e => {
 													// console.log(e.target.value);
 													return e.target.value;
@@ -460,7 +472,13 @@ class CartList extends Component {
 												className="inputAddress "
 												type="text"
 												placeholder="收件地址"
-												defaultValue={this.state.data != null ? this.state.data[0].address : ""}
+												defaultValue={
+													this.state.data != null
+														? this.state.data.length > 0
+															? this.state.data[0].address
+															: ""
+														: ""
+												}
 												onChange={e => {
 													// console.log(e.target.value);
 													return e.target.value;
@@ -495,7 +513,13 @@ class CartList extends Component {
 											className="inputName"
 											type="text"
 											placeholder="請輸入購買人姓名"
-											defaultValue={this.state.data != null ? this.state.data[0].customerName : ""}
+											defaultValue={
+												this.state.data != null
+													? this.state.data.length > 0
+														? this.state.data[0].customerName
+														: ""
+													: ""
+											}
 											onChange={e => {
 												return e.target.value;
 											}}
@@ -507,7 +531,13 @@ class CartList extends Component {
 											className="inputPhone"
 											type="text"
 											placeholder="請輸入聯絡電話"
-											defaultValue={this.state.data != null ? this.state.data[0].cellPhone : ""}
+											defaultValue={
+												this.state.data != null
+													? this.state.data.length > 0
+														? this.state.data[0].cellPhone
+														: ""
+													: ""
+											}
 											onChange={e => {
 												return e.target.value;
 											}}
@@ -519,7 +549,13 @@ class CartList extends Component {
 											className="inputEmail"
 											type="email"
 											placeholder="請輸入電子郵箱"
-											defaultValue={this.state.data != null ? this.state.data[0].email : ""}
+											defaultValue={
+												this.state.data != null
+													? this.state.data.length > 0
+														? this.state.data[0].email
+														: ""
+													: ""
+											}
 											onChange={e => {
 												return e.target.value;
 											}}

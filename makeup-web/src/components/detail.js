@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-//import { BrowserRouter, Route, Link } from "react-router-dom"
-//import CustomDrawing, { MyImgs } from "./js/customDrawing";
+
 import Ajax from "./js/ajax";
 import IMGPath from "./js/imgPath"; //引入圖片
 import "./css/detail.css";
@@ -21,8 +20,7 @@ class Detail extends Component {
 
 		this.ajax = new Ajax();
 		this.imgPath = new IMGPath();
-		//this.cpImgs = new MyImgs().pId;
-		//this.draw = null;
+		this.ws = new WebSocket("ws://localhost:3002");
 
 		this.ajax.startListener(
 			"get",
@@ -98,6 +96,7 @@ class Detail extends Component {
 				qty: this.state.countText.text,
 			});
 		}
+		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
 	getIMG = i => {

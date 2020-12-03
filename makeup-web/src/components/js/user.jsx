@@ -163,7 +163,7 @@ class User extends Component {
 				<div>
 					<label htmlFor="fname">帳號：</label>
 					<input
-						style={{ border: this.state.fnameIsShow ? "0" : "2px black solid" }}
+						style={{ borderBottom: this.state.fnameIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.data == null ? "" : this.state.fnameDisabled}
 						placeholder={this.state.data == null ? "" : this.state.data[0].account}
 						onChange={this.changeFname}
@@ -206,7 +206,7 @@ class User extends Component {
 					<input
 						onBlur={this.onBlurUsername}
 						style={{
-							border: this.state.usernameIsShow ? "0" : "1px black solid",
+							borderBottom: this.state.usernameIsShow ? "0" : "1px black solid",
 						}}
 						disabled={this.state.usernameDisabled}
 						defaultValue={this.state.data == null ? "" : this.state.data[0].nickname}
@@ -228,7 +228,7 @@ class User extends Component {
 					<label htmlFor="phone">手機：</label>
 					<input
 						onBlur={this.onBlurphone}
-						style={{ border: this.state.phoneIsShow ? "0" : "2px black solid" }}
+						style={{ borderBottom: this.state.phoneIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.phoneDisabled}
 						defaultValue={this.state.data == null ? "" : this.state.data[0].cellPhone}
 						onChange={this.changePhone}
@@ -287,7 +287,7 @@ class User extends Component {
 					<label htmlFor="email">E-mail：</label>
 					<input
 						onBlur={this.onBlurEmail}
-						style={{ border: this.state.emailIsShow ? "0" : "2px black solid" }}
+						style={{ borderBottom: this.state.emailIsShow ? "0" : "2px black solid" }}
 						disabled={this.state.emailDisabled}
 						defaultValue={this.state.data == null ? "" : this.state.data[0].email}
 						onChange={this.changeEmail}
@@ -309,7 +309,7 @@ class User extends Component {
 					<input
 						onBlur={this.onBlurAdress}
 						style={{
-							border: this.state.adressIsShow ? "0" : "2px black solid",
+							borderBottom: this.state.adressIsShow ? "0" : "2px black solid",
 						}}
 						disabled={this.state.adressDisabled}
 						defaultValue={

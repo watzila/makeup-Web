@@ -139,6 +139,7 @@ body {
 .detail2Main .warp .pro_2 .pic_04 .love {
 	float: right;
 	font-size: 4rem;
+	color: var(--brownColor3);
 	cursor: pointer;
 }
 

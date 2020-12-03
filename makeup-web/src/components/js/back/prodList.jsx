@@ -17,7 +17,7 @@ class ProdList extends Component {
 		this.createCard = new CreateCard();
 		this.ajax = new Ajax();
 
-		this.ajax.startListener("get", "/p", this.u);
+		this.ajax.startListener("get", "/backend/p", this.u);
 	}
 
 	u = data => {
@@ -39,14 +39,12 @@ class ProdList extends Component {
 		} while (i < data.length);
 
 		this.setState({
-			data: newData[this.props.match.params.page - 1],
+			data: newData[0],
 			allData: newData,
 		});
 
 		//頁數按鈕初始化
-		document.querySelector(
-			`.page a:nth-of-type(${this.props.match.params.page * 1 + 1})`
-		).className = "click";
+		document.querySelector(`.page a:nth-of-type(${2})`).className = "click";
 
 		//console.log(this.state.data);
 	};

@@ -1,4 +1,5 @@
 const express = require("express");
+const myServer = require("ws").Server;
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const cors = require("cors");
@@ -812,6 +813,21 @@ app.post("/backend/searchprod", function (request, response) {
 	//console.log(request.body);
 });
 
+//後台產品清單
+app.get("/backend/p", function (request, response) {
+	var sql = `SELECT *,unitPrice ,img_0
+    FROM product as p 
+    JOIN  category as c
+    ON c.category_id=p.category_id
+    JOIN  productimg as img
+    ON p.product_id=img.productImg_id
+    where p.kindC is null`;
+
+	conn.query(sql, function (err, rows) {
+		response.send(rows);
+	});
+});
+
 // 後台商品新增
 app.post("/backend/prod/new", function (request, response) {
 	let sqlA = `
@@ -869,3 +885,28 @@ app.post("/cart/submit", function (request, response) {
 });
 
 app.listen(3001, () => console.log("LISTENING ON PORT 成功"));
+
+//呼叫header購物車更新
+const server = express().listen(3002, () => {
+	console.log("listening on 300");
+});
+const wss = new myServer({ server });
+let header;
+
+wss.on("connection", (ws, request) => {
+	console.log("client connected");
+
+	ws.on("message", data => {
+		let parseData = JSON.parse(data);
+
+		if (parseData.who == "myHeader") {
+			header = ws;
+		} else {
+			header.send(JSON.stringify({ info: "cartCheck" }));
+		}
+	});
+
+	ws.on("close", event => {
+		console.log("close connected");
+	});
+});
