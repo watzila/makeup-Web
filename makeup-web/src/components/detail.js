@@ -99,6 +99,10 @@ class Detail extends Component {
 		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
+	componentWillUnmount() {
+		this.ws.close();
+	}
+
 	getIMG = i => {
 		return this.state.data[i].img_0;
 	};

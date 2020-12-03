@@ -888,7 +888,7 @@ app.listen(3001, () => console.log("LISTENING ON PORT 成功"));
 
 //呼叫header購物車更新
 const server = express().listen(3002, () => {
-	console.log("listening on 300");
+	console.log("listening on 3002");
 });
 const wss = new myServer({ server });
 let header;

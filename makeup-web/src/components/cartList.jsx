@@ -41,12 +41,17 @@ class CartList extends Component {
 		this.imgPath = new IMGPath();
 		this.ajax = new Ajax();
 		this.createCard = new CreateCard();
+		this.ws = new WebSocket("ws://localhost:3002");
 
 		if (sessionStorage.getItem("member")) {
 			this.cId = JSON.parse(sessionStorage.getItem("member"));
 
 			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 		}
+	}
+
+	componentWillUnmount() {
+		this.ws.close();
 	}
 
 	u = data => {
@@ -111,6 +116,7 @@ class CartList extends Component {
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].count);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].unitPrice);
 		// console.log(this.state.cartList[this.state.cartList.indexOf(obj)].subtotal);
+		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
 	// 功能：商品數量減少
@@ -149,6 +155,7 @@ class CartList extends Component {
 
 			this.setState({});
 		}
+		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
 	// 功能：商品刪除
@@ -170,6 +177,7 @@ class CartList extends Component {
 			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
 			p_id: idProduct,
 		});
+		this.ws.send(JSON.stringify({ who: "cartCheck" }));
 	};
 
 	// 金額計算 （不含運費）
