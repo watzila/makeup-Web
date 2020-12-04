@@ -48,7 +48,7 @@
 /* banner */
 .topBanner {
 	position: relative;
-	height: 93vh;
+	height: var(--height);
 	letter-spacing: 1rem;
 }
 
