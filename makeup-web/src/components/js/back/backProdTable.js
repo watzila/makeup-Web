@@ -31,7 +31,7 @@ class BackProdTable extends Component {
 				<td>{this.props.data != null ? this.props.data.productColor : ""}</td>
 				<td>{this.props.data != null ? this.props.data.unitPrice : ""}</td>
 				<td>{this.props.data != null ? this.props.data.putDate : ""}</td>
-				<td></td>
+				{/*<td></td>*/}
 				<td>{this.props.data.productStatus != 0 ? "上架" : "下架"}</td>
 				<td>
 					<Link

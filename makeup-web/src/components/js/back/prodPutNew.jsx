@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import IMGPath from "../imgPath"; //引入圖片
 import { Link } from "react-router-dom";
 import Ajax from "../ajax"; //和伺服連線
-
+import $ from "jquery";
 class ProdPutNew extends Component {
 	constructor(prop) {
 		super(prop);
 		this.state = {
 			data: null,
+			sortdeta: [
+				["粉底", "遮瑕粉", "保濕定妝噴霧", "妝前乳"],
+				["唇彩", "唇釉", "唇膏"],
+				["眼影", "唇釉", "睫毛膏"],
+				["專業刷具"],
+			],
+			typlist: null,
 		};
 		this.imgPath = new IMGPath();
 		// this.avater = require.context("./images/index", false, /\.(png|jpe?g|svg)$/);
@@ -19,18 +26,25 @@ class ProdPutNew extends Component {
 		// console.log(data);
 	};
 
-	// formProd = e =>{
-	// 	let addProd = {
-	// 		productName :document.querySelector("#productName").value,
-	// 		productColor:document.querySelector("#productColor_0").value,
-	// 		unitPrice:document.querySelector("#unitPrice").value,
-	// 		detail:document.querySelector("#detail").value,
-	// 		putDate:document.querySelector("#putDate").value,
-	// 		updateDate:document.querySelector("#updateDate").value,
-	// 	}
-	// 	this.ajax.startListener("post", "/backend/prod/new", this.u, addProd);
-
-	// }
+	_getTyp = () => {
+		let typ = $("#kindA").val();
+		let typlist;
+		if (typ == "底妝") {
+			typ = this.state.sortdeta[0];
+			typlist = typ.map((typ, i) => <option key={i}>{typ}</option>);
+		} else if (typ == "唇彩") {
+			typ = this.state.sortdeta[1];
+			typlist = typ.map((typ, i) => <option key={i}>{typ}</option>);
+		} else if (typ == "眼妝") {
+			typ = this.state.sortdeta[2];
+			typlist = typ.map((typ, i) => <option key={i}>{typ}</option>);
+		} else if (typ == "其他保養類") {
+			typ = this.state.sortdeta[3];
+			typlist = typ.map((typ, i) => <option key={i}>{typ}</option>);
+		}
+		//console.log(this.state.typlist);
+		this.setState({ typlist: typlist });
+	};
 
 	render() {
 		return (
@@ -81,12 +95,16 @@ class ProdPutNew extends Component {
 									aria-describedby="kindAHelpBlock"
 									defaultValue={"底妝"}
 									onChange={e => {
+										// $("#kindB").empty();
+										this._getTyp();
 										return e.target.value;
 									}}
 								>
+									<option value={"底妝"}>選擇大分類</option>
 									<option value={"底妝"}>底妝</option>
 									<option value={"唇彩"}>唇彩</option>
-									<option value={"眼彩"}>眼彩</option>
+									<option value={"眼妝"}>眼妝</option>
+									<option value={"其他保養類"}>其他保養類</option>
 								</select>
 
 								{/*<span id="kindAHelpBlock" className="form-text text-muted">
@@ -106,9 +124,7 @@ class ProdPutNew extends Component {
 										return e.target.value;
 									}}
 								>
-									<option value={"粉底"}>粉底</option>
-									<option value={"眼影"}>眼影</option>
-									<option value={"唇蜜"}>唇蜜</option>
+									{this.state.typlist != null ? this.state.typlist : null}
 								</select>
 							</div>
 						</div>

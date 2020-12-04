@@ -154,7 +154,7 @@ class ProdList extends Component {
 											<option value={`productColor`}>顏色</option>
 											<option value={`unitPrice`}>單價</option>
 											<option value={`putDate`}>上架日期</option>
-											<option value={`updateDate`}>修改日期</option>
+											{/*<option value={`updateDate`}>修改日期</option>*/}
 											<option value={`productStatus`}>商品狀態</option>
 										</select>
 
@@ -243,7 +243,7 @@ class ProdList extends Component {
 									<th scope="col">顏色</th>
 									<th scope="col">單價</th>
 									<th scope="col">上架日期</th>
-									<th scope="col">修改日期</th>
+									{/*<th scope="col">修改日期</th>*/}
 									<th scope="col">商品狀態</th>
 									<th scope="col">行動</th>
 								</tr>
