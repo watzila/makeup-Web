@@ -88,6 +88,7 @@
 
 .bannerBg img {
 	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
 
@@ -257,12 +258,13 @@
 }
 
 .smallCard {
+	width: 200px;
 	margin: 0 3%;
 	cursor: pointer;
 }
 
 .smallCard img {
-	width: 200px;
+	width: 100%;
 	height: 200px;
 	object-fit: cover;
 	border-radius: 10px 10px 0 0;

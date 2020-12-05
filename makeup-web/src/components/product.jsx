@@ -13,6 +13,9 @@ class Product extends Component {
 			data: null, //當前頁數資料
 			allData: null, //所有產品資料
 			fData: null, //我的最愛資料
+			hotData: null, //暢銷產品資料
+
+			aa: true,
 		};
 
 		this.imgPath = new IMGPath();
@@ -53,7 +56,6 @@ class Product extends Component {
 		let newData = [],
 			i = 0;
 
-		console.log(data);
 		//我的最愛資料合併到所有產品資料
 		if (this.state.fData != null) {
 			for (let l = 0; l < data.length; l++) {
@@ -81,10 +83,19 @@ class Product extends Component {
 			i += 8;
 		} while (i < data.length);
 
+		//console.log(data);
 		this.setState({ data: newData[0], allData: newData });
 
+		if (this.state.aa) {
+			this.hotProduct(data);
+		}
 		//頁數按鈕初始化
 		document.querySelector(`.page a:nth-of-type(${2})`).className = "click";
+		if (this.props.match.params.kind != "全部") {
+			window.scrollTo(0, 1700);
+		} else {
+			window.scrollTo(0, 0);
+		}
 	};
 
 	//加入、移除最愛
@@ -146,18 +157,20 @@ class Product extends Component {
 		return pageNumber;
 	};
 
-	//商品篩選
-	search = (event, kind = "") => {
-		//let kindNav = document.querySelectorAll(".kindNav li");
-		//if (kind !== "") {
-		//	this.ajax.startListener("get", "/p?kind=" + kind, this.u);
-		//} else {
-		//	this.ajax.startListener("get", "/p", this.u);
-		//}
-		//for (let el of kindNav) {
-		//	el.className = "";
-		//}
-		//event.target.className = "click";
+	//隨機取商品做暢銷
+	hotProduct = data => {
+		let allData = data;
+		let hotData = [];
+
+		console.log(data);
+		for (let i = 0; i < 4; i++) {
+			let num = Math.floor(Math.random() * allData.length);
+			//console.log(allData[num]);
+			hotData.push(allData[num]);
+			allData.splice(num, 1);
+		}
+		//console.log(hotData);
+		this.setState({ hotData: hotData, aa: false });
 	};
 
 	render() {
@@ -178,8 +191,8 @@ class Product extends Component {
 						</div>
 
 						<div className="grid" style={{ "--i": 4 }}>
-							{this.state.data != null
-								? this.createCard.create(4, Card, this.state.allData[0])
+							{this.state.hotData != null
+								? this.createCard.create(4, Card, this.state.hotData)
 								: null}
 						</div>
 					</div>

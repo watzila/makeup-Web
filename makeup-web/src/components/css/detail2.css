@@ -72,7 +72,7 @@ body {
 	display: flex;
 	align-items: center;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
 	max-width: 1200px;
 	height: var(--height);
 	margin: auto;
@@ -95,9 +95,6 @@ body {
 	font-size: 20px;
 }
 
-.detail2Main .warp .pro_2 {
-	margin-left: 50px;
-}
 .detail2Main .warp .pro_2 .pic_04 strong {
 	font-size: 48px;
 }

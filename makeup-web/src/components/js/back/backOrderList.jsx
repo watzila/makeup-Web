@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import BackOrderTable from "./backOrderTable";
 
@@ -11,7 +11,8 @@ class BackOrderList extends Component {
 		super(prop);
 
 		this.state = {
-			data: null,
+			data: null, //當前頁數資料
+			allData: null, //所有產品資料
 		};
 
 		this.createCard = new CreateCard();
@@ -21,11 +22,13 @@ class BackOrderList extends Component {
 	}
 
 	u = data => {
-		let newData = [];
+		let newData = [],
+			k = 0,
+			newData2 = [];
 
 		for (let i = 0; i < data.length; i++) {
 			for (let j = 0; j < data.length; j++) {
-				if (i === j) {
+				if (i === j && i < data.length - 1) {
 					//console.log(i, j);
 					continue;
 				}
@@ -43,9 +46,62 @@ class BackOrderList extends Component {
 				}
 			}
 		}
+		console.log(data);
+		//所有產品資料資料拆分8個為一組
+		do {
+			let d = [];
+			for (let j = 0; j < 8; j++) {
+				if (newData[j + k]) {
+					d.push(newData[j + k]);
+				} else {
+					break;
+				}
+			}
+			newData2.push(d);
+			k += 8;
+		} while (k < newData.length);
 
-		this.setState({ data: newData });
-		console.log(newData);
+		this.setState({
+			data: newData2[0],
+			allData: newData2,
+		});
+
+		// 頁數按鈕初始化
+		document.querySelector(`.page a:nth-of-type(${2})`).className = "click";
+		// console.log(newData);
+	};
+
+	//換頁
+	changePage = (page, which) => {
+		console.log(page, which);
+		if (page < 0 || page > this.state.allData.length - 1) return;
+		this.setState({ data: this.state.allData[page] });
+
+		for (let i = 0; i <= this.state.allData.length; i++) {
+			let allA = document.querySelectorAll(".page a");
+			allA[i].className = null;
+		}
+		document.getElementById(which).className = "click";
+	};
+
+	//頁碼生成
+	createPageNumber = () => {
+		let pageNumber = this.state.allData.map((item, index) => {
+			return (
+				<Link
+					to={"/backend/order/" + (index + 1)}
+					key={index}
+					id={"page_" + index}
+					onClick={() => {
+						this.changePage(index, "page_" + index);
+					}}
+				>
+					{index + 1}
+				</Link>
+			);
+		});
+
+		return pageNumber;
 	};
 
 	search = (k, v) => {
@@ -212,13 +268,39 @@ class BackOrderList extends Component {
 
 				{/*頁碼*/}
 				<div className="page d-flex justify-content-center">
-					<a href="/">&lt;</a>
-					<a className="click" href="/">
-						1
-					</a>
-					<a href="/">2</a>
-					<a href="/">3</a>
-					<a href="/">&gt;</a>
+					<Link
+						to={
+							"/backend/order/" +
+							(this.props.match.params.page > 1 ? this.props.match.params.page * 1 - 1 : 1)
+						}
+						onClick={() => {
+							this.changePage(
+								this.props.match.params.page * 1 - 2,
+								"page_" + (this.props.match.params.page * 1 - 2)
+							);
+						}}
+					>
+						&lt;
+					</Link>
+
+					{this.state.allData != null ? this.createPageNumber() : null}
+
+					<Link
+						to={
+							"/backend/order/" +
+							(this.props.match.params.page <
+							(this.state.allData != null ? this.state.allData.length : null)
+								? this.props.match.params.page * 1 + 1
+								: this.state.allData != null
+								? this.state.allData.length
+								: null)
+						}
+						onClick={() => {
+							this.changePage(this.props.match.params.page, "page_" + this.props.match.params.page);
+						}}
+					>
+						&gt;
+					</Link>
 				</div>
 			</div>
 		);

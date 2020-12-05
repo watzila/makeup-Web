@@ -54,7 +54,9 @@ class Header extends Component {
 			var parseData = JSON.parse(event.data);
 			console.log(parseData);
 
-			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			if (parseData.info === "cartCheck") {
+				this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			}
 		};
 	};
 
@@ -184,7 +186,7 @@ class Header extends Component {
 							<div className="dropdown-content">
 								<button
 									onClick={() => {
-										window.location.href = "/customp/乳液/pid=45";
+										window.location.href = "/customp/乳液/pid=24";
 									}}
 								>
 									乳液
@@ -192,7 +194,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/眼霜/pid=47";
+										window.location.href = "/customp/眼霜/pid=26";
 									}}
 								>
 									眼霜
@@ -200,7 +202,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/化妝水/pid=44";
+										window.location.href = "/customp/化妝水/pid=23";
 									}}
 								>
 									化妝水
@@ -208,7 +210,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/卸妝水/pid=46";
+										window.location.href = "/customp/卸妝水/pid=25";
 									}}
 								>
 									卸妝水

@@ -68,9 +68,10 @@ class CartList extends Component {
 
 		this.ws.onmessage = event => {
 			var parseData = JSON.parse(event.data);
-			console.log(parseData);
-
-			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			//console.log(parseData);
+			if (parseData.info === "cartCheck") {
+				this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+			}
 		};
 	};
 
@@ -531,7 +532,7 @@ class CartList extends Component {
 													return e.target.value;
 												}}
 											/>
-											<p>酌收運費 : $ 140 元</p>
+											{/*<p>酌收運費 : $ 140 元</p>*/}
 											<p>全館 滿 $ 2,000 元 免運費</p>
 										</div>
 										<select

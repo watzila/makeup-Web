@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const cors = require("cors");
 const moment = require("moment");
+const nodemailer = require("nodemailer"); // 引用nodemailer
 
 const app = express();
 
@@ -240,8 +241,131 @@ app.post("/searchOrder", function (request, response) {
 				console.log(JSON.stringify(err));
 				return;
 			}
-			//console.log(rows2);
+			console.log(rows2[0].id);
+			console.log("123");
 			response.send(rows2);
+
+			// 以下寄信功能
+			// 建立寄信員createTransport
+			var transporter = nodemailer.createTransport({
+				//如果用的不是gmail 相關細節就要去查 額外指定
+				service: "gmail",
+				auth: {
+					user: "jasper.aivia@gmail.com",
+					pass: "P@ssw0rd123...",
+				},
+			});
+
+			var mailOptions = {
+				from: "jasper.aivia@gmail.com",
+				to: "a2792839a@gmail.com",
+				subject: `感謝${rows2[0].customerName} 訂購緩緩美妝${rows2[0].order_id}`,
+				// html: `<head><meta charset="UTF-8" /><style>h1 {color: red;}</style></head><body><h1>通勤工具使用調查</h1><form action=""><label for="userName">${request.body.customerName}</label><input id="userName" type="text" placeholder="請輸入姓名" required /><br /><br /><label for="userTel">${request.body.shipping_district}</label><input id="userTel" /></body>`,
+				html: `<div id="panelOrder">
+                <div class="panelOrderBox">
+                    <h2>訂單狀態</h2>
+                    <hr>
+                    <div class="panelOrderStatus">
+                        <div class="colLeft">
+                            <div>
+                                <div class="panelOrderTitle">
+                                    購買日期：${rows2[0].orderDate}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    訂單編號：${rows2[0].order_id}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <div>
+                                <div class="panelOrderTitle">
+                                    處理狀態：${rows2[0].orderStatus}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    配送狀態：尚未寄件
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <h2>訂單資訊</h2>
+                    <hr>
+                    <div class="panelOrderInfo">
+                        <div class="colLeft">
+                            <div>
+                                <div class="panelOrderTitle">
+                                    運送方式：${rows2[0].shippingStyle_id}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    運送地址：${rows2[0].city}${rows2[0].district}${rows2[0].address}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    出貨日期：${rows2[0].shippingDate}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    付款方式：${rows2[0].payment_method}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colRight">
+                            <div>
+                                <div class="panelOrderTitle">
+                                    購買人姓名：${rows2[0].customerName}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    購買人信箱：${rows2[0].email}
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    購買人電話：${rows2[0].cellPhone}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    收件人姓名：${rows2[0].shipping_Name}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    收件人電話：${rows2[0].shipping_cellPhone}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="panelOrderTitle">
+                                    備註事項：${rows2[0].orderComment}
+                                </div>
+                            </div>
+                        </div>
+										</div>
+										<div></div>
+                    <div class="divBackHome"><a src="localhost:3000"></a></div>
+                </div>
+            </div>`,
+			};
+
+			transporter.sendMail(mailOptions, function (error, info) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log("訊息發送: " + info.response);
+				}
+			});
 		});
 	});
 });
@@ -520,7 +644,7 @@ app.get("/backend/orderlist", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		// console.log(rows);
+		//console.log(rows);
 		response.send(rows);
 	});
 });
@@ -590,7 +714,7 @@ app.post("/backend/orderlist", function (request, response) {
 			console.log(JSON.stringify(err));
 			return;
 		}
-		//console.log(rows)
+		//console.log(rows);
 		response.send(rows);
 	});
 });
@@ -914,7 +1038,7 @@ wss.on("connection", (ws, request) => {
 			header = ws;
 		} else if (parseData.who == "myCartList") {
 			carList = ws;
-		} else if (parseData.who == "cartCheck2") {
+		} else if (parseData.who == "cartCheck2" && carList != null) {
 			carList.send(JSON.stringify({ info: "cartCheck" }));
 		} else {
 			header.send(JSON.stringify({ info: "cartCheck" }));

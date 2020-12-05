@@ -205,7 +205,7 @@ class Order extends Component {
                     <div className="panelOrderTitle">配送狀態</div>
                     <div className="panelOrderText">
                       <i className="fa fa-bookmark" aria-hidden="true"></i>
-                      【宅配】尚未寄件
+                      尚未寄件
                     </div>
                   </div>
                 </div>
