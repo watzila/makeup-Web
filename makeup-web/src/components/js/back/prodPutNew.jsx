@@ -11,7 +11,7 @@ class ProdPutNew extends Component {
 			sortdeta: [
 				["粉底", "遮瑕粉", "保濕定妝噴霧", "妝前乳"],
 				["唇彩", "唇釉", "唇膏"],
-				["眼影", "唇釉", "睫毛膏"],
+				["眼影", "睫毛膏"],
 				["專業刷具"],
 			],
 			typlist: null,
@@ -54,7 +54,7 @@ class ProdPutNew extends Component {
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
-								<i className="fa fa-table" />
+								<i className="fa fa-th-large" />
 								商品管理 / 新增商品
 							</h2>
 

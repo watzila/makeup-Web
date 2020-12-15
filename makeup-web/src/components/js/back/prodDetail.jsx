@@ -86,7 +86,7 @@ class ProdDetail extends Component {
 					<div className="pt-3 form-head ">
 						<div className="pt-3">
 							<h2 className="pt-3 pb-3 text-center">
-								<i className="fa fa-table" />
+								<i className="fa fa-th-large" />
 								商品詳情 / 商品修改
 							</h2>
 
