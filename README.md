@@ -5,6 +5,6 @@
 -----------------------
 需事前安裝 node.js
 
-安裝方式：分別在makeup-web資料夾和server資料夾使用終端機輸入個別npm install完成安裝對應的nodejs
+安裝方式：分別在makeup-web資料夾和server資料夾使用終端機個別輸入npm install完成安裝對應的nodejs
 
 sql使用mysql連接，使用軟體xampp
