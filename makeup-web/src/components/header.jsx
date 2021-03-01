@@ -1,66 +1,66 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "./css/header.css";
-import "./css/headerCart.css";
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import "./css/header.css"
+import "./css/headerCart.css"
 
-import HeaderCart from "./js/headerCart";
-import CreateCard from "./js/createCard"; //創建商品卡
-import Ajax from "./js/ajax";
+import HeaderCart from "./js/headerCart"
+import CreateCard from "./js/createCard" //創建商品卡
+import Ajax from "./js/ajax"
 
-import logo from "./images/logo icon.png";
+import logo from "./images/logo icon.png"
 //import IMGPath from "./js/imgPath"; //引入圖片
 class Header extends Component {
 	constructor(props) {
-		super(props);
+		super(props)
 
 		this.state = {
 			data: null,
 			headerCartBoxStyle: null,
-		};
-
-		this.prevScrollpos = window.pageYOffset;
-
-		this.member = JSON.parse(sessionStorage.getItem("member"));
-
-		//this.imgPath = new IMGPath();
-		this.ajax = new Ajax();
-		this.createCard = new CreateCard();
-
-		if (sessionStorage.getItem("member")) {
-			this.cId = JSON.parse(sessionStorage.getItem("member"));
-
-			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
 		}
 
-		this.updateCartInfo();
+		this.prevScrollpos = window.pageYOffset
+
+		this.member = JSON.parse(sessionStorage.getItem("member"))
+
+		//this.imgPath = new IMGPath();
+		this.ajax = new Ajax()
+		this.createCard = new CreateCard()
+
+		if (sessionStorage.getItem("member")) {
+			this.cId = JSON.parse(sessionStorage.getItem("member"))
+
+			this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u)
+		}
+
+		this.updateCartInfo()
 
 		window.addEventListener("keydown", function (event) {
 			if (event.key === "Esc" || event.key === "Escape") {
-				sessionStorage.clear();
+				sessionStorage.clear()
 			}
-		});
+		})
 	}
 
 	//更新購物車數量顯示
 	updateCartInfo = () => {
-		this.ws = new WebSocket("ws://localhost:3002");
+		this.ws = new WebSocket("ws://localhost:3002")
 
-		this.ws.onopen = event => {
-			console.log("connect success");
-			this.ws.send(JSON.stringify({ who: "myHeader" }));
-		};
+		this.ws.onopen = (event) => {
+			console.log("connect success")
+			this.ws.send(JSON.stringify({ who: "myHeader" }))
+		}
 
-		this.ws.onmessage = event => {
-			var parseData = JSON.parse(event.data);
-			console.log(parseData);
+		this.ws.onmessage = (event) => {
+			var parseData = JSON.parse(event.data)
+			console.log(parseData)
 
 			if (parseData.info === "cartCheck") {
-				this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u);
+				this.ajax.startListener("get", "/cart?cId=" + this.cId.customer_id, this.u)
 			}
-		};
-	};
+		}
+	}
 
-	u = data => {
+	u = (data) => {
 		// if (data == this.state.data) {
 		//   console.log(2);
 		//   return;
@@ -69,15 +69,15 @@ class Header extends Component {
 		let apple = {
 			subtotal: null,
 			onDelete: this.handleDelete,
-		};
-
-		for (var i = 0; i < data.length; i++) {
-			Object.assign(data[i], apple);
 		}
 
-		this.setState({ data: data });
+		for (var i = 0; i < data.length; i++) {
+			Object.assign(data[i], apple)
+		}
 
-		console.log(data);
+		this.setState({ data: data })
+
+		console.log(data)
 		// console.log(this.state.data);
 
 		// 購物車加入購物車顯示
@@ -89,7 +89,7 @@ class Header extends Component {
 		// }, 500);
 
 		// console.log(this.state.data.length);
-	};
+	}
 
 	// 金額 小記subtotal “初始化”(複製cartList)
 	init = () => {
@@ -100,7 +100,7 @@ class Header extends Component {
 			// }
 			// this.setState({});
 		}
-	};
+	}
 
 	// 功能：商品金額小記subtotal隨著數量改變(複製cartList)
 	// handleSubtotal = (obj) => {
@@ -112,37 +112,37 @@ class Header extends Component {
 	// };
 
 	// 功能：商品刪除 (複製cartList)
-	handleDelete = idProduct => {
+	handleDelete = (idProduct) => {
 		//  console.log("handleDelete clicked");
-		console.log(idProduct);
+		console.log(idProduct)
 
-		const newArray = this.state.data.filter(item => item.product_id !== idProduct);
-		this.state.data = newArray;
+		const newArray = this.state.data.filter((item) => item.product_id !== idProduct)
+		//this.state.data = newArray;
 		// console.log(newArray);
 
 		// this.state.counters = newArray;
 		// this.setState({});
 		// console.log(JSON.parse(sessionStorage.getItem('member')).customer_id);
 
-		this.setState({});
+		this.setState({ data: newArray })
 
 		this.ajax.startListener("post", "/delete", this.u, {
 			c_id: JSON.parse(sessionStorage.getItem("member")).customer_id,
 			p_id: idProduct,
-		});
-		this.ws.send(JSON.stringify({ who: "cartCheck2" }));
-	};
+		})
+		this.ws.send(JSON.stringify({ who: "cartCheck2" }))
+	}
 
 	componentDidMount() {
-		this.headerMove();
+		this.headerMove()
 	}
 
 	componentDidUpdate() {
 		if (this.state.data != null) {
 			if (this.state.data.length > 0) {
-				var bee = document.getElementById("headerCartBoxTop");
+				var bee = document.getElementById("headerCartBoxTop")
 
-				bee.className = "headerCartBox";
+				bee.className = "headerCartBox"
 			}
 		}
 		// this.ajax.startListener('get', '/cart?cId=' + this.cId.customer_id, this.u);
@@ -154,15 +154,15 @@ class Header extends Component {
 	// header特效
 	headerMove = () => {
 		window.onscroll = () => {
-			var currentScrollPos = window.pageYOffset;
+			var currentScrollPos = window.pageYOffset
 			if (this.prevScrollpos > currentScrollPos) {
-				document.querySelector(".header").style.top = "0";
+				document.querySelector(".header").style.top = "0"
 			} else {
-				document.querySelector(".header").style.top = "-230px";
+				document.querySelector(".header").style.top = "-230px"
 			}
-			this.prevScrollpos = currentScrollPos;
-		};
-	};
+			this.prevScrollpos = currentScrollPos
+		}
+	}
 
 	render() {
 		return (
@@ -186,7 +186,7 @@ class Header extends Component {
 							<div className="dropdown-content">
 								<button
 									onClick={() => {
-										window.location.href = "/customp/乳液/pid=24";
+										window.location.href = "/customp/乳液/pid=24"
 									}}
 								>
 									乳液
@@ -194,7 +194,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/眼霜/pid=26";
+										window.location.href = "/customp/眼霜/pid=26"
 									}}
 								>
 									眼霜
@@ -202,7 +202,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/化妝水/pid=23";
+										window.location.href = "/customp/化妝水/pid=23"
 									}}
 								>
 									化妝水
@@ -210,7 +210,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/customp/卸妝水/pid=25";
+										window.location.href = "/customp/卸妝水/pid=25"
 									}}
 								>
 									卸妝水
@@ -224,7 +224,7 @@ class Header extends Component {
 							<div className="dropdown-content">
 								<button
 									onClick={() => {
-										window.location.href = "/p/底妝/1";
+										window.location.href = "/p/底妝/1"
 									}}
 								>
 									底妝類
@@ -232,7 +232,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/p/唇彩/1";
+										window.location.href = "/p/唇彩/1"
 									}}
 								>
 									唇妝類
@@ -240,7 +240,7 @@ class Header extends Component {
 								<br />
 								<button
 									onClick={() => {
-										window.location.href = "/p/眼彩/1";
+										window.location.href = "/p/眼彩/1"
 									}}
 								>
 									眼妝類
@@ -282,8 +282,8 @@ class Header extends Component {
 					</div>
 				</nav>
 			</header>
-		);
+		)
 	}
 }
 
-export default Header;
+export default Header
